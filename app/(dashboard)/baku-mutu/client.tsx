@@ -1,0 +1,495 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  Scale,
+  Plus,
+  History,
+  FileEdit,
+  Loader2,
+  Info,
+  Search,
+  X,
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import { toast } from 'sonner';
+import { bakuMutuSchema } from '@/lib/validations/baku-mutu';
+import {
+  createBakuMutuAction,
+  updateBakuMutuVersionedAction,
+} from '@/lib/actions/baku-mutu';
+
+interface BakuMutuItem {
+  id: string;
+  parameter: string;
+  satuan: string;
+  nilai_min: string | null;
+  nilai_max: string | null;
+  dasar_regulasi: string | null;
+  aktif: boolean;
+  berlaku_sejak: string;
+}
+
+export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] }) {
+  const [list, setList] = useState<BakuMutuItem[]>(initialList);
+  const [filterTab, setFilterTab] = useState<'all' | 'active' | 'archived'>('active');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRevisionMode, setIsRevisionMode] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<BakuMutuItem | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Form State
+  const [parameter, setParameter] = useState('');
+  const [satuan, setSatuan] = useState('');
+  const [nilaiMin, setNilaiMin] = useState<string>('');
+  const [nilaiMax, setNilaiMax] = useState<string>('');
+  const [dasarRegulasi, setDasarRegulasi] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
+
+  const handleOpenAdd = () => {
+    setIsRevisionMode(false);
+    setSelectedItem(null);
+    setParameter('');
+    setSatuan('');
+    setNilaiMin('');
+    setNilaiMax('');
+    setDasarRegulasi('PP No. 22 Tahun 2021 Lampiran VI');
+    setFieldErrors({});
+    setIsModalOpen(true);
+  };
+
+  const handleOpenRevision = (item: BakuMutuItem) => {
+    setIsRevisionMode(true);
+    setSelectedItem(item);
+    setParameter(item.parameter);
+    setSatuan(item.satuan);
+    setNilaiMin(item.nilai_min !== null ? item.nilai_min : '');
+    setNilaiMax(item.nilai_max !== null ? item.nilai_max : '');
+    setDasarRegulasi(item.dasar_regulasi || 'Revisi Standar 2026');
+    setFieldErrors({});
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFieldErrors({});
+
+    // 1. Validasi Zod Client-Side
+    const validation = bakuMutuSchema.safeParse({
+      parameter,
+      satuan,
+      nilai_min: nilaiMin === '' ? null : Number(nilaiMin),
+      nilai_max: nilaiMax === '' ? null : Number(nilaiMax),
+      dasar_regulasi: dasarRegulasi,
+      aktif: true,
+      berlaku_sejak: new Date().toISOString().split('T')[0],
+    });
+
+    if (!validation.success) {
+      setFieldErrors(validation.error.flatten().fieldErrors);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      if (isRevisionMode && selectedItem) {
+        // Pembaruan Berversi
+        const res = await updateBakuMutuVersionedAction(selectedItem.id, {
+          parameter,
+          satuan,
+          nilai_min: nilaiMin === '' ? null : Number(nilaiMin),
+          nilai_max: nilaiMax === '' ? null : Number(nilaiMax),
+          dasar_regulasi: dasarRegulasi,
+        });
+
+        if (res.success && res.data) {
+          const updated = list.map((item) =>
+            item.id === selectedItem.id ? { ...item, aktif: false } : item
+          );
+          setList([res.data as BakuMutuItem, ...updated]);
+          toast.success(res.message || 'Versi baku mutu berhasil diperbarui.');
+          setIsModalOpen(false);
+        } else {
+          toast.error(res.message || 'Gagal merevisi baku mutu.');
+        }
+      } else {
+        // Tambah Baru
+        const res = await createBakuMutuAction({
+          parameter,
+          satuan,
+          nilai_min: nilaiMin === '' ? null : Number(nilaiMin),
+          nilai_max: nilaiMax === '' ? null : Number(nilaiMax),
+          dasar_regulasi: dasarRegulasi,
+        });
+
+        if (res.success && res.data) {
+          setList([res.data as BakuMutuItem, ...list]);
+          toast.success(res.message || 'Parameter baru berhasil ditambahkan.');
+          setIsModalOpen(false);
+        } else {
+          toast.error(res.message || 'Gagal menyimpan parameter.');
+        }
+      }
+    } catch {
+      toast.error('Terjadi kesalahan sistem.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const filteredList = list.filter((item) => {
+    const matchesTab =
+      filterTab === 'active' ? item.aktif :
+      filterTab === 'archived' ? !item.aktif : true;
+
+    if (!matchesTab) return false;
+    if (!searchTerm.trim()) return true;
+
+    const query = searchTerm.toLowerCase().trim();
+    return (
+      item.parameter.toLowerCase().includes(query) ||
+      item.satuan.toLowerCase().includes(query) ||
+      (item.dasar_regulasi && item.dasar_regulasi.toLowerCase().includes(query))
+    );
+  });
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+            <Scale className="size-3" />
+            <span>Master Regulasi</span>
+          </Badge>
+          <h1 className="text-2xl font-bold font-heading tracking-tight text-foreground">
+            Master Baku Mutu Air (Berversi)
+          </h1>
+          <p className="text-xs text-muted-foreground mt-1">
+            Standar acuan ambang batas parameter kualitas air (PP No. 22/2021). Perubahan regulasi menggunakan sistem versi agar riwayat masa lalu tetap akurat.
+          </p>
+        </div>
+
+        <Button onClick={handleOpenAdd} className="gap-2 shadow-xs self-start sm:self-auto cursor-pointer">
+          <Plus className="size-4" />
+          <span>Tambah Parameter Baru</span>
+        </Button>
+      </div>
+
+      {/* Tabs Filter & Search Bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <Tabs value={filterTab} onValueChange={(val) => setFilterTab(val as any)}>
+          <TabsList>
+            <TabsTrigger value="active" className="text-xs gap-2">
+              <span>Standar Aktif</span>
+              <Badge variant="secondary" className="text-xs px-1.5 py-0">
+                {list.filter((x) => x.aktif).length}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger value="archived" className="text-xs gap-2">
+              <span>Arsip Versi Lama</span>
+              <Badge variant="outline" className="text-xs px-1.5 py-0">
+                {list.filter((x) => !x.aktif).length}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger value="all" className="text-xs gap-2">
+              <span>Semua Riwayat</span>
+              <Badge variant="outline" className="text-xs px-1.5 py-0">
+                {list.length}
+              </Badge>
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+
+        {/* Search Input & Indikator Komparasi */}
+        <div className="flex items-center gap-2">
+          <div className="relative w-full sm:w-64">
+            <Search className="size-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
+            <Input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Cari parameter atau regulasi..."
+              className="pl-8 pr-7 text-xs h-8"
+            />
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => setSearchTerm('')}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
+                title="Hapus pencarian"
+              >
+                <X className="size-3.5" />
+              </button>
+            )}
+          </div>
+
+          {filteredList.length < list.length ? (
+            <div className="flex items-center gap-1.5 shrink-0">
+              <Badge variant="secondary" className="text-xs py-0.5">
+                {filteredList.length} dari {list.length}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="xs"
+                onClick={() => setSearchTerm('')}
+                className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+              >
+                Reset
+              </Button>
+            </div>
+          ) : (
+            <span className="text-xs text-muted-foreground shrink-0 hidden sm:inline">
+              Total: <strong className="text-foreground">{list.length}</strong>
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Table Card */}
+      <Card className="border-border bg-card shadow-xs overflow-hidden">
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/40 hover:bg-muted/40">
+                <TableHead className="text-xs font-semibold">Parameter Uji</TableHead>
+                <TableHead className="text-xs font-semibold">Satuan</TableHead>
+                <TableHead className="text-xs font-semibold">Nilai Minimum (Min)</TableHead>
+                <TableHead className="text-xs font-semibold">Nilai Maksimum (Max)</TableHead>
+                <TableHead className="text-xs font-semibold">Dasar Regulasi</TableHead>
+                <TableHead className="text-xs font-semibold">Status Versi</TableHead>
+                <TableHead className="text-xs font-semibold text-right">Aksi</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredList.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center py-8 text-muted-foreground text-xs">
+                    {searchTerm ? (
+                      <div className="space-y-1.5">
+                        <p>Tidak ada parameter yang cocok dengan pencarian &ldquo;{searchTerm}&rdquo;.</p>
+                        <Button
+                          variant="outline"
+                          size="xs"
+                          onClick={() => setSearchTerm('')}
+                          className="cursor-pointer"
+                        >
+                          Kosongkan Pencarian
+                        </Button>
+                      </div>
+                    ) : (
+                      <p>Tidak ada parameter pada kategori ini.</p>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredList.map((item) => (
+                  <TableRow key={item.id} className="hover:bg-muted/30">
+                    <TableCell className="font-semibold text-foreground text-xs">
+                      {item.parameter}
+                    </TableCell>
+                    <TableCell className="font-mono text-xs">
+                      <Badge variant="secondary" className="font-mono text-xs">
+                        {item.satuan}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="font-mono text-xs text-foreground">
+                      {item.nilai_min !== null ? item.nilai_min : <span className="text-muted-foreground">-</span>}
+                    </TableCell>
+                    <TableCell className="font-mono text-xs text-foreground">
+                      {item.nilai_max !== null ? item.nilai_max : <span className="text-muted-foreground">-</span>}
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground max-w-xs truncate">
+                      {item.dasar_regulasi || '-'}
+                    </TableCell>
+                    <TableCell>
+                      {item.aktif ? (
+                        <Badge variant="outline" className="border-emerald-300 text-emerald-800 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 text-xs gap-1">
+                          <span className="size-1.5 rounded-full bg-emerald-500" />
+                          <span>Berlaku</span>
+                        </Badge>
+                      ) : (
+                        <Badge variant="secondary" className="text-xs gap-1">
+                          <History className="size-3 text-muted-foreground" />
+                          <span>Arsip</span>
+                        </Badge>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {item.aktif ? (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleOpenRevision(item)}
+                          className="h-7 text-xs gap-1"
+                        >
+                          <FileEdit className="size-3.5" />
+                          <span>Revisi</span>
+                        </Button>
+                      ) : (
+                        <span className="text-xs text-muted-foreground italic">Terkunci</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </Card>
+
+      {/* Dialog Modal Tambah / Revisi */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Scale className="size-4 text-primary" />
+              <span>{isRevisionMode ? `Revisi Ambang: ${selectedItem?.parameter}` : 'Tambah Parameter Baku Mutu'}</span>
+            </DialogTitle>
+            <DialogDescription>
+              {isRevisionMode
+                ? 'Pembaruan akan otomatis membuat versi baru. Nilai acuan pengujian masa lalu tetap tersimpan utuh.'
+                : 'Daftarkan parameter kualitas air baru sesuai Kepmen-KP atau PP No. 22/2021.'}
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmit} className="space-y-4 py-2">
+            <div className="space-y-1.5">
+              <Label htmlFor="parameter" className="text-xs font-medium">
+                Nama Parameter <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="parameter"
+                type="text"
+                value={parameter}
+                onChange={(e) => setParameter(e.target.value)}
+                placeholder="Contoh: Derajat Keasaman (pH)"
+                disabled={isRevisionMode}
+              />
+              {fieldErrors.parameter && (
+                <p className="text-xs text-destructive">{fieldErrors.parameter[0]}</p>
+              )}
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="satuan" className="text-xs font-medium">
+                Satuan Pengukuran <span className="text-destructive">*</span>
+              </Label>
+              <Input
+                id="satuan"
+                type="text"
+                value={satuan}
+                onChange={(e) => setSatuan(e.target.value)}
+                placeholder="Contoh: mg/L, °C, ppt, NTU"
+                disabled={isRevisionMode}
+              />
+              {fieldErrors.satuan && (
+                <p className="text-xs text-destructive">{fieldErrors.satuan[0]}</p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="nilai_min" className="text-xs font-medium">
+                  Batas Nilai Min (Boleh Kosong)
+                </Label>
+                <Input
+                  id="nilai_min"
+                  type="number"
+                  step="any"
+                  value={nilaiMin}
+                  onChange={(e) => setNilaiMin(e.target.value)}
+                  placeholder="Contoh: 6.5"
+                  className="font-mono"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <Label htmlFor="nilai_max" className="text-xs font-medium">
+                  Batas Nilai Max (Boleh Kosong)
+                </Label>
+                <Input
+                  id="nilai_max"
+                  type="number"
+                  step="any"
+                  value={nilaiMax}
+                  onChange={(e) => setNilaiMax(e.target.value)}
+                  placeholder="Contoh: 8.5"
+                  className="font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="dasar_regulasi" className="text-xs font-medium">
+                Dasar Regulasi Acuan
+              </Label>
+              <Input
+                id="dasar_regulasi"
+                type="text"
+                value={dasarRegulasi}
+                onChange={(e) => setDasarRegulasi(e.target.value)}
+                placeholder="Contoh: PP No. 22 Tahun 2021 Lampiran VI"
+              />
+            </div>
+
+            <DialogFooter className="pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setIsModalOpen(false)}
+                disabled={isSubmitting}
+              >
+                Batal
+              </Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="size-3.5 animate-spin mr-1.5" />
+                    Menyimpan...
+                  </>
+                ) : isRevisionMode ? (
+                  'Terbitkan Versi Baru'
+                ) : (
+                  'Simpan Parameter'
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
