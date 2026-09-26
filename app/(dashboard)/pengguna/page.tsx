@@ -21,9 +21,30 @@ export default async function PenggunaPage() {
     );
   }
 
-  const users = await db.query.user.findMany({
-    orderBy: [schema.user.role, schema.user.name],
+  const [users, allUji] = await Promise.all([
+    db.query.user.findMany({
+      orderBy: [schema.user.role, schema.user.name],
+    }),
+    db.select({
+      petugas_uji: schema.ujiKualitasAir.petugas_uji,
+    }).from(schema.ujiKualitasAir),
+  ]);
+
+  const enrichedUsers = users.map((u) => {
+    const uName = u.name.trim().toLowerCase();
+    const uEmail = u.email.trim().toLowerCase();
+    const uId = u.id.trim().toLowerCase();
+    const count = allUji.filter((uji) => {
+      const p = uji.petugas_uji?.trim().toLowerCase();
+      return p === uName || p === uEmail || p === uId;
+    }).length;
+
+    return {
+      ...u,
+      transactionCount: count,
+      isUsed: count > 0,
+    };
   });
 
-  return <PenggunaClient initialUsers={users} currentUserId={user.id} />;
+  return <PenggunaClient initialUsers={enrichedUsers} currentUserId={user.id} />;
 }

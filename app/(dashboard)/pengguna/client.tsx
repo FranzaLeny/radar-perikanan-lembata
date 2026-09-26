@@ -15,6 +15,9 @@ import {
   MoreVertical,
   KeyRound,
   ShieldAlert,
+  Trash2,
+  AlertTriangle,
+  Info,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,6 +69,7 @@ import {
   createPenggunaAction,
   toggleStatusPenggunaAction,
   updateRolePenggunaAction,
+  deletePenggunaAction,
 } from '@/lib/actions/pengguna';
 
 interface UserItem {
@@ -75,6 +79,8 @@ interface UserItem {
   role: string;
   aktif: boolean;
   createdAt: Date;
+  transactionCount?: number;
+  isUsed?: boolean;
 }
 
 export function PenggunaClient({
@@ -94,6 +100,12 @@ export function PenggunaClient({
   const [selectedRole, setSelectedRole] = useState<string>('');
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const [isUpdatingRole, setIsUpdatingRole] = useState(false);
+
+  // Hapus User Modal State
+  const [selectedUserForDelete, setSelectedUserForDelete] = useState<UserItem | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [cannotDeleteInfoUser, setCannotDeleteInfoUser] = useState<UserItem | null>(null);
 
   // Form State Tambah
   const [nama, setNama] = useState('');
@@ -202,6 +214,46 @@ export function PenggunaClient({
     } catch {
       toast.error('Gagal memperbarui status akun.');
     }
+  };
+
+  const handleOpenDelete = (user: UserItem) => {
+    setSelectedUserForDelete(user);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleShowCannotDelete = (user: UserItem) => {
+    setCannotDeleteInfoUser(user);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!selectedUserForDelete) return;
+    setIsDeleting(true);
+    try {
+      const res = await deletePenggunaAction(selectedUserForDelete.id);
+      if (res.success) {
+        setUsers(users.filter((u) => u.id !== selectedUserForDelete.id));
+        toast.success(res.message || 'Akun pengguna berhasil dihapus.');
+        setIsDeleteDialogOpen(false);
+        setSelectedUserForDelete(null);
+      } else {
+        if (res.canOnlyDeactivate) {
+          setIsDeleteDialogOpen(false);
+          setCannotDeleteInfoUser(selectedUserForDelete);
+        }
+        toast.error(res.message || 'Gagal menghapus pengguna.');
+      }
+    } catch {
+      toast.error('Terjadi kesalahan sistem saat menghapus pengguna.');
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  const handleDeactivateFromInfo = async () => {
+    if (!cannotDeleteInfoUser) return;
+    const u = cannotDeleteInfoUser;
+    setCannotDeleteInfoUser(null);
+    await handleToggleStatus(u);
   };
 
   const getRoleBadge = (r: string) => {
@@ -342,7 +394,14 @@ export function PenggunaClient({
                           {u.name.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
-                      <span>{u.name}</span>
+                      <div className="flex flex-col">
+                        <span>{u.name}</span>
+                        {u.isUsed && (
+                          <span className="text-[10px] text-amber-500 font-normal">
+                            • Tercatat di {u.transactionCount} data uji
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </TableCell>
                   <TableCell className="font-mono text-xs text-muted-foreground">
@@ -390,21 +449,46 @@ export function PenggunaClient({
                             <DropdownMenuGroup>
                               <DropdownMenuItem
                                 onClick={() => handleToggleStatus(u)}
-                                variant={u.aktif ? "destructive" : "default"}
                                 className="text-xs gap-2 cursor-pointer"
                               >
                                 {u.aktif ? (
                                   <>
-                                    <UserX className="size-3.5 text-destructive" />
-                                    <span className="text-destructive">Nonaktifkan Akun</span>
+                                    <UserX className="size-3.5 text-amber-600 dark:text-amber-400" />
+                                    <span className="text-amber-600 dark:text-amber-400">Nonaktifkan Akun</span>
                                   </>
                                 ) : (
                                   <>
                                     <UserCheck className="size-3.5 text-emerald-600" />
-                                    <span>Aktifkan Akun</span>
+                                    <span className="text-emerald-600">Aktifkan Akun</span>
                                   </>
                                 )}
                               </DropdownMenuItem>
+                            </DropdownMenuGroup>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuGroup>
+                              {u.isUsed ? (
+                                <DropdownMenuItem
+                                  onClick={() => handleShowCannotDelete(u)}
+                                  className="text-xs gap-2 cursor-pointer text-muted-foreground hover:text-foreground"
+                                >
+                                  <Trash2 className="size-3.5 text-muted-foreground/60" />
+                                  <div className="flex flex-col text-left">
+                                    <span className="text-muted-foreground">Hapus Akun</span>
+                                    <span className="text-[10px] text-amber-500 font-normal">
+                                      Terkunci (Hanya bisa dinonaktifkan)
+                                    </span>
+                                  </div>
+                                </DropdownMenuItem>
+                              ) : (
+                                <DropdownMenuItem
+                                  onClick={() => handleOpenDelete(u)}
+                                  variant="destructive"
+                                  className="text-xs gap-2 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
+                                >
+                                  <Trash2 className="size-3.5" />
+                                  <span>Hapus Akun</span>
+                                </DropdownMenuItem>
+                              )}
                             </DropdownMenuGroup>
                           </>
                         )}
@@ -601,6 +685,103 @@ export function PenggunaClient({
               </Button>
             </DialogFooter>
           </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog Modal Konfirmasi Hapus Pengguna (Untuk user yang belum terpakai) */}
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-destructive">
+              <Trash2 className="size-4" />
+              <span>Konfirmasi Hapus Akun Pengguna</span>
+            </DialogTitle>
+            <DialogDescription className="text-xs">
+              Tindakan ini akan menghapus akun <strong>{selectedUserForDelete?.name}</strong> ({selectedUserForDelete?.email}) beserta seluruh hak akses login secara permanen dari database.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3 text-xs text-muted-foreground space-y-1">
+            <p className="font-semibold text-destructive flex items-center gap-1.5">
+              <AlertTriangle className="size-3.5" /> Informasi Penghapusan:
+            </p>
+            <p>
+              Akun ini belum memiliki riwayat pengujian kualitas air, sehingga aman untuk dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.
+            </p>
+          </div>
+
+          <DialogFooter className="pt-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsDeleteDialogOpen(false)}
+              disabled={isDeleting}
+            >
+              Batal
+            </Button>
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={handleConfirmDelete}
+              disabled={isDeleting}
+            >
+              {isDeleting ? (
+                <>
+                  <Loader2 className="size-3.5 animate-spin mr-1.5" />
+                  Menghapus...
+                </>
+              ) : (
+                'Ya, Hapus Akun'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Dialog Modal Info Pengguna Tidak Bisa Dihapus Karena Terlanjur Dipakai */}
+      <Dialog open={!!cannotDeleteInfoUser} onOpenChange={(open) => !open && setCannotDeleteInfoUser(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-amber-500">
+              <ShieldAlert className="size-4" />
+              <span>Akun Tidak Dapat Dihapus</span>
+            </DialogTitle>
+            <DialogDescription className="text-xs">
+              Akun <strong>{cannotDeleteInfoUser?.name}</strong> ({cannotDeleteInfoUser?.email}) terikat dengan data transaksi riwayat pengujian.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-foreground space-y-2">
+            <p className="font-semibold text-amber-600 dark:text-amber-400 flex items-center gap-1.5">
+              <Info className="size-3.5" /> Terdaftar dalam {cannotDeleteInfoUser?.transactionCount || 1} Data Pengujian
+            </p>
+            <p className="text-muted-foreground">
+              Untuk menjaga integritas <strong>Audit Trail</strong> dan keabsahan lembar hasil uji (LHU) laboratorium, akun yang sudah pernah digunakan dalam pencatatan pengujian <strong>tidak boleh dihapus</strong>.
+            </p>
+            <p className="text-muted-foreground">
+              Sesuai standar operasional, akun ini <strong>hanya dapat dinonaktifkan</strong> agar tidak dapat lagi login atau melakukan aktivitas apapun di sistem SIPEKA/MINAMUTU.
+            </p>
+          </div>
+
+          <DialogFooter className="pt-2 flex-col sm:flex-row gap-2">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setCannotDeleteInfoUser(null)}
+            >
+              Tutup
+            </Button>
+            {cannotDeleteInfoUser?.aktif && (
+              <Button
+                type="button"
+                className="bg-amber-600 hover:bg-amber-700 text-white"
+                onClick={handleDeactivateFromInfo}
+              >
+                <UserX className="size-3.5 mr-1.5" />
+                Nonaktifkan Akun Ini
+              </Button>
+            )}
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

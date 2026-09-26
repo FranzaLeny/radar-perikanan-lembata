@@ -2,9 +2,9 @@
 
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { penggunaSchema, type PenggunaInput } from '@/lib/validations/pengguna';
+import { penggunaSchema } from '@/lib/validations/pengguna';
 import { getCurrentUser } from '@/lib/auth';
-import { eq, desc } from 'drizzle-orm';
+import { eq, or } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 export async function createPenggunaAction(formData: FormData | Record<string, unknown>) {
@@ -123,5 +123,58 @@ export async function updateRolePenggunaAction(userId: string, newRole: string) 
   } catch (error) {
     console.error('Error updateRolePenggunaAction:', error);
     return { success: false, message: 'Gagal mengubah role pengguna.' };
+  }
+}
+
+export async function deletePenggunaAction(userId: string) {
+  const admin = await getCurrentUser();
+  if (!admin || admin.role !== 'admin') {
+    return { success: false, message: 'Akses ditolak: Hanya admin yang diizinkan.' };
+  }
+
+  if (admin.id === userId) {
+    return { success: false, message: 'Anda tidak dapat menghapus akun Anda sendiri yang sedang aktif digunakan.' };
+  }
+
+  try {
+    const targetUser = await db.query.user.findFirst({
+      where: eq(schema.user.id, userId),
+    });
+
+    if (!targetUser) {
+      return { success: false, message: 'Pengguna tidak ditemukan.' };
+    }
+
+    // Cek apakah akun / id pengguna sudah terlanjur dipakai dalam transaksi pengujian
+    const ujiRecords = await db.query.ujiKualitasAir.findMany({
+      where: or(
+        eq(schema.ujiKualitasAir.petugas_uji, targetUser.name),
+        eq(schema.ujiKualitasAir.petugas_uji, targetUser.email),
+        eq(schema.ujiKualitasAir.petugas_uji, targetUser.id)
+      ),
+      limit: 10,
+    });
+
+    if (ujiRecords.length > 0) {
+      return {
+        success: false,
+        canOnlyDeactivate: true,
+        message: `Pengguna "${targetUser.name}" tidak dapat dihapus karena sudah terlanjur tercatat pada ${ujiRecords.length} data riwayat pengujian kualitas air. Sesuai regulasi integritas audit trail, akun ini hanya dapat dinonaktifkan.`,
+      };
+    }
+
+    // Hapus sesi, akun, dan data user (bersih tuntas)
+    await db.delete(schema.session).where(eq(schema.session.userId, userId));
+    await db.delete(schema.account).where(eq(schema.account.userId, userId));
+    await db.delete(schema.user).where(eq(schema.user.id, userId));
+
+    revalidatePath('/pengguna');
+    return {
+      success: true,
+      message: `Akun pengguna "${targetUser.name}" (${targetUser.email}) berhasil dihapus secara permanen.`,
+    };
+  } catch (error) {
+    console.error('Error deletePenggunaAction:', error);
+    return { success: false, message: 'Gagal menghapus pengguna dari sistem.' };
   }
 }
