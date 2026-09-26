@@ -21,15 +21,23 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+} from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
+import { toFieldErrors } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import {
   Table,
@@ -65,12 +73,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { penggunaSchema } from '@/lib/validations/pengguna';
-import {
-  createPenggunaAction,
-  toggleStatusPenggunaAction,
-  updateRolePenggunaAction,
-  deletePenggunaAction,
-} from '@/lib/actions/pengguna';
+import { authClient } from '@/lib/auth-client';
 
 interface UserItem {
   id: string;
@@ -78,6 +81,7 @@ interface UserItem {
   email: string;
   role: string;
   aktif: boolean;
+  banned?: boolean | null;
   createdAt: Date;
   transactionCount?: number;
   isUsed?: boolean;
@@ -134,16 +138,20 @@ export function PenggunaClient({
     if (!selectedUserForRole || !selectedRole) return;
     setIsUpdatingRole(true);
     try {
-      const res = await updateRolePenggunaAction(selectedUserForRole.id, selectedRole);
-      if (res.success) {
+      const { error } = await authClient.admin.setRole({
+        userId: selectedUserForRole.id,
+        role: selectedRole as any,
+      });
+
+      if (!error) {
         setUsers(
           users.map((u) => (u.id === selectedUserForRole.id ? { ...u, role: selectedRole } : u))
         );
-        toast.success(res.message || 'Wewenang role berhasil diubah.');
+        toast.success('Wewenang role berhasil diubah.');
         setIsRoleModalOpen(false);
         setSelectedUserForRole(null);
       } else {
-        toast.error(res.message || 'Gagal mengubah wewenang role.');
+        toast.error(error.message || 'Gagal mengubah wewenang role.');
       }
     } catch {
       toast.error('Gagal memperbarui wewenang role pengguna.');
@@ -172,23 +180,31 @@ export function PenggunaClient({
 
     setIsSubmitting(true);
     try {
-      const res = await createPenggunaAction({
-        nama,
-        email,
-        role,
-        aktif: true,
-        password,
+      const { data, error } = await authClient.admin.createUser({
+        email: email.toLowerCase().trim(),
+        password: password || 'password123',
+        name: nama,
+        role: role as any,
       });
 
-      if (res.success && res.data) {
-        setUsers([res.data as UserItem, ...users]);
-        toast.success(res.message || 'Akun pengguna berhasil dibuat.');
+      if (!error && data) {
+        const u = data.user as any;
+        const createdUser: UserItem = {
+          id: u.id,
+          name: u.name,
+          email: u.email,
+          role: u.role || role,
+          aktif: !u.banned,
+          banned: u.banned ?? false,
+          createdAt: new Date(u.createdAt),
+          transactionCount: 0,
+          isUsed: false,
+        };
+        setUsers([createdUser, ...users]);
+        toast.success(`Pengguna ${nama} (${role}) berhasil ditambahkan.`);
         setIsModalOpen(false);
       } else {
-        if (res.errors) {
-          setFieldErrors(res.errors as Record<string, string[]>);
-        }
-        toast.error(res.message || 'Gagal membuat pengguna baru.');
+        toast.error(error?.message || 'Gagal membuat pengguna baru.');
       }
     } catch {
       toast.error('Terjadi kesalahan sistem.');
@@ -202,14 +218,31 @@ export function PenggunaClient({
     if (!confirm(`Konfirmasi ${actionName} akun "${user.name}"?`)) return;
 
     try {
-      const res = await toggleStatusPenggunaAction(user.id, !user.aktif);
-      if (res.success) {
-        setUsers(
-          users.map((u) => (u.id === user.id ? { ...u, aktif: !user.aktif } : u))
-        );
-        toast.success(res.message || `Status akun berhasil diubah.`);
+      if (user.aktif) {
+        const { error } = await authClient.admin.banUser({
+          userId: user.id,
+          banReason: 'Dinonaktifkan oleh administrator',
+        });
+        if (!error) {
+          setUsers(
+            users.map((u) => (u.id === user.id ? { ...u, aktif: false, banned: true } : u))
+          );
+          toast.success(`Akun "${user.name}" berhasil dinonaktifkan.`);
+        } else {
+          toast.error(error.message || 'Gagal menonaktifkan akun.');
+        }
       } else {
-        toast.error(res.message || 'Gagal mengubah status akun.');
+        const { error } = await authClient.admin.unbanUser({
+          userId: user.id,
+        });
+        if (!error) {
+          setUsers(
+            users.map((u) => (u.id === user.id ? { ...u, aktif: true, banned: false } : u))
+          );
+          toast.success(`Akun "${user.name}" berhasil diaktifkan kembali.`);
+        } else {
+          toast.error(error.message || 'Gagal mengaktifkan akun.');
+        }
       }
     } catch {
       toast.error('Gagal memperbarui status akun.');
@@ -227,20 +260,26 @@ export function PenggunaClient({
 
   const handleConfirmDelete = async () => {
     if (!selectedUserForDelete) return;
+
+    if (selectedUserForDelete.isUsed) {
+      setIsDeleteDialogOpen(false);
+      setCannotDeleteInfoUser(selectedUserForDelete);
+      return;
+    }
+
     setIsDeleting(true);
     try {
-      const res = await deletePenggunaAction(selectedUserForDelete.id);
-      if (res.success) {
+      const { error } = await authClient.admin.removeUser({
+        userId: selectedUserForDelete.id,
+      });
+
+      if (!error) {
         setUsers(users.filter((u) => u.id !== selectedUserForDelete.id));
-        toast.success(res.message || 'Akun pengguna berhasil dihapus.');
+        toast.success(`Akun "${selectedUserForDelete.name}" berhasil dihapus.`);
         setIsDeleteDialogOpen(false);
         setSelectedUserForDelete(null);
       } else {
-        if (res.canOnlyDeactivate) {
-          setIsDeleteDialogOpen(false);
-          setCannotDeleteInfoUser(selectedUserForDelete);
-        }
-        toast.error(res.message || 'Gagal menghapus pengguna.');
+        toast.error(error.message || 'Gagal menghapus pengguna.');
       }
     } catch {
       toast.error('Terjadi kesalahan sistem saat menghapus pengguna.');
@@ -306,26 +345,29 @@ export function PenggunaClient({
 
       {/* Search Bar & Indikator Komparasi */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="relative flex-1 max-w-md">
-          <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-          <Input
+        <InputGroup className="flex-1 max-w-md">
+          <InputGroupAddon align="inline-start">
+            <Search className="size-4 text-muted-foreground" />
+          </InputGroupAddon>
+          <InputGroupInput
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Cari nama pengguna, email, atau role..."
-            className="pl-8 pr-8 text-xs h-8"
           />
           {searchTerm && (
-            <button
-              type="button"
-              onClick={() => setSearchTerm('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-              title="Hapus pencarian"
-            >
-              <X className="size-3.5" />
-            </button>
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                size="icon-xs"
+                onClick={() => setSearchTerm('')}
+                title="Hapus pencarian"
+              >
+                <X className="size-3.5" />
+              </InputGroupButton>
+            </InputGroupAddon>
           )}
-        </div>
+        </InputGroup>
 
         <div className="flex items-center gap-2 self-start sm:self-auto text-xs">
           {filteredUsers.length < users.length ? (
@@ -386,119 +428,119 @@ export function PenggunaClient({
                 </TableRow>
               ) : (
                 filteredUsers.map((u) => (
-                <TableRow key={u.id} className="hover:bg-muted/30">
-                  <TableCell className="font-semibold text-foreground text-xs">
-                    <div className="flex items-center gap-2.5">
-                      <Avatar className="size-7 ring-1 ring-border">
-                        <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
-                          {u.name.charAt(0).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex flex-col">
-                        <span>{u.name}</span>
-                        {u.isUsed && (
-                          <span className="text-[10px] text-amber-500 font-normal">
-                            • Tercatat di {u.transactionCount} data uji
-                          </span>
-                        )}
+                  <TableRow key={u.id} className="hover:bg-muted/30">
+                    <TableCell className="font-semibold text-foreground text-xs">
+                      <div className="flex items-center gap-2.5">
+                        <Avatar className="size-7 ring-1 ring-border">
+                          <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                            {u.name.charAt(0).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col">
+                          <span>{u.name}</span>
+                          {u.isUsed && (
+                            <span className="text-[10px] text-amber-500 font-normal">
+                              • Tercatat di {u.transactionCount} data uji
+                            </span>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="font-mono text-xs text-muted-foreground">
-                    {u.email}
-                  </TableCell>
-                  <TableCell>
-                    {getRoleBadge(u.role)}
-                  </TableCell>
-                  <TableCell className="text-center">
-                    {u.aktif ? (
-                      <Badge variant="outline" className="border-emerald-300 text-emerald-800 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 text-xs gap-1">
-                        <UserCheck className="size-3 text-emerald-600 dark:text-emerald-400" />
-                        <span>Aktif</span>
-                      </Badge>
-                    ) : (
-                      <Badge variant="destructive" className="text-xs gap-1">
-                        <UserX className="size-3" />
-                        <span>Nonaktif</span>
-                      </Badge>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger
-                        className="inline-flex items-center justify-center rounded-md size-8 text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-                        title="Menu Aksi Pengguna"
-                      >
-                        <MoreVertical className="size-4" />
-                        <span className="sr-only">Aksi Pengguna</span>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-48">
-                        <DropdownMenuGroup>
-                          <DropdownMenuLabel className="text-xs">Kelola Akun</DropdownMenuLabel>
-                          <DropdownMenuItem
-                            onClick={() => handleOpenEditRole(u)}
-                            className="text-xs gap-2 cursor-pointer"
-                          >
-                            <KeyRound className="size-3.5 text-primary" />
-                            <span>Ubah Wewenang (Role)</span>
-                          </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        {u.id !== currentUserId && (
-                          <>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuGroup>
-                              <DropdownMenuItem
-                                onClick={() => handleToggleStatus(u)}
-                                className="text-xs gap-2 cursor-pointer"
-                              >
-                                {u.aktif ? (
-                                  <>
-                                    <UserX className="size-3.5 text-amber-600 dark:text-amber-400" />
-                                    <span className="text-amber-600 dark:text-amber-400">Nonaktifkan Akun</span>
-                                  </>
+                    </TableCell>
+                    <TableCell className="font-mono text-xs text-muted-foreground">
+                      {u.email}
+                    </TableCell>
+                    <TableCell>
+                      {getRoleBadge(u.role)}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {u.aktif ? (
+                        <Badge variant="outline" className="border-emerald-300 text-emerald-800 bg-emerald-50 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300 text-xs gap-1">
+                          <UserCheck className="size-3 text-emerald-600 dark:text-emerald-400" />
+                          <span>Aktif</span>
+                        </Badge>
+                      ) : (
+                        <Badge variant="destructive" className="text-xs gap-1">
+                          <UserX className="size-3" />
+                          <span>Nonaktif</span>
+                        </Badge>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger
+                          className="inline-flex items-center justify-center rounded-md size-8 text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                          title="Menu Aksi Pengguna"
+                        >
+                          <MoreVertical className="size-4" />
+                          <span className="sr-only">Aksi Pengguna</span>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className="w-48">
+                          <DropdownMenuGroup>
+                            <DropdownMenuLabel className="text-xs">Kelola Akun</DropdownMenuLabel>
+                            <DropdownMenuItem
+                              onClick={() => handleOpenEditRole(u)}
+                              className="text-xs gap-2 cursor-pointer"
+                            >
+                              <KeyRound className="size-3.5 text-primary" />
+                              <span>Ubah Wewenang (Role)</span>
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                          {u.id !== currentUserId && (
+                            <>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuGroup>
+                                <DropdownMenuItem
+                                  onClick={() => handleToggleStatus(u)}
+                                  className="text-xs gap-2 cursor-pointer"
+                                >
+                                  {u.aktif ? (
+                                    <>
+                                      <UserX className="size-3.5 text-amber-600 dark:text-amber-400" />
+                                      <span className="text-amber-600 dark:text-amber-400">Nonaktifkan Akun</span>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <UserCheck className="size-3.5 text-emerald-600" />
+                                      <span className="text-emerald-600">Aktifkan Akun</span>
+                                    </>
+                                  )}
+                                </DropdownMenuItem>
+                              </DropdownMenuGroup>
+                              <DropdownMenuSeparator />
+                              <DropdownMenuGroup>
+                                {u.isUsed ? (
+                                  <DropdownMenuItem
+                                    onClick={() => handleShowCannotDelete(u)}
+                                    className="text-xs gap-2 cursor-pointer text-muted-foreground hover:text-foreground"
+                                  >
+                                    <Trash2 className="size-3.5 text-muted-foreground/60" />
+                                    <div className="flex flex-col text-left">
+                                      <span className="text-muted-foreground">Hapus Akun</span>
+                                      <span className="text-[10px] text-amber-500 font-normal">
+                                        Terkunci (Hanya bisa dinonaktifkan)
+                                      </span>
+                                    </div>
+                                  </DropdownMenuItem>
                                 ) : (
-                                  <>
-                                    <UserCheck className="size-3.5 text-emerald-600" />
-                                    <span className="text-emerald-600">Aktifkan Akun</span>
-                                  </>
+                                  <DropdownMenuItem
+                                    onClick={() => handleOpenDelete(u)}
+                                    variant="destructive"
+                                    className="text-xs gap-2 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
+                                  >
+                                    <Trash2 className="size-3.5" />
+                                    <span>Hapus Akun</span>
+                                  </DropdownMenuItem>
                                 )}
-                              </DropdownMenuItem>
-                            </DropdownMenuGroup>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuGroup>
-                              {u.isUsed ? (
-                                <DropdownMenuItem
-                                  onClick={() => handleShowCannotDelete(u)}
-                                  className="text-xs gap-2 cursor-pointer text-muted-foreground hover:text-foreground"
-                                >
-                                  <Trash2 className="size-3.5 text-muted-foreground/60" />
-                                  <div className="flex flex-col text-left">
-                                    <span className="text-muted-foreground">Hapus Akun</span>
-                                    <span className="text-[10px] text-amber-500 font-normal">
-                                      Terkunci (Hanya bisa dinonaktifkan)
-                                    </span>
-                                  </div>
-                                </DropdownMenuItem>
-                              ) : (
-                                <DropdownMenuItem
-                                  onClick={() => handleOpenDelete(u)}
-                                  variant="destructive"
-                                  className="text-xs gap-2 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
-                                >
-                                  <Trash2 className="size-3.5" />
-                                  <span>Hapus Akun</span>
-                                </DropdownMenuItem>
-                              )}
-                            </DropdownMenuGroup>
-                          </>
-                        )}
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </TableCell>
-                </TableRow>
-              ))
-            )}
-          </TableBody>
+                              </DropdownMenuGroup>
+                            </>
+                          )}
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
           </Table>
         </div>
       </Card>
@@ -517,17 +559,17 @@ export function PenggunaClient({
           </DialogHeader>
 
           <form onSubmit={handleSubmitRoleChange} className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="edit-role" className="text-xs font-medium">
+            <Field>
+              <FieldLabel htmlFor="edit-role">
                 Pilih Wewenang Baru (Role RBAC)
-              </Label>
+              </FieldLabel>
               <Select
                 value={selectedRole}
                 onValueChange={(val) => {
                   if (val) setSelectedRole(val);
                 }}
               >
-                <SelectTrigger id="edit-role" className="w-full h-9 text-xs">
+                <SelectTrigger id="edit-role">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -537,10 +579,10 @@ export function PenggunaClient({
                   <SelectItem value="admin">Administrator (Akses Penuh Sistem)</SelectItem>
                 </SelectContent>
               </Select>
-              <p className="text-xs text-muted-foreground">
+              <FieldDescription>
                 Perubahan wewenang akan langsung aktif saat pengguna melakukan aksi berikutnya di sistem.
-              </p>
-            </div>
+              </FieldDescription>
+            </Field>
 
             <DialogFooter className="pt-2">
               <Button
@@ -580,62 +622,58 @@ export function PenggunaClient({
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="nama" className="text-xs font-medium">
-                Nama Lengkap <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="nama">
+                Nama Lengkap *
+              </FieldLabel>
               <Input
                 id="nama"
                 type="text"
                 value={nama}
                 onChange={(e) => setNama(e.target.value)}
                 placeholder="Contoh: Yohanes Lewoleba"
-                className="h-9 text-xs"
               />
-              {fieldErrors.nama && (
-                <p className="text-xs text-destructive">{fieldErrors.nama[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.nama)} />
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs font-medium">
-                Alamat Email Resmi <span className="text-destructive">*</span>
-              </Label>
-              <div className="relative">
-                <Mail className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                <Input
+            <Field>
+              <FieldLabel htmlFor="email">
+                Alamat Email Resmi *
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupAddon align="inline-start">
+                  <Mail className="size-4 text-muted-foreground" />
+                </InputGroupAddon>
+                <InputGroupInput
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="nama@sipeka.lembata.go.id"
-                  className="pl-9 h-9 text-xs"
                 />
-              </div>
-              {fieldErrors.email && (
-                <p className="text-xs text-destructive">{fieldErrors.email[0]}</p>
-              )}
-            </div>
+              </InputGroup>
+              <FieldError errors={toFieldErrors(fieldErrors.email)} />
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="role" className="text-xs font-medium">
-                Peran / Wewenang Akses (Role RBAC) <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="role">
+                Peran / Wewenang Akses (Role RBAC) *
+              </FieldLabel>
               <Select
                 value={role}
                 onValueChange={(val) => {
                   if (val) {
                     setRole(
                       val as
-                        | 'admin'
-                        | 'pengelola_mutu'
-                        | 'petugas_lapangan'
-                        | 'kepala_dinas'
+                      | 'admin'
+                      | 'pengelola_mutu'
+                      | 'petugas_lapangan'
+                      | 'kepala_dinas'
                     );
                   }
                 }}
               >
-                <SelectTrigger id="role" className="w-full h-9 text-xs">
+                <SelectTrigger id="role">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -645,24 +683,26 @@ export function PenggunaClient({
                   <SelectItem value="admin">Administrator (Akses Penuh Sistem)</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="password" className="text-xs font-medium">
-                Kata Sandi Sementara <span className="text-destructive">*</span>
-              </Label>
-              <div className="relative">
-                <Lock className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                <Input
+            <Field>
+              <FieldLabel htmlFor="password">
+                Kata Sandi Sementara *
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupAddon align="inline-start">
+                  <Lock className="size-4 text-muted-foreground" />
+                </InputGroupAddon>
+                <InputGroupInput
                   id="password"
                   type="text"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="pl-9 font-mono h-9 text-xs"
+                  className="font-mono"
                 />
-              </div>
-              <p className="text-xs text-muted-foreground">Default: password123</p>
-            </div>
+              </InputGroup>
+              <FieldDescription>Default: password123</FieldDescription>
+            </Field>
 
             <DialogFooter className="pt-2">
               <Button

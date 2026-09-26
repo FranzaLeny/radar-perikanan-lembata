@@ -42,7 +42,8 @@ import {
   LogOut,
   ShieldCheck,
 } from 'lucide-react';
-import { logoutAction } from '@/lib/actions/auth';
+import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation';
 import type { CurrentUser } from '@/lib/auth';
 
 interface SubMenuItem {
@@ -107,7 +108,27 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
 }
 
 export function AppSidebar({ user, ...props }: AppSidebarProps) {
+  const router = useRouter();
   const pathname = usePathname();
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await authClient.signOut({
+        fetchOptions: {
+          onSuccess: () => {
+            router.push('/login');
+            router.refresh();
+          },
+        },
+      });
+    } catch {
+      router.push('/login');
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   const userRole = user?.role || 'petugas_lapangan';
 
@@ -291,31 +312,32 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
 
       <SidebarFooter className="border-t p-3 bg-muted/20">
         <div className="flex items-center gap-2.5">
-          <Avatar className="size-8 ring-1 ring-border">
-            <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
-              {user?.name ? user.name.substring(0, 2).toUpperCase() : 'PL'}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col min-w-0 flex-1">
-            <span className="text-xs font-semibold truncate text-foreground">
-              {user?.name || 'Petugas Laboratorium'}
-            </span>
-            <span className="text-xs text-muted-foreground truncate uppercase font-medium">
-              {roleLabels[userRole] || userRole}
-            </span>
-          </div>
+          <Link href="/profil" className="flex items-center gap-2.5 min-w-0 flex-1 hover:opacity-80 transition-opacity" title="Buka Profil">
+            <Avatar className="size-8 ring-1 ring-border">
+              <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                {user?.name ? user.name.substring(0, 2).toUpperCase() : 'PL'}
+              </AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col min-w-0 flex-1">
+              <span className="text-xs font-semibold truncate text-foreground">
+                {user?.name || 'Petugas Laboratorium'}
+              </span>
+              <span className="text-xs text-muted-foreground truncate uppercase font-medium">
+                {roleLabels[userRole] || userRole}
+              </span>
+            </div>
+          </Link>
           <QuickThemeToggle />
-          <form action={logoutAction}>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              type="submit"
-              title="Keluar dari sistem"
-              className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
-            >
-              <LogOut className="size-4" />
-            </Button>
-          </form>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            title="Keluar dari sistem"
+            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+          >
+            <LogOut className="size-4" />
+          </Button>
         </div>
       </SidebarFooter>
       <SidebarRail />

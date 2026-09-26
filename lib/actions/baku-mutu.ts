@@ -2,7 +2,7 @@
 
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { bakuMutuSchema, type BakuMutuInput } from '@/lib/validations/baku-mutu';
+import { bakuMutuSchema } from '@/lib/validations/baku-mutu';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 

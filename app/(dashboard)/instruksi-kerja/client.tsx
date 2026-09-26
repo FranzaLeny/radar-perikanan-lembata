@@ -5,7 +5,6 @@ import {
   FileCheck2,
   Plus,
   QrCode,
-  Printer,
   Trash2,
   FileText,
   Loader2,
@@ -18,14 +17,22 @@ import {
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+} from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
+import { toFieldErrors } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import {
   Table,
@@ -238,26 +245,29 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 
       {/* Search Bar & Indikator Komparasi */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="relative flex-1 max-w-md">
-          <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-          <Input
+        <InputGroup className="flex-1 max-w-md">
+          <InputGroupAddon align="inline-start">
+            <Search className="size-4 text-muted-foreground" />
+          </InputGroupAddon>
+          <InputGroupInput
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Cari kode SOP, judul prosedur, atau kategori..."
-            className="pl-8 pr-8 text-xs h-8"
           />
           {searchTerm && (
-            <button
-              type="button"
-              onClick={() => setSearchTerm('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-              title="Hapus pencarian"
-            >
-              <X className="size-3.5" />
-            </button>
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                size="icon-xs"
+                onClick={() => setSearchTerm('')}
+                title="Hapus pencarian"
+              >
+                <X className="size-3.5" />
+              </InputGroupButton>
+            </InputGroupAddon>
           )}
-        </div>
+        </InputGroup>
 
         <div className="flex items-center gap-2 self-start sm:self-auto text-xs">
           {filteredList.length < list.length ? (
@@ -422,35 +432,33 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
-            <div className="grid grid-cols-3 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="kode_ik" className="text-xs font-medium">
-                  Kode IK <span className="text-destructive">*</span>
-                </Label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Field>
+                <FieldLabel htmlFor="kode_ik">
+                  Kode IK *
+                </FieldLabel>
                 <Input
                   id="kode_ik"
                   type="text"
                   value={kodeIk}
                   onChange={(e) => setKodeIk(e.target.value)}
                   placeholder="IK-001"
-                  className="font-mono text-xs h-9"
+                  className="font-mono"
                 />
-                {fieldErrors.kode_ik && (
-                  <p className="text-xs text-destructive">{fieldErrors.kode_ik[0]}</p>
-                )}
-              </div>
+                <FieldError errors={toFieldErrors(fieldErrors.kode_ik)} />
+              </Field>
 
-              <div className="col-span-2 space-y-1.5">
-                <Label htmlFor="kategori" className="text-xs font-medium">
+              <Field className="sm:col-span-2">
+                <FieldLabel htmlFor="kategori">
                   Kategori Standar
-                </Label>
+                </FieldLabel>
                 <Select
                   value={kategori}
                   onValueChange={(val) => {
                     if (val) setKategori(val);
                   }}
                 >
-                  <SelectTrigger id="kategori" className="w-full h-9 text-xs">
+                  <SelectTrigger id="kategori">
                     <SelectValue placeholder="Pilih Kategori" />
                   </SelectTrigger>
                   <SelectContent>
@@ -460,66 +468,63 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
                     <SelectItem value="Pengambilan Sampel Fisika">Pengambilan Sampel Fisika</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
+              </Field>
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="judul" className="text-xs font-medium">
-                Judul Prosedur Instruksi Kerja <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="judul">
+                Judul Prosedur Instruksi Kerja *
+              </FieldLabel>
               <Input
                 id="judul"
                 type="text"
                 value={judul}
                 onChange={(e) => setJudul(e.target.value)}
                 placeholder="Contoh: Pengambilan Sampel & Pengukuran Lapangan Suhu dan pH Kolam"
-                className="text-xs h-9"
               />
-              {fieldErrors.judul && (
-                <p className="text-xs text-destructive">{fieldErrors.judul[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.judul)} />
+            </Field>
 
-            <div className="grid grid-cols-3 gap-3">
-              <div className="col-span-2 space-y-1.5">
-                <Label htmlFor="file_path" className="text-xs font-medium">
-                  Tautan URL / Path Dokumen <span className="text-destructive">*</span>
-                </Label>
-                <div className="relative">
-                  <Input
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Field className="sm:col-span-2">
+                <FieldLabel htmlFor="file_path">
+                  Tautan URL / Path Dokumen *
+                </FieldLabel>
+                <InputGroup>
+                  <InputGroupInput
                     id="file_path"
                     type="text"
                     value={filePath}
                     onChange={(e) => setFilePath(e.target.value)}
                     placeholder="https://drive.google.com/... atau /uploads/ik-001.pdf"
-                    className="font-mono text-xs pr-8 h-9"
+                    className="font-mono"
                     required
                   />
                   {filePath.startsWith('http') && (
-                    <ExternalLink className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-primary pointer-events-none" />
+                    <InputGroupAddon align="inline-end">
+                      <ExternalLink className="size-3.5 text-primary pointer-events-none" />
+                    </InputGroupAddon>
                   )}
-                </div>
-                <p className="text-xs text-muted-foreground">
+                </InputGroup>
+                <FieldDescription>
                   Dapat berupa link eksternal (Google Drive, Cloud Storage) atau file lokal. Kamera ponsel langsung membuka link ini saat QR di-scan.
-                </p>
-                {fieldErrors.file_path && (
-                  <p className="text-xs text-destructive">{fieldErrors.file_path[0]}</p>
-                )}
-              </div>
+                </FieldDescription>
+                <FieldError errors={toFieldErrors(fieldErrors.file_path)} />
+              </Field>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="versi" className="text-xs font-medium">
+              <Field>
+                <FieldLabel htmlFor="versi">
                   Nomor Versi
-                </Label>
+                </FieldLabel>
                 <Input
                   id="versi"
                   type="number"
                   value={versi}
                   onChange={(e) => setVersi(e.target.value)}
                   placeholder="1"
-                  className="font-mono text-xs h-9"
+                  className="font-mono"
                 />
-              </div>
+              </Field>
             </div>
 
             <DialogFooter className="pt-2">
@@ -571,17 +576,17 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="edit_kategori" className="text-xs font-medium">
+            <Field>
+              <FieldLabel htmlFor="edit_kategori">
                 Kategori Standar
-              </Label>
+              </FieldLabel>
               <Select
                 value={editKategori}
                 onValueChange={(val) => {
                   if (val) setEditKategori(val);
                 }}
               >
-                <SelectTrigger id="edit_kategori" className="w-full h-9 text-xs">
+                <SelectTrigger id="edit_kategori">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -591,45 +596,46 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
                   <SelectItem value="Pengambilan Sampel Fisika">Pengambilan Sampel Fisika</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="edit_judul" className="text-xs font-medium">
-                Judul Prosedur Instruksi Kerja <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="edit_judul">
+                Judul Prosedur Instruksi Kerja *
+              </FieldLabel>
               <Input
                 id="edit_judul"
                 type="text"
                 value={editJudul}
                 onChange={(e) => setEditJudul(e.target.value)}
                 placeholder="Judul prosedur SOP..."
-                className="text-xs h-9"
                 required
               />
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="edit_file_path" className="text-xs font-medium">
-                Tautan URL / Path Dokumen <span className="text-destructive">*</span>
-              </Label>
-              <div className="relative">
-                <Input
+            <Field>
+              <FieldLabel htmlFor="edit_file_path">
+                Tautan URL / Path Dokumen *
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupInput
                   id="edit_file_path"
                   type="text"
                   value={editFilePath}
                   onChange={(e) => setEditFilePath(e.target.value)}
                   placeholder="https://drive.google.com/... atau /uploads/ik-001.pdf"
-                  className="font-mono text-xs pr-8 h-9"
+                  className="font-mono"
                   required
                 />
                 {editFilePath.startsWith('http') && (
-                  <ExternalLink className="size-3.5 absolute right-2.5 top-1/2 -translate-y-1/2 text-primary pointer-events-none" />
+                  <InputGroupAddon align="inline-end">
+                    <ExternalLink className="size-3.5 text-primary pointer-events-none" />
+                  </InputGroupAddon>
                 )}
-              </div>
-              <p className="text-xs text-muted-foreground">
+              </InputGroup>
+              <FieldDescription>
                 Tautan link eksternal (Google Drive / Cloud PDF). Kamera ponsel akan langsung membuka URL ini saat QR di-scan.
-              </p>
-            </div>
+              </FieldDescription>
+            </Field>
 
             <DialogFooter className="pt-2">
               <Button

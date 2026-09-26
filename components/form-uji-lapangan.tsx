@@ -17,7 +17,14 @@ import { BadgeStatus } from '@/components/badge-status';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import {
+  Field,
+  FieldLabel,
+  FieldDescription,
+  FieldError,
+} from '@/components/ui/field';
+import { toFieldErrors } from '@/lib/utils';
 import {
   Card,
   CardContent,
@@ -412,64 +419,60 @@ export function FormUjiLapangan({
                 </CardDescription>
               </CardHeader>
 
-              <CardContent className="pt-4 space-y-4 text-xs">
+              <CardContent className="pt-4 space-y-4">
                 {/* Kode Sampel: Format Bawaan + Editable + Tombol Regenerate */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
+                  <Field>
                     <div className="flex items-center justify-between">
-                      <Label htmlFor="nomorSampel" className="text-xs">Kode / Nomor Sampel *</Label>
+                      <FieldLabel htmlFor="nomorSampel">Kode / Nomor Sampel *</FieldLabel>
                       <Button
                         type="button"
-                        size='xs'
+                        size="xs"
                         onClick={() => setNomorSampel(generateSampleNumber())}
                         title="Acak kode sampel baru"
-                        variant='ghost'
+                        variant="ghost"
                       >
                         <RefreshCw className="size-3" />
                         <span>Acak Ulang</span>
                       </Button>
                     </div>
-                    <div className="flex gap-2">
-                      <Input
-                        id="nomorSampel"
-                        value={nomorSampel}
-                        onChange={(e) => setNomorSampel(e.target.value)}
-                        placeholder="Contoh: SMP-20260926-318"
-                        className="text-xs font-mono font-semibold"
-                        required
-                      />
-                    </div>
-                    <p className="text-xs text-muted-foreground">
+                    <Input
+                      id="nomorSampel"
+                      value={nomorSampel}
+                      onChange={(e) => setNomorSampel(e.target.value)}
+                      placeholder="Contoh: SMP-20260926-318"
+                      className="font-mono font-semibold"
+                      required
+                    />
+                    <FieldDescription>
                       Format standar otomatis atau ubah sesuai kode fisik botol laboratorium.
-                    </p>
-                    {fieldErrors.nomor_sampel && (
-                      <p className="text-xs text-destructive">{fieldErrors.nomor_sampel[0]}</p>
-                    )}
-                  </div>
+                    </FieldDescription>
+                    <FieldError errors={toFieldErrors(fieldErrors.nomor_sampel)} />
+                  </Field>
 
-                  <div className="space-y-1.5">
-                    <Label htmlFor="tanggal" className="text-xs">Waktu Sampling Lapangan *</Label>
+                  <Field>
+                    <FieldLabel htmlFor="tanggal">Waktu Sampling Lapangan *</FieldLabel>
                     <Input
                       id="tanggal"
                       type="datetime-local"
                       value={tanggalPengambilan}
                       onChange={(e) => setTanggalPengambilan(e.target.value)}
-                      className="text-xs font-mono"
+                      className="font-mono"
                       required
                     />
-                  </div>
+                  </Field>
                 </div>
 
                 {/* Lokasi Kolam: Combobox Autocomplete + Tombol Quick-Add */}
-                <div className="space-y-1.5 pt-2 border-t border-border">
+                <Field className="pt-2 border-t border-border">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs">Titik Lokasi Kolam Pembudidaya (Pokdakan) *</Label>
+                    <FieldLabel>Titik Lokasi Kolam Pembudidaya (Pokdakan) *</FieldLabel>
                     <Button
                       type="button"
                       variant="outline"
                       size="xs"
                       onClick={() => setIsQuickAddOpen(true)}
-                      className="gap-1  cursor-pointer"
+                      className="gap-1 cursor-pointer"
                     >
                       <Plus className="size-3" />
                       <span>Tambah Lokasi Baru</span>
@@ -487,7 +490,6 @@ export function FormUjiLapangan({
                     <ComboboxInput
                       placeholder="Pilih atau cari Pokdakan, pemilik, atau desa..."
                       showClear
-                      className="w-full text-xs"
                     />
                     <ComboboxContent>
                       <ComboboxEmpty>Lokasi tidak ditemukan. Tekan &ldquo;+ Tambah Lokasi Baru&rdquo;.</ComboboxEmpty>
@@ -495,9 +497,9 @@ export function FormUjiLapangan({
                         {(item) => (
                           <ComboboxItem key={item.value} value={item}>
                             <div className="flex flex-col py-0.5 text-left">
-                              <span className="font-medium text-xs text-foreground">{item.label}</span>
+                              <span className="font-medium text-foreground">{item.label}</span>
                               {item.sublabel && (
-                                <span className="text-xs text-muted-foreground">{item.sublabel}</span>
+                                <span className="text-muted-foreground">{item.sublabel}</span>
                               )}
                             </div>
                           </ComboboxItem>
@@ -506,15 +508,13 @@ export function FormUjiLapangan({
                     </ComboboxContent>
                   </Combobox>
 
-                  {fieldErrors.lokasi_id && (
-                    <p className="text-xs text-destructive">{fieldErrors.lokasi_id[0]}</p>
-                  )}
-                </div>
+                  <FieldError errors={toFieldErrors(fieldErrors.lokasi_id)} />
+                </Field>
 
                 {/* SOP / Instruksi Kerja: Pilihan Arsip vs Input Manual */}
-                <div className="space-y-2 pt-2 border-t border-border">
+                <div className="space-y-3 pt-2 border-t border-border">
                   <div className="flex items-center justify-between">
-                    <Label className="text-xs">Standar Operasional Prosedur (SOP / IK) *</Label>
+                    <FieldLabel>Standar Operasional Prosedur (SOP / IK) *</FieldLabel>
                     <div className="flex items-center gap-1 p-0.5 bg-muted rounded-lg text-xs">
                       <button
                         type="button"
@@ -540,81 +540,80 @@ export function FormUjiLapangan({
                   </div>
 
                   {tipeSop === 'arsip' ? (
-                    <>
+                    <Field>
                       <Combobox<OptionItem>
-                      items={ikOptions}
-                      value={selectedIkOption}
-                      onValueChange={(val) => {
-                        if (val) setIkId(val.value);
-                      }}
-                      itemToStringValue={(item) => (item ? item.label : '')}
-                    >
-                      <ComboboxInput
-                        placeholder="Pilih SOP / IK yang terdaftar..."
-                        showClear
-                        className="w-full text-xs"
-                      />
-                      <ComboboxContent>
-                        <ComboboxEmpty>SOP tidak ditemukan.</ComboboxEmpty>
-                        <ComboboxList>
-                          {(item) => (
-                            <ComboboxItem key={item.value} value={item}>
-                              <div className="flex flex-col py-0.5 text-left">
-                                <span className="font-medium text-xs text-foreground">{item.label}</span>
-                                {item.sublabel && (
-                                  <span className="text-xs text-muted-foreground">{item.sublabel}</span>
-                                )}
-                              </div>
-                            </ComboboxItem>
-                          )}
-                        </ComboboxList>
-                      </ComboboxContent>
-                    </Combobox>
-                    {tipeSop === 'arsip' && selectedIk && selectedIk.file_path && (
-                      <div className="flex items-center justify-between text-xs pt-1 px-1">
-                        <span className="text-muted-foreground font-mono truncate max-w-[240px]">
-                          Tautan: {selectedIk.file_path}
-                        </span>
-                        <a
-                          href={selectedIk.file_path}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline font-medium inline-flex items-center gap-1 cursor-pointer"
-                        >
-                          <ExternalLink className="size-3" />
-                          <span>Buka Tautan Dokumen</span>
-                        </a>
-                      </div>
-                    )}
-                  </>
+                        items={ikOptions}
+                        value={selectedIkOption}
+                        onValueChange={(val) => {
+                          if (val) setIkId(val.value);
+                        }}
+                        itemToStringValue={(item) => (item ? item.label : '')}
+                      >
+                        <ComboboxInput
+                          placeholder="Pilih SOP / IK yang terdaftar..."
+                          showClear
+                        />
+                        <ComboboxContent>
+                          <ComboboxEmpty>SOP tidak ditemukan.</ComboboxEmpty>
+                          <ComboboxList>
+                            {(item) => (
+                              <ComboboxItem key={item.value} value={item}>
+                                <div className="flex flex-col py-0.5 text-left">
+                                  <span className="font-medium text-foreground">{item.label}</span>
+                                  {item.sublabel && (
+                                    <span className="text-muted-foreground">{item.sublabel}</span>
+                                  )}
+                                </div>
+                              </ComboboxItem>
+                            )}
+                          </ComboboxList>
+                        </ComboboxContent>
+                      </Combobox>
+                      {selectedIk && selectedIk.file_path && (
+                        <div className="flex items-center justify-between text-xs pt-1 px-1">
+                          <span className="text-muted-foreground font-mono truncate max-w-[240px]">
+                            Tautan: {selectedIk.file_path}
+                          </span>
+                          <a
+                            href={selectedIk.file_path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary hover:underline font-medium inline-flex items-center gap-1 cursor-pointer"
+                          >
+                            <ExternalLink className="size-3" />
+                            <span>Buka Tautan Dokumen</span>
+                          </a>
+                        </div>
+                      )}
+                    </Field>
                   ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-2.5 rounded-xl bg-muted/30 border border-border">
-                      <div className="space-y-1">
-                        <Label className="text-xs">Kode / No. SOP Manual</Label>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-3 rounded-xl bg-muted/30 border border-border">
+                      <Field>
+                        <FieldLabel htmlFor="sopManualKode">Kode / No. SOP Manual</FieldLabel>
                         <Input
+                          id="sopManualKode"
                           value={sopManualKode}
                           onChange={(e) => setSopManualKode(e.target.value)}
                           placeholder="IK-M-01"
-                          className="text-xs h-8"
                         />
-                      </div>
-                      <div className="sm:col-span-2 space-y-1">
-                        <Label className="text-xs">Judul / Metodologi Pengujian *</Label>
+                      </Field>
+                      <Field className="sm:col-span-2">
+                        <FieldLabel htmlFor="sopManualJudul">Judul / Metodologi Pengujian *</FieldLabel>
                         <Input
+                          id="sopManualJudul"
                           value={sopManualJudul}
                           onChange={(e) => setSopManualJudul(e.target.value)}
                           placeholder="Contoh: Pengujian Lapangan Strip Celup Kit Cepat"
-                          className="text-xs h-8"
                           required
                         />
-                      </div>
+                      </Field>
                     </div>
                   )}
-                  <p className="text-xs text-muted-foreground">
+                  <FieldDescription>
                     {tipeSop === 'arsip'
                       ? 'SOP resmi Dinas yang telah diterbitkan lengkap dengan barcode QR keabsahan.'
                       : 'SOP manual akan otomatis diarsipkan ke sistem dengan kode QR unik agar dokumen tetap terverifikasi.'}
-                  </p>
+                  </FieldDescription>
                 </div>
               </CardContent>
             </Card>
@@ -676,11 +675,11 @@ export function FormUjiLapangan({
                         >
                           <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
                             {/* Pilihan Parameter & Versi Baku Mutu via Combobox */}
-                            <div className="md:col-span-6 space-y-1">
+                            <Field className="md:col-span-6">
                               <div className="flex items-center justify-between">
-                                <Label className="text-xs">
+                                <FieldLabel>
                                   #{idx + 1} Parameter & Regulasi
-                                </Label>
+                                </FieldLabel>
                                 {currentBm && !currentBm.aktif && (
                                   <Badge variant="secondary" className="text-xs py-0 px-1 font-mono">
                                     Arsip Versi Lama
@@ -698,7 +697,6 @@ export function FormUjiLapangan({
                               >
                                 <ComboboxInput
                                   placeholder="Pilih parameter mutu..."
-                                  className="w-full text-xs"
                                 />
                                 <ComboboxContent>
                                   <ComboboxEmpty>Parameter tidak ditemukan.</ComboboxEmpty>
@@ -707,7 +705,7 @@ export function FormUjiLapangan({
                                       <ComboboxItem key={item.value} value={item}>
                                         <div className="flex flex-col py-0.5 text-left">
                                           <div className="flex items-center gap-1.5">
-                                            <span className="font-medium text-xs text-foreground">{item.label}</span>
+                                            <span className="font-medium text-foreground">{item.label}</span>
                                             {item.badge && (
                                               <Badge
                                                 variant={item.badge === 'Aktif' ? 'outline' : 'secondary'}
@@ -726,26 +724,26 @@ export function FormUjiLapangan({
                                   </ComboboxList>
                                 </ComboboxContent>
                               </Combobox>
-                            </div>
+                            </Field>
 
                             {/* Nilai Ukur Numerik */}
-                            <div className="md:col-span-3 space-y-1">
-                              <Label className="text-xs">
+                            <Field className="md:col-span-3">
+                              <FieldLabel>
                                 Hasil Ukur {currentBm ? `(${currentBm.satuan})` : ''} *
-                              </Label>
+                              </FieldLabel>
                               <Input
                                 type="number"
                                 step="0.01"
                                 value={row.nilai_hasil}
                                 onChange={(e) => handleValueChange(row.tempId, e.target.value)}
                                 placeholder="Contoh: 7.5"
-                                className="text-xs font-mono font-semibold h-8"
+                                className="font-mono font-semibold"
                                 required
                               />
-                            </div>
+                            </Field>
 
                             {/* Evaluasi Status Realtime & Tombol Hapus */}
-                            <div className="md:col-span-3 flex items-center justify-between gap-2">
+                            <div className="md:col-span-3 flex items-center justify-between gap-2 h-9">
                               <div className="flex-1">
                                 {evalRow?.isEvaluated ? (
                                   <BadgeStatus status={evalRow.status} size="sm" />
@@ -835,10 +833,10 @@ export function FormUjiLapangan({
                   Petugas analisis uji lapangan dan pejabat berwenang penandatangan LHU.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3.5 text-xs">
+              <CardContent className="space-y-4">
                 {/* Combobox Petugas Penguji */}
-                <div className="space-y-1.5">
-                  <Label className="text-xs">Petugas Penguji Lapangan *</Label>
+                <Field>
+                  <FieldLabel htmlFor="petugasUji">Petugas Penguji Lapangan *</FieldLabel>
                   {pengujiPegawaiOptions.length > 0 ? (
                     <Combobox<OptionItem>
                       items={pengujiPegawaiOptions}
@@ -854,7 +852,6 @@ export function FormUjiLapangan({
                       <ComboboxInput
                         placeholder="Pilih petugas terdaftar..."
                         showClear
-                        className="w-full text-xs"
                       />
                       <ComboboxContent>
                         <ComboboxEmpty>Pegawai tidak ditemukan.</ComboboxEmpty>
@@ -862,7 +859,7 @@ export function FormUjiLapangan({
                           {(item) => (
                             <ComboboxItem key={item.value} value={item}>
                               <div className="flex flex-col py-0.5 text-left">
-                                <span className="font-medium text-xs text-foreground">{item.label}</span>
+                                <span className="font-medium text-foreground">{item.label}</span>
                                 {item.sublabel && (
                                   <span className="text-xs text-muted-foreground">{item.sublabel}</span>
                                 )}
@@ -879,18 +876,15 @@ export function FormUjiLapangan({
                     value={petugasUji}
                     onChange={(e) => setPetugasUji(e.target.value)}
                     placeholder="Atau ketik nama lengkap petugas..."
-                    className="text-xs h-8"
                     required
                   />
-                  {fieldErrors.petugas_uji && (
-                    <p className="text-xs text-destructive">{fieldErrors.petugas_uji[0]}</p>
-                  )}
-                </div>
+                  <FieldError errors={toFieldErrors(fieldErrors.petugas_uji)} />
+                </Field>
 
                 {/* Combobox Pejabat Penandatangan LHU */}
                 {penandatanganPegawaiOptions.length > 0 && (
-                  <div className="space-y-1.5 pt-2 border-t border-border">
-                    <Label className="text-xs">Pejabat Penandatangan LHU (Pengesahan) *</Label>
+                  <Field className="pt-2 border-t border-border">
+                    <FieldLabel>Pejabat Penandatangan LHU (Pengesahan) *</FieldLabel>
                     <Combobox<OptionItem>
                       items={penandatanganPegawaiOptions}
                       value={selectedPenandatanganOption}
@@ -902,7 +896,6 @@ export function FormUjiLapangan({
                       <ComboboxInput
                         placeholder="Pilih pejabat penandatangan..."
                         showClear
-                        className="w-full text-xs"
                       />
                       <ComboboxContent>
                         <ComboboxEmpty>Pejabat tidak ditemukan.</ComboboxEmpty>
@@ -910,7 +903,7 @@ export function FormUjiLapangan({
                           {(item) => (
                             <ComboboxItem key={item.value} value={item}>
                               <div className="flex flex-col py-0.5 text-left">
-                                <span className="font-medium text-xs text-foreground">{item.label}</span>
+                                <span className="font-medium text-foreground">{item.label}</span>
                                 {item.sublabel && (
                                   <span className="text-xs text-muted-foreground">{item.sublabel}</span>
                                 )}
@@ -920,10 +913,10 @@ export function FormUjiLapangan({
                         </ComboboxList>
                       </ComboboxContent>
                     </Combobox>
-                    <p className="text-xs text-muted-foreground">
+                    <FieldDescription>
                       Nama dan NIP pejabat ini akan tercantum di lembar pengesahan cetak LHU.
-                    </p>
-                  </div>
+                    </FieldDescription>
+                  </Field>
                 )}
               </CardContent>
             </Card>
@@ -938,42 +931,39 @@ export function FormUjiLapangan({
                   Hasil telaah terpadu dan saran tindak lanjut bagi pembudidaya.
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3 text-xs">
-                <div className="space-y-1">
-                  <Label htmlFor="kesimpulanUmum" className="text-xs">Kesimpulan Umum Pengujian</Label>
-                  <textarea
+              <CardContent className="space-y-4">
+                <Field>
+                  <FieldLabel htmlFor="kesimpulanUmum">Kesimpulan Umum Pengujian</FieldLabel>
+                  <Textarea
                     id="kesimpulanUmum"
                     value={kesimpulanUmum}
                     onChange={(e) => setKesimpulanUmum(e.target.value)}
                     placeholder="Contoh: Secara umum parameter fisika dan kimia dalam batas aman budidaya, namun DO rendah saat dini hari..."
                     rows={2}
-                    className="w-full rounded-lg border border-input bg-transparent px-3 py-2 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   />
-                </div>
+                </Field>
 
-                <div className="space-y-1">
-                  <Label htmlFor="saranRekomendasi" className="text-xs">Saran / Rekomendasi Tindakan</Label>
-                  <textarea
+                <Field>
+                  <FieldLabel htmlFor="saranRekomendasi">Saran / Rekomendasi Tindakan</FieldLabel>
+                  <Textarea
                     id="saranRekomendasi"
                     value={saranRekomendasiLapangan}
                     onChange={(e) => setSaranRekomendasiLapangan(e.target.value)}
                     placeholder="Contoh: Nyalakan kincir aerasi minimal 6 jam pada malam hari dan kurangi feeding rate sebesar 15%..."
                     rows={2}
-                    className="w-full rounded-lg border border-input bg-transparent px-3 py-2 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   />
-                </div>
+                </Field>
 
-                <div className="space-y-1">
-                  <Label htmlFor="catatan" className="text-xs">Catatan Observasi Tambahan (Opsional)</Label>
-                  <textarea
+                <Field>
+                  <FieldLabel htmlFor="catatan">Catatan Observasi Tambahan (Opsional)</FieldLabel>
+                  <Textarea
                     id="catatan"
                     value={catatanLapangan}
                     onChange={(e) => setCatatanLapangan(e.target.value)}
                     placeholder="Kondisi cuaca hujan, kematian ikan, nafsu makan, debit air masuk..."
                     rows={2}
-                    className="w-full rounded-lg border border-input bg-transparent px-3 py-2 text-xs shadow-xs focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
                   />
-                </div>
+                </Field>
               </CardContent>
 
               <CardFooter className="pt-2 border-t border-border">

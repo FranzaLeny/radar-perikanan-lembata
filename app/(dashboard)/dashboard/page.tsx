@@ -1,11 +1,10 @@
 import React from 'react';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { desc, count, sql, eq } from 'drizzle-orm';
+import { desc, count, eq } from 'drizzle-orm';
 import {
   TestTube2,
   CheckCircle2,
-  AlertTriangle,
   AlertOctagon,
   MapPin,
   FileCheck2,
@@ -15,7 +14,6 @@ import {
   ShieldCheck,
   Droplets,
   Printer,
-  Eye,
 } from 'lucide-react';
 import Link from 'next/link';
 import { BadgeStatus } from '@/components/badge-status';

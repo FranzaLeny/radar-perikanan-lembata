@@ -13,14 +13,21 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
+import { toFieldErrors } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import {
   Table,
@@ -184,26 +191,29 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
 
       {/* Filter Search & Indikator Komparasi */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div className="relative flex-1 max-w-md">
-          <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-          <Input
+        <InputGroup className="flex-1 max-w-md">
+          <InputGroupAddon align="inline-start">
+            <Search className="size-4 text-muted-foreground" />
+          </InputGroupAddon>
+          <InputGroupInput
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Cari Pokdakan, pemilik, kecamatan, atau desa..."
-            className="pl-8 pr-8 text-xs h-8"
           />
           {searchTerm && (
-            <button
-              type="button"
-              onClick={() => setSearchTerm('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-              title="Hapus pencarian"
-            >
-              <X className="size-3.5" />
-            </button>
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                size="icon-xs"
+                onClick={() => setSearchTerm('')}
+                title="Hapus pencarian"
+              >
+                <X className="size-3.5" />
+              </InputGroupButton>
+            </InputGroupAddon>
           )}
-        </div>
+        </InputGroup>
 
         <div className="flex items-center gap-2 self-start sm:self-auto text-xs">
           {filtered.length < list.length ? (
@@ -331,10 +341,10 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="nama_pokdakan" className="text-xs font-medium">
-                Nama Kelompok Pembudidaya (Pokdakan) <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="nama_pokdakan">
+                Nama Kelompok Pembudidaya (Pokdakan) *
+              </FieldLabel>
               <Input
                 id="nama_pokdakan"
                 type="text"
@@ -342,15 +352,13 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                 onChange={(e) => setNamaPokdakan(e.target.value)}
                 placeholder="Contoh: Pokdakan Mina Bahari"
               />
-              {fieldErrors.nama_pokdakan && (
-                <p className="text-xs text-destructive">{fieldErrors.nama_pokdakan[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.nama_pokdakan)} />
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="pemilik" className="text-xs font-medium">
-                Nama Penanggung Jawab / Pemilik <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="pemilik">
+                Nama Penanggung Jawab / Pemilik *
+              </FieldLabel>
               <Input
                 id="pemilik"
                 type="text"
@@ -358,23 +366,21 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                 onChange={(e) => setPemilik(e.target.value)}
                 placeholder="Contoh: Antonius Leu"
               />
-              {fieldErrors.pemilik && (
-                <p className="text-xs text-destructive">{fieldErrors.pemilik[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.pemilik)} />
+            </Field>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="kecamatan" className="text-xs font-medium">
-                  Kecamatan <span className="text-destructive">*</span>
-                </Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field>
+                <FieldLabel htmlFor="kecamatan">
+                  Kecamatan *
+                </FieldLabel>
                 <Select
                   value={kecamatan}
                   onValueChange={(val) => {
                     if (val) setKecamatan(val);
                   }}
                 >
-                  <SelectTrigger id="kecamatan" className="w-full h-8 text-xs">
+                  <SelectTrigger id="kecamatan">
                     <SelectValue placeholder="Pilih Kecamatan" />
                   </SelectTrigger>
                   <SelectContent>
@@ -389,12 +395,12 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                     <SelectItem value="Nagawutung">Nagawutung</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
+              </Field>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="desa" className="text-xs font-medium">
-                  Desa / Kelurahan <span className="text-destructive">*</span>
-                </Label>
+              <Field>
+                <FieldLabel htmlFor="desa">
+                  Desa / Kelurahan *
+                </FieldLabel>
                 <Input
                   id="desa"
                   type="text"
@@ -402,17 +408,15 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                   onChange={(e) => setDesa(e.target.value)}
                   placeholder="Contoh: Lewoleba Utara"
                 />
-                {fieldErrors.desa && (
-                  <p className="text-xs text-destructive">{fieldErrors.desa[0]}</p>
-                )}
-              </div>
+                <FieldError errors={toFieldErrors(fieldErrors.desa)} />
+              </Field>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="titik_koordinat" className="text-xs font-medium">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field>
+                <FieldLabel htmlFor="titik_koordinat">
                   Titik Koordinat GPS
-                </Label>
+                </FieldLabel>
                 <Input
                   id="titik_koordinat"
                   type="text"
@@ -421,15 +425,13 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                   placeholder="-8.36841, 123.53812"
                   className="font-mono"
                 />
-                {fieldErrors.titik_koordinat && (
-                  <p className="text-xs text-destructive">{fieldErrors.titik_koordinat[0]}</p>
-                )}
-              </div>
+                <FieldError errors={toFieldErrors(fieldErrors.titik_koordinat)} />
+              </Field>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="komoditas_ikan" className="text-xs font-medium">
+              <Field>
+                <FieldLabel htmlFor="komoditas_ikan">
                   Komoditas Ikan
-                </Label>
+                </FieldLabel>
                 <Input
                   id="komoditas_ikan"
                   type="text"
@@ -437,7 +439,7 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                   onChange={(e) => setKomoditasIkan(e.target.value)}
                   placeholder="Contoh: Ikan Nila, Lele, Kerapu"
                 />
-              </div>
+              </Field>
             </div>
 
             <DialogFooter className="pt-2">

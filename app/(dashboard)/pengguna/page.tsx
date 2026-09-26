@@ -1,8 +1,8 @@
 import React from 'react';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { getCurrentUser } from '@/lib/auth';
-import { redirect } from 'next/navigation';
+import { auth, getCurrentUser } from '@/lib/auth';
+import { headers } from 'next/headers';
 import { PenggunaClient } from './client';
 import { ShieldAlert } from 'lucide-react';
 
@@ -21,26 +21,39 @@ export default async function PenggunaPage() {
     );
   }
 
-  const [users, allUji] = await Promise.all([
-    db.query.user.findMany({
-      orderBy: [schema.user.role, schema.user.name],
+  const reqHeaders = await headers();
+
+  const [{ users }, allUji] = await Promise.all([
+    auth.api.listUsers({
+      query: {
+        limit: 500,
+        sortBy: 'name',
+        sortDirection: 'asc',
+      },
+      headers: reqHeaders,
     }),
     db.select({
       petugas_uji: schema.ujiKualitasAir.petugas_uji,
     }).from(schema.ujiKualitasAir),
   ]);
 
-  const enrichedUsers = users.map((u) => {
-    const uName = u.name.trim().toLowerCase();
-    const uEmail = u.email.trim().toLowerCase();
-    const uId = u.id.trim().toLowerCase();
+  const enrichedUsers = users.map((u: any) => {
+    const uName = (u.name || '').trim().toLowerCase();
+    const uEmail = (u.email || '').trim().toLowerCase();
+    const uId = (u.id || '').trim().toLowerCase();
     const count = allUji.filter((uji) => {
       const p = uji.petugas_uji?.trim().toLowerCase();
       return p === uName || p === uEmail || p === uId;
     }).length;
 
     return {
-      ...u,
+      id: u.id,
+      name: u.name,
+      email: u.email,
+      role: u.role || 'petugas_lapangan',
+      aktif: !u.banned,
+      banned: u.banned ?? false,
+      createdAt: new Date(u.createdAt),
       transactionCount: count,
       isUsed: count > 0,
     };

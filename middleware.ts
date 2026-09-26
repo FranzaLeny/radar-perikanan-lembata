@@ -7,71 +7,33 @@ export function middleware(request: NextRequest) {
   // 1. Rute publik yang bebas diakses siapa saja
   if (
     pathname.startsWith('/verifikasi') || // Verifikasi QR Publik (Wajib Terbuka)
-    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/api/auth') ||   // Endpoint BetterAuth API
     pathname.startsWith('/_next') ||
     pathname.startsWith('/static') ||
     pathname === '/favicon.ico' ||
-    pathname.includes('.') // file statis seperti css, js, svg, png
+    pathname === '/login' ||              // Halaman Login selalu bebas diakses (hindari redirect loop)
+    pathname.includes('.')                // file statis
   ) {
     return NextResponse.next();
   }
 
-  const sessionToken = request.cookies.get('better-auth.session_token')?.value;
-  const userCookie = request.cookies.get('sipeka_auth_user')?.value;
-
-  // Jika mengakses halaman login
-  if (pathname === '/login') {
-    if (sessionToken && userCookie) {
-      // Jika sudah login, redirect ke dashboard
-      return NextResponse.redirect(new URL('/dashboard', request.url));
-    }
-    return NextResponse.next();
-  }
+  // Cek apakah ada cookie session token BetterAuth (mendukung HTTP lokal maupun HTTPS __Secure- prefix)
+  const hasSession = request.cookies.getAll().some(
+    (c) => c.name.endsWith('session_token') && Boolean(c.value)
+  );
 
   // Jika mengakses root '/' -> arahkan ke '/dashboard' atau '/login'
   if (pathname === '/') {
-    if (sessionToken && userCookie) {
-      return NextResponse.redirect(new URL('/dashboard', request.url));
-    } else {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
+    return NextResponse.redirect(
+      new URL(hasSession ? '/dashboard' : '/login', request.url)
+    );
   }
 
-  // 3. Proteksi rute internal (Dashboard dan Modul)
-  if (!sessionToken) {
+  // 2. Proteksi rute internal (Dashboard dan Modul)
+  if (!hasSession) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('callbackUrl', pathname);
     return NextResponse.redirect(loginUrl);
-  }
-
-  // 4. Role-Based Access Control (RBAC)
-  if (userCookie) {
-    try {
-      const user = JSON.parse(userCookie);
-      const role = user.role;
-
-      // /pengguna (Manajemen User) HANYA untuk role 'admin'
-      if (pathname.startsWith('/pengguna') && role !== 'admin') {
-        return NextResponse.redirect(new URL('/dashboard?error=unauthorized', request.url));
-      }
-
-      // /instruksi-kerja, /baku-mutu, /lokasi-kolam untuk admin dan pengelola_mutu
-      if (
-        (pathname.startsWith('/instruksi-kerja') ||
-          pathname.startsWith('/baku-mutu') ||
-          pathname.startsWith('/lokasi-kolam')) &&
-        role !== 'admin' &&
-        role !== 'pengelola_mutu' &&
-        role !== 'kepala_dinas' // Kadis boleh melihat (view)
-      ) {
-        if (pathname.includes('/input') || pathname.includes('/tambah') || pathname.includes('/edit')) {
-          return NextResponse.redirect(new URL('/dashboard?error=unauthorized', request.url));
-        }
-      }
-    } catch {
-      // jika cookie korup, paksa login ulang
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
   }
 
   return NextResponse.next();

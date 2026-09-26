@@ -13,7 +13,6 @@ import {
 } from '@/lib/validasi-baku-mutu';
 import { PrintButton } from '@/components/print-button';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import {
   Table,
   TableHeader,

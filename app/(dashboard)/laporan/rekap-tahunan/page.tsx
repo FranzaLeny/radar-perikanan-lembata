@@ -12,7 +12,7 @@ import {
   TableRow,
   TableCell,
 } from '@/components/ui/table';
-import { ArrowLeft, Droplets, FileSpreadsheet } from 'lucide-react';
+import { ArrowLeft, Droplets } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function RekapTahunanPage() {

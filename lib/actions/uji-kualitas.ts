@@ -4,14 +4,13 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import {
   inputUjiKualitasSchema,
-  type InputUjiKualitas,
 } from '@/lib/validations/uji-kualitas';
 import {
   hitungStatusKelayakan,
   hitungKesimpulan,
   type StatusKelayakan,
 } from '@/lib/validations/../validasi-baku-mutu';
-import { eq, inArray, desc } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 export async function submitHasilUjiAction(payload: unknown) {

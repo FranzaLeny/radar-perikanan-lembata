@@ -11,7 +11,11 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
 import {
   Select,
   SelectContent,
@@ -21,6 +25,7 @@ import {
 } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { createLokasiKolamAction } from '@/lib/actions/lokasi-kolam';
+import { toFieldErrors } from '@/lib/utils';
 import { MapPin, Loader2 } from 'lucide-react';
 
 export interface LokasiItem {
@@ -133,81 +138,82 @@ export function QuickAddLokasiDialog({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-3 py-3 text-xs">
-            <div className="space-y-1">
-              <Label className="text-xs">Nama Kelompok Pembudidaya (Pokdakan) *</Label>
+          <div className="space-y-4 py-3">
+            <Field>
+              <FieldLabel htmlFor="quickNamaPokdakan">
+                Nama Kelompok Pembudidaya (Pokdakan) *
+              </FieldLabel>
               <Input
+                id="quickNamaPokdakan"
                 value={namaPokdakan}
                 onChange={(e) => setNamaPokdakan(e.target.value)}
                 placeholder="Contoh: Pokdakan Mina Segara Lembata"
                 autoFocus
               />
-              {fieldErrors.nama_pokdakan && (
-                <p className="text-xs text-destructive">{fieldErrors.nama_pokdakan[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.nama_pokdakan)} />
+            </Field>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="space-y-1">
-                <Label className="text-xs">Penanggung Jawab / Pemilik *</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field>
+                <FieldLabel htmlFor="quickPemilik">Penanggung Jawab / Pemilik *</FieldLabel>
                 <Input
+                  id="quickPemilik"
                   value={pemilik}
                   onChange={(e) => setPemilik(e.target.value)}
                   placeholder="Nama ketua/pemilik"
                 />
-                {fieldErrors.pemilik && (
-                  <p className="text-xs text-destructive">{fieldErrors.pemilik[0]}</p>
-                )}
-              </div>
+                <FieldError errors={toFieldErrors(fieldErrors.pemilik)} />
+              </Field>
 
-              <div className="space-y-1">
-                <Label className="text-xs">Komoditas Ikan</Label>
+              <Field>
+                <FieldLabel htmlFor="quickKomoditas">Komoditas Ikan</FieldLabel>
                 <Input
+                  id="quickKomoditas"
                   value={komoditasIkan}
                   onChange={(e) => setKomoditasIkan(e.target.value)}
                   placeholder="Bandeng, Nila, Kerapu..."
                 />
-              </div>
+              </Field>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
-              <div className="space-y-1">
-                <Label className="text-xs">Kecamatan *</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field>
+                <FieldLabel>Kecamatan *</FieldLabel>
                 <Select value={kecamatan} onValueChange={(val) => setKecamatan(val || 'Nubatukan')}>
                   <SelectTrigger>
                     <SelectValue placeholder="Pilih Kecamatan" />
                   </SelectTrigger>
                   <SelectContent>
                     {KECAMATAN_LEMBATA.map((kec) => (
-                      <SelectItem key={kec} value={kec} className="text-xs">
+                      <SelectItem key={kec} value={kec}>
                         {kec}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </Field>
 
-              <div className="space-y-1">
-                <Label className="text-xs">Desa / Kelurahan *</Label>
+              <Field>
+                <FieldLabel htmlFor="quickDesa">Desa / Kelurahan *</FieldLabel>
                 <Input
+                  id="quickDesa"
                   value={desa}
                   onChange={(e) => setDesa(e.target.value)}
                   placeholder="Nama desa"
                 />
-                {fieldErrors.desa && (
-                  <p className="text-xs text-destructive">{fieldErrors.desa[0]}</p>
-                )}
-              </div>
+                <FieldError errors={toFieldErrors(fieldErrors.desa)} />
+              </Field>
             </div>
 
-            <div className="space-y-1">
-              <Label className="text-xs">Koordinat GPS (Opsional)</Label>
+            <Field>
+              <FieldLabel htmlFor="quickKoordinat">Koordinat GPS (Opsional)</FieldLabel>
               <Input
+                id="quickKoordinat"
                 value={titikKoordinat}
                 onChange={(e) => setTitikKoordinat(e.target.value)}
                 placeholder="-8.3692, 123.5512"
               />
-            </div>
+            </Field>
           </div>
 
           <DialogFooter className="gap-2 pt-2">

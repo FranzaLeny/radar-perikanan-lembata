@@ -3,28 +3,20 @@
 import React, { useState } from 'react';
 import {
   TrendingUp,
-  MapPin,
-  Scale,
 } from 'lucide-react';
 import { GrafikTren } from '@/components/grafik-tren';
 import { BadgeStatus } from '@/components/badge-status';
 import { Badge } from '@/components/ui/badge';
-import { Label } from '@/components/ui/label';
+import { Field, FieldLabel } from '@/components/ui/field';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+
+
 import {
   Combobox,
   ComboboxContent,
@@ -194,10 +186,10 @@ export function TrenClient({
       <Card className="border-border bg-card shadow-xs">
         <CardContent className="p-4 space-y-3 text-xs">
           <div className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="w-full sm:w-auto flex-1 space-y-1.5">
-              <Label className="text-xs font-medium text-muted-foreground">
+            <Field className="w-full sm:w-auto flex-1">
+              <FieldLabel>
                 Pilih Parameter Kualitas Air:
-              </Label>
+              </FieldLabel>
               <Combobox<{ value: string; label: string; sublabel?: string }>
                 items={parameterOptions}
                 value={selectedParameterOption}
@@ -209,7 +201,6 @@ export function TrenClient({
                 <ComboboxInput
                   placeholder="Cari atau pilih parameter..."
                   showClear
-                  className="w-full text-xs font-medium"
                 />
                 <ComboboxContent>
                   <ComboboxEmpty>Parameter tidak ditemukan.</ComboboxEmpty>
@@ -217,7 +208,7 @@ export function TrenClient({
                     {(item) => (
                       <ComboboxItem key={item.value} value={item}>
                         <div className="flex flex-col py-0.5 text-left">
-                          <span className="font-medium text-xs text-foreground">{item.label}</span>
+                          <span className="font-medium text-foreground">{item.label}</span>
                           {item.sublabel && (
                             <span className="text-xs text-muted-foreground">{item.sublabel}</span>
                           )}
@@ -227,12 +218,12 @@ export function TrenClient({
                   </ComboboxList>
                 </ComboboxContent>
               </Combobox>
-            </div>
+            </Field>
 
-            <div className="w-full sm:w-auto flex-1 space-y-1.5">
-              <Label className="text-xs font-medium text-muted-foreground">
+            <Field className="w-full sm:w-auto flex-1">
+              <FieldLabel>
                 Filter Lokasi / Pokdakan:
-              </Label>
+              </FieldLabel>
               <Combobox<{ value: string; label: string; sublabel: string }>
                 items={lokasiOptions}
                 value={selectedLokasiOption}
@@ -244,7 +235,6 @@ export function TrenClient({
                 <ComboboxInput
                   placeholder="Cari atau pilih lokasi kolam..."
                   showClear
-                  className="w-full text-xs"
                 />
                 <ComboboxContent>
                   <ComboboxEmpty>Lokasi kolam tidak ditemukan.</ComboboxEmpty>
@@ -252,7 +242,7 @@ export function TrenClient({
                     {(item) => (
                       <ComboboxItem key={item.value} value={item}>
                         <div className="flex flex-col py-0.5 text-left">
-                          <span className="font-medium text-xs text-foreground">{item.label}</span>
+                          <span className="font-medium text-foreground">{item.label}</span>
                           {item.sublabel && (
                             <span className="text-xs text-muted-foreground">{item.sublabel}</span>
                           )}
@@ -262,7 +252,7 @@ export function TrenClient({
                   </ComboboxList>
                 </ComboboxContent>
               </Combobox>
-            </div>
+            </Field>
           </div>
 
           {/* Indikator Filter Aktif */}

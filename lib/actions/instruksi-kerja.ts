@@ -2,9 +2,9 @@
 
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { instruksiKerjaSchema, type InstruksiKerjaInput } from '@/lib/validations/instruksi-kerja';
+import { instruksiKerjaSchema } from '@/lib/validations/instruksi-kerja';
 import { generateIkHash } from '@/lib/qr';
-import { eq, desc } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 export async function createInstruksiKerjaAction(formData: FormData | Record<string, unknown>) {

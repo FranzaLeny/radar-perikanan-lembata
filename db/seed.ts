@@ -1,7 +1,7 @@
 import { db } from './index';
 import { masterBakuMutu, instruksiKerja, lokasiKolam, masterPegawai, user, account } from './schema';
 import { generateIkHash } from '../lib/qr';
-import { sql } from 'drizzle-orm';
+import { hashPassword } from 'better-auth/crypto';
 
 async function seed() {
   console.log('[SIPEKA Seed] 🌊 Memulai penyemaian data awal...');
@@ -219,14 +219,12 @@ async function seed() {
         name: u.name,
         email: u.email,
         role: u.role,
-        aktif: true,
+        banned: false,
         emailVerified: true,
       })
       .onConflictDoNothing();
 
-    // Password default: "password123"
-    // Better auth password hashing uses scrypt or bcrypt
-    // But we also support a direct simple auth fallback session helper in lib/auth.ts
+    const hashedPassword = await hashPassword('password123');
     await db
       .insert(account)
       .values({
@@ -234,7 +232,7 @@ async function seed() {
         accountId: u.id,
         providerId: 'credential',
         userId: u.id,
-        password: 'password123',
+        password: hashedPassword,
       })
       .onConflictDoNothing();
   }

@@ -2,7 +2,7 @@
 
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { lokasiKolamSchema, type LokasiKolamInput } from '@/lib/validations/lokasi-kolam';
+import { lokasiKolamSchema } from '@/lib/validations/lokasi-kolam';
 import { eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 

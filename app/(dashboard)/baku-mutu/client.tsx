@@ -7,20 +7,26 @@ import {
   History,
   FileEdit,
   Loader2,
-  Info,
   Search,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
+import { toFieldErrors } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import {
   Table,
@@ -235,26 +241,29 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
 
         {/* Search Input & Indikator Komparasi */}
         <div className="flex items-center gap-2">
-          <div className="relative w-full sm:w-64">
-            <Search className="size-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-            <Input
+          <InputGroup className="w-full sm:w-64">
+            <InputGroupAddon align="inline-start">
+              <Search className="size-4 text-muted-foreground" />
+            </InputGroupAddon>
+            <InputGroupInput
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Cari parameter atau regulasi..."
-              className="pl-8 pr-7 text-xs h-8"
             />
             {searchTerm && (
-              <button
-                type="button"
-                onClick={() => setSearchTerm('')}
-                className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-                title="Hapus pencarian"
-              >
-                <X className="size-3.5" />
-              </button>
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  type="button"
+                  size="icon-xs"
+                  onClick={() => setSearchTerm('')}
+                  title="Hapus pencarian"
+                >
+                  <X className="size-3.5" />
+                </InputGroupButton>
+              </InputGroupAddon>
             )}
-          </div>
+          </InputGroup>
 
           {filteredList.length < list.length ? (
             <div className="flex items-center gap-1.5 shrink-0">
@@ -386,10 +395,10 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
           </DialogHeader>
 
           <form onSubmit={handleSubmit} className="space-y-4 py-2">
-            <div className="space-y-1.5">
-              <Label htmlFor="parameter" className="text-xs font-medium">
-                Nama Parameter <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="parameter">
+                Nama Parameter *
+              </FieldLabel>
               <Input
                 id="parameter"
                 type="text"
@@ -398,15 +407,13 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
                 placeholder="Contoh: Derajat Keasaman (pH)"
                 disabled={isRevisionMode}
               />
-              {fieldErrors.parameter && (
-                <p className="text-xs text-destructive">{fieldErrors.parameter[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.parameter)} />
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="satuan" className="text-xs font-medium">
-                Satuan Pengukuran <span className="text-destructive">*</span>
-              </Label>
+            <Field>
+              <FieldLabel htmlFor="satuan">
+                Satuan Pengukuran *
+              </FieldLabel>
               <Input
                 id="satuan"
                 type="text"
@@ -415,16 +422,14 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
                 placeholder="Contoh: mg/L, °C, ppt, NTU"
                 disabled={isRevisionMode}
               />
-              {fieldErrors.satuan && (
-                <p className="text-xs text-destructive">{fieldErrors.satuan[0]}</p>
-              )}
-            </div>
+              <FieldError errors={toFieldErrors(fieldErrors.satuan)} />
+            </Field>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-1.5">
-                <Label htmlFor="nilai_min" className="text-xs font-medium">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Field>
+                <FieldLabel htmlFor="nilai_min">
                   Batas Nilai Min (Boleh Kosong)
-                </Label>
+                </FieldLabel>
                 <Input
                   id="nilai_min"
                   type="number"
@@ -434,12 +439,12 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
                   placeholder="Contoh: 6.5"
                   className="font-mono"
                 />
-              </div>
+              </Field>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="nilai_max" className="text-xs font-medium">
+              <Field>
+                <FieldLabel htmlFor="nilai_max">
                   Batas Nilai Max (Boleh Kosong)
-                </Label>
+                </FieldLabel>
                 <Input
                   id="nilai_max"
                   type="number"
@@ -449,13 +454,13 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
                   placeholder="Contoh: 8.5"
                   className="font-mono"
                 />
-              </div>
+              </Field>
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="dasar_regulasi" className="text-xs font-medium">
+            <Field>
+              <FieldLabel htmlFor="dasar_regulasi">
                 Dasar Regulasi Acuan
-              </Label>
+              </FieldLabel>
               <Input
                 id="dasar_regulasi"
                 type="text"
@@ -463,7 +468,7 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
                 onChange={(e) => setDasarRegulasi(e.target.value)}
                 placeholder="Contoh: PP No. 22 Tahun 2021 Lampiran VI"
               />
-            </div>
+            </Field>
 
             <DialogFooter className="pt-2">
               <Button

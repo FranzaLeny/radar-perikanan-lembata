@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { loginSchema } from '@/lib/validations/auth';
-import { loginAction } from '@/lib/actions/auth';
+import { authClient } from '@/lib/auth-client';
 import {
   Droplets,
   Lock,
@@ -16,8 +16,18 @@ import {
   EyeOff,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldLabel,
+  FieldError,
+} from '@/components/ui/field';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
+import { toFieldErrors } from '@/lib/utils';
 import {
   Card,
   CardContent,
@@ -34,13 +44,29 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const errorParam = searchParams.get('error');
+  const { data: session, isPending: isSessionPending } = authClient.useSession();
+
+  React.useEffect(() => {
+    if (!isSessionPending && session?.user && !errorParam) {
+      router.replace('/dashboard');
+    }
+  }, [session, isSessionPending, errorParam, router]);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(
+    errorParam === 'session_invalid'
+      ? 'Sesi Anda telah kedaluwarsa atau akun tidak ditemukan dalam sistem. Silakan masuk kembali.'
+      : errorParam === 'unauthorized'
+      ? 'Akses ditolak: Anda tidak memiliki wewenang untuk halaman tersebut.'
+      : null
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDemoSelect = (demoEmail: string) => {
@@ -64,16 +90,35 @@ export default function LoginPage() {
 
     setIsLoading(true);
     try {
-      const result = await loginAction({ email, password });
-      if (result.success) {
+      const candidateEmails = getCandidateEmails(email);
+      let isSuccess = false;
+      let lastErrMsg = 'Email atau kata sandi tidak cocok.';
+
+      for (const candEmail of candidateEmails) {
+        const { data, error } = await authClient.signIn.email({
+          email: candEmail,
+          password,
+        });
+
+        if (!error && data) {
+          isSuccess = true;
+          break;
+        }
+
+        if (error) {
+          lastErrMsg = error.message || lastErrMsg;
+        }
+      }
+
+      if (isSuccess) {
         toast.success('Berhasil masuk ke sistem SIPEKA!');
         router.push('/dashboard');
         router.refresh();
       } else {
-        setErrorMessage(result.message || 'Gagal masuk. Periksa kembali email dan kata sandi.');
-        toast.error(result.message || 'Gagal masuk.');
+        setErrorMessage(lastErrMsg);
+        toast.error(lastErrMsg);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
       setErrorMessage('Terjadi gangguan jaringan atau server.');
       toast.error('Terjadi gangguan jaringan.');
@@ -109,57 +154,58 @@ export default function LoginPage() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label htmlFor="email" className="text-xs font-medium">
+          <Field>
+            <FieldLabel htmlFor="email">
               Alamat Email
-            </Label>
-            <div className="relative">
-              <Mail className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-              <Input
+            </FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <Mail className="size-4 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
                 id="email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="nama@sipeka.lembata.go.id"
-                className="pl-10 text-xs h-10"
                 autoComplete="email"
                 required
               />
-            </div>
-            {fieldErrors.email && (
-              <p className="text-xs text-destructive">{fieldErrors.email[0]}</p>
-            )}
-          </div>
+            </InputGroup>
+            <FieldError errors={toFieldErrors(fieldErrors.email)} />
+          </Field>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="password" className="text-xs font-medium">
+          <Field>
+            <FieldLabel htmlFor="password">
               Kata Sandi
-            </Label>
-            <div className="relative">
-              <Lock className="size-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-              <Input
+            </FieldLabel>
+            <InputGroup>
+              <InputGroupAddon align="inline-start">
+                <Lock className="size-4 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="pl-10 pr-10 text-xs font-mono h-10"
+                className="font-mono"
                 autoComplete="current-password"
                 required
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-sm cursor-pointer"
-                title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
-              >
-                {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-              </button>
-            </div>
-            {fieldErrors.password && (
-              <p className="text-xs text-destructive">{fieldErrors.password[0]}</p>
-            )}
-          </div>
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  type="button"
+                  size="icon-xs"
+                  onClick={() => setShowPassword(!showPassword)}
+                  title={showPassword ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+                >
+                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                </InputGroupButton>
+              </InputGroupAddon>
+            </InputGroup>
+            <FieldError errors={toFieldErrors(fieldErrors.password)} />
+          </Field>
 
           <Button
             type="submit"
@@ -248,3 +294,65 @@ export default function LoginPage() {
     </Card>
   );
 }
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function getCandidateEmails(input: string): string[] {
+  const trimmed = input.toLowerCase().trim();
+  const candidates = new Set<string>([trimmed]);
+
+  // Variasi domain sipeka & minamutu
+  candidates.add(trimmed.replace('@minamutu.lembata.go.id', '@sipeka.lembata.go.id'));
+  candidates.add(trimmed.replace('@sipeka.lembata.go.id', '@minamutu.lembata.go.id'));
+
+  // Variasi username pendek tanpa domain
+  if (!trimmed.includes('@')) {
+    if (trimmed === 'admin' || trimmed === 'administrator') {
+      candidates.add('admin@sipeka.lembata.go.id');
+      candidates.add('admin@minamutu.lembata.go.id');
+    } else if (trimmed === 'pengelola' || trimmed === 'mutu') {
+      candidates.add('pengelola@sipeka.lembata.go.id');
+      candidates.add('mutu@minamutu.lembata.go.id');
+      candidates.add('pengelola@minamutu.lembata.go.id');
+      candidates.add('mutu@sipeka.lembata.go.id');
+    } else if (trimmed === 'petugas') {
+      candidates.add('petugas@sipeka.lembata.go.id');
+      candidates.add('petugas@minamutu.lembata.go.id');
+    } else if (trimmed === 'kadin' || trimmed === 'kadis' || trimmed === 'kepala') {
+      candidates.add('kadin@sipeka.lembata.go.id');
+      candidates.add('kadis@minamutu.lembata.go.id');
+      candidates.add('kadin@minamutu.lembata.go.id');
+      candidates.add('kadis@sipeka.lembata.go.id');
+    } else {
+      candidates.add(`${trimmed}@sipeka.lembata.go.id`);
+      candidates.add(`${trimmed}@minamutu.lembata.go.id`);
+    }
+  }
+
+  // Alias mutu <-> pengelola dan kadis <-> kadin
+  if (trimmed.includes('mutu@')) {
+    candidates.add(trimmed.replace('mutu@', 'pengelola@'));
+    candidates.add(trimmed.replace('mutu@minamutu', 'pengelola@sipeka'));
+  }
+  if (trimmed.includes('pengelola@')) {
+    candidates.add(trimmed.replace('pengelola@', 'mutu@'));
+    candidates.add(trimmed.replace('pengelola@sipeka', 'mutu@minamutu'));
+  }
+  if (trimmed.includes('kadis@')) {
+    candidates.add(trimmed.replace('kadis@', 'kadin@'));
+    candidates.add(trimmed.replace('kadis@minamutu', 'kadin@sipeka'));
+  }
+  if (trimmed.includes('kadin@')) {
+    candidates.add(trimmed.replace('kadin@', 'kadis@'));
+    candidates.add(trimmed.replace('kadin@sipeka', 'kadis@minamutu'));
+  }
+
+  return Array.from(candidates);
+}
+

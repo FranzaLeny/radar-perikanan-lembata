@@ -10,14 +10,18 @@ import {
   User,
   MapPin,
   Search,
-  Eye,
   ChevronDown,
   ChevronUp,
   X,
 } from 'lucide-react';
 import { BadgeStatus } from '@/components/badge-status';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
 import { Badge } from '@/components/ui/badge';
 import {
   Select,
@@ -29,7 +33,6 @@ import {
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -129,25 +132,29 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
       <Card className="border-border bg-card shadow-xs">
         <CardContent className="p-3.5 space-y-3 text-xs">
           <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
-            <div className="relative flex-1">
-              <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-              <Input
+            <InputGroup className="flex-1">
+              <InputGroupAddon align="inline-start">
+                <Search className="size-4 text-muted-foreground" />
+              </InputGroupAddon>
+              <InputGroupInput
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Cari nomor sampel, Pokdakan, desa, atau petugas..."
-                className="pl-8 pr-8 text-xs"
               />
               {searchTerm && (
-                <button
-                  type="button"
-                  onClick={() => setSearchTerm('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-                >
-                  <X className="size-3.5" />
-                </button>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    type="button"
+                    size="icon-xs"
+                    onClick={() => setSearchTerm('')}
+                    title="Hapus pencarian"
+                  >
+                    <X className="size-3.5" />
+                  </InputGroupButton>
+                </InputGroupAddon>
               )}
-            </div>
+            </InputGroup>
 
             <div className="flex flex-wrap items-center gap-2.5">
               <div className="flex items-center gap-1.5">
@@ -156,7 +163,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
                   value={selectedKecamatan}
                   onValueChange={(val) => setSelectedKecamatan(val || 'SEMUA')}
                 >
-                  <SelectTrigger className="h-8 w-[140px] text-xs">
+                  <SelectTrigger size="sm" className="w-[140px]">
                     <SelectValue placeholder="Pilih Wilayah" />
                   </SelectTrigger>
                   <SelectContent>
@@ -180,7 +187,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
                   value={selectedKesimpulan}
                   onValueChange={(val) => setSelectedKesimpulan(val || 'SEMUA')}
                 >
-                  <SelectTrigger className="h-8 w-[130px] text-xs">
+                  <SelectTrigger size="sm" className="w-[130px]">
                     <SelectValue placeholder="Pilih Status" />
                   </SelectTrigger>
                   <SelectContent>

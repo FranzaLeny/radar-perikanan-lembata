@@ -5,13 +5,17 @@ import {
   Printer,
   Search,
   X,
-  FileSpreadsheet,
 } from 'lucide-react';
 import Link from 'next/link';
 import { BadgeStatus } from '@/components/badge-status';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from '@/components/ui/input-group';
 import {
   Card,
   CardHeader,
@@ -104,26 +108,29 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
       <CardContent className="space-y-3">
         {/* Search Bar */}
         <div className="flex items-center gap-2">
-          <div className="relative flex-1">
-            <Search className="size-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-            <Input
+          <InputGroup className="flex-1">
+            <InputGroupAddon align="inline-start">
+              <Search className="size-4 text-muted-foreground" />
+            </InputGroupAddon>
+            <InputGroupInput
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari lokasi Pokdakan, desa, kecamatan, nomor LHU (SMP-XXXX), atau penguji..."
-              className="pl-8 pr-8 text-xs h-8"
             />
             {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
-                title="Hapus pencarian"
-              >
-                <X className="size-3.5" />
-              </button>
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton
+                  type="button"
+                  size="icon-xs"
+                  onClick={() => setSearchQuery('')}
+                  title="Hapus pencarian"
+                >
+                  <X className="size-3.5" />
+                </InputGroupButton>
+              </InputGroupAddon>
             )}
-          </div>
+          </InputGroup>
 
           {isFiltered && (
             <Button

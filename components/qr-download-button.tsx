@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Download, FileImage, FileCode, Check } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
