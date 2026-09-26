@@ -136,7 +136,7 @@ function LoginForm() {
         <CardTitle className="text-2xl font-bold font-heading tracking-tight">
           SIPEKA
         </CardTitle>
-        <CardDescription className="text-xs font-semibold text-primary">
+        <CardDescription className="text-xs font-semibold text-foreground">
           Sistem Pemantauan Kualitas Air Budidaya
         </CardDescription>
         <p className="text-xs text-muted-foreground mt-1">
@@ -229,7 +229,7 @@ function LoginForm() {
         {/* Demo Fast Login Pills */}
         <div className="pt-4 border-t border-border space-y-2.5">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            <ShieldCheck className="size-3.5 text-primary" />
+            <ShieldCheck className="size-3.5 text-muted-foreground" />
             <span>Akses Cepat Akun Demo (Uji Coba)</span>
           </div>
 

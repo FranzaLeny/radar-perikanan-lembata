@@ -170,7 +170,7 @@ export function TrenClient({
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+        <Badge variant="secondary" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider">
           <TrendingUp className="size-3" />
           <span>Analisis & Visualisasi Tren</span>
         </Badge>
@@ -265,7 +265,7 @@ export function TrenClient({
                     {lokasiList.find((l) => l.id === selectedLokasiId)?.nama_pokdakan}
                   </strong>{' '}
                   ({detailRows.length} titik pengukuran)
-                  <span className="text-primary font-medium ml-1">(Hasil Filter)</span>
+                  <span className="text-muted-foreground font-medium ml-1">(Hasil Filter)</span>
                 </span>
               </div>
               <Button
@@ -331,7 +331,7 @@ export function TrenClient({
               ) : (
                 detailRows.map((row) => (
                   <TableRow key={row.id} className="hover:bg-muted/30">
-                    <TableCell className="font-mono font-bold text-primary text-xs">
+                    <TableCell className="font-mono font-semibold text-foreground text-xs">
                       {row.nomor_sampel}
                     </TableCell>
                     <TableCell className="font-medium text-foreground text-xs">

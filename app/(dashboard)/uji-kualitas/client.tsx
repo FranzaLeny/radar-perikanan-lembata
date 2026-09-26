@@ -108,7 +108,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+          <Badge variant="secondary" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider">
             <TestTube2 className="size-3" />
             <span>Pengujian Mutu Air</span>
           </Badge>
@@ -208,7 +208,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
                 <span className="text-muted-foreground">
                   Menampilkan <strong className="text-foreground">{filtered.length}</strong> dari{' '}
                   <strong className="text-foreground">{initialList.length}</strong> data pengujian
-                  <span className="text-primary font-medium ml-1">(Hasil Filter)</span>
+                  <span className="text-muted-foreground font-medium ml-1">(Hasil Filter)</span>
                 </span>
               </div>
               <Button
@@ -246,7 +246,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
               {filtered.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} className="py-12 text-center text-muted-foreground text-xs">
-                    <TestTube2 className="size-8 mx-auto mb-2 opacity-40 text-primary" />
+                    <TestTube2 className="size-8 mx-auto mb-2 text-muted-foreground/50" />
                     <p className="font-semibold text-foreground">Belum ada data pengujian kualitas air.</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Klik tombol &ldquo;Input Hasil Uji Baru&rdquo; untuk merekam uji pertama.
@@ -259,12 +259,12 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
                   return (
                     <React.Fragment key={item.id}>
                       <TableRow className="hover:bg-muted/30">
-                        <TableCell className="font-mono font-bold text-primary text-xs">
+                        <TableCell className="font-mono font-semibold text-foreground text-xs">
                           {item.nomor_sampel}
                         </TableCell>
                         <TableCell className="text-xs">
                           <div className="text-foreground font-medium flex items-center gap-1.5">
-                            <Calendar className="size-3 text-primary" />
+                            <Calendar className="size-3 text-muted-foreground" />
                             {new Date(item.tanggal_pengambilan).toLocaleDateString('id-ID', {
                               day: 'numeric',
                               month: 'short',
@@ -283,7 +283,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
                             {item.lokasi?.nama_pokdakan || '-'}
                           </div>
                           <div className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                            <MapPin className="size-3 text-primary" />
+                            <MapPin className="size-3 text-muted-foreground" />
                             {item.lokasi?.desa}, {item.lokasi?.kecamatan}
                           </div>
                         </TableCell>
@@ -361,7 +361,7 @@ export function UjiKualitasListClient({ initialList }: { initialList: UjiItem[] 
                                         {dp.bakuMutu?.parameter}
                                       </p>
                                       <div className="flex items-baseline justify-between mt-1">
-                                        <span className="text-base font-bold font-mono text-primary">
+                                        <span className="text-base font-bold font-mono text-foreground">
                                           {dp.nilai_hasil}
                                         </span>
                                         <span className="text-xs text-muted-foreground font-mono">

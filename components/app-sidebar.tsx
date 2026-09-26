@@ -79,7 +79,7 @@ function CollapsibleSubMenu({ item }: { item: NavCollapsibleItem }) {
           isActive={item.isActive}
           render={<CollapsibleTrigger />}
         >
-          {item.icon && <item.icon className="size-4 text-primary" />}
+          {item.icon && <item.icon className="size-4" />}
           <span className="font-medium text-xs">{item.title}</span>
           <PlusIcon className="ml-auto size-3.5 group-aria-expanded/menu-button:hidden opacity-70" />
           <MinusIcon className="ml-auto size-3.5 hidden group-aria-expanded/menu-button:block opacity-70" />
@@ -298,7 +298,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
                           isActive={item.isActive}
                           render={<Link href={itemUrl} />}
                         >
-                          {item.icon && <item.icon className="size-4 text-primary" />}
+                          {item.icon && <item.icon className="size-4" />}
                           <span className="font-medium text-xs">{item.title}</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
@@ -314,7 +314,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
         <div className="flex items-center gap-2.5">
           <Link href="/profil" className="flex items-center gap-2.5 min-w-0 flex-1 hover:opacity-80 transition-opacity" title="Buka Profil">
             <Avatar className="size-8 ring-1 ring-border">
-              <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+              <AvatarFallback className="bg-muted text-foreground text-xs font-semibold">
                 {user?.name ? user.name.substring(0, 2).toUpperCase() : 'PL'}
               </AvatarFallback>
             </Avatar>

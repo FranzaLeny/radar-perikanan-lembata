@@ -578,9 +578,9 @@ export function FormUjiLapangan({
                             href={selectedIk.file_path}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-primary hover:underline font-medium inline-flex items-center gap-1 cursor-pointer"
+                            className="text-foreground hover:underline font-medium inline-flex items-center gap-1 cursor-pointer"
                           >
-                            <ExternalLink className="size-3" />
+                            <ExternalLink className="size-3 text-muted-foreground" />
                             <span>Buka Tautan Dokumen</span>
                           </a>
                         </div>
@@ -789,9 +789,9 @@ export function FormUjiLapangan({
           {/* Kolom Kanan: Evaluasi Kesimpulan & Petugas (1 Kolom) */}
           <div className="space-y-6">
             {/* Live Evaluasi Mutu */}
-            <Card className="border-primary/20 bg-primary/5">
+            <Card className="border-border bg-card shadow-xs">
               <CardHeader className="pb-2">
-                <div className="flex items-center gap-1.5 text-primary text-xs font-semibold uppercase tracking-wider">
+                <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-semibold uppercase tracking-wider">
                   <Sparkles className="size-3.5" />
                   <span>Evaluasi Kepatuhan Otomatis</span>
                 </div>

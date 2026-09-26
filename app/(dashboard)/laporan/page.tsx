@@ -32,7 +32,7 @@ export default async function LaporanHubPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-2 text-primary text-xs font-semibold uppercase tracking-wider mb-1">
+        <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold uppercase tracking-wider mb-1">
           <FileSpreadsheet className="size-4" />
           <span>Modul Pelaporan & Diseminasi</span>
         </div>
@@ -49,7 +49,7 @@ export default async function LaporanHubPage() {
         {/* Card 1: Rekap Tahunan */}
         <Card className="flex flex-col justify-between">
           <CardHeader>
-            <div className="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-2">
+            <div className="size-10 rounded-xl bg-muted text-foreground flex items-center justify-center mb-2">
               <FileSpreadsheet className="size-5" />
             </div>
             <CardTitle className="text-base font-heading">

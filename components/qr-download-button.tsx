@@ -81,7 +81,7 @@ export function QrDownloadButton({
           onClick={handleDownloadPng}
           className="text-xs gap-2 cursor-pointer"
         >
-          <FileImage className="size-3.5 text-primary" />
+          <FileImage className="size-3.5 text-muted-foreground" />
           <span>Format PNG (High-Res)</span>
         </DropdownMenuItem>
         {qrSvgString && (
@@ -89,7 +89,7 @@ export function QrDownloadButton({
             onClick={handleDownloadSvg}
             className="text-xs gap-2 cursor-pointer"
           >
-            <FileCode className="size-3.5 text-amber-600" />
+            <FileCode className="size-3.5 text-muted-foreground" />
             <span>Format Vektor SVG</span>
           </DropdownMenuItem>
         )}

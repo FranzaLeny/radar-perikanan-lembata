@@ -81,11 +81,10 @@ export default async function DashboardMainPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <Card className="relative overflow-hidden border-border bg-gradient-to-r from-card via-primary/5 to-card p-6 sm:p-8 shadow-xs">
-        <div className="absolute right-0 top-0 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+      <Card className="border-border bg-card p-6 sm:p-8 shadow-xs">
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="max-w-2xl">
-            <Badge variant="outline" className="gap-1.5 px-3 py-1 mb-3 border-primary/30 bg-primary/10 text-primary text-xs font-semibold">
+            <Badge variant="secondary" className="gap-1.5 px-3 py-1 mb-3 text-xs font-semibold">
               <Droplets className="size-3.5" />
               <span>Dinas Perikanan Kabupaten Lembata</span>
             </Badge>
@@ -173,7 +172,7 @@ export default async function DashboardMainPage() {
             <CardTitle className="text-xs font-medium text-muted-foreground">
               Titik Kolam Pokdakan
             </CardTitle>
-            <div className="p-2 rounded-lg bg-primary/10 text-primary">
+            <div className="p-2 rounded-lg bg-muted text-foreground">
               <MapPin className="size-4" />
             </div>
           </CardHeader>
@@ -182,7 +181,7 @@ export default async function DashboardMainPage() {
               <span className="text-2xl sm:text-3xl font-bold font-heading text-foreground">
                 {totalPokdakan[0]?.count || 0}
               </span>
-              <span className="text-xs text-primary font-medium">
+              <span className="text-xs text-muted-foreground font-medium">
                 Kelompok
               </span>
             </div>
@@ -198,7 +197,7 @@ export default async function DashboardMainPage() {
             <CardTitle className="text-xs font-medium text-muted-foreground">
               Instruksi Kerja (IK)
             </CardTitle>
-            <div className="p-2 rounded-lg bg-primary/10 text-primary">
+            <div className="p-2 rounded-lg bg-muted text-foreground">
               <FileCheck2 className="size-4" />
             </div>
           </CardHeader>
@@ -207,7 +206,7 @@ export default async function DashboardMainPage() {
               <span className="text-2xl sm:text-3xl font-bold font-heading text-foreground">
                 {totalIk[0]?.count || 0}
               </span>
-              <span className="text-xs text-primary font-medium">
+              <span className="text-xs text-muted-foreground font-medium">
                 SOP Terverifikasi
               </span>
             </div>
@@ -225,7 +224,7 @@ export default async function DashboardMainPage() {
           <CardHeader className="flex flex-row items-center justify-between pb-4 border-b">
             <div>
               <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                <ShieldCheck className="size-4 text-primary" />
+                <ShieldCheck className="size-4 text-muted-foreground" />
                 <span>Baku Mutu Aktif (SNI/KKP)</span>
               </CardTitle>
               <CardDescription className="text-xs mt-0.5">
@@ -233,7 +232,7 @@ export default async function DashboardMainPage() {
               </CardDescription>
             </div>
             <Link href="/baku-mutu">
-              <Button variant="ghost" size="sm" className="gap-1 text-xs text-primary font-semibold h-7 px-2">
+              <Button variant="ghost" size="sm" className="gap-1 text-xs text-foreground font-semibold h-7 px-2">
                 <span>Kelola</span>
                 <ArrowRight className="size-3" />
               </Button>
@@ -250,7 +249,7 @@ export default async function DashboardMainPage() {
                   <p className="font-semibold text-foreground">{bm.parameter}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">
                     Ambang:{' '}
-                    <span className="font-mono text-primary font-medium">
+                    <span className="font-mono text-foreground font-medium">
                       {bm.nilai_min !== null && bm.nilai_max !== null
                         ? `${bm.nilai_min} – ${bm.nilai_max}`
                         : bm.nilai_min !== null
@@ -274,7 +273,7 @@ export default async function DashboardMainPage() {
           <CardHeader className="flex flex-row items-center justify-between pb-4 border-b">
             <div>
               <CardTitle className="text-sm font-semibold flex items-center gap-2">
-                <TestTube2 className="size-4 text-primary" />
+                <TestTube2 className="size-4 text-muted-foreground" />
                 <span>Hasil Uji Mutu Air Terbaru</span>
               </CardTitle>
               <CardDescription className="text-xs mt-0.5">
@@ -282,7 +281,7 @@ export default async function DashboardMainPage() {
               </CardDescription>
             </div>
             <Link href="/uji-kualitas">
-              <Button variant="ghost" size="sm" className="gap-1 text-xs text-primary font-semibold h-7 px-2">
+              <Button variant="ghost" size="sm" className="gap-1 text-xs text-foreground font-semibold h-7 px-2">
                 <span>Lihat Semua</span>
                 <ArrowRight className="size-3" />
               </Button>

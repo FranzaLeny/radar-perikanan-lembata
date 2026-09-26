@@ -64,7 +64,7 @@ export function GrafikTren({
         <div>
           <CardTitle className="text-base font-semibold">{title}</CardTitle>
           <CardDescription className="text-xs mt-0.5">
-            Parameter: <span className="text-primary font-semibold">{parameterName}</span> ({satuan})
+            Parameter: <span className="text-foreground font-semibold">{parameterName}</span> ({satuan})
           </CardDescription>
         </div>
 

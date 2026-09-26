@@ -196,7 +196,7 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+          <Badge variant="secondary" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider">
             <Scale className="size-3" />
             <span>Master Regulasi</span>
           </Badge>
@@ -384,7 +384,7 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Scale className="size-4 text-primary" />
+              <Scale className="size-4 text-muted-foreground" />
               <span>{isRevisionMode ? `Revisi Ambang: ${selectedItem?.parameter}` : 'Tambah Parameter Baku Mutu'}</span>
             </DialogTitle>
             <DialogDescription>

@@ -52,14 +52,14 @@ export default async function HomePage() {
 
       {/* Hero Section */}
       <main className="w-full max-w-5xl mx-auto px-6 py-12 sm:py-20 text-center relative z-10 flex flex-col items-center">
-        <Badge variant="outline" className="gap-1.5 px-3.5 py-1 mb-6 border-primary/30 bg-primary/5 text-primary text-xs font-semibold">
+        <Badge variant="secondary" className="gap-1.5 px-3.5 py-1 mb-6 text-xs font-semibold">
           <ShieldCheck className="size-3.5" />
           <span>Sistem Informasi Mutu Air Budidaya Perikanan Terpadu</span>
         </Badge>
 
         <h2 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight leading-tight max-w-4xl">
           Standar Mutu Air Budidaya Andal untuk{' '}
-          <span className="text-primary">
+          <span className="text-foreground">
             Kesejahteraan Pembudidaya Lembata
           </span>
         </h2>
@@ -77,7 +77,7 @@ export default async function HomePage() {
           </Link>
           <Link href="/verifikasi/preview">
             <Button size="lg" variant="outline" className="w-full sm:w-auto gap-2 font-medium">
-              <QrCode className="size-4 text-primary" />
+              <QrCode className="size-4 text-muted-foreground" />
               <span>Simulasi Verifikasi QR</span>
             </Button>
           </Link>
@@ -87,7 +87,7 @@ export default async function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 text-left w-full">
           <Card className="border-border bg-card/60 backdrop-blur-xs shadow-xs">
             <CardContent className="p-6">
-              <div className="p-2.5 rounded-xl bg-primary/10 text-primary w-fit mb-3">
+              <div className="p-2.5 rounded-xl bg-muted text-foreground w-fit mb-3">
                 <Scale className="size-5" />
               </div>
               <h3 className="font-bold text-sm font-heading">Validasi Baku Mutu Otomatis</h3>
@@ -99,7 +99,7 @@ export default async function HomePage() {
 
           <Card className="border-border bg-card/60 backdrop-blur-xs shadow-xs">
             <CardContent className="p-6">
-              <div className="p-2.5 rounded-xl bg-primary/10 text-primary w-fit mb-3">
+              <div className="p-2.5 rounded-xl bg-muted text-foreground w-fit mb-3">
                 <QrCode className="size-5" />
               </div>
               <h3 className="font-bold text-sm font-heading">Integritas QR Code Unik</h3>
@@ -111,7 +111,7 @@ export default async function HomePage() {
 
           <Card className="border-border bg-card/60 backdrop-blur-xs shadow-xs">
             <CardContent className="p-6">
-              <div className="p-2.5 rounded-xl bg-primary/10 text-primary w-fit mb-3">
+              <div className="p-2.5 rounded-xl bg-muted text-foreground w-fit mb-3">
                 <TrendingUp className="size-5" />
               </div>
               <h3 className="font-bold text-sm font-heading">Analisis Tren & Peringatan</h3>

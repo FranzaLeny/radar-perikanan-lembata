@@ -171,7 +171,7 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+          <Badge variant="secondary" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider">
             <MapPin className="size-3" />
             <span>Master Data Kolam</span>
           </Badge>
@@ -283,12 +283,12 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                       {item.pemilik}
                     </TableCell>
                     <TableCell className="text-xs">
-                      <div className="text-primary font-medium">{item.kecamatan}</div>
+                      <div className="text-foreground font-medium">{item.kecamatan}</div>
                       <div className="text-xs text-muted-foreground">Desa {item.desa}</div>
                     </TableCell>
                     <TableCell className="text-xs">
                       <Badge variant="secondary" className="gap-1 text-xs font-normal">
-                        <Fish className="size-3 text-primary" />
+                        <Fish className="size-3 text-muted-foreground" />
                         {item.komoditas_ikan || 'Campuran'}
                       </Badge>
                     </TableCell>
@@ -298,10 +298,10 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
                           href={`https://maps.google.com/?q=${item.titik_koordinat}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 font-mono text-xs text-primary hover:underline"
+                          className="inline-flex items-center gap-1 font-mono text-xs text-foreground hover:underline"
                           title="Buka di Google Maps"
                         >
-                          <Compass className="size-3.5" />
+                          <Compass className="size-3.5 text-muted-foreground" />
                           <span>{item.titik_koordinat}</span>
                         </a>
                       ) : (
@@ -332,7 +332,7 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <MapPin className="size-4 text-primary" />
+              <MapPin className="size-4 text-muted-foreground" />
               <span>Registrasi Lokasi Kolam Baru</span>
             </DialogTitle>
             <DialogDescription>

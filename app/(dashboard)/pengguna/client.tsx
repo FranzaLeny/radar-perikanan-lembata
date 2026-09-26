@@ -302,7 +302,7 @@ export function PenggunaClient({
       case 'pengelola_mutu':
         return <Badge variant="secondary" className="text-xs">Pengelola Mutu</Badge>;
       case 'petugas_lapangan':
-        return <Badge variant="outline" className="border-primary/40 text-primary text-xs">Petugas Lapangan</Badge>;
+        return <Badge variant="outline" className="text-xs">Petugas Lapangan</Badge>;
       case 'kepala_dinas':
         return <Badge variant="outline" className="border-amber-400 text-amber-600 dark:text-amber-400 text-xs">Kepala Dinas</Badge>;
       default:
@@ -325,7 +325,7 @@ export function PenggunaClient({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+          <Badge variant="secondary" className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider">
             <Users2 className="size-3" />
             <span>Manajemen Akses & RBAC</span>
           </Badge>
@@ -432,7 +432,7 @@ export function PenggunaClient({
                     <TableCell className="font-semibold text-foreground text-xs">
                       <div className="flex items-center gap-2.5">
                         <Avatar className="size-7 ring-1 ring-border">
-                          <AvatarFallback className="bg-primary/10 text-primary text-xs font-bold">
+                          <AvatarFallback className="bg-muted text-foreground text-xs font-semibold">
                             {u.name.charAt(0).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
@@ -481,7 +481,7 @@ export function PenggunaClient({
                               onClick={() => handleOpenEditRole(u)}
                               className="text-xs gap-2 cursor-pointer"
                             >
-                              <KeyRound className="size-3.5 text-primary" />
+                              <KeyRound className="size-3.5 text-muted-foreground" />
                               <span>Ubah Wewenang (Role)</span>
                             </DropdownMenuItem>
                           </DropdownMenuGroup>
@@ -550,7 +550,7 @@ export function PenggunaClient({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <ShieldCheck className="size-4 text-primary" />
+              <ShieldCheck className="size-4 text-muted-foreground" />
               <span>Ubah Wewenang Akses Pengguna</span>
             </DialogTitle>
             <DialogDescription className="text-xs">
@@ -613,7 +613,7 @@ export function PenggunaClient({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Users2 className="size-4 text-primary" />
+              <Users2 className="size-4 text-muted-foreground" />
               <span>Registrasi Akun Pengguna Baru</span>
             </DialogTitle>
             <DialogDescription className="text-xs">

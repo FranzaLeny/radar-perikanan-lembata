@@ -46,7 +46,7 @@ export default async function InputUjiKualitasPage({
             </Button>
           </Link>
           <div className="flex items-center gap-2">
-            <Badge variant="outline" className="gap-1.5 px-2.5 py-0.5 text-primary border-primary/30 bg-primary/5 text-xs font-semibold uppercase tracking-wider">
+            <Badge variant="secondary" className="gap-1.5 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider">
               <TestTube2 className="size-3" />
               <span>Entri Sampling Lapangan</span>
             </Badge>

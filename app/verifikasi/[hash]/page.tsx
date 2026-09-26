@@ -108,7 +108,7 @@ export default async function PublicVerificationPage({
             <CardTitle className="text-xl sm:text-2xl font-bold tracking-tight font-heading">
               PEMERINTAH KABUPATEN LEMBATA
             </CardTitle>
-            <p className="text-xs uppercase font-semibold text-primary mt-0.5 tracking-wider">
+            <p className="text-xs uppercase font-semibold text-muted-foreground mt-0.5 tracking-wider">
               DINAS PERIKANAN — SISTEM SIPEKA
             </p>
           </CardHeader>
@@ -116,7 +116,7 @@ export default async function PublicVerificationPage({
           {/* IK Detail Section */}
           <CardContent className="py-6 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-xs px-2.5 py-1 rounded-lg bg-primary/10 text-primary border border-primary/20 font-bold">
+              <span className="font-mono text-xs px-2.5 py-1 rounded-lg bg-muted text-foreground border border-border font-bold">
                 {ik.kode_ik}
               </span>
               <Badge variant="secondary" className="text-xs font-semibold">
@@ -136,7 +136,7 @@ export default async function PublicVerificationPage({
             <div className="grid grid-cols-2 gap-3 pt-2 text-xs">
               <div className="p-3 rounded-xl bg-muted/40 border border-border">
                 <span className="text-xs text-muted-foreground flex items-center gap-1.5 mb-1">
-                  <Calendar className="size-3.5 text-primary" />
+                  <Calendar className="size-3.5 text-muted-foreground" />
                   Tanggal Diterbitkan
                 </span>
                 <span className="font-semibold text-foreground">
@@ -150,7 +150,7 @@ export default async function PublicVerificationPage({
 
               <div className="p-3 rounded-xl bg-muted/40 border border-border">
                 <span className="text-xs text-muted-foreground flex items-center gap-1.5 mb-1">
-                  <Building2 className="size-3.5 text-primary" />
+                  <Building2 className="size-3.5 text-muted-foreground" />
                   Otoritas Pengesah
                 </span>
                 <span className="font-semibold text-foreground truncate block">
@@ -161,7 +161,7 @@ export default async function PublicVerificationPage({
 
             {/* Standard Water Quality Parameters */}
             <div className="mt-6 pt-5 border-t border-border">
-              <h3 className="text-xs font-bold text-primary uppercase tracking-wider mb-3 flex items-center gap-2">
+              <h3 className="text-xs font-bold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
                 <Sparkles className="size-3.5" />
                 Parameter Baku Mutu Acuan (PP No. 22/2021)
               </h3>
@@ -172,7 +172,7 @@ export default async function PublicVerificationPage({
                     className="p-2.5 rounded-xl bg-muted/30 border border-border text-xs"
                   >
                     <p className="font-semibold text-foreground">{bm.parameter}</p>
-                    <p className="text-primary font-mono text-xs mt-0.5 font-medium">
+                    <p className="text-foreground font-mono text-xs mt-0.5 font-medium">
                       {bm.nilai_min !== null && bm.nilai_max !== null
                         ? `${bm.nilai_min} - ${bm.nilai_max} ${bm.satuan}`
                         : bm.nilai_min !== null
@@ -202,7 +202,7 @@ export default async function PublicVerificationPage({
                   className="w-full sm:w-auto"
                 >
                   <Button size="sm" variant="outline" className="gap-2 font-medium w-full sm:w-auto">
-                    <ExternalLink className="size-3.5 text-primary" />
+                    <ExternalLink className="size-3.5 text-muted-foreground" />
                     <span>Buka Tautan Dokumen</span>
                   </Button>
                 </a>

@@ -125,8 +125,8 @@ export function ProfilClient({ user }: { user: CurrentUser }) {
         {/* Info Ringkas Akun */}
         <Card className="border-border bg-card/60 backdrop-blur-md">
           <CardHeader className="text-center pb-2">
-            <Avatar className="size-20 mx-auto border-2 border-primary/40 shadow-md">
-              <AvatarFallback className="bg-primary/20 text-primary text-xl font-bold">
+            <Avatar className="size-20 mx-auto border-2 border-border shadow-md">
+              <AvatarFallback className="bg-muted text-foreground text-xl font-bold">
                 {user.name.slice(0, 2).toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -158,7 +158,7 @@ export function ProfilClient({ user }: { user: CurrentUser }) {
           <Card className="border-border bg-card/60 backdrop-blur-md">
             <CardHeader>
               <CardTitle className="text-base font-semibold flex items-center gap-2">
-                <User className="size-4 text-primary" /> Informasi Pribadi
+                <User className="size-4 text-muted-foreground" /> Informasi Pribadi
               </CardTitle>
               <CardDescription className="text-xs">
                 Perbarui nama lengkap yang akan ditampilkan pada dokumen dan riwayat aktivitas.
@@ -211,7 +211,7 @@ export function ProfilClient({ user }: { user: CurrentUser }) {
           <Card className="border-border bg-card/60 backdrop-blur-md">
             <CardHeader>
               <CardTitle className="text-base font-semibold flex items-center gap-2">
-                <KeyRound className="size-4 text-primary" /> Keamanan Kata Sandi
+                <KeyRound className="size-4 text-muted-foreground" /> Keamanan Kata Sandi
               </CardTitle>
               <CardDescription className="text-xs">
                 Perbarui kata sandi Anda secara berkala untuk menjaga keamanan akun.

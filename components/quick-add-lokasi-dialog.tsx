@@ -126,7 +126,7 @@ export function QuickAddLokasiDialog({
       <DialogContent className="sm:min-w-2xl">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
-            <div className="flex items-center gap-2 text-primary text-xs font-semibold uppercase tracking-wider mb-0.5">
+            <div className="flex items-center gap-2 text-muted-foreground text-xs font-semibold uppercase tracking-wider mb-0.5">
               <MapPin className="size-3.5" />
               <span>Tambah Lokasi Cepat</span>
             </div>

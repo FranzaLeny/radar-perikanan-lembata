@@ -181,7 +181,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
               ) : (
                 filteredList.map((u) => (
                   <TableRow key={u.id} className="hover:bg-muted/30">
-                    <TableCell className="font-mono font-semibold text-primary text-xs">
+                    <TableCell className="font-mono font-semibold text-foreground text-xs">
                       LHU/SIPEKA/{u.nomor_sampel}
                     </TableCell>
                     <TableCell className="text-muted-foreground text-xs">
