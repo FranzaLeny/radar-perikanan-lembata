@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { SITE_METADATA } from "@/lib/constants";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,10 +16,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "SIPEKA — Sistem Pemantauan Kualitas Air Budidaya",
-  description: "Dinas Perikanan Kabupaten Lembata",
-};
+export const metadata: Metadata = SITE_METADATA;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

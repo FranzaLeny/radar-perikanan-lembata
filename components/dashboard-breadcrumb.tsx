@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { APP_NAME } from '@/lib/constants';
 
 const routeLabels: Record<string, { parent?: string; title: string }> = {
   '/dashboard': { title: 'Dashboard Utama' },
@@ -33,7 +34,7 @@ export function DashboardBreadcrumb() {
       <BreadcrumbList>
         <BreadcrumbItem className="hidden md:block">
           <BreadcrumbLink href="/dashboard" className="text-xs">
-            SIPEKA
+            {APP_NAME}
           </BreadcrumbLink>
         </BreadcrumbItem>
         {current.parent && (

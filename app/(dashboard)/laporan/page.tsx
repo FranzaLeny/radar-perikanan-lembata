@@ -17,6 +17,8 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { LaporanTableClient } from './laporan-table-client';
+import { APP_CONFIG } from '@/lib/constants';
+
 export default async function LaporanHubPage() {
   const [allUji, allPokdakan] = await Promise.all([
     db.query.ujiKualitasAir.findMany({
@@ -40,7 +42,7 @@ export default async function LaporanHubPage() {
           Pusat Laporan & Rekapitulasi Mutu Air
         </h1>
         <p className="text-xs text-muted-foreground mt-1">
-          Penerbitan Lembar Hasil Uji (LHU) resmi dan rekapitulasi kepatuhan mutu tahunan untuk Dinas Perikanan Kabupaten Lembata.
+          Penerbitan Lembar Hasil Uji (LHU) resmi dan rekapitulasi kepatuhan mutu tahunan untuk {APP_CONFIG.institution.name}.
         </p>
       </div>
 

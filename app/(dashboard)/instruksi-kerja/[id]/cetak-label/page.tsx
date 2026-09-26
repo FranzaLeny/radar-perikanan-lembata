@@ -10,6 +10,7 @@ import { QrDownloadButton } from '@/components/qr-download-button';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 
 export default async function CetakLabelPage({
   params,
@@ -65,16 +66,16 @@ export default async function CetakLabelPage({
               </div>
               <div>
                 <h3 className="font-extrabold text-xs uppercase tracking-tight text-slate-900">
-                  PEMERINTAH KABUPATEN LEMBATA
+                  {APP_CONFIG.institution.government}
                 </h3>
                 <p className="text-xs font-bold text-cyan-800 uppercase">
-                  DINAS PERIKANAN
+                  {APP_CONFIG.institution.name}
                 </p>
               </div>
             </div>
             <div className="text-right">
               <Badge variant="outline" className="text-xs font-mono font-bold text-slate-900 border-slate-400">
-                SIPEKA
+                {APP_NAME}
               </Badge>
             </div>
           </div>
@@ -125,7 +126,7 @@ export default async function CetakLabelPage({
           {/* Footer Metadata */}
           <div className="w-full mt-4 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-mono">
             <span>HASH: {ik.qr_code_hash.substring(0, 16)}...</span>
-            <span>SIPEKA-LEMBATA</span>
+            <span>{APP_NAME}-LEMBATA</span>
           </div>
         </div>
       </div>

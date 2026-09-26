@@ -3,6 +3,7 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { APP_CONFIG } from '@/lib/constants';
 import { SearchForm } from '@/components/search-form';
 import {
   Collapsible,
@@ -248,14 +249,14 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs">
-                <Droplets className="size-4" />
+                <APP_CONFIG.logo.Icon className="size-4" />
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
                 <span className="font-heading font-semibold text-sm tracking-tight text-foreground">
-                  SIPEKA
+                  {APP_CONFIG.name}
                 </span>
                 <span className="text-xs text-muted-foreground font-medium">
-                  Dinas Perikanan Lembata
+                  {APP_CONFIG.institution.shortName}
                 </span>
               </div>
             </SidebarMenuButton>

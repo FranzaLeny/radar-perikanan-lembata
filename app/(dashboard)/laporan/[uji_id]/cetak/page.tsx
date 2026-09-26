@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/table';
 import { ArrowLeft, Droplets } from 'lucide-react';
 import Link from 'next/link';
+import { APP_CONFIG, APP_NAME, APP_CLOUD_NAME } from '@/lib/constants';
 
 export default async function CetakLhuPage({
   params,
@@ -77,12 +78,12 @@ export default async function CetakLhuPage({
   const jabatanPenguji = uji.pengujiPegawai?.jabatan || 'Petugas Pengawas Budidaya';
   const nipPenguji = uji.pengujiPegawai?.nip ? `NIP. ${uji.pengujiPegawai.nip}` : '';
 
-  const namaPenandatangan = uji.penandatanganPegawai?.nama || 'Ir. Hadi Mahmud, M.Si';
-  const jabatanPenandatangan = uji.penandatanganPegawai?.jabatan || 'Kepala Dinas Perikanan Kabupaten Lembata';
+  const namaPenandatangan = uji.penandatanganPegawai?.nama || APP_CONFIG.officials.kepalaDinas.name;
+  const jabatanPenandatangan = uji.penandatanganPegawai?.jabatan || APP_CONFIG.officials.kepalaDinas.jabatan;
   const nipPenandatangan = uji.penandatanganPegawai?.nip
     ? `NIP. ${uji.penandatanganPegawai.nip}`
-    : 'NIP. 19720514 199803 1 004';
-  const pangkatPenandatangan = uji.penandatanganPegawai?.pangkat_golongan || 'Pembina Utama Muda (IV/c)';
+    : `NIP. ${APP_CONFIG.officials.kepalaDinas.nip}`;
+  const pangkatPenandatangan = uji.penandatanganPegawai?.pangkat_golongan || APP_CONFIG.officials.kepalaDinas.pangkat;
 
   return (
     <div className="space-y-6">
@@ -112,16 +113,16 @@ export default async function CetakLhuPage({
               </div>
               <div>
                 <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
-                  PEMERINTAH KABUPATEN LEMBATA
+                  {APP_CONFIG.institution.government}
                 </h2>
                 <h1 className="text-lg sm:text-2xl font-extrabold uppercase tracking-tight text-slate-900">
-                  DINAS PERIKANAN
+                  {APP_CONFIG.institution.name}
                 </h1>
                 <p className="text-xs text-slate-600 mt-0.5">
                   Jl. Trans Lembata, Kel. Lewoleba, Kec. Nubatukan, Kab. Lembata, NTT 86611
                 </p>
                 <p className="text-xs text-slate-500">
-                  Sistem Pemantauan Kualitas Air Budidaya (SIPEKA) • Email: perikanan@lembatakab.go.id
+                  {APP_CONFIG.fullName} ({APP_CONFIG.name}) • Email: {APP_CONFIG.institution.email}
                 </p>
               </div>
             </div>
@@ -133,7 +134,7 @@ export default async function CetakLhuPage({
               LEMBAR HASIL UJI (LHU) KUALITAS AIR BUDIDAYA
             </h3>
             <p className="text-xs text-slate-600 font-mono mt-1">
-              Nomor Dokumen: LHU/SIPEKA/{uji.nomor_sampel}
+              Nomor Dokumen: LHU/{APP_NAME}/{uji.nomor_sampel}
             </p>
           </div>
 
@@ -337,13 +338,13 @@ export default async function CetakLhuPage({
               <img src={qrDataUrl} alt="QR Verifikasi" className="size-12 object-contain" />
               <div>
                 <p className="font-bold text-slate-700">Verifikasi Keaslian LHU Digital</p>
-                <p className="text-xs text-slate-400">Pindai QR untuk memverifikasi dokumen di portal SIPEKA Lembata</p>
+                <p className="text-xs text-slate-400">Pindai QR untuk memverifikasi dokumen di portal {APP_CONFIG.name} {APP_CONFIG.institution.regency}</p>
               </div>
             </div>
 
             <div className="text-right font-mono text-xs">
               <span>ID: {uji.id.substring(0, 18)}</span>
-              <p>Dicetak melalui SIPEKA Cloud</p>
+              <p>Dicetak melalui {APP_CLOUD_NAME}</p>
             </div>
           </div>
         </div>

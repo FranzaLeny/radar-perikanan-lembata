@@ -16,15 +16,9 @@ import {
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 
 export default async function PublicVerificationPage({
   params,
@@ -50,12 +44,12 @@ export default async function PublicVerificationPage({
           </div>
           <CardTitle className="text-xl font-heading mb-2">QR Code Tidak Terdaftar</CardTitle>
           <CardDescription className="text-xs leading-relaxed">
-            Kode QR atau hash verifikasi ini tidak ditemukan dalam basis data resmi Dinas Perikanan Kabupaten Lembata.
+            Kode QR atau hash verifikasi ini tidak ditemukan dalam basis data resmi {APP_CONFIG.institution.name}.
           </CardDescription>
           <div className="mt-6 flex justify-center">
             <Link href="/login">
               <Button size="sm" variant="outline">
-                <span>Masuk ke SIPEKA</span>
+                <span>Masuk ke {APP_NAME}</span>
               </Button>
             </Link>
           </div>
@@ -86,7 +80,7 @@ export default async function PublicVerificationPage({
           <div className="size-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground shadow-xs">
             <Droplets className="size-4" />
           </div>
-          <span className="font-extrabold text-sm tracking-wider font-heading">SIPEKA</span>
+          <span className="font-extrabold text-sm tracking-wider font-heading">{APP_NAME}</span>
         </div>
         <ThemeToggle />
       </header>
@@ -106,10 +100,10 @@ export default async function PublicVerificationPage({
             </div>
 
             <CardTitle className="text-xl sm:text-2xl font-bold tracking-tight font-heading">
-              PEMERINTAH KABUPATEN LEMBATA
+              {APP_CONFIG.institution.government}
             </CardTitle>
             <p className="text-xs uppercase font-semibold text-muted-foreground mt-0.5 tracking-wider">
-              DINAS PERIKANAN — SISTEM SIPEKA
+              {APP_CONFIG.institution.name.toUpperCase()} — SISTEM {APP_NAME}
             </p>
           </CardHeader>
 
@@ -154,7 +148,7 @@ export default async function PublicVerificationPage({
                   Otoritas Pengesah
                 </span>
                 <span className="font-semibold text-foreground truncate block">
-                  Dinas Perikanan Lembata
+                  {APP_CONFIG.institution.shortName}
                 </span>
               </div>
             </div>
@@ -221,11 +215,11 @@ export default async function PublicVerificationPage({
 
       {/* Footer */}
       <footer className="text-center text-xs text-muted-foreground py-4 relative z-10 space-y-1">
-        <p>© 2026 Dinas Perikanan Kabupaten Lembata • Nusa Tenggara Timur</p>
+        <p>© {APP_CONFIG.author.copyrightYear} {APP_CONFIG.institution.name} • {APP_CONFIG.institution.province}</p>
         <p className="text-xs text-muted-foreground/80">
-          SIPEKA — Sistem Pemantauan Kualitas Air Budidaya Berkelanjutan
+          {APP_NAME} — {APP_CONFIG.fullName}
         </p>
-        <p className="font-medium text-muted-foreground">with ❤️ by MHLB</p>
+        <p className="font-medium text-muted-foreground">{APP_CONFIG.author.credit}</p>
       </footer>
     </div>
   );

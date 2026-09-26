@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { APP_CONFIG } from '@/lib/constants';
 import { Card, CardContent } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/theme-toggle';
 
@@ -31,11 +32,11 @@ export default async function HomePage() {
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-3">
           <div className="size-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-xs">
-            <Droplets className="size-5" />
+            <APP_CONFIG.logo.Icon className="size-5" />
           </div>
           <div>
-            <h1 className="font-extrabold text-base tracking-wider font-heading">SIPEKA</h1>
-            <p className="text-xs text-muted-foreground font-medium">Dinas Perikanan Kabupaten Lembata</p>
+            <h1 className="font-extrabold text-base tracking-wider font-heading">{APP_CONFIG.name}</h1>
+            <p className="text-xs text-muted-foreground font-medium">{APP_CONFIG.institution.name}</p>
           </div>
         </div>
 
@@ -125,8 +126,8 @@ export default async function HomePage() {
 
       {/* Footer */}
       <footer className="w-full border-t border-border py-6 text-center text-xs text-muted-foreground relative z-10 space-y-1">
-        <p>© 2026 Dinas Perikanan Kabupaten Lembata — SIPEKA Versi 1.0.0</p>
-        <p className="font-medium text-muted-foreground">with ❤️ by MHLB</p>
+        <p>{APP_CONFIG.author.copyrightText} — Versi {APP_CONFIG.version}</p>
+        <p className="font-medium text-muted-foreground">{APP_CONFIG.author.credit}</p>
       </footer>
     </div>
   );

@@ -12,6 +12,7 @@ import {
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { APP_CONFIG } from '@/lib/constants';
 import { Input } from '@/components/ui/input';
 import {
   Field,
@@ -179,7 +180,7 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
             Titik Lokasi Kolam Pembudidaya (Pokdakan)
           </h1>
           <p className="text-xs text-muted-foreground mt-1">
-            Daftar kelompok pembudidaya ikan di 9 kecamatan Kabupaten Lembata lengkap dengan koordinat GPS dan komoditas.
+            Daftar kelompok pembudidaya ikan di 9 kecamatan {APP_CONFIG.institution.regency} lengkap dengan koordinat GPS dan komoditas.
           </p>
         </div>
 
@@ -336,7 +337,7 @@ export function LokasiKolamClient({ initialList }: { initialList: LokasiItem[] }
               <span>Registrasi Lokasi Kolam Baru</span>
             </DialogTitle>
             <DialogDescription>
-              Masukkan identitas Pokdakan, pemilik, dan koordinat GPS lokasi kolam di Kabupaten Lembata.
+              Masukkan identitas Pokdakan, pemilik, dan koordinat GPS lokasi kolam di {APP_CONFIG.institution.regency}.
             </DialogDescription>
           </DialogHeader>
 

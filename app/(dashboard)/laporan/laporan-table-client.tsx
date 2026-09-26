@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { BadgeStatus } from '@/components/badge-status';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { APP_NAME } from '@/lib/constants';
 import {
   InputGroup,
   InputGroupAddon,
@@ -58,7 +59,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 
     return initialList.filter((item) => {
       const matchNomor = item.nomor_sampel.toLowerCase().includes(query);
-      const matchLhu = `lhu/sipeka/${item.nomor_sampel}`.toLowerCase().includes(query);
+      const matchLhu = `lhu/${APP_NAME.toLowerCase()}/${item.nomor_sampel}`.toLowerCase().includes(query);
       const matchPetugas = item.petugas_uji.toLowerCase().includes(query);
       const matchPokdakan = item.lokasi?.nama_pokdakan.toLowerCase().includes(query) ?? false;
       const matchDesa = item.lokasi?.desa.toLowerCase().includes(query) ?? false;
@@ -182,7 +183,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
                 filteredList.map((u) => (
                   <TableRow key={u.id} className="hover:bg-muted/30">
                     <TableCell className="font-mono font-semibold text-foreground text-xs">
-                      LHU/SIPEKA/{u.nomor_sampel}
+                      LHU/{APP_NAME}/{u.nomor_sampel}
                     </TableCell>
                     <TableCell className="text-muted-foreground text-xs">
                       {new Date(u.tanggal_pengambilan).toLocaleDateString('id-ID', {

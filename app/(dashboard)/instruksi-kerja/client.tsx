@@ -1,48 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
-import {
-  FileCheck2,
-  Plus,
-  QrCode,
-  Trash2,
-  FileText,
-  Loader2,
-  Search,
-  X,
-  ExternalLink,
-  Pencil,
-  Info,
-  MoreVertical,
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Field,
-  FieldLabel,
-  FieldDescription,
-  FieldError,
-} from '@/components/ui/field';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupButton,
-} from '@/components/ui/input-group';
-import { toFieldErrors } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { APP_NAME } from '@/lib/constants';
 import {
   Card,
 } from '@/components/ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
 import {
   Dialog,
   DialogContent,
@@ -60,7 +23,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { toast } from 'sonner';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@/components/ui/input-group';
 import {
   Select,
   SelectContent,
@@ -68,12 +43,38 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { instruksiKerjaSchema } from '@/lib/validations/instruksi-kerja';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import {
   createInstruksiKerjaAction,
-  updateInstruksiKerjaAction,
   deleteInstruksiKerjaAction,
+  updateInstruksiKerjaAction,
 } from '@/lib/actions/instruksi-kerja';
+import { toFieldErrors } from '@/lib/utils';
+import { instruksiKerjaSchema } from '@/lib/validations/instruksi-kerja';
+import {
+  ExternalLink,
+  FileCheck2,
+  FileText,
+  Info,
+  Loader2,
+  MoreVertical,
+  Pencil,
+  Plus,
+  QrCode,
+  Search,
+  Trash2,
+  X,
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 interface IKItem {
   id: string;
@@ -425,7 +426,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
                             <DropdownMenuItem
                               onClick={() => handleDelete(item.id, item.kode_ik)}
                               variant="destructive"
-                              className="text-xs gap-2 cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
+                              className="text-xs gap-2 cursor-pointer text-destructive focus:bg-destructive/10"
                             >
                               <Trash2 className="size-3.5" />
                               <span>Hapus Dokumen IK</span>
@@ -451,7 +452,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
               <span>Registrasi Dokumen SOP / IK Baru</span>
             </DialogTitle>
             <DialogDescription className="text-xs">
-              Setiap IK yang didaftarkan akan secara otomatis mendapatkan hash QR Code unik untuk validasi keabsahan di sistem SIPEKA.
+              Setiap IK yang didaftarkan akan secara otomatis mendapatkan hash QR Code unik untuk validasi keabsahan di sistem {APP_NAME}.
             </DialogDescription>
           </DialogHeader>
 

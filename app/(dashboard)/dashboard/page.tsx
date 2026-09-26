@@ -18,6 +18,7 @@ import {
 import Link from 'next/link';
 import { BadgeStatus } from '@/components/badge-status';
 import { Button } from '@/components/ui/button';
+import { APP_CONFIG } from '@/lib/constants';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -86,11 +87,10 @@ export default async function DashboardMainPage() {
           <div className="max-w-2xl">
             <Badge variant="secondary" className="gap-1.5 px-3 py-1 mb-3 text-xs font-semibold">
               <Droplets className="size-3.5" />
-              <span>Dinas Perikanan Kabupaten Lembata</span>
+              <span>{APP_CONFIG.institution.name}</span>
             </Badge>
             <h1 className="text-2xl sm:text-3xl font-extrabold font-heading tracking-tight leading-tight text-foreground">
-              Sistem Pemantauan Kualitas Air Budidaya
-              (SIPEKA)
+              {APP_CONFIG.fullName} ({APP_CONFIG.name})
             </h1>
             <p className="text-xs sm:text-sm text-muted-foreground mt-2 leading-relaxed">
               Monitoring parameter fisika-kimia kolam perikanan secara terintegrasi dengan validasi otomatis ambang batas baku mutu dan ketertelusuran QR Code.

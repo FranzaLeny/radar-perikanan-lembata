@@ -11,6 +11,8 @@ import { Separator } from '@/components/ui/separator';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { DashboardBreadcrumb } from '@/components/dashboard-breadcrumb';
 
+import { APP_CONFIG } from '@/lib/constants';
+
 export default async function DashboardLayout({
   children,
 }: {
@@ -40,8 +42,8 @@ export default async function DashboardLayout({
           {children}
         </main>
         <footer className="border-t border-border py-3 px-6 text-center text-xs text-muted-foreground no-print bg-background/80 backdrop-blur-xs flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© 2026 Dinas Perikanan Kabupaten Lembata • SIPEKA</p>
-          <p className="font-medium text-muted-foreground">with ❤️ by MHLB</p>
+          <p>{APP_CONFIG.author.copyrightText}</p>
+          <p className="font-medium text-muted-foreground">{APP_CONFIG.author.credit}</p>
         </footer>
       </SidebarInset>
     </SidebarProvider>

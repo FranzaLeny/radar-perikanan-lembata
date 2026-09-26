@@ -20,6 +20,7 @@ import {
   Info,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 import { Input } from '@/components/ui/input';
 import {
   Field,
@@ -333,7 +334,7 @@ export function PenggunaClient({
             Manajemen Akun Pengguna & Petugas
           </h1>
           <p className="text-xs text-muted-foreground mt-1">
-            Pengelolaan wewenang verifikasi hasil uji, approval lembar LHU, dan operator lapangan sistem SIPEKA.
+            Pengelolaan wewenang verifikasi hasil uji, approval lembar LHU, dan operator lapangan sistem {APP_NAME}.
           </p>
         </div>
 
@@ -554,7 +555,7 @@ export function PenggunaClient({
               <span>Ubah Wewenang Akses Pengguna</span>
             </DialogTitle>
             <DialogDescription className="text-xs">
-              Ubah hak akses wewenang sistem SIPEKA untuk akun <strong>{selectedUserForRole?.name}</strong> ({selectedUserForRole?.email}).
+              Ubah hak akses wewenang sistem {APP_NAME} untuk akun <strong>{selectedUserForRole?.name}</strong> ({selectedUserForRole?.email}).
             </DialogDescription>
           </DialogHeader>
 
@@ -617,7 +618,7 @@ export function PenggunaClient({
               <span>Registrasi Akun Pengguna Baru</span>
             </DialogTitle>
             <DialogDescription className="text-xs">
-              Buat kredensial akun baru untuk petugas atau pimpinan di Dinas Perikanan Lembata.
+              Buat kredensial akun baru untuk petugas atau pimpinan di {APP_CONFIG.institution.shortName}.
             </DialogDescription>
           </DialogHeader>
 
@@ -649,7 +650,7 @@ export function PenggunaClient({
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="nama@sipeka.lembata.go.id"
+                  placeholder={`nama@${APP_CONFIG.institution.emailDomain}`}
                 />
               </InputGroup>
               <FieldError errors={toFieldErrors(fieldErrors.email)} />
@@ -799,7 +800,7 @@ export function PenggunaClient({
               Untuk menjaga integritas <strong>Audit Trail</strong> dan keabsahan lembar hasil uji (LHU) laboratorium, akun yang sudah pernah digunakan dalam pencatatan pengujian <strong>tidak boleh dihapus</strong>.
             </p>
             <p className="text-muted-foreground">
-              Sesuai standar operasional, akun ini <strong>hanya dapat dinonaktifkan</strong> agar tidak dapat lagi login atau melakukan aktivitas apapun di sistem SIPEKA/MINAMUTU.
+              Sesuai standar operasional, akun ini <strong>hanya dapat dinonaktifkan</strong> agar tidak dapat lagi login atau melakukan aktivitas apapun di sistem {APP_NAME}.
             </p>
           </div>
 

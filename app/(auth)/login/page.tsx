@@ -4,6 +4,7 @@ import React, { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loginSchema } from '@/lib/validations/auth';
 import { authClient } from '@/lib/auth-client';
+import { APP_CONFIG } from '@/lib/constants';
 import {
   Droplets,
   Lock,
@@ -111,7 +112,7 @@ function LoginForm() {
       }
 
       if (isSuccess) {
-        toast.success('Berhasil masuk ke sistem SIPEKA!');
+        toast.success(`Berhasil masuk ke sistem ${APP_CONFIG.name}!`);
         router.push('/dashboard');
         router.refresh();
       } else {
@@ -131,16 +132,16 @@ function LoginForm() {
     <Card className="border-border bg-card shadow-xl backdrop-blur-xs">
       <CardHeader className="text-center pb-4">
         <div className="mx-auto size-14 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground shadow-xs mb-3">
-          <Droplets className="size-7" />
+          <APP_CONFIG.logo.Icon className="size-7" />
         </div>
         <CardTitle className="text-2xl font-bold font-heading tracking-tight">
-          SIPEKA
+          {APP_CONFIG.name}
         </CardTitle>
         <CardDescription className="text-xs font-semibold text-foreground">
-          Sistem Pemantauan Kualitas Air Budidaya
+          {APP_CONFIG.fullName}
         </CardDescription>
         <p className="text-xs text-muted-foreground mt-1">
-          Dinas Perikanan Kabupaten Lembata
+          {APP_CONFIG.institution.name}
         </p>
       </CardHeader>
 
@@ -167,7 +168,7 @@ function LoginForm() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="nama@sipeka.lembata.go.id"
+                placeholder={`nama@${APP_CONFIG.institution.emailDomain}`}
                 autoComplete="email"
                 required
               />
@@ -289,7 +290,7 @@ function LoginForm() {
         </div>
       </CardContent>
       <CardFooter className="pt-2 pb-4 border-t border-border flex items-center justify-center text-xs text-muted-foreground">
-        <span>with ❤️ by MHLB</span>
+        <span>{APP_CONFIG.author.credit}</span>
       </CardFooter>
     </Card>
   );
