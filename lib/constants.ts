@@ -1,5 +1,5 @@
-import type { Metadata } from 'next';
 import { Droplets } from 'lucide-react';
+import type { Metadata } from 'next';
 
 /**
  * Konfigurasi Utama Aplikasi & Branding SIPEKA
@@ -75,7 +75,7 @@ export const APP_CONFIG = {
   /** Referensi visual brand dan logo aplikasi serta pemerintah daerah */
   logo: {
     app: '/images/app-logo.png',
-    kabupaten: '/images/kab-lembata.png',
+    kabupaten: '/images/lembata-kab.webp',
     garuda: '/images/garuda.png',
     Icon: Droplets,
     iconName: 'Droplets',

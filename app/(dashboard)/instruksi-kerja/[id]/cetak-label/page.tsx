@@ -10,6 +10,7 @@ import { QrDownloadButton } from '@/components/qr-download-button';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import Image from 'next/image';
 import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 
 export default async function CetakLabelPage({
@@ -61,9 +62,12 @@ export default async function CetakLabelPage({
           {/* Header Dinas */}
           <div className="w-full border-b-2 border-slate-900 pb-3 mb-4 flex items-center justify-between text-left">
             <div className="flex items-center gap-2">
-              <img
+              <Image
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Kabupaten Lembata"
+                width={36}
+                height={36}
+                priority
                 className="size-9 object-contain shrink-0"
               />
               <div>
@@ -97,10 +101,13 @@ export default async function CetakLabelPage({
 
           {/* QR Code */}
           <div className="p-3 bg-slate-50 border-2 border-dashed border-cyan-800/40 rounded-2xl my-2 shadow-inner">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={qrDataUrl}
               alt={`QR Code ${ik.kode_ik}`}
+              width={192}
+              height={192}
+              priority
+              unoptimized
               className="w-48 h-48 object-contain"
             />
           </div>

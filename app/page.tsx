@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import {
@@ -31,9 +32,12 @@ export default async function HomePage() {
       {/* Navbar */}
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-3">
-          <img
+          <Image
             src={APP_CONFIG.logo.kabupaten}
             alt="Logo Kabupaten Lembata"
+            width={40}
+            height={48}
+            priority
             className="h-10 w-auto object-contain"
           />
           <div>

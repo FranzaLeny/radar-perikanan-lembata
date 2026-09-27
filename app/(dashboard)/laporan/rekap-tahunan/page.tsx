@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/table';
 import { ArrowLeft, Droplets } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { generateQrDataUrl } from '@/lib/qr';
 import { APP_CONFIG, APP_CLOUD_NAME, APP_OFFICIALS } from '@/lib/constants';
 
@@ -81,9 +82,12 @@ export default async function RekapTahunanPage() {
           {/* Header Dinas */}
           <div className="border-b-4 border-double border-slate-900 pb-4 mb-6">
             <div className="flex items-center justify-between gap-4">
-              <img
+              <Image
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Pemerintah Kabupaten Lembata"
+                width={64}
+                height={80}
+                priority
                 className="w-16 h-20 object-contain shrink-0"
               />
               <div className="text-center flex-1 px-2">
@@ -243,8 +247,15 @@ export default async function RekapTahunanPage() {
           {/* Footer & QR Verifikasi Keaslian */}
           <div className="mt-8 pt-4 border-t border-dashed border-slate-300 flex items-center justify-between text-xs text-slate-500">
             <div className="flex items-center gap-3">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={qrDataUrl} alt="QR Verifikasi" className="size-12 object-contain" />
+              <Image
+                src={qrDataUrl}
+                alt="QR Verifikasi"
+                width={48}
+                height={48}
+                priority
+                unoptimized
+                className="size-12 object-contain"
+              />
               <div>
                 <p className="font-bold text-slate-700">Verifikasi Dokumen Resmi Digital</p>
                 <p className="text-xs text-slate-400">Pindai QR untuk memverifikasi keaslian dokumen di portal {APP_CONFIG.name} {APP_CONFIG.institution.regency}</p>

@@ -14,6 +14,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -77,14 +78,20 @@ export default async function PublicVerificationPage({
       {/* Top Bar with Brand & Theme Toggle */}
       <header className="max-w-2xl w-full mx-auto flex items-center justify-between py-2 relative z-10">
         <div className="flex items-center gap-2">
-          <img
+          <Image
             src={APP_CONFIG.logo.kabupaten}
             alt="Logo Kabupaten Lembata"
+            width={28}
+            height={28}
+            priority
             className="size-7 object-contain"
           />
-          <img
+          <Image
             src={APP_CONFIG.logo.app}
             alt={APP_NAME}
+            width={28}
+            height={28}
+            priority
             className="size-7 object-contain"
           />
           <span className="font-extrabold text-sm tracking-wider font-heading">{APP_NAME}</span>
@@ -103,15 +110,21 @@ export default async function PublicVerificationPage({
             </Badge>
 
             <div className="flex items-center justify-center gap-4 mb-3">
-              <img
+              <Image
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Pemerintah Kabupaten Lembata"
+                width={64}
+                height={64}
+                priority
                 className="h-16 w-auto object-contain drop-shadow-sm"
               />
               <div className="h-12 w-px bg-border/80" />
-              <img
+              <Image
                 src={APP_CONFIG.logo.app}
                 alt={APP_NAME}
+                width={64}
+                height={64}
+                priority
                 className="h-16 w-auto object-contain drop-shadow-sm"
               />
             </div>

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { APP_CONFIG } from '@/lib/constants';
 import { SearchForm } from '@/components/search-form';
@@ -256,9 +257,12 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
               <div className="flex aspect-square size-9 items-center justify-center shrink-0">
-                <img
+                <Image
                   src={APP_CONFIG.logo.app}
                   alt={APP_CONFIG.name}
+                  width={32}
+                  height={32}
+                  priority
                   className="size-8 object-contain rounded-md drop-shadow-xs"
                 />
               </div>
