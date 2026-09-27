@@ -97,11 +97,8 @@ export default async function RekapTahunanPage() {
                   Laporan Rekapitulasi Tahunan Evaluasi Mutu Air Budidaya Ikan Perikanan Tahun {APP_CONFIG.author.copyrightYear}
                 </p>
               </div>
-              <img
-                src={APP_CONFIG.logo.app}
-                alt={`Logo ${APP_CONFIG.name}`}
-                className="w-16 h-16 object-contain shrink-0"
-              />
+              {/* Spacer penyeimbang simetris agar teks kop tepat di tengah */}
+              <div className="w-16 shrink-0 hidden sm:block pointer-events-none" aria-hidden="true" />
             </div>
           </div>
 

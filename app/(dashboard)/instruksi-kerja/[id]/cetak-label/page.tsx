@@ -64,12 +64,7 @@ export default async function CetakLabelPage({
               <img
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Kabupaten Lembata"
-                className="size-8 object-contain shrink-0"
-              />
-              <img
-                src={APP_CONFIG.logo.app}
-                alt={APP_CONFIG.name}
-                className="size-8 object-contain shrink-0"
+                className="size-9 object-contain shrink-0"
               />
               <div>
                 <h3 className="font-extrabold text-xs uppercase tracking-tight text-slate-900">

@@ -1,8 +1,16 @@
-import React from 'react';
+import { PrintButton } from '@/components/print-button';
+import { Button } from '@/components/ui/button';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { eq } from 'drizzle-orm';
-import { notFound } from 'next/navigation';
+import { APP_CLOUD_NAME, APP_CONFIG, APP_NAME } from '@/lib/constants';
 import {
   generateQrDataUrl,
   getVerificationUrl,
@@ -11,19 +19,10 @@ import {
   dapatkanRekomendasiTeknis,
   type StatusKelayakan,
 } from '@/lib/validasi-baku-mutu';
-import { PrintButton } from '@/components/print-button';
-import { Button } from '@/components/ui/button';
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableHead,
-  TableRow,
-  TableCell,
-} from '@/components/ui/table';
-import { ArrowLeft, Droplets } from 'lucide-react';
+import { eq } from 'drizzle-orm';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
-import { APP_CONFIG, APP_NAME, APP_CLOUD_NAME } from '@/lib/constants';
+import { notFound } from 'next/navigation';
 
 export default async function CetakLhuPage({
   params,
@@ -112,7 +111,7 @@ export default async function CetakLhuPage({
               <img
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Pemerintah Kabupaten Lembata"
-                className="w-16 h-20 sm:w-20 sm:h-24 object-contain shrink-0"
+                className="h-16 object-contain shrink-0"
               />
               <div className="text-center flex-1 px-2">
                 <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
@@ -128,12 +127,7 @@ export default async function CetakLhuPage({
                   Aplikasi: {APP_CONFIG.fullName} ({APP_CONFIG.name}) • Email: {APP_CONFIG.institution.email}
                 </p>
               </div>
-              {/* Logo Aplikasi SIPEKA */}
-              <img
-                src={APP_CONFIG.logo.app}
-                alt={`Logo ${APP_CONFIG.name}`}
-                className="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0"
-              />
+
             </div>
           </div>
 
@@ -258,13 +252,12 @@ export default async function CetakLhuPage({
               <div className="flex items-center gap-2 mb-2 font-bold">
                 <span>Status Kepatuhan Baku Mutu:</span>
                 <span
-                  className={`px-3 py-0.5 rounded-full text-xs font-extrabold ${
-                    uji.kesimpulan === 'NORMAL'
-                      ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                      : uji.kesimpulan === 'PERINGATAN'
+                  className={`px-3 py-0.5 rounded-full text-xs font-extrabold ${uji.kesimpulan === 'NORMAL'
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                    : uji.kesimpulan === 'PERINGATAN'
                       ? 'bg-amber-100 text-amber-800 border border-amber-300'
                       : 'bg-rose-100 text-rose-800 border border-rose-300'
-                  }`}
+                    }`}
                 >
                   {uji.kesimpulan || 'NORMAL'}
                 </span>
