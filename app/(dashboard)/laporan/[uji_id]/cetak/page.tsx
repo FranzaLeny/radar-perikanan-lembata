@@ -106,47 +106,50 @@ export default async function CetakLhuPage({
           style={{ fontFamily: 'Arial, var(--font-geist-sans), sans-serif' }}
         >
           {/* KOP RESMI DINAS PERIKANAN KABUPATEN LEMBATA */}
-          <div className="border-b-4 border-double border-slate-900 pb-4 mb-6 relative">
-            <div className="flex items-center justify-between gap-4">
+          <div className="border-b-4 border-double border-slate-900 pb-3 mb-4 print:pb-2 print:mb-2.5 relative">
+            <div className="flex items-center justify-between gap-3">
               {/* Logo Lambang Daerah Kabupaten Lembata */}
-              <Image
-                src={APP_CONFIG.logo.kabupaten}
-                alt="Logo Pemerintah Kabupaten Lembata"
-                width={80}
-                height={80}
-                priority
-                className="h-20 w-auto object-contain shrink-0"
-              />
-              <div className="text-center flex-1 px-2">
-                <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
+              <div className="w-16 sm:w-20 shrink-0 flex items-center justify-start">
+                <Image
+                  src={APP_CONFIG.logo.kabupaten}
+                  alt="Logo Pemerintah Kabupaten Lembata"
+                  width={80}
+                  height={80}
+                  priority
+                  className="h-16 sm:h-20 print:h-16 w-auto object-contain shrink-0"
+                />
+              </div>
+              <div className="text-center flex-1 px-1">
+                <h2 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900">
                   {APP_CONFIG.institution.government}
                 </h2>
-                <h1 className="text-lg sm:text-2xl font-extrabold uppercase tracking-tight text-slate-900 leading-snug">
+                <h1 className="text-base sm:text-xl font-extrabold uppercase tracking-tight text-slate-900 leading-snug">
                   {APP_CONFIG.institution.name}
                 </h1>
-                <p className="text-xs text-slate-700 mt-1 font-medium">
+                <p className="text-[11px] sm:text-xs text-slate-700 mt-0.5 font-medium">
                   Jl. Trans Lembata, Kel. Lewoleba, Kec. Nubatukan, Kab. Lembata, NTT 86611
                 </p>
-                <p className="text-[11px] text-slate-600 mt-0.5">
+                <p className="text-[10px] sm:text-[11px] text-slate-600">
                   Aplikasi: {APP_CONFIG.fullName} ({APP_CONFIG.name}) • Email: {APP_CONFIG.institution.email}
                 </p>
               </div>
-
+              {/* Spacer penyeimbang simetris agar teks kop tepat di tengah kertas */}
+              <div className="w-16 sm:w-20 shrink-0 pointer-events-none" aria-hidden="true" />
             </div>
           </div>
 
           {/* JUDUL DOKUMEN */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-4 print:mb-2.5">
             <h3 className="text-base sm:text-lg font-bold uppercase tracking-wide text-slate-900 underline">
               LEMBAR HASIL UJI (LHU) KUALITAS AIR BUDIDAYA
             </h3>
-            <p className="text-xs text-slate-600 font-mono mt-1">
+            <p className="text-xs text-slate-600 font-mono mt-0.5">
               Nomor Dokumen: LHU/{APP_NAME}/{uji.nomor_sampel}
             </p>
           </div>
 
           {/* METADATA SAMPEL */}
-          <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-xs mb-6 border border-slate-200 rounded-lg p-3.5 bg-slate-50/70 print:bg-white print:border-slate-300">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 text-xs mb-4 print:mb-2.5 border border-slate-200 rounded-lg p-3 print:p-2 bg-slate-50/70 print:bg-white print:border-slate-300">
             <div>
               <span className="text-slate-500 block text-xs">Nomor Sampel:</span>
               <span className="font-bold font-mono text-slate-900">{uji.nomor_sampel}</span>
@@ -180,20 +183,20 @@ export default async function CetakLhuPage({
           </div>
 
           {/* TABEL HASIL PARAMETER (Tanpa pembungkus overflow-auto untuk cetak sempurna) */}
-          <div className="mb-6">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2">
+          <div className="mb-4 print:mb-2.5">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1.5 print:mb-1">
               A. Hasil Evaluasi Parameter Kualitas Air
             </h4>
             <div className="border border-slate-300 rounded-lg">
               <Table className="text-xs">
                 <TableHeader className="bg-slate-100 border-b border-slate-300">
                   <TableRow className="border-b border-slate-300 hover:bg-slate-100">
-                    <TableHead className="w-8 text-center text-slate-700 font-bold uppercase text-xs border-r border-slate-300">No</TableHead>
-                    <TableHead className="text-slate-700 font-bold uppercase text-xs border-r border-slate-300">Parameter Uji</TableHead>
-                    <TableHead className="text-center text-slate-700 font-bold uppercase text-xs border-r border-slate-300">Satuan</TableHead>
-                    <TableHead className="text-center text-slate-700 font-bold uppercase text-xs border-r border-slate-300">Baku Mutu (PP 22/2021)</TableHead>
-                    <TableHead className="text-center text-slate-700 font-bold uppercase text-xs border-r border-slate-300">Hasil Uji</TableHead>
-                    <TableHead className="text-center text-slate-700 font-bold uppercase text-xs">Status Kelayakan</TableHead>
+                    <TableHead className="w-8 text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">No</TableHead>
+                    <TableHead className="text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Parameter Uji</TableHead>
+                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Satuan</TableHead>
+                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Baku Mutu (PP 22/2021)</TableHead>
+                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Hasil Uji</TableHead>
+                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] py-1.5 print:py-1">Status Kelayakan</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -214,22 +217,22 @@ export default async function CetakLhuPage({
 
                     return (
                       <TableRow key={dp.id} className="border-b border-slate-200 hover:bg-slate-50/80">
-                        <TableCell className="text-center font-mono text-slate-500 border-r border-slate-300 py-2">
+                        <TableCell className="text-center font-mono text-slate-500 border-r border-slate-300 py-1.5 print:py-1">
                           {idx + 1}
                         </TableCell>
-                        <TableCell className="font-medium text-slate-900 border-r border-slate-300 py-2">
+                        <TableCell className="font-medium text-slate-900 border-r border-slate-300 py-1.5 print:py-1">
                           {dp.bakuMutu?.parameter}
                         </TableCell>
-                        <TableCell className="text-center font-mono text-slate-600 border-r border-slate-300 py-2">
+                        <TableCell className="text-center font-mono text-slate-600 border-r border-slate-300 py-1.5 print:py-1">
                           {dp.bakuMutu?.satuan}
                         </TableCell>
-                        <TableCell className="text-center font-mono text-slate-700 border-r border-slate-300 py-2">
+                        <TableCell className="text-center font-mono text-slate-700 border-r border-slate-300 py-1.5 print:py-1">
                           {standardStr}
                         </TableCell>
-                        <TableCell className="text-center font-mono font-bold text-slate-900 border-r border-slate-300 py-2">
+                        <TableCell className="text-center font-mono font-bold text-slate-900 border-r border-slate-300 py-1.5 print:py-1">
                           {dp.nilai_hasil}
                         </TableCell>
-                        <TableCell className="text-center py-2 font-bold text-xs">
+                        <TableCell className="text-center py-1.5 print:py-1 font-bold text-xs">
                           {isMelebihi ? (
                             <span className="text-rose-700">MELEBIHI BATAS</span>
                           ) : isDibawah ? (
@@ -247,16 +250,16 @@ export default async function CetakLhuPage({
           </div>
 
           {/* KESIMPULAN & REKOMENDASI TEKNIS OTOMATIS */}
-          <div className="mb-6 space-y-3">
+          <div className="mb-4 print:mb-2.5 space-y-1.5 print:space-y-1">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
               B. Kesimpulan Evaluasi & Rekomendasi Teknis
             </h4>
 
-            <div className="p-3.5 rounded-lg border border-slate-300 bg-slate-50 text-xs print:bg-white">
-              <div className="flex items-center gap-2 mb-2 font-bold">
+            <div className="p-3 print:p-2 rounded-lg border border-slate-300 bg-slate-50 text-xs print:bg-white">
+              <div className="flex items-center gap-2 mb-1.5 font-bold">
                 <span>Status Kepatuhan Baku Mutu:</span>
                 <span
-                  className={`px-3 py-0.5 rounded-full text-xs font-extrabold ${uji.kesimpulan === 'NORMAL'
+                  className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold ${uji.kesimpulan === 'NORMAL'
                     ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                     : uji.kesimpulan === 'PERINGATAN'
                       ? 'bg-amber-100 text-amber-800 border border-amber-300'
@@ -272,11 +275,11 @@ export default async function CetakLhuPage({
                   Seluruh parameter kualitas air memenuhi standar baku mutu yang dipersyaratkan. Kondisi lingkungan kolam sangat mendukung pertumbuhan ikan yang optimal. Lanjutkan manajemen pakan dan aerasi rutin.
                 </p>
               ) : (
-                <div className="space-y-1.5 mt-2">
+                <div className="space-y-1 mt-1.5">
                   <p className="font-semibold text-slate-800 text-xs">
                     Rekomendasi Tindakan Korektif Lapangan:
                   </p>
-                  <ul className="list-disc list-inside space-y-1 text-slate-700 text-xs">
+                  <ul className="list-disc list-inside space-y-0.5 text-slate-700 text-xs">
                     {rekomendasiList.map((rec, i) => (
                       <li key={i}>
                         <strong className="text-slate-900">{rec.parameter}:</strong> {rec.saran}
@@ -290,11 +293,11 @@ export default async function CetakLhuPage({
 
           {/* TELAAH UMUM & CATATAN LAPANGAN PETUGAS */}
           {(uji.kesimpulan_umum || uji.saran_rekomendasi_lapangan || uji.catatan_lapangan) && (
-            <div className="mb-6 space-y-2">
+            <div className="mb-4 print:mb-2.5 space-y-1.5 print:space-y-1">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800">
                 C. Telaah Lapangan & Rekomendasi Terpadu
               </h4>
-              <div className="p-3.5 rounded-lg border border-slate-300 bg-slate-50 text-xs space-y-2 print:bg-white">
+              <div className="p-3 print:p-2 rounded-lg border border-slate-300 bg-slate-50 text-xs space-y-1.5 print:bg-white">
                 {uji.kesimpulan_umum && (
                   <div>
                     <span className="font-bold text-slate-900 block mb-0.5">Kesimpulan Umum Pengujian:</span>
@@ -302,13 +305,13 @@ export default async function CetakLhuPage({
                   </div>
                 )}
                 {uji.saran_rekomendasi_lapangan && (
-                  <div className="pt-1.5 border-t border-slate-200">
+                  <div className="pt-1 border-t border-slate-200">
                     <span className="font-bold text-slate-900 block mb-0.5">Saran & Rekomendasi Petugas:</span>
                     <p className="text-slate-700 leading-relaxed">{uji.saran_rekomendasi_lapangan}</p>
                   </div>
                 )}
                 {uji.catatan_lapangan && (
-                  <div className="pt-1.5 border-t border-slate-200">
+                  <div className="pt-1 border-t border-slate-200">
                     <span className="font-bold text-slate-900 block mb-0.5">Catatan Observasi Fisik Kolam:</span>
                     <p className="text-slate-600 leading-relaxed italic">{uji.catatan_lapangan}</p>
                   </div>
@@ -318,9 +321,9 @@ export default async function CetakLhuPage({
           )}
 
           {/* BLOK TANDA TANGAN PEJABAT & PETUGAS */}
-          <div className="grid grid-cols-2 gap-8 text-xs mt-8 pt-4 border-t border-slate-300">
+          <div className="grid grid-cols-2 gap-8 text-xs mt-5 pt-3 print:mt-3 print:pt-2 border-t border-slate-300">
             <div className="text-center">
-              <p className="text-slate-500 mb-16">Petugas Analis / Penguji,</p>
+              <p className="text-slate-500 mb-10 print:mb-8">Petugas Analis / Penguji,</p>
               <p className="font-bold text-slate-900 uppercase underline">{namaPenguji}</p>
               <p className="text-xs text-slate-600">{jabatanPenguji}</p>
               {nipPenguji && <p className="text-xs text-slate-500 font-mono mt-0.5">{nipPenguji}</p>}
@@ -328,7 +331,7 @@ export default async function CetakLhuPage({
 
             <div className="text-center">
               <p className="text-slate-500">Lewoleba, {formattedDate}</p>
-              <p className="text-slate-500 mb-14">{jabatanPenandatangan},</p>
+              <p className="text-slate-500 mb-9 print:mb-7">{jabatanPenandatangan},</p>
               <p className="font-bold text-slate-900 uppercase underline">
                 {namaPenandatangan}
               </p>
@@ -338,24 +341,24 @@ export default async function CetakLhuPage({
           </div>
 
           {/* FOOTER & QR VERIFIKASI KEASLIAN */}
-          <div className="mt-8 pt-4 border-t border-dashed border-slate-300 flex items-center justify-between text-xs text-slate-500">
-            <div className="flex items-center gap-3">
+          <div className="mt-5 pt-2.5 print:mt-2.5 print:pt-1.5 border-t border-dashed border-slate-300 flex items-center justify-between text-[11px] text-slate-500">
+            <div className="flex items-center gap-2.5">
               <Image
                 src={qrDataUrl}
                 alt="QR Verifikasi"
-                width={48}
-                height={48}
+                width={40}
+                height={40}
                 priority
                 unoptimized
-                className="size-12 object-contain"
+                className="size-10 object-contain"
               />
               <div>
                 <p className="font-bold text-slate-700">Verifikasi Keaslian LHU Digital</p>
-                <p className="text-xs text-slate-400">Pindai QR untuk memverifikasi dokumen di portal {APP_CONFIG.name} {APP_CONFIG.institution.regency}</p>
+                <p className="text-[10px] text-slate-400">Pindai QR untuk memverifikasi dokumen di portal {APP_CONFIG.name} {APP_CONFIG.institution.regency}</p>
               </div>
             </div>
 
-            <div className="text-right font-mono text-xs">
+            <div className="text-right font-mono text-[10px]">
               <span>ID: {uji.id.substring(0, 18)}</span>
               <p>Dicetak melalui {APP_CLOUD_NAME}</p>
             </div>

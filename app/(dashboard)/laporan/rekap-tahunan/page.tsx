@@ -82,14 +82,16 @@ export default async function RekapTahunanPage() {
           {/* Header Dinas */}
           <div className="border-b-4 border-double border-slate-900 pb-4 mb-6">
             <div className="flex items-center justify-between gap-4">
-              <Image
-                src={APP_CONFIG.logo.kabupaten}
-                alt="Logo Pemerintah Kabupaten Lembata"
-                width={80}
-                height={80}
-                priority
-                className="h-20 w-auto object-contain shrink-0"
-              />
+              <div className="w-16 sm:w-20 shrink-0 flex items-center justify-start">
+                <Image
+                  src={APP_CONFIG.logo.kabupaten}
+                  alt="Logo Pemerintah Kabupaten Lembata"
+                  width={80}
+                  height={80}
+                  priority
+                  className="h-16 sm:h-20 w-auto object-contain shrink-0"
+                />
+              </div>
               <div className="text-center flex-1 px-2">
                 <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900">
                   {APP_CONFIG.institution.government}
@@ -102,7 +104,7 @@ export default async function RekapTahunanPage() {
                 </p>
               </div>
               {/* Spacer penyeimbang simetris agar teks kop tepat di tengah */}
-              <div className="w-16 shrink-0 hidden sm:block pointer-events-none" aria-hidden="true" />
+              <div className="w-16 sm:w-20 shrink-0 pointer-events-none" aria-hidden="true" />
             </div>
           </div>
 
