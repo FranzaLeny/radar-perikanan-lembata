@@ -45,6 +45,12 @@ export function GrafikTren({
   nilaiMax,
   data,
 }: GrafikTrenProps) {
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!data || data.length === 0) {
     return (
       <Card className="p-8 text-center bg-card border-border">
@@ -85,81 +91,93 @@ export function GrafikTren({
       </CardHeader>
 
       <CardContent>
-        <div className="h-72 w-full pt-2">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" className="stroke-border" vertical={false} />
-              <XAxis
-                dataKey="tanggal"
-                className="text-xs fill-muted-foreground"
-                tickLine={false}
-                axisLine={{ stroke: 'currentColor', opacity: 0.2 }}
-              />
-              <YAxis
-                className="text-xs fill-muted-foreground"
-                tickLine={false}
-                axisLine={{ stroke: 'currentColor', opacity: 0.2 }}
-                domain={['auto', 'auto']}
-                unit={` ${satuan}`}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: 'var(--popover)',
-                  borderColor: 'var(--border)',
-                  borderRadius: 'var(--radius)',
-                  fontSize: '12px',
-                  color: 'var(--popover-foreground)',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                }}
-                formatter={(val: unknown) => {
-                  return [`${val} ${satuan}`, parameterName];
-                }}
-                labelFormatter={(label, payload) => {
-                  const item = payload?.[0]?.payload as DataPoint | undefined;
-                  return `${label} ${item?.pokdakan ? `• ${item.pokdakan}` : ''} (${item?.sampel || ''})`;
-                }}
-              />
-              <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
-
-              {/* Ambang Batas Reference Lines */}
-              {nilaiMin !== null && nilaiMin !== undefined && (
-                <ReferenceLine
-                  y={nilaiMin}
-                  stroke="#f59e0b"
-                  strokeDasharray="4 4"
-                  label={{
-                    value: `Batas Min (${nilaiMin})`,
-                    fill: '#f59e0b',
-                    fontSize: 10,
-                    position: 'insideBottomLeft',
+        <div className="h-72 w-full min-w-0 pt-2">
+          {mounted ? (
+            <ResponsiveContainer
+              width="100%"
+              height="100%"
+              minWidth={0}
+              minHeight={288}
+              initialDimension={{ width: 600, height: 288 }}
+            >
+              <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-border" vertical={false} />
+                <XAxis
+                  dataKey="tanggal"
+                  className="text-xs fill-muted-foreground"
+                  tickLine={false}
+                  axisLine={{ stroke: 'currentColor', opacity: 0.2 }}
+                />
+                <YAxis
+                  className="text-xs fill-muted-foreground"
+                  tickLine={false}
+                  axisLine={{ stroke: 'currentColor', opacity: 0.2 }}
+                  domain={['auto', 'auto']}
+                  unit={` ${satuan}`}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: 'var(--popover)',
+                    borderColor: 'var(--border)',
+                    borderRadius: 'var(--radius)',
+                    fontSize: '12px',
+                    color: 'var(--popover-foreground)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                  }}
+                  formatter={(val: unknown) => {
+                    return [`${val} ${satuan}`, parameterName];
+                  }}
+                  labelFormatter={(label, payload) => {
+                    const item = payload?.[0]?.payload as DataPoint | undefined;
+                    return `${label} ${item?.pokdakan ? `• ${item.pokdakan}` : ''} (${item?.sampel || ''})`;
                   }}
                 />
-              )}
-              {nilaiMax !== null && nilaiMax !== undefined && (
-                <ReferenceLine
-                  y={nilaiMax}
-                  stroke="#ef4444"
-                  strokeDasharray="4 4"
-                  label={{
-                    value: `Batas Max (${nilaiMax})`,
-                    fill: '#ef4444',
-                    fontSize: 10,
-                    position: 'insideTopLeft',
-                  }}
-                />
-              )}
+                <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
 
-              <Line
-                type="monotone"
-                dataKey="nilai"
-                name={`${parameterName} (${satuan})`}
-                stroke="var(--primary)"
-                strokeWidth={2.5}
-                dot={{ r: 4, fill: 'var(--primary)', strokeWidth: 2, stroke: 'var(--background)' }}
-                activeDot={{ r: 6, fill: 'var(--primary)', stroke: 'var(--card)', strokeWidth: 2 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+                {/* Ambang Batas Reference Lines */}
+                {nilaiMin !== null && nilaiMin !== undefined && (
+                  <ReferenceLine
+                    y={nilaiMin}
+                    stroke="#f59e0b"
+                    strokeDasharray="4 4"
+                    label={{
+                      value: `Batas Min (${nilaiMin})`,
+                      fill: '#f59e0b',
+                      fontSize: 10,
+                      position: 'insideBottomLeft',
+                    }}
+                  />
+                )}
+                {nilaiMax !== null && nilaiMax !== undefined && (
+                  <ReferenceLine
+                    y={nilaiMax}
+                    stroke="#ef4444"
+                    strokeDasharray="4 4"
+                    label={{
+                      value: `Batas Max (${nilaiMax})`,
+                      fill: '#ef4444',
+                      fontSize: 10,
+                      position: 'insideTopLeft',
+                    }}
+                  />
+                )}
+
+                <Line
+                  type="monotone"
+                  dataKey="nilai"
+                  name={`${parameterName} (${satuan})`}
+                  stroke="var(--primary)"
+                  strokeWidth={2.5}
+                  dot={{ r: 4, fill: 'var(--primary)', strokeWidth: 2, stroke: 'var(--background)' }}
+                  activeDot={{ r: 6, fill: 'var(--primary)', stroke: 'var(--card)', strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full w-full flex items-center justify-center text-xs text-muted-foreground/60 animate-pulse">
+              Menyiapkan kanvas grafik...
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

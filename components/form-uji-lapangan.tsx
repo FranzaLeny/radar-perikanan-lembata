@@ -127,6 +127,13 @@ export function FormUjiLapangan({
     return `SMP-${today}-${rand}`;
   };
 
+  // Format datetime-local sesuai zona waktu perangkat lokal
+  const getLocalNowString = () => {
+    const now = new Date();
+    const tzOffset = now.getTimezoneOffset() * 60000;
+    return new Date(now.getTime() - tzOffset).toISOString().slice(0, 16);
+  };
+
   // State Utama
   const [nomorSampel, setNomorSampel] = useState(generateSampleNumber());
   const [lokasiListState, setLokasiListState] = useState<LokasiItem[]>(lokasiList);
@@ -153,9 +160,7 @@ export function FormUjiLapangan({
   const [saranRekomendasiLapangan, setSaranRekomendasiLapangan] = useState('');
 
   // Metadata Pengujian
-  const [tanggalPengambilan, setTanggalPengambilan] = useState(
-    new Date().toISOString().slice(0, 16)
-  );
+  const [tanggalPengambilan, setTanggalPengambilan] = useState(getLocalNowString);
 
   // 1. Parameter Dimulai Kosong (Dinamis Sesuai Kebutuhan Uji Lapangan)
   const [parameterRows, setParameterRows] = useState<ParameterRow[]>([]);
@@ -420,10 +425,10 @@ export function FormUjiLapangan({
               </CardHeader>
 
               <CardContent className="pt-4 space-y-4">
-                {/* Kode Sampel: Format Bawaan + Editable + Tombol Regenerate */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Kode Sampel & Waktu Sampling Lapangan (Sejajar Sempurna) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
                   <Field>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between h-7">
                       <FieldLabel htmlFor="nomorSampel">Kode / Nomor Sampel *</FieldLabel>
                       <Button
                         type="button"
@@ -431,6 +436,7 @@ export function FormUjiLapangan({
                         onClick={() => setNomorSampel(generateSampleNumber())}
                         title="Acak kode sampel baru"
                         variant="ghost"
+                        className="h-6 gap-1 px-2 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
                       >
                         <RefreshCw className="size-3" />
                         <span>Acak Ulang</span>
@@ -451,7 +457,20 @@ export function FormUjiLapangan({
                   </Field>
 
                   <Field>
-                    <FieldLabel htmlFor="tanggal">Waktu Sampling Lapangan *</FieldLabel>
+                    <div className="flex items-center justify-between h-7">
+                      <FieldLabel htmlFor="tanggal">Waktu Sampling Lapangan *</FieldLabel>
+                      <Button
+                        type="button"
+                        size="xs"
+                        onClick={() => setTanggalPengambilan(getLocalNowString())}
+                        title="Setel ke waktu saat ini"
+                        variant="ghost"
+                        className="h-6 gap-1 px-2 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                      >
+                        <RefreshCw className="size-3" />
+                        <span>Waktu Sekarang</span>
+                      </Button>
+                    </div>
                     <Input
                       id="tanggal"
                       type="datetime-local"
@@ -460,6 +479,10 @@ export function FormUjiLapangan({
                       className="font-mono"
                       required
                     />
+                    <FieldDescription>
+                      Waktu saat pelaksanaan pengambilan sampel fisik air di lokasi kolam.
+                    </FieldDescription>
+                    <FieldError errors={toFieldErrors(fieldErrors.tanggal_pengambilan)} />
                   </Field>
                 </div>
 
