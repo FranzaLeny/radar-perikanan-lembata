@@ -106,25 +106,34 @@ export default async function CetakLhuPage({
           style={{ fontFamily: 'Arial, var(--font-geist-sans), sans-serif' }}
         >
           {/* KOP RESMI DINAS PERIKANAN KABUPATEN LEMBATA */}
-          <div className="border-b-4 border-double border-slate-900 pb-4 mb-6 text-center relative">
-            <div className="flex items-center justify-center gap-4">
-              <div className="size-14 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0 print:border print:border-slate-800">
-                <Droplets className="size-8 text-cyan-400" />
-              </div>
-              <div>
+          <div className="border-b-4 border-double border-slate-900 pb-4 mb-6 relative">
+            <div className="flex items-center justify-between gap-4">
+              {/* Logo Lambang Daerah Kabupaten Lembata */}
+              <img
+                src={APP_CONFIG.logo.kabupaten}
+                alt="Logo Pemerintah Kabupaten Lembata"
+                className="w-16 h-20 sm:w-20 sm:h-24 object-contain shrink-0"
+              />
+              <div className="text-center flex-1 px-2">
                 <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">
                   {APP_CONFIG.institution.government}
                 </h2>
-                <h1 className="text-lg sm:text-2xl font-extrabold uppercase tracking-tight text-slate-900">
+                <h1 className="text-lg sm:text-2xl font-extrabold uppercase tracking-tight text-slate-900 leading-snug">
                   {APP_CONFIG.institution.name}
                 </h1>
-                <p className="text-xs text-slate-600 mt-0.5">
+                <p className="text-xs text-slate-700 mt-1 font-medium">
                   Jl. Trans Lembata, Kel. Lewoleba, Kec. Nubatukan, Kab. Lembata, NTT 86611
                 </p>
-                <p className="text-xs text-slate-500">
-                  {APP_CONFIG.fullName} ({APP_CONFIG.name}) • Email: {APP_CONFIG.institution.email}
+                <p className="text-[11px] text-slate-600 mt-0.5">
+                  Aplikasi: {APP_CONFIG.fullName} ({APP_CONFIG.name}) • Email: {APP_CONFIG.institution.email}
                 </p>
               </div>
+              {/* Logo Aplikasi SIPEKA */}
+              <img
+                src={APP_CONFIG.logo.app}
+                alt={`Logo ${APP_CONFIG.name}`}
+                className="w-16 h-16 sm:w-20 sm:h-20 object-contain shrink-0"
+              />
             </div>
           </div>
 

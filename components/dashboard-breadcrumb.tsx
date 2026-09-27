@@ -19,6 +19,7 @@ const routeLabels: Record<string, { parent?: string; title: string }> = {
   '/instruksi-kerja': { parent: 'Operasional', title: 'Instruksi Kerja & Jadwal Sampel' },
   '/lokasi-kolam': { parent: 'Master Data', title: 'Lokasi Kolam Pembudidaya' },
   '/baku-mutu': { parent: 'Master Data', title: 'Baku Mutu Air SNI & KKP' },
+  '/pegawai': { parent: 'Master Data', title: 'Pegawai & Pejabat TTD' },
   '/pengguna': { parent: 'Master Data', title: 'Manajemen Pengguna' },
   '/tren': { parent: 'Analitik', title: 'Grafik Tren Mutu Air' },
   '/laporan': { parent: 'Laporan', title: 'Laporan Hasil Uji (LHU)' },

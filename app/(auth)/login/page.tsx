@@ -131,8 +131,18 @@ function LoginForm() {
   return (
     <Card className="border-border bg-card shadow-xl backdrop-blur-xs">
       <CardHeader className="text-center pb-4">
-        <div className="mx-auto size-14 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground shadow-xs mb-3">
-          <APP_CONFIG.logo.Icon className="size-7" />
+        <div className="flex items-center justify-center gap-4 mb-3">
+          <img
+            src={APP_CONFIG.logo.kabupaten}
+            alt="Logo Pemerintah Kabupaten Lembata"
+            className="h-14 w-auto object-contain drop-shadow-xs"
+          />
+          <div className="h-10 w-px bg-border/80" />
+          <img
+            src={APP_CONFIG.logo.app}
+            alt={`Logo ${APP_CONFIG.name}`}
+            className="h-14 w-auto object-contain drop-shadow-xs"
+          />
         </div>
         <CardTitle className="text-2xl font-bold font-heading tracking-tight">
           {APP_CONFIG.name}

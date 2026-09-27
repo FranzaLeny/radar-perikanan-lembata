@@ -72,8 +72,11 @@ export const APP_CONFIG = {
     },
   },
 
-  /** Referensi visual brand dan logo aplikasi */
+  /** Referensi visual brand dan logo aplikasi serta pemerintah daerah */
   logo: {
+    app: '/images/app-logo.png',
+    kabupaten: '/images/kab-lembata.png',
+    garuda: '/images/garuda.png',
     Icon: Droplets,
     iconName: 'Droplets',
   },
@@ -117,3 +120,7 @@ export const APP_INSTITUTION = APP_CONFIG.institution;
 export const APP_AUTHOR = APP_CONFIG.author;
 export const APP_OFFICIALS = APP_CONFIG.officials;
 export const APP_LOGO = APP_CONFIG.logo;
+export const LOGO_APP = APP_CONFIG.logo.app;
+export const LOGO_KAB_LEMBATA = APP_CONFIG.logo.kabupaten;
+export const LOGO_GARUDA = APP_CONFIG.logo.garuda;
+

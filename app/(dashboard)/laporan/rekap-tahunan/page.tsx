@@ -79,22 +79,29 @@ export default async function RekapTahunanPage() {
       <div className="flex justify-center">
         <div className="print-area bg-white text-slate-900 border border-slate-300 rounded-xl p-8 sm:p-10 w-full max-w-5xl shadow-2xl font-sans">
           {/* Header Dinas */}
-          <div className="border-b-4 border-double border-slate-900 pb-4 mb-6 text-center">
-            <div className="flex items-center justify-center gap-4">
-              <div className="size-12 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
-                <Droplets className="size-7 text-cyan-400" />
-              </div>
-              <div>
+          <div className="border-b-4 border-double border-slate-900 pb-4 mb-6">
+            <div className="flex items-center justify-between gap-4">
+              <img
+                src={APP_CONFIG.logo.kabupaten}
+                alt="Logo Pemerintah Kabupaten Lembata"
+                className="w-16 h-20 object-contain shrink-0"
+              />
+              <div className="text-center flex-1 px-2">
                 <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900">
                   {APP_CONFIG.institution.government}
                 </h3>
                 <h1 className="text-base sm:text-xl font-extrabold uppercase tracking-tight text-slate-900">
                   {APP_CONFIG.institution.name.toUpperCase()} — SISTEM {APP_CONFIG.name}
                 </h1>
-                <p className="text-xs text-slate-600">
+                <p className="text-xs text-slate-600 mt-0.5">
                   Laporan Rekapitulasi Tahunan Evaluasi Mutu Air Budidaya Ikan Perikanan Tahun {APP_CONFIG.author.copyrightYear}
                 </p>
               </div>
+              <img
+                src={APP_CONFIG.logo.app}
+                alt={`Logo ${APP_CONFIG.name}`}
+                className="w-16 h-16 object-contain shrink-0"
+              />
             </div>
           </div>
 

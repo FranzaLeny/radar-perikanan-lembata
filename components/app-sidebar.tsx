@@ -255,8 +255,12 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" render={<Link href="/dashboard" />}>
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs">
-                <APP_CONFIG.logo.Icon className="size-4" />
+              <div className="flex aspect-square size-9 items-center justify-center shrink-0">
+                <img
+                  src={APP_CONFIG.logo.app}
+                  alt={APP_CONFIG.name}
+                  className="size-8 object-contain rounded-md drop-shadow-xs"
+                />
               </div>
               <div className="flex flex-col gap-0.5 leading-none">
                 <span className="font-heading font-semibold text-sm tracking-tight text-foreground">

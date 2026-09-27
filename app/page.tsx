@@ -31,8 +31,17 @@ export default async function HomePage() {
       {/* Navbar */}
       <header className="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-xs">
-            <APP_CONFIG.logo.Icon className="size-5" />
+          <div className="flex items-center gap-2">
+            <img
+              src={APP_CONFIG.logo.kabupaten}
+              alt="Logo Kabupaten Lembata"
+              className="h-9 w-auto object-contain"
+            />
+            <img
+              src={APP_CONFIG.logo.app}
+              alt={APP_CONFIG.name}
+              className="h-9 w-auto object-contain"
+            />
           </div>
           <div>
             <h1 className="font-extrabold text-base tracking-wider font-heading">{APP_CONFIG.name}</h1>

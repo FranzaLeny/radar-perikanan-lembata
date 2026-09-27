@@ -76,10 +76,17 @@ export default async function PublicVerificationPage({
 
       {/* Top Bar with Brand & Theme Toggle */}
       <header className="max-w-2xl w-full mx-auto flex items-center justify-between py-2 relative z-10">
-        <div className="flex items-center gap-2.5">
-          <div className="size-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground shadow-xs">
-            <Droplets className="size-4" />
-          </div>
+        <div className="flex items-center gap-2">
+          <img
+            src={APP_CONFIG.logo.kabupaten}
+            alt="Logo Kabupaten Lembata"
+            className="size-7 object-contain"
+          />
+          <img
+            src={APP_CONFIG.logo.app}
+            alt={APP_NAME}
+            className="size-7 object-contain"
+          />
           <span className="font-extrabold text-sm tracking-wider font-heading">{APP_NAME}</span>
         </div>
         <ThemeToggle />
@@ -95,8 +102,18 @@ export default async function PublicVerificationPage({
               <span>Dokumen Resmi Terverifikasi Keabsahannya</span>
             </Badge>
 
-            <div className="flex items-center justify-center size-14 rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/30 mb-3">
-              <Droplets className="size-7" />
+            <div className="flex items-center justify-center gap-4 mb-3">
+              <img
+                src={APP_CONFIG.logo.kabupaten}
+                alt="Logo Pemerintah Kabupaten Lembata"
+                className="h-16 w-auto object-contain drop-shadow-sm"
+              />
+              <div className="h-12 w-px bg-border/80" />
+              <img
+                src={APP_CONFIG.logo.app}
+                alt={APP_NAME}
+                className="h-16 w-auto object-contain drop-shadow-sm"
+              />
             </div>
 
             <CardTitle className="text-xl sm:text-2xl font-bold tracking-tight font-heading">

@@ -60,10 +60,17 @@ export default async function CetakLabelPage({
         <div className="print-area bg-white text-slate-900 border-2 border-slate-900 rounded-2xl p-6 w-full max-w-md shadow-lg flex flex-col items-center text-center print:border-none print:shadow-none print:p-0">
           {/* Header Dinas */}
           <div className="w-full border-b-2 border-slate-900 pb-3 mb-4 flex items-center justify-between text-left">
-            <div className="flex items-center gap-2.5">
-              <div className="size-8 rounded-lg bg-cyan-800 text-white flex items-center justify-center">
-                <Droplets className="size-5" />
-              </div>
+            <div className="flex items-center gap-2">
+              <img
+                src={APP_CONFIG.logo.kabupaten}
+                alt="Logo Kabupaten Lembata"
+                className="size-8 object-contain shrink-0"
+              />
+              <img
+                src={APP_CONFIG.logo.app}
+                alt={APP_CONFIG.name}
+                className="size-8 object-contain shrink-0"
+              />
               <div>
                 <h3 className="font-extrabold text-xs uppercase tracking-tight text-slate-900">
                   {APP_CONFIG.institution.government}
