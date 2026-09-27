@@ -40,6 +40,7 @@ import {
   Scale,
   MapPin,
   Users2,
+  Users,
   LogOut,
   ShieldCheck,
 } from 'lucide-react';
@@ -200,6 +201,12 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
           url: '/baku-mutu',
           icon: Scale,
           isActive: pathname === '/baku-mutu',
+        },
+        {
+          title: 'Pegawai & Pejabat TTD',
+          url: '/pegawai',
+          icon: Users,
+          isActive: pathname === '/pegawai',
         },
         {
           title: 'Manajemen Pengguna',

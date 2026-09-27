@@ -94,6 +94,7 @@ export async function updateBakuMutuVersionedAction(
       .returning();
 
     revalidatePath('/baku-mutu');
+    revalidatePath('/uji-kualitas/baru');
     return {
       success: true,
       data: newVersion,
@@ -107,3 +108,64 @@ export async function updateBakuMutuVersionedAction(
     };
   }
 }
+
+export async function toggleBakuMutuAction(id: string, aktif: boolean) {
+  try {
+    await db
+      .update(schema.masterBakuMutu)
+      .set({ aktif })
+      .where(eq(schema.masterBakuMutu.id, id));
+
+    revalidatePath('/baku-mutu');
+    revalidatePath('/uji-kualitas/baru');
+    return {
+      success: true,
+      message: aktif
+        ? 'Parameter baku mutu diaktifkan kembali.'
+        : 'Parameter baku mutu dinonaktifkan.',
+    };
+  } catch (error) {
+    console.error('Error toggleBakuMutuAction:', error);
+    return {
+      success: false,
+      message: 'Gagal mengubah status parameter baku mutu.',
+    };
+  }
+}
+
+export async function deleteBakuMutuAction(id: string) {
+  try {
+    // 1. Cek apakah ada data pengujian yang mereferensi baku mutu ini
+    const [usage] = await db
+      .select({ count: schema.detailUjiParameter.id })
+      .from(schema.detailUjiParameter)
+      .where(eq(schema.detailUjiParameter.baku_mutu_id, id))
+      .limit(1);
+
+    if (usage) {
+      return {
+        success: false,
+        message: 'Tidak dapat dihapus: parameter ini sudah digunakan pada data pengujian kualitas air. Nonaktifkan saja jika tidak ingin dipakai lagi.',
+      };
+    }
+
+    // 2. Aman untuk dihapus (tidak ada relasi)
+    await db
+      .delete(schema.masterBakuMutu)
+      .where(eq(schema.masterBakuMutu.id, id));
+
+    revalidatePath('/baku-mutu');
+    revalidatePath('/uji-kualitas/baru');
+    return {
+      success: true,
+      message: 'Parameter baku mutu berhasil dihapus permanen.',
+    };
+  } catch (error) {
+    console.error('Error deleteBakuMutuAction:', error);
+    return {
+      success: false,
+      message: 'Gagal menghapus parameter baku mutu.',
+    };
+  }
+}
+

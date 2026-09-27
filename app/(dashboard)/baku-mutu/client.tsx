@@ -9,6 +9,10 @@ import {
   Loader2,
   Search,
   X,
+  Eye,
+  EyeOff,
+  Trash2,
+  MoreHorizontal,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -49,11 +53,20 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 import { bakuMutuSchema } from '@/lib/validations/baku-mutu';
 import {
   createBakuMutuAction,
   updateBakuMutuVersionedAction,
+  toggleBakuMutuAction,
+  deleteBakuMutuAction,
 } from '@/lib/actions/baku-mutu';
 
 interface BakuMutuItem {
@@ -174,6 +187,38 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
       setIsSubmitting(false);
     }
   };
+
+  const handleToggleAktif = async (item: BakuMutuItem) => {
+    const newStatus = !item.aktif;
+    try {
+      const res = await toggleBakuMutuAction(item.id, newStatus);
+      if (res.success) {
+        setList(list.map((x) => (x.id === item.id ? { ...x, aktif: newStatus } : x)));
+        toast.success(res.message);
+      } else {
+        toast.error(res.message || 'Gagal mengubah status parameter.');
+      }
+    } catch {
+      toast.error('Gagal mengubah status parameter.');
+    }
+  };
+
+  const handleDelete = async (item: BakuMutuItem) => {
+    if (!confirm(`Hapus permanen parameter "${item.parameter}"? Tindakan ini tidak dapat dibatalkan.`)) return;
+
+    try {
+      const res = await deleteBakuMutuAction(item.id);
+      if (res.success) {
+        setList(list.filter((x) => x.id !== item.id));
+        toast.success(res.message || 'Parameter berhasil dihapus.');
+      } else {
+        toast.error(res.message || 'Gagal menghapus parameter.');
+      }
+    } catch {
+      toast.error('Gagal menghapus parameter.');
+    }
+  };
+
 
   const filteredList = list.filter((item) => {
     const matchesTab =
@@ -357,19 +402,43 @@ export function BakuMutuClient({ initialList }: { initialList: BakuMutuItem[] })
                       )}
                     </TableCell>
                     <TableCell className="text-right">
-                      {item.aktif ? (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => handleOpenRevision(item)}
-                          className="h-7 text-xs gap-1"
+                      <DropdownMenu>
+                        <DropdownMenuTrigger
+                          className="inline-flex items-center justify-center rounded-md size-7 text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-colors focus-visible:outline-none"
+                          title="Menu Aksi"
                         >
-                          <FileEdit className="size-3.5" />
-                          <span>Revisi</span>
-                        </Button>
-                      ) : (
-                        <span className="text-xs text-muted-foreground italic">Terkunci</span>
-                      )}
+                          <MoreHorizontal className="size-4" />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          {item.aktif && (
+                            <DropdownMenuItem onClick={() => handleOpenRevision(item)}>
+                              <FileEdit className="size-3.5 mr-2" />
+                              Revisi Versi Baru
+                            </DropdownMenuItem>
+                          )}
+                          <DropdownMenuItem onClick={() => handleToggleAktif(item)}>
+                            {item.aktif ? (
+                              <>
+                                <EyeOff className="size-3.5 mr-2 text-amber-600" />
+                                <span>Nonaktifkan</span>
+                              </>
+                            ) : (
+                              <>
+                                <Eye className="size-3.5 mr-2 text-emerald-600" />
+                                <span>Aktifkan Kembali</span>
+                              </>
+                            )}
+                          </DropdownMenuItem>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuItem
+                            variant="destructive"
+                            onClick={() => handleDelete(item)}
+                          >
+                            <Trash2 className="size-3.5 mr-2" />
+                            Hapus Permanen
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </TableCell>
                   </TableRow>
                 ))

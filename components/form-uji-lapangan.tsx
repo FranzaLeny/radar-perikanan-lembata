@@ -51,7 +51,7 @@ import {
   type LokasiItem,
 } from '@/components/quick-add-lokasi-dialog';
 import { toast } from 'sonner';
-import { submitHasilUjiAction } from '@/lib/actions/uji-kualitas';
+import { submitHasilUjiAction, updateHasilUjiAction } from '@/lib/actions/uji-kualitas';
 import {
   hitungStatusKelayakan,
   hitungKesimpulan,
@@ -84,6 +84,7 @@ export interface PegawaiItem {
   pangkat_golongan?: string | null;
   aktif: boolean;
   peran_tanda_tangan: string;
+  is_penanggungjawab?: boolean;
 }
 
 interface ParameterRow {
@@ -99,6 +100,25 @@ export interface OptionItem {
   badge?: string;
 }
 
+export interface ExistingUjiData {
+  id: string;
+  nomor_sampel: string;
+  lokasi_id: string;
+  ik_id?: string | null;
+  tanggal_pengambilan: Date | string;
+  petugas_uji: string;
+  penguji_pegawai_id?: string | null;
+  penandatangan_pegawai_id?: string | null;
+  catatan_lapangan?: string | null;
+  kesimpulan_umum?: string | null;
+  saran_rekomendasi_lapangan?: string | null;
+  status?: string;
+  detailParameters?: {
+    baku_mutu_id: string;
+    nilai_hasil: string;
+  }[];
+}
+
 interface FormUjiLapanganProps {
   lokasiList: LokasiItem[];
   ikList: IKItem[];
@@ -107,6 +127,8 @@ interface FormUjiLapanganProps {
   prefilledIkId?: string;
   prefilledLokasiId?: string;
   currentOfficerName?: string;
+  mode?: 'create' | 'edit';
+  existingUji?: ExistingUjiData;
 }
 
 export function FormUjiLapangan({
@@ -117,6 +139,8 @@ export function FormUjiLapangan({
   prefilledIkId,
   prefilledLokasiId,
   currentOfficerName = 'Petugas Uji Lapangan',
+  mode = 'create',
+  existingUji,
 }: FormUjiLapanganProps) {
   const router = useRouter();
 
@@ -135,35 +159,68 @@ export function FormUjiLapangan({
   };
 
   // State Utama
-  const [nomorSampel, setNomorSampel] = useState(generateSampleNumber());
+  const [nomorSampel, setNomorSampel] = useState(
+    existingUji?.nomor_sampel || generateSampleNumber()
+  );
   const [lokasiListState, setLokasiListState] = useState<LokasiItem[]>(lokasiList);
-  const [lokasiId, setLokasiId] = useState(prefilledLokasiId || (lokasiList[0]?.id || ''));
+  const [lokasiId, setLokasiId] = useState(
+    existingUji?.lokasi_id || prefilledLokasiId || (lokasiList[0]?.id || '')
+  );
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
 
   // SOP: 'arsip' atau 'manual'
   const [tipeSop, setTipeSop] = useState<'arsip' | 'manual'>('arsip');
-  const [ikId, setIkId] = useState(prefilledIkId || (ikList[0]?.id || ''));
+  const [ikId, setIkId] = useState(
+    existingUji?.ik_id || prefilledIkId || (ikList[0]?.id || '')
+  );
   const [sopManualKode, setSopManualKode] = useState('');
   const [sopManualJudul, setSopManualJudul] = useState('');
 
-  // Pegawai & Penandatangan
-  const kadisPegawai = pegawaiList.find((p) => p.peran_tanda_tangan === 'kepala_dinas') || pegawaiList[0];
+  // Pegawai & Penandatangan: Utamakan is_penanggungjawab, lalu kepala_dinas, lalu first
+  const defaultPenandatangan =
+    pegawaiList.find((p) => p.is_penanggungjawab) ||
+    pegawaiList.find((p) => p.peran_tanda_tangan === 'kepala_dinas') ||
+    pegawaiList[0];
   const pengujiPegawaiDefault = pegawaiList.find((p) => p.peran_tanda_tangan === 'penguji') || pegawaiList[0];
 
-  const [pengujiPegawaiId, setPengujiPegawaiId] = useState<string>(pengujiPegawaiDefault?.id || '');
-  const [penandatanganPegawaiId, setPenandatanganPegawaiId] = useState<string>(kadisPegawai?.id || '');
-  const [petugasUji, setPetugasUji] = useState(pengujiPegawaiDefault?.nama || currentOfficerName);
+  const [pengujiPegawaiId, setPengujiPegawaiId] = useState<string>(
+    existingUji?.penguji_pegawai_id || pengujiPegawaiDefault?.id || ''
+  );
+  const [penandatanganPegawaiId, setPenandatanganPegawaiId] = useState<string>(
+    existingUji?.penandatangan_pegawai_id || defaultPenandatangan?.id || ''
+  );
+  const [petugasUji, setPetugasUji] = useState(
+    existingUji?.petugas_uji || pengujiPegawaiDefault?.nama || currentOfficerName
+  );
 
   // Narasi Evaluasi Lapangan
-  const [catatanLapangan, setCatatanLapangan] = useState('');
-  const [kesimpulanUmum, setKesimpulanUmum] = useState('');
-  const [saranRekomendasiLapangan, setSaranRekomendasiLapangan] = useState('');
+  const [catatanLapangan, setCatatanLapangan] = useState(existingUji?.catatan_lapangan || '');
+  const [kesimpulanUmum, setKesimpulanUmum] = useState(existingUji?.kesimpulan_umum || '');
+  const [saranRekomendasiLapangan, setSaranRekomendasiLapangan] = useState(
+    existingUji?.saran_rekomendasi_lapangan || ''
+  );
 
   // Metadata Pengujian
-  const [tanggalPengambilan, setTanggalPengambilan] = useState(getLocalNowString);
+  const [tanggalPengambilan, setTanggalPengambilan] = useState(() => {
+    if (existingUji?.tanggal_pengambilan) {
+      const d = new Date(existingUji.tanggal_pengambilan);
+      const tzOffset = d.getTimezoneOffset() * 60000;
+      return new Date(d.getTime() - tzOffset).toISOString().slice(0, 16);
+    }
+    return getLocalNowString();
+  });
 
-  // 1. Parameter Dimulai Kosong (Dinamis Sesuai Kebutuhan Uji Lapangan)
-  const [parameterRows, setParameterRows] = useState<ParameterRow[]>([]);
+  // 1. Parameter Dimulai Kosong (atau prefill saat edit)
+  const [parameterRows, setParameterRows] = useState<ParameterRow[]>(() => {
+    if (existingUji?.detailParameters && existingUji.detailParameters.length > 0) {
+      return existingUji.detailParameters.map((d, idx) => ({
+        tempId: `param-${idx}-${Date.now()}`,
+        baku_mutu_id: d.baku_mutu_id,
+        nilai_hasil: d.nilai_hasil.toString(),
+      }));
+    }
+    return [];
+  });
 
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -190,17 +247,25 @@ export function FormUjiLapangan({
       value: p.id,
       label: p.nama,
       sublabel: `${p.jabatan} • NIP. ${p.nip}${p.pangkat_golongan ? ` (${p.pangkat_golongan})` : ''}`,
-      badge: p.peran_tanda_tangan === 'kepala_dinas' ? 'Kepala Dinas' : p.peran_tanda_tangan === 'pengelola_mutu' ? 'Pengelola Mutu' : undefined,
+      badge: p.is_penanggungjawab
+        ? '⭐ Default Penandatangan'
+        : p.peran_tanda_tangan === 'kepala_dinas'
+        ? 'Kepala Dinas'
+        : p.peran_tanda_tangan === 'pengelola_mutu'
+        ? 'Pengelola Mutu'
+        : undefined,
     }));
   }, [pegawaiList]);
 
-  // Options untuk Combobox Lokasi Kolam
+  // Options untuk Combobox Lokasi Kolam (hanya yang aktif)
   const lokasiOptions: OptionItem[] = useMemo(() => {
-    return lokasiListState.map((l) => ({
-      value: l.id,
-      label: `${l.nama_pokdakan} (${l.pemilik})`,
-      sublabel: `Kec. ${l.kecamatan}, Desa ${l.desa}${l.komoditas_ikan ? ` • Komoditas: ${l.komoditas_ikan}` : ''}`,
-    }));
+    return lokasiListState
+      .filter((l) => l.aktif !== false)
+      .map((l) => ({
+        value: l.id,
+        label: `${l.nama_pokdakan} (${l.pemilik})`,
+        sublabel: `Kec. ${l.kecamatan}, Desa ${l.desa}${l.komoditas_ikan ? ` • Komoditas: ${l.komoditas_ikan}` : ''}`,
+      }));
   }, [lokasiListState]);
 
   // Options untuk Combobox SOP Terarsip
@@ -374,17 +439,32 @@ export function FormUjiLapangan({
         detail_parameter: details,
       };
 
-      const res = await submitHasilUjiAction(payload);
-
-      if (res.success && res.data) {
-        toast.success(res.message || 'Hasil uji lapangan berhasil disimpan.');
-        router.push(`/laporan/${res.data.id}/cetak`);
-      } else {
-        if (res.errors) {
-          setFieldErrors(res.errors as Record<string, string[]>);
+      if (mode === 'edit' && existingUji?.id) {
+        const res = await updateHasilUjiAction(existingUji.id, payload);
+        if (res.success) {
+          toast.success(res.message || 'Data pengujian berhasil diperbarui.');
+          router.push(`/laporan`);
+          router.refresh();
+        } else {
+          if (res.errors) {
+            setFieldErrors(res.errors as Record<string, string[]>);
+          }
+          setAlertError(res.message || 'Gagal memperbarui hasil uji.');
+          toast.error(res.message || 'Gagal memperbarui.');
         }
-        setAlertError(res.message || 'Gagal menyimpan hasil uji.');
-        toast.error(res.message || 'Gagal menyimpan.');
+      } else {
+        const res = await submitHasilUjiAction(payload);
+
+        if (res.success && res.data) {
+          toast.success(res.message || 'Hasil uji lapangan berhasil disimpan.');
+          router.push(`/laporan/${res.data.id}/cetak`);
+        } else {
+          if (res.errors) {
+            setFieldErrors(res.errors as Record<string, string[]>);
+          }
+          setAlertError(res.message || 'Gagal menyimpan hasil uji.');
+          toast.error(res.message || 'Gagal menyimpan.');
+        }
       }
     } catch {
       setAlertError('Terjadi kegagalan komunikasi dengan server.');
@@ -1004,7 +1084,7 @@ export function FormUjiLapangan({
                   ) : (
                     <>
                       <Send className="size-4" />
-                      <span>Simpan & Terbitkan LHU</span>
+                      <span>{mode === 'edit' ? 'Perbarui Data Pengujian' : 'Simpan & Terbitkan LHU'}</span>
                     </>
                   )}
                 </Button>

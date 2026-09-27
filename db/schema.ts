@@ -26,6 +26,7 @@ export const lokasiKolam = pgTable('lokasi_kolam', {
   desa: varchar('desa', { length: 100 }).notNull(),
   titik_koordinat: varchar('titik_koordinat', { length: 100 }),
   komoditas_ikan: varchar('komoditas_ikan', { length: 50 }),
+  aktif: boolean('aktif').notNull().default(true),
 });
 
 // ==========================================
@@ -53,6 +54,7 @@ export const masterPegawai = pgTable('master_pegawai', {
   pangkat_golongan: varchar('pangkat_golongan', { length: 100 }),
   aktif: boolean('aktif').notNull().default(true),
   peran_tanda_tangan: varchar('peran_tanda_tangan', { length: 50 }).notNull().default('penguji'), // 'penguji', 'pengelola_mutu', 'kepala_dinas'
+  is_penanggungjawab: boolean('is_penanggungjawab').notNull().default(false),
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
 });
 
@@ -72,6 +74,7 @@ export const ujiKualitasAir = pgTable('uji_kualitas_air', {
   kesimpulan: varchar('kesimpulan', { length: 20 }), // 'NORMAL', 'PERINGATAN', 'KRITIS'
   kesimpulan_umum: text('kesimpulan_umum'),
   saran_rekomendasi_lapangan: text('saran_rekomendasi_lapangan'),
+  status: varchar('status', { length: 20 }).notNull().default('draft'), // 'draft' | 'final' | 'arsip'
   createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull(),
 });
 

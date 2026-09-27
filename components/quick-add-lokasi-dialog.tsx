@@ -36,6 +36,7 @@ export interface LokasiItem {
   desa: string;
   titik_koordinat: string | null;
   komoditas_ikan: string | null;
+  aktif?: boolean;
 }
 
 const KECAMATAN_LEMBATA = [
