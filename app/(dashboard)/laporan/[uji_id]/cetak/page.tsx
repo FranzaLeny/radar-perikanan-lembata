@@ -113,9 +113,9 @@ export default async function CetakLhuPage({
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Pemerintah Kabupaten Lembata"
                 width={80}
-                height={96}
+                height={80}
                 priority
-                className="h-16 w-auto object-contain shrink-0"
+                className="h-20 w-auto object-contain shrink-0"
               />
               <div className="text-center flex-1 px-2">
                 <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-slate-900">

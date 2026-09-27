@@ -84,7 +84,7 @@ export default async function PublicVerificationPage({
             width={28}
             height={28}
             priority
-            className="size-7 object-contain"
+            className="h-7 w-auto object-contain"
           />
           <Image
             src={APP_CONFIG.logo.app}

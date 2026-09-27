@@ -85,10 +85,10 @@ export default async function RekapTahunanPage() {
               <Image
                 src={APP_CONFIG.logo.kabupaten}
                 alt="Logo Pemerintah Kabupaten Lembata"
-                width={64}
+                width={80}
                 height={80}
                 priority
-                className="w-16 h-20 object-contain shrink-0"
+                className="h-20 w-auto object-contain shrink-0"
               />
               <div className="text-center flex-1 px-2">
                 <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-900">

@@ -68,7 +68,7 @@ export default async function CetakLabelPage({
                 width={36}
                 height={36}
                 priority
-                className="size-9 object-contain shrink-0"
+                className="h-9 w-auto object-contain shrink-0"
               />
               <div>
                 <h3 className="font-extrabold text-xs uppercase tracking-tight text-slate-900">
