@@ -1,25 +1,23 @@
-import React from 'react';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { eq } from 'drizzle-orm';
-import { redirect } from 'next/navigation';
-import {
-  ShieldCheck,
-  CheckCircle2,
-  Droplets,
-  Calendar,
-  Building2,
-  ArrowRight,
-  Sparkles,
-  ExternalLink,
-} from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ThemeToggle } from '@/components/theme-toggle';
 import { APP_CONFIG, APP_NAME } from '@/lib/constants';
+import { eq } from 'drizzle-orm';
+import {
+  ArrowRight,
+  Building2,
+  Calendar,
+  CheckCircle2,
+  ExternalLink,
+  ShieldCheck,
+  Sparkles
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function PublicVerificationPage({
   params,
@@ -133,7 +131,7 @@ export default async function PublicVerificationPage({
               {APP_CONFIG.institution.government}
             </CardTitle>
             <p className="text-xs uppercase font-semibold text-muted-foreground mt-0.5 tracking-wider">
-              {APP_CONFIG.institution.name.toUpperCase()} — SISTEM {APP_NAME}
+              {APP_CONFIG.institution.name.toUpperCase()}
             </p>
           </CardHeader>
 

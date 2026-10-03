@@ -21,8 +21,8 @@ import {
 } from '@/lib/validasi-baku-mutu';
 import { eq } from 'drizzle-orm';
 import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 export default async function CetakLhuPage({
@@ -78,12 +78,10 @@ export default async function CetakLhuPage({
   const jabatanPenguji = uji.pengujiPegawai?.jabatan || 'Petugas Pengawas Budidaya';
   const nipPenguji = uji.pengujiPegawai?.nip ? `NIP. ${uji.pengujiPegawai.nip}` : '';
 
-  const namaPenandatangan = uji.penandatanganPegawai?.nama || APP_CONFIG.officials.kepalaDinas.name;
-  const jabatanPenandatangan = uji.penandatanganPegawai?.jabatan || APP_CONFIG.officials.kepalaDinas.jabatan;
-  const nipPenandatangan = uji.penandatanganPegawai?.nip
-    ? `NIP. ${uji.penandatanganPegawai.nip}`
-    : `NIP. ${APP_CONFIG.officials.kepalaDinas.nip}`;
-  const pangkatPenandatangan = uji.penandatanganPegawai?.pangkat_golongan || APP_CONFIG.officials.kepalaDinas.pangkat;
+  const namaPenandatangan = uji.penandatanganPegawai?.nama;
+  const jabatanPenandatangan = uji.penandatanganPegawai?.jabatan;
+  const nipPenandatangan = uji.penandatanganPegawai?.nip || '';
+  const pangkatPenandatangan = uji.penandatanganPegawai?.pangkat_golongan || '';
 
   return (
     <div className="space-y-6">

@@ -1,20 +1,20 @@
-# 📘 MATERI PRESENTASI PROTOTYPE APLIKASI SIPEKA (MINAMUTU)
-## Sistem Informasi Pemantauan Mutu Air Budidaya Perikanan Terpadu
-**Dinas Perikanan Kabupaten Lembata — Nusa Tenggara Timur**
+# 📘 MATERI PRESENTASI PROTOTYPE SISTEM INFORMASI PEMANTAUAN MUTU AIR BUDIDAYA PERIKANAN TERPADU
+## Dinas Perikanan Kabupaten Lembata — Nusa Tenggara Timur
+*(Catatan: Penamaan akronim/branding definitif belum ditetapkan — terbuka untuk saran dan masukan peserta Latsar)*
 
 ---
 
 > **Petunjuk Penggunaan Dokumen:**  
-> Dokumen ini dirancang khusus sebagai **bahan belajar komprehensif** bagi presenter (Ellen Veronika Maran, S.Pi) sebelum menyusun slide PowerPoint (PPT) dan mempresentasikannya di hadapan audiens awam, penguji Latsar CPNS, mentor, maupun pimpinan dinas.  
-> Seluruh penjelasan teknis telah diterjemahkan ke dalam **bahasa yang komunikatif, analogis, dan mudah dipahami**, namun tetap berbobot ilmiah serta mencerminkan nilai-nilai akuntabilitas birokrasi dan inovasi digital.
+> Dokumen ini dirancang khusus sebagai **bahan belajar komprehensif dan naskah rujukan utama** bagi presenter (**Melania Herlinda Lete Boro, S.Si**) sebelum menyusun slide presentasi (PowerPoint/Canva) dan mempresentasikannya di hadapan Penguji Latsar CPNS, Mentor (**Hadi Umar, S.Pd., MT**), Coach, maupun audiens kedinasan.  
+> Seluruh penjelasan teknis sistem informasi telah diintegrasikan dengan **tata kelola birokrasi, prinsip integritas data, mitigasi risiko audit, dan kerangka kerja ASN BerAKHLAK**, sehingga mampu menjawab pertanyaan mendalam dari penguji terkait teknis, fungsionalitas, maupun keamanan sistem.
 
 ---
 
 ## 📑 DAFTAR ISI
-1. [Profil Inovasi & Identitas Proyek](#1-profil-inovasi--identitas-proyek)
+1. [Profil Inovasi & Identitas Peserta Latsar](#1-profil-inovasi--identitas-peserta-latsar)
 2. [Latar Belakang Masalah: Kondisi Sebelum vs Sesudah](#2-latar-belakang-masalah-kondisi-sebelum-vs-sesudah)
-3. [Proses Bisnis & Alur Kerja Sistem (End-to-End)](#3-proses-bisnis--alur-kerja-sistem-end-to-end)
-4. [Eksplorasi Modul & Fitur Utama Aplikasi](#4-eksplorasi-modul--fitur-utama-aplikasi)
+3. [Arsitektur Keterkaitan Antar-Modul (System Synergy & Data Flow)](#3-arsitektur-keterkaitan-antar-modul-system-synergy--data-flow)
+4. [Eksplorasi Detail 9 Modul Utama Aplikasi](#4-eksplorasi-detail-9-modul-utama-aplikasi)
    - [Modul 1: Dashboard Eksekutif & Statistik](#modul-1-dashboard-eksekutif--statistik)
    - [Modul 2: SOP Instruksi Kerja & Label QR Code](#modul-2-sop-instruksi-kerja--label-qr-code)
    - [Modul 3: Master Data Lokasi Kolam & Pokdakan](#modul-3-master-data-lokasi-kolam--pokdakan)
@@ -23,399 +23,604 @@
    - [Modul 6: Laporan Hasil Uji (LHU) Resmi & Rekap Tahunan](#modul-6-laporan-hasil-uji-lhu-resmi--rekap-tahunan)
    - [Modul 7: Analisis Tren Mutu & Peringatan Dini](#modul-7-analisis-tren-mutu--peringatan-dini)
    - [Modul 8: Portal Verifikasi Publik Berbasis QR Code](#modul-8-portal-verifikasi-publik-berbasis-qr-code)
-   - [Modul 9: Manajemen Pegawai & Keamanan Akun (RBAC)](#modul-9-manajemen-pegawai--keamanan-akun-rbac)
-5. [Perencanaan Proses Pembuatan Sistem (Roadmap)](#5-perencanaan-proses-pembuatan-sistem-roadmap)
-6. [Manfaat & Dampak Nyata Inovasi](#6-manfaat--dampak-nyata-inovasi)
-7. [Blueprint Slide Presentasi PowerPoint (Slide by Slide)](#7-blueprint-slide-presentasi-powerpoint-slide-by-slide)
+   - [Modul 9: Manajemen Pegawai & Pejabat Penandatangan LHU](#modul-9-manajemen-pegawai--pejabat-penandatangan-lhu)
+5. [Aturan Integritas Data: Kebijakan Penghapusan (Boleh vs Dilarang Dihapus)](#5-aturan-integritas-data-kebijakan-penghapusan-boleh-vs-dilarang-dihapus)
+6. [Tata Kelola Keamanan Akun & Hak Akses Pengguna (RBAC)](#6-tata-kelola-keamanan-akun--hak-akses-pengguna-rbac)
+   - [Matriks Kewenangan Akses (RBAC Matrix)](#a-matriks-kewenangan-akses-rbac-matrix)
+   - [Otoritas Pemberian & Pengubahan Wewenang Role](#b-otoritas-pemberian--pengubahan-wewenang-role)
+   - [Prosedur Operasional Standar (SOP) Registrasi & Penugasan Akun](#c-prosedur-operasional-standar-sop-registrasi--penugasan-akun)
+7. [Perencanaan Proses Pembuatan Sistem (Roadmap)](#7-perencanaan-proses-pembuatan-sistem-roadmap)
+8. [Manfaat & Dampak Nyata Inovasi](#8-manfaat--dampak-nyata-inovasi)
+9. [Blueprint Slide Presentasi PowerPoint (Slide by Slide)](#9-blueprint-slide-presentasi-powerpoint-slide-by-slide)
+10. [Simulasi Tanya Jawab Penguji Latsar (Q&A Defense Guide)](#10-simulasi-tanya-jawab-penguji-latsar-qa-defense-guide)
 
 ---
 
-## 1. PROFIL INOVASI & IDENTITAS PROYEK
+## 1. PROFIL INOVASI & IDENTITAS PESERTA LATSAR
 
-| Elemen | Keterangan |
+| Elemen | Keterangan Lengkap |
 |---|---|
-| **Nama Aplikasi** | **SIPEKA** *(Sistem Pemantauan Kualitas Air Budidaya)* / **MINAMUTU** |
+| **Nama Sistem / Inovasi** | **Sistem Informasi Pemantauan Mutu Air Budidaya Perikanan Terpadu** *(Prototype)* |
+| **Nama Branding / Akronim** | *(Belum ditentukan secara definitif — Masih terbuka untuk usulan, saran kreatif, dan masukan dari dewan penguji, mentor, serta rekan-rekan peserta Latsar)* |
 | **Instansi Pembina** | Dinas Perikanan Kabupaten Lembata, Provinsi Nusa Tenggara Timur |
-| **Inovator / Penggagas** | **Ellen Veronika Maran, S.Pi** (Pengelola Pengawasan Mutu Air) |
-| **Pimpinan / Mentor** | **Ir. Hadi Mahmud, M.Si** (Kepala Dinas Perikanan Kabupaten Lembata) |
-| **Sasaran Pengguna** | 1. Kelompok Pembudidaya Ikan (Pokdakan) di Kab. Lembata<br>2. Petugas Penguji & Penyuluh Lapangan<br>3. Pengelola Mutu Air Dinas Perikanan<br>4. Kepala Dinas & Pengambil Kebijakan<br>5. Masyarakat Umum (Verifikasi Transparansi) |
-| **Dasar Ilmiah & Regulasi** | - PP No. 22 Tahun 2021 (Baku Mutu Air Nasional)<br>- Standar Nasional Indonesia (SNI) Budidaya Ikan Air Tawar & Payau<br>- Keputusan Menteri Kelautan dan Perikanan (Kepmen-KP) |
+| **Nama Peserta / Inovator** | **MELANIA HERLINDA LETE BORO, S.Si** |
+| **NIP** | **19940318 202506 2 005** |
+| **Angkatan Latsar** | **353** |
+| **Nomor Absen** | **8** |
+| **Jabatan / Penugasan** | Pengelola Pengawasan Mutu Air |
+| **Mentor** | **Hadi Umar, S.Pd., MT** |
+| **Sasaran Pengguna** | 1. **Kelompok Pembudidaya Ikan (Pokdakan)** di seluruh wilayah Kabupaten Lembata<br>2. **Petugas Laboratorium & Penyuluh Lapangan**<br>3. **Pengelola Pengawasan Mutu Air Dinas Perikanan**<br>4. **Kepala Dinas & Pejabat Pengambil Kebijakan**<br>5. **Masyarakat Luar / Pembeli Ikan** (Verifikasi Transparansi Mutu) |
+| **Landasan Regulasi** | 1. **PP No. 22 Tahun 2021** tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup (Lampiran VI: Baku Mutu Air Nasional Badan Air Kelas II/III Budidaya Perikanan)<br>2. **SNI Budidaya Perikanan Air Tawar & Payau** (SNI 01-6141 untuk Nila, SNI 7545.1 untuk Lele)<br>3. **Kepmen-KP No. 28/KEPMEN-KP/2019** tentang Standar Pelayanan Minimal Sektor Kelautan dan Perikanan |
+| **Basis Teknologi** | Web Architecture Modern (Next.js App Router, PostgreSQL Relational Database, Drizzle ORM, Better-Auth Security, Responsive Mobile-Friendly Tailwind CSS) |
 
 ---
 
 ## 2. LATAR BELAKANG MASALAH: KONDISI SEBELUM VS SESUDAH
 
-### A. Gambaran Masalah Riil di Kabupaten Lembata (Untuk Disampaikan ke Audiens)
-> *"Air adalah nyawa bagi budidaya perikanan. Sebagus apapun benih ikan dan semahal apapun pakan yang diberikan, jika kualitas air kolam memburuk, maka ikan akan stres, terserang penyakit, bahkan mati massal secara mendadak."*
+### A. Gambaran Masalah Riil di Kabupaten Lembata
+> *"Air adalah ruang hidup sekaligus napas utama bagi budidaya perikanan. Sebaik apapun bibit ikan dan semahal apapun pakan yang ditebar, apabila kualitas air kolam memburuk, maka pertumbuhan ikan akan kerdil, terserang penyakit, hingga terjadi kematian massal secara mendadak."*
 
-Di Kabupaten Lembata, potensi budidaya perikanan (seperti ikan Nila, Lele, Bandeng, dan komoditas lainnya) sangat menjanjikan untuk ketahanan pangan dan ekonomi masyarakat. Namun, selama ini terdapat beberapa kendala mendasar:
-
-1. **Keterlambatan Deteksi Masalah Air**: Pembudidaya baru melapor ke Dinas ketika ikan sudah mati mengambang, padahal penurunan mutu air (seperti anjloknya oksigen atau melonjaknya racun amonia) sebenarnya sudah terjadi beberapa hari sebelumnya.
-2. **Pencatatan Konvensional yang Rawan Hilang**: Data pengukuran lapangan dicatat manual pada buku tulis atau lembaran kertas yang mudah basah, sobek, tercecer, dan tidak terdokumentasi rapi.
-3. **Analisis Manual yang Butuh Waktu**: Petugas lapangan harus membuka tabel buku tebal untuk membandingkan angka uji dengan standar regulasi, sehingga kesimpulan dan saran penanganan terlambat diberikan kepada pembudidaya.
-4. **Penerbitan Laporan (LHU) yang Lambat**: Pembuatan Lembar Hasil Uji (LHU) resmi memakan waktu berhari-hari karena harus diketik ulang manual dan menunggu disposisi tanda tangan fisik.
-5. **Belum Ada Riwayat Historis per Kolam**: Dinas sulit mengetahui apakah suatu kolam di desa tertentu memiliki masalah mutu air musiman (misal setiap musim kemarau atau musim hujan).
+Potensi budidaya perikanan di Kabupaten Lembata (Nila, Lele, Bandeng, dll.) sangat potensial untuk memperkuat ketahanan pangan dan ekonomi keluarga pembudidaya. Namun sebelum adanya sistem pemantauan digital ini, pengawasan mutu air menghadapi 5 kelemahan mendasar:
+1. **Deteksi Terlambat (*Late Detection*)**: Pembudidaya baru menghubungi Dinas saat ikan sudah mati mengapung. Padahal pergeseran kimia air (penurunan oksigen DO atau lonjakan amonia racun) sudah berlangsung 2–3 hari sebelumnya.
+2. **Pencatatan Konvensional yang Rentan Musnah**: Data uji dicatat pada kertas bergaris yang mudah basah terkena cipratan air kolam, sobek, kotor, dan hilang saat pergantian petugas.
+3. **Analisis Berlarut-larut**: Petugas harus mencocokkan angka pengukuran secara manual dengan tabel buku tebal, sehingga petani tidak langsung mendapatkan petunjuk tindakan penyelamatan darurat.
+4. **Penerbitan Laporan Hasil Uji (LHU) Lambat**: Dokumen resmi harus diketik manual di komputer kantor, rentan salah salin (*human error*), dan antrean tanda tangan memakan waktu berhari-hari.
+5. **Kehilangan Jejak Historis Kolam**: Dinas tidak memiliki basis data tren tahunan untuk memetakan kolam mana yang sering bermasalah saat pergantian musim kemarau ke musim hujan.
 
 ---
 
-### B. Matriks Perbandingan Komparatif: Sebelum vs Sesudah SIPEKA
+### B. Matriks Komparasi: Sebelum vs Sesudah Inovasi Sistem Digital
 
-| Aspek Penilaian | Kondisi Sebelum Inovasi | Kondisi Sesudah Ada SIPEKA |
+| Dimensi Penilaian | Sebelum Ada Inovasi Digital | Setelah Implementasi Prototype Sistem |
 |---|---|---|
-| **Metode Pencatatan** | Catat manual di buku catatan kertas / formulir fisik yang rawan hilang & rusak. | Digital langsung tersimpan aman di cloud database melalui ponsel atau laptop. |
-| **Validasi Mutu Air** | Menghitung dan mencocokkan ambang batas secara manual satu per satu. | **Otomatis & Real-time**: Sistem langsung menghitung dan memberi label *Aman/Waspada/Bahaya*. |
-| **Kecepatan Rekomendasi** | Petani baru menerima saran setelah berhari-hari (seringkali ikan sudah terlanjur mati). | Rekomendasi teknis langsung muncul detik itu juga (contoh: saran aerasi, penyiponan, atau pengapuran). |
-| **Penerbitan Dokumen (LHU)** | Dibuat manual di Microsoft Word, proses tanda tangan lambat & rawan salah ketik. | **1 Kali Klik Cetak**: Format dinas baku standar A4, lengkap kop surat, grafik, dan e-pengesahan. |
-| **Pelacakan Sampel (Traceability)** | Tidak ada kode unik; botol sampel di lapangan sering tertukar. | **QR Code Otomatis**: Setiap pengujian dan botol sampel memiliki barcode unik berstandar digital. |
-| **Akses Pembudidaya / Publik** | Pembudidaya sulit melihat arsip riwayat mutu air kolam mereka. | **Portal Publik QR**: Cukup scan QR code lewat kamera HP tanpa perlu akun/login. |
-| **Monitoring Pimpinan** | Kepala Dinas hanya mendapat laporan rekap akhir tahun yang tebal dan lambat dianalisis. | **Dashboard Interaktif**: Pimpinan dapat melihat grafik mutu air seluruh kecamatan secara real-time. |
+| **Media Pencatatan** | Kertas formulir manual / buku saku, rentan rusak di lapangan. | Digital Cloud Database melalui ponsel pintar / tablet petugas. |
+| **Kecepatan Validasi** | Manual membandingkan dengan buku standar (1–3 hari). | **Otomatis Real-Time (<1 detik)** dengan badge Normal/Peringatan/Kritis. |
+| **Rekomendasi Penanganan** | Lisan dan lambat, ikan seringkali sudah mati sebelum saran tiba. | **Instan dan Terstruktur**: Rekomendasi aerasi, penyiponan, atau pengapuran langsung terbit. |
+| **Legitimasi Dokumen (LHU)** | Ketik ulang di MS Word, format tidak seragam, tanda tangan basah lambat. | **Sekali Klik Cetak A4 Standar Dinas**, lengkap kop resmi, grafik, dan e-verifikasi pejabat. |
+| **Pelacakan Sampel Lapangan** | Wadah sampel rentan tertukar, kode sampel hanya spidol yang mudah luntur. | **Label Stiker QR Code Digital**, unik per instruksi kerja dan botol sampel. |
+| **Aksesibilitas Pembudidaya** | Petani harus datang ke kantor dinas untuk menanyakan status air. | **Scan QR Mandiri**: Petani cukup menembak kamera HP pada barcode laporan atau botol sampel. |
+| **Akuntabilitas Rekam Jejak** | Data lama dapat diubah/dihapus tanpa jejak (*no audit trail*). | **Strict Lifecycle Protection**: Data final terkunci permanen, penghapusan terproteksi database. |
+| **Monitoring Pimpinan (Kadis)** | Menunggu laporan tebal akhir tahun yang bersifat statis. | **Dashboard Eksekutif Dinamis**: Tren mutu air seluruh kecamatan dapat dipantau dari meja kerja. |
 
 ---
 
-## 3. PROSES BISNIS & ALUR KERJA SISTEM (END-TO-END)
+## 3. ARSITEKTUR KETERKAITAN ANTAR-MODUL (SYSTEM SYNERGY & DATA FLOW)
 
-Alur kerja aplikasi SIPEKA dirancang sangat runtut dan mencerminkan tata kelola laboratorium perikanan modern:
+Aplikasi ini dirancang **bukan sebagai kumpulan modul yang berdiri sendiri (*siloed*)**, melainkan sebagai ekosistem digital terpadu di mana keluaran (*output*) satu modul menjadi prasyarat mutlak (*input constraint*) bagi modul lainnya.
 
 ```mermaid
 flowchart TD
-    subgraph Tahap1["1. Persiapan & SOP"]
-        A["Admin / Pengelola Mutu"] -->|Menetapkan Baku Mutu & SOP| B["Instruksi Kerja (IK) + Label QR Code"]
+    subgraph MasterZone["A. MASTER DATA LAYER (Pondasi Sistem)"]
+        M3["Modul 3: Lokasi Kolam & Pokdakan<br/>(Geo-Database, Kontak, Komoditas)"]
+        M4["Modul 4: Standar Baku Mutu Air<br/>(PP 22/2021 & SNI, Nilai Min-Max)"]
+        M2["Modul 2: SOP Instruksi Kerja<br/>(Metode Pengujian & Hash QR Code)"]
+        M9["Modul 9: Master Pegawai & Penandatangan<br/>(NIP, Pangkat/Golongan, Jabatan)"]
     end
 
-    subgraph Tahap2["2. Lapangan & Pengujian"]
-        C["Petugas Lapangan"] -->|Ambil Sampel di Kolam Pokdakan| D["Pengukuran Parameter Fisika & Kimia"]
-        D -->|Suhu, pH, DO, Amonia, Nitrit| E["Input ke SIPEKA"]
+    subgraph TransactionZone["B. OPERATIONAL ENGINE (Jantung Transaksi)"]
+        M5["Modul 5: Pengujian Kualitas Air & Smart Engine<br/>- Pengambilan Sampel Lapangan<br/>- Evaluasi Parameter Otomatis<br/>- Penentuan Solusi Teknis Lapangan"]
     end
 
-    subgraph Tahap3["3. Mesin Cerdas SIPEKA"]
-        E -->|Validasi Otomatis vs Regulasi| F{"Apakah Memenuhi Baku Mutu?"}
-        F -->|Semua Sesuai| G["Status NORMAL (Hijau)"]
-        F -->|Mendekati Batas| H["Status PERINGATAN (Kuning)"]
-        F -->|Melebihi / Kurang Batas| I["Status KRITIS (Merah)"]
-        G & H & I --> J["Saran & Solusi Teknis Otomatis"]
+    subgraph OutputZone["C. LEGAL & ANALYTICAL OUTPUT (Hilir Pemanfaatan)"]
+        M6["Modul 6: Laporan Hasil Uji (LHU) Resmi<br/>(Format A4 Dinas, Rekap Bulanan/Tahunan)"]
+        M7["Modul 7: Analisis Tren & Peringatan Dini<br/>(Deret Waktu Parameter, Garis Threshold)"]
+        M1["Modul 1: Dashboard Eksekutif<br/>(Statistik Agregat, Peta Wilayah, KPI Ringkas)"]
+        M8["Modul 8: Portal Verifikasi Publik<br/>(Scan QR Code Tanpa Login untuk Publik)"]
     end
 
-    subgraph Tahap4["4. Pengesahan & Output"]
-        J --> K["Penerbitan Lembar Hasil Uji (LHU) Resmi"]
-        K -->|Disahkan Pengelola & Kadis| L["Cetak LHU A4 + QR Verifikasi"]
-    end
+    %% Relasi Data Mengalir
+    M3 -->|Validasi Titik Kolam & Nama Pokdakan| M5
+    M4 -->|Ambang Batas Nilai Min & Max Parameter| M5
+    M2 -->|Standarisasi Metodologi & Pelabelan Botol| M5
+    M9 -->|Validasi Identitas Aparatur Penguji Sah| M5
 
-    subgraph Tahap5["5. Pemanfaatan Data"]
-        L --> M["Pembudidaya Ikan: Tindakan Perbaikan Kolam"]
-        L --> N["Kepala Dinas: Analisis Tren & Kebijakan Bantuan"]
-        L --> O["Masyarakat: Scan QR untuk Verifikasi Keaslian"]
-    end
-
-    Tahap1 --> Tahap2
-    Tahap2 --> Tahap3
-    Tahap3 --> Tahap4
-    Tahap4 --> Tahap5
+    M5 -->|Data Rekam Uji Berstatus Draft/Final| M6
+    M9 -->|Pengesahan Resmi Pejabat Penandatangan LHU| M6
+    M5 -->|Agregasi Deret Waktu Historis Per Kolam| M7
+    M4 -->|Garis Ambang Batas pada Grafik Tren| M7
+    M5 -->|Statistik Kasus Normal/Waspada/Kritis| M1
+    M3 -->|Pemetaan Wilayah Kecamatan & Desa| M1
+    M6 -->|Hash Token Verifikasi Dokumen LHU| M8
+    M2 -->|Hash Token Verifikasi Prosedur Sampel| M8
 ```
 
-### Penjelasan Langkah demi Langkah untuk Presenter:
-1. **Langkah 1 (Standarisasi Acuan)**: Pengelola Mutu memastikan acuan batas aman (Baku Mutu) dan Instruksi Kerja (IK) telah terdaftar di sistem.
-2. **Langkah 2 (Pengujian Kolam)**: Petugas turun ke lokasi kolam budidaya pembudidaya (Pokdakan), melakukan pengukuran langsung (*in-situ*) menggunakan alat uji (pH meter, DO meter, termometer) serta sampel laboratorium.
-3. **Langkah 3 (Input & Analisis Otomatis)**: Petugas membuka form SIPEKA dan memasukkan angka hasil uji. **Sistem SIPEKA langsung menganalisis detik itu juga**. Jika ada nilai berbahaya (misal amonia terlalu tinggi), sistem langsung memberi peringatan merah dan menerbitkan saran teknis.
-4. **Langkah 4 (Penerbitan LHU)**: Sistem menerbitkan Lembar Hasil Uji (LHU) resmi siap cetak lengkap dengan nomor sampel unik, kop surat dinas, tabel baku mutu, serta tanda tangan pejabat yang berwenang.
-5. **Langkah 5 (Tindak Lanjut & Transparansi)**: Pembudidaya segera menerima instruksi penanganan air, pimpinan memantau grafik tren, dan siapapun dapat memverifikasi keaslian dokumen cukup dengan memindai QR Code.
+### Penjelasan Rantai Nilai (*Value Chain*) Antar-Modul untuk Presenter:
+1. **Modul 3 (Kolam) & Modul 4 (Baku Mutu) adalah Fondasi Utama**: Petugas tidak dapat menginput hasil pengujian (Modul 5) tanpa memilih lokasi kolam yang sah dari Modul 3 dan mengaitkannya dengan batas aman nasional di Modul 4.
+2. **Modul 2 (SOP/IK) Memberikan Sertifikasi Metodologi**: Setiap angka yang masuk ke Modul 5 harus dapat dipertanggungjawabkan metode pengukurannya (apakah menggunakan probe sensor in-situ atau uji titrasi lab).
+3. **Modul 5 (Smart Engine) adalah Sentra Data**: Begitu data diinput di Modul 5, secara otomatis data tersebut menyuplai:
+   - Dokumen hukum LHU di **Modul 6**.
+   - Grafik historis deret waktu di **Modul 7**.
+   - Kartu metrik dan statistik pimpinan di **Modul 1**.
+4. **Modul 6 dan Modul 2 Menjamin Transparansi di Modul 8**: QR Code yang tertera pada LHU fisik maupun stiker botol sampel dapat langsung diverifikasi oleh pembudidaya atau masyarakat melalui Modul 8 tanpa perlu login akun.
 
 ---
 
-## 4. EKSPLORASI MODUL & FITUR UTAMA APLIKASI
+## 4. EKSPLORASI DETAIL 9 MODUL UTAMA APLIKASI
 
-Berikut adalah rincian lengkap 9 modul yang telah dibangun dalam prototype aplikasi SIPEKA:
+Berikut adalah rincian mendalam 9 modul sistem, mencakup fungsi, keterkaitan sinergis, aturan hapus data, dan hak akses perannya:
 
 ---
 
 ### Modul 1: Dashboard Eksekutif & Statistik
-*Pintu gerbang informasi bagi pimpinan dan pengelola sistem.*
+*Pusat kendali informasi (*Control Tower*) pimpinan dinas dan penanggung jawab mutu.*
 
-- **Fungsi Utama**: Menyajikan ringkasan visual kesehatan air budidaya di seluruh Kabupaten Lembata dalam satu layar yang bersih dan modern.
-- **Fitur-Fitur Kunci**:
-  - **Kartu Indikator Utama (KPI Cards)**: Menampilkan total pengujian yang dilakukan, jumlah kolam dengan status **Normal (Aman)**, **Peringatan (Perlu Perhatian)**, dan **Kritis (Bahaya)**.
-  - **Distribusi Mutu per Wilayah**: Menampilkan persentase kepatuhan mutu air berdasarkan kecamatan dan desa.
-  - **Feed Aktivitas Pengujian Terkini**: Menampilkan daftar sampel air terbaru yang baru saja diinput oleh petugas lapangan.
-- **Nilai untuk Audiens Awam**: *"Pimpinan tidak perlu lagi membaca puluhan lembar kertas laporan. Cukup buka dashboard selama 30 detik, Kepala Dinas langsung tahu berapa kolam yang aman dan berapa kolam yang butuh bantuan darurat."*
+- **Fungsi Utama**: Menyajikan visualisasi status kesehatan air perikanan se-Kabupaten Lembata secara makro dan *real-time*.
+- **Fitur Kunci**:
+  - **KPI Status Card**: Angka total pengujian, jumlah kolam berkondisi **Normal (Hijau)**, **Peringatan (Kuning)**, dan **Kritis (Merah)**.
+  - **Sebaran Wilayah Budidaya**: Rekapitulasi jumlah sampel dan tingkat kepatuhan mutu air per kecamatan (misal: Nubatukan, Ile Ape, Omesuri, Buyasuri).
+  - **Feed Aktivitas Lapangan**: Daftar pengujian terkini yang baru saja diinput petugas penguji lapangan.
+- **Keterkaitan Antar-Modul**:
+  - *Menerima data dari*: **Modul 5 (Uji Air)** untuk statistik angka uji dan **Modul 3 (Lokasi Kolam)** untuk nama desa/kecamatan.
+  - *Mendukung*: Pengambilan keputusan cepat Kepala Dinas saat memimpin rapat dinas atau menentukan lokasi bantuan sarana aerator.
+- **Aturan Hapus Data**:
+  - Modul ini **TIDAK MEMILIKI fungsi hapus langsung**, karena dashboard hanya berfungsi sebagai lapisan presentasi agregat (*read-only aggregate view*). Angka akan berubah secara otomatis mengikuti status data pengujian di Modul 5.
+- **Hak Akses Role**:
+  - **Kepala Dinas & Admin**: Akses penuh melihat seluruh ringkasan statistik dan detail pengujian tingkat kabupaten.
+  - **Pengelola Mutu & Petugas**: Akses melihat statistik operasional lapangan.
 
 ---
 
 ### Modul 2: SOP Instruksi Kerja & Label QR Code
-*Jaminan mutu operasional berstandar laboratorium.*
+*Penjaminan mutu teknis pengujian berstandar laboratorium dan keterlacakan sampel (*traceability*).*
 
-- **Fungsi Utama**: Mendokumentasikan dan mendigitalisasi Standar Operasional Prosedur (SOP) pengujian mutu air.
-- **Fitur-Fitur Kunci**:
-  - **Katalog Instruksi Kerja**: Menyimpan dokumen SOP pengujian (seperti SOP Pengukuran Oksigen Terlarut, SOP Uji pH Kolam, SOP Pengambilan Sampel).
-  - **Penomoran Versi & Pengarsipan Digital**: Mengelola dokumen PDF resmi agar petugas selalu memedomani versi terbaru.
-  - **Generator QR Code Otomatis**: Setiap IK memiliki kode enkripsi hash dan QR Code unik.
-  - **Fitur Cetak Label QR**: Memungkinkan pencetakan label stiker siap tempel pada botol sampel air di lapangan atau papan informasi kolam.
-- **Nilai untuk Audiens Awam**: *"Menghilangkan risiko botol sampel tertukar di lapangan dan memastikan seluruh petugas bekerja dengan prosedur yang benar dan terstandarisasi."*
+- **Fungsi Utama**: Mengarsipkan dokumen Standar Operasional Prosedur (SOP) pengujian air dan mencetak label QR Code untuk botol sampel serta papan kolam.
+- **Fitur Kunci**:
+  - **Katalog Instruksi Kerja Digital**: Mengarsipkan dokumen PDF resmi (contoh: *IK-01: Prosedur Pengukuran Oksigen Terlarut DO*, *IK-02: Prosedur Pengukuran pH Air Tawar*).
+  - **Algoritma QR Code Hash**: Setiap IK dan wadah sampel memiliki kode unik (*hash*) yang tidak dapat diduplikasi.
+  - **Fitur Cetak Stiker Label QR**: Menghasilkan tata letak label siap cetak yang dapat ditempel pada botol sampel sebelum dibawa ke lapangan.
+- **Keterkaitan Antar-Modul**:
+  - *Mendukung Modul 5*: Menyediakan metode uji baku yang dipilih petugas saat menginput hasil pengukuran.
+  - *Mendukung Modul 8*: QR Code pada stiker botol dapat dipindai oleh siapapun untuk membuka SOP resmi pengujian tersebut di Portal Publik.
+- **Aturan Hapus Data (Boleh vs Dilarang Hapus)**:
+  - ❌ **DILARANG DIHAPUS PERMANEN** jika Instruksi Kerja tersebut sudah pernah dipilih dalam minimal satu riwayat pengujian air di Modul 5 (`uji_kualitas_air.ik_id` berstatus RESTRICT).
+  - *Alasan*: Menghapus IK akan memutus rantai bukti legalitas (*broken audit chain*); sertifikat LHU yang sudah terbit di masa lalu akan kehilangan acuan metodologinya. Selain itu, stiker QR fisik yang sudah tertempel pada botol sampel lapangan akan menghasilkan error 404 jika di-scan!
+  - 🔄 **Solusi Sistem (Versioning)**: Sistem menerapkan sistem versi dokumen (`versi + 1`). Jika ada revisi SOP, dokumen diperbarui ke versi baru tanpa mengubah `qr_code_hash`, sehingga label fisik lama tetap valid dan merujuk ke dokumen terupdate.
+- **Hak Akses Role**:
+  - **Pengelola Mutu**: Berwenang penuh mengunggah, memperbarui, dan mencetak label SOP.
+  - **Petugas Lapangan**: Berwenang melihat/mengunduh SOP dan mencetak label stiker sampel.
+  - **Admin**: Akses konfigurasi.
+  - **Kepala Dinas**: Akses membaca (*view-only*).
 
 ---
 
 ### Modul 3: Master Data Lokasi Kolam & Pokdakan
-*Database geospasial pembudidaya ikan se-Kabupaten Lembata.*
+*Basis data spasial dan inventarisasi pembudidaya ikan Kabupaten Lembata.*
 
-- **Fungsi Utama**: Menginventarisasi seluruh kolam budidaya ikan dan kelompok pembudidaya ikan (Pokdakan).
-- **Fitur-Fitur Kunci**:
-  - **Profil Pokdakan Terpadu**: Mencatat Nama Kelompok (Pokdakan), Nama Pemilik/Ketua, Kontak, Desa, dan Kecamatan.
-  - **Titik Koordinat GPS**: Menyimpan koordinat lokasi kolam untuk pemetaan lokasi yang presisi.
-  - **Komoditas Ikan Budidaya**: Klasifikasi jenis ikan yang dibudidayakan (Nila, Lele, Bandeng, dll.) karena masing-masing komoditas memiliki toleransi air yang berbeda.
-  - **Manajemen Status Kolam**: Status aktif/non-aktif kolam budidaya.
-- **Nilai untuk Audiens Awam**: *"Dinas memiliki peta aset dan database pembudidaya yang valid, memudahkan distribusi bantuan dan monitoring rutin."*
+- **Fungsi Utama**: Mendata seluruh Kelompok Pembudidaya Ikan (Pokdakan), titik koordinat kolam, dan jenis komoditas budidaya.
+- **Fitur Kunci**:
+  - **Registrasi Pokdakan & Pemilik**: Pencatatan nama kelompok, kontak ketua, desa, dan kecamatan.
+  - **Titik Koordinat GPS Geospasial**: Pencatatan garis lintang dan bujur untuk pemetaan kolam budidaya.
+  - **Karakteristik Komoditas Ikan**: Pendataan komoditas (Nila, Lele, Mas, Patin, Bandeng) karena kebutuhan batas mutu air tiap ikan memiliki ambang stres berbeda.
+  - **Status Kolam Aktif/Nonaktif**: Penanda operasional apakah kolam sedang masa tebar atau sedang bera (kering).
+- **Keterkaitan Antar-Modul**:
+  - *Mendukung Modul 5*: Sebagai data induk wajib saat formulir pengujian air dibuka.
+  - *Mendukung Modul 6*: Identitas Pokdakan, pemilik, dan desa dicetak langsung pada Kop Lembar Hasil Uji.
+  - *Mendukung Modul 7 & Modul 1*: Pengelompokan grafik tren dan sebaran wilayah dashboard.
+- **Aturan Hapus Data (Boleh vs Dilarang Hapus)**:
+  - ✅ **Boleh Dihapus Permanen**: HANYA jika kolam baru saja didaftarkan dan **BELUM PERNAH memiliki riwayat pengujian air**.
+  - ❌ **DILARANG DIHAPUS PERMANEN** jika kolam sudah memiliki minimal 1 riwayat pengujian air (`lokasi_kolam.id` dirujuk oleh `uji_kualitas_air.lokasi_id` dengan aturan database `ON DELETE RESTRICT`).
+  - *Alasan*: Jika kolam dihapus, data pengujian masa lalu akan menjadi *yatim piatu (orphaned records)* tanpa lokasi yang jelas. LHU masa lalu kehilangan validitas hukum lokasi, dan grafik fluktuasi historis kolam tersebut akan rusak.
+  - 🔄 **Solusi Sistem (Soft Toggle Nonaktif)**: Sistem menyediakan tombol **"Nonaktifkan Kolam"** (`aktif = false`). Kolam yang dinonaktifkan tidak akan muncul lagi di daftar pilihan input pengujian baru, namun seluruh arsip pengujian masa lalunya tetap utuh 100%.
+- **Hak Akses Role**:
+  - **Pengelola Mutu & Admin**: Berwenang menambah, menyunting, dan menonaktifkan lokasi kolam.
+  - **Petugas Lapangan**: Berwenang melihat profil kolam dan rute koordinat GPS.
+  - **Kepala Dinas**: Berwenang memantau inventarisasi aset pembudidaya.
 
 ---
 
 ### Modul 4: Standar Baku Mutu Air Berstandar Nasional
-*Pondasi ilmiah penentu kelayakan air budidaya.*
+*Pondasi ilmiah dan payung hukum evaluasi kelayakan air perikanan.*
 
-- **Fungsi Utama**: Menyimpan dan mengelola ambang batas parameter kualitas air yang berlaku secara hukum dan ilmiah.
-- **Fitur-Fitur Kunci**:
-  - **Parameter Kunci Terintegrasi**:
-    1. **Suhu (°C)**: Rentang ideal 28°C – 32°C.
-    2. **Derajat Keasaman (pH)**: Rentang optimal 6.5 – 8.5.
-    3. **Oksigen Terlarut (DO)**: Minimal ≥ 3.00 – 5.00 mg/L (kunci pernapasan ikan).
-    4. **Amonia Bebas (NH₃-N)**: Maksimal ≤ 0.02 mg/L (racun pembunuh ikan).
-    5. **Nitrit (NO₂-N)**: Maksimal ≤ 0.06 mg/L (penghambat transportasi oksigen darah).
-    6. **Kecerahan / Kekeruhan**: Standar Secchi disk ≥ 30 cm atau turbiditas ≤ 25 NTU.
-  - **Pencatatan Dasar Regulasi**: Setiap parameter tertaut pada dasar hukumnya (PP No. 22 Tahun 2021 Lampiran VI atau SNI).
-  - **Sistem Versi Historis (Versioned)**: Jika regulasi pemerintah diperbarui di masa mendatang, riwayat data pengujian lama tidak akan rusak atau berubah nilai statusnya.
-- **Nilai untuk Audiens Awam**: *"Sistem ini tidak mengira-ngira; keputusannya murni berdasarkan acuan baku mutu resmi pemerintah Republik Indonesia."*
+- **Fungsi Utama**: Mengelola ambang batas minimum dan maksimum untuk parameter fisika dan kimia kualitas air sesuai regulasi resmi Republik Indonesia.
+- **Fitur Kunci**:
+  - **6 Parameter Vital Terintegrasi**:
+    1. **Suhu Air (°C)**: Baku mutu 28.00 – 32.00 °C (Metode Termometri in-situ).
+    2. **Derajat Keasaman (pH)**: Baku mutu 6.50 – 8.50 (Metode pH Meter Elektroda).
+    3. **Oksigen Terlarut (DO)**: Baku mutu ≥ 3.00 – 5.00 mg/L (Metode DO Meter Optik/Titrasi Winkler).
+    4. **Amonia Bebas (NH₃-N)**: Baku mutu ≤ 0.02 mg/L (Metode Spektrofotometri Fenat).
+    5. **Nitrit (NO₂-N)**: Baku mutu ≤ 0.06 mg/L (Metode Kolorimetri Asam Sulfanilat).
+    6. **Kecerahan / Turbiditas**: Kecerahan Secchi disk ≥ 30 cm atau turbiditas ≤ 25 NTU.
+  - **Pencatatan Rujukan Regulasi**: Setiap batas mencantumkan cantolan pasal (PP No. 22/2021 Lampiran VI atau SNI).
+  - **Versioned Regulatory Scheme**: Mendukung pembaharuan regulasi masa depan tanpa merusak arsip pengujian terdahulu.
+- **Keterkaitan Antar-Modul**:
+  - *Mendukung Modul 5*: Mesin validasi cerdas mencocokkan angka input lapangan langsung dengan tabel parameter modul ini.
+  - *Mendukung Modul 6*: Nilai rujukan baku mutu ditampilkan berdampingan dengan angka hasil uji pada lembar LHU resmi.
+  - *Mendukung Modul 7*: Memberikan garis batas merah/kuning (*threshold limit line*) pada grafik tren waktu.
+- **Aturan Hapus Data (Boleh vs Dilarang Hapus)**:
+  - ✅ **Boleh Dihapus Permanen**: HANYA jika parameter tersebut adalah draf baru dan belum pernah terikat ke detail pengujian manapun.
+  - ❌ **DILARANG DIHAPUS PERMANEN** jika parameter sudah tercatat pada tabel `detail_uji_parameter` (`ON DELETE RESTRICT`).
+  - *Alasan*: Menghapus parameter aktif akan menggagalkan audit perbandingan di masa mendatang. Laporan hasil uji masa lalu tidak akan bisa membuktikan apakah saat itu air memenuhi standar atau tidak.
+  - 🔄 **Solusi Sistem (Baku Mutu Nonaktif / Berlaku Sejak)**: Parameter ditandai `aktif = false` atau disesuaikan tanggal berlakunya (`berlaku_sejak`), sehingga regulasi lama tetap tersimpan abadi sebagai rekaman sejarah regulasi.
+- **Hak Akses Role**:
+  - **Pengelola Mutu**: Berwenang mengelola nilai ambang batas sesuai terbitan regulasi pemerintah terbaru.
+  - **Admin**: Akses konfigurasi database.
+  - **Petugas Lapangan & Kadis**: Akses membaca standar (*read-only*).
 
 ---
 
 ### Modul 5: Pengujian Kualitas Air & Validasi Cerdas Otomatis
-*Jantung operasional aplikasi tempat petugas bekerja.*
+*Sentra operasional aplikasi dan mesin kecerdasan evaluasi mutu air.*
 
-- **Fungsi Utama**: Formulir cerdas bagi petugas untuk menginput data hasil pengukuran dan menerima kesimpulan instan.
-- **Fitur-Fitur Kunci**:
-  - **Penomoran Sampel Otomatis**: Format nomor sampel unik dan terstruktur (anti duplikasi).
-  - **Formulir Input Terbimbing**: Memilih lokasi kolam, tanggal, petugas penguji, dan metode IK yang digunakan.
-  - **Smart Validation Engine (Validasi Otomatis)**:
-    - Saat petugas memasukkan angka (misal pH = 9.2), sistem secara otomatis menandai: `MELEBIHI BAKU MUTU`.
-    - Jika semua parameter aman, sistem otomatis menyimpulkan: `NORMAL`.
-    - Jika ada parameter yang berbahaya bagi kelangsungan hidup ikan, sistem otomatis menetapkan: `KRITIS`.
-  - **Rekomendasi Lapangan Otomatis**: Sistem memberikan rekomendasi solusi langsung, contoh:
-    - *Jika DO Rendah*: Segera lakukan aerasi darurat atau pasang kincir air / pompa sirkulasi.
-    - *Jika Amonia Tinggi*: Kurangi porsi pakan ikan dan lakukan penyiponan (pembersihan endapan kotoran di dasar kolam).
-    - *Jika pH Terlalu Asam*: Lakukan pengapuran kolam bertahap dengan kapur pertanian (dolomit).
-- **Nilai untuk Audiens Awam**: *"Petugas lapangan dibantu oleh 'asisten cerdas'. Tidak perlu takut salah hitung atau salah memberikan saran kepada masyarakat."*
+- **Fungsi Utama**: Formulir digital bagi petugas penguji untuk merekam hasil pengukuran lapangan dan menerima kalkulasi status air secara instan.
+- **Fitur Kunci**:
+  - **Penomoran Sampel Terstandarisasi Otomatis**: Format `SPL-THN-BLN-XXXX` yang unik, mencegah duplikasi berkas.
+  - **Smart Validation Engine (Validasi Cerdas Otomatis)**:
+    - Petugas menginput angka hasil ukur, sistem otomatis membandingkan dengan Modul 4.
+    - Menghasilkan status per parameter: `MEMENUHI`, `MELEBIHI`, atau `DIBAWAH`.
+    - Menghasilkan kesimpulan akhir:
+      * 🟢 **NORMAL**: Seluruh parameter berada di dalam rentang aman budidaya.
+      * 🟡 **PERINGATAN**: Terdapat 1–2 parameter mendekati batas kritis (misal pH 8.4 atau DO 3.2 mg/L).
+      * 🔴 **KRITIS**: Parameter toksik terlampaui (misal Amonia > 0.05 mg/L atau DO < 2.0 mg/L) yang berisiko memicu kematian mendadak ikan.
+  - **Saran Penanganan Teknis Otomatis**:
+    - Jika DO Rendah: Instruksi aerasi darurat, pemasangan venturi air, atau penyemprotan air ke udara.
+    - Jika Amonia/Nitrit Tinggi: Instruksi segera kurangi pakan 50%, sipon kotoran dasar kolam, dan ganti air 20-30%.
+    - Jika pH Asam (<6.5): Instruksi pengapuran bertahap dengan kapur pertanian (Dolomit/Kaptan).
+- **Keterkaitan Antar-Modul**:
+  - *Membutuhkan*: Modul 3 (Lokasi), Modul 2 (SOP), Modul 4 (Baku Mutu), dan Modul 9 (Penguji/Pegawai).
+  - *Menghasilkan data untuk*: Modul 6 (Cetak LHU), Modul 7 (Grafik Tren), Modul 1 (Statistik Dashboard).
+- **Aturan Hapus Data (Boleh vs Dilarang Hapus)**:
+  - ✅ **Boleh Dihapus**: HANYA jika data pengujian masih berstatus **`draft`** (contoh: petugas salah menginput titik kolam saat di lapangan dan belum mengirimkan laporan resmi).
+  - ❌ **DILARANG KERAS DIHAPUS**: Apabila data pengujian telah berstatus **`final`** atau **`arsip`**.
+  - *Alasan*: Dokumen final sudah memiliki nomor sampel resmi, telah diverifikasi pengesahannya, dan mungkin sudah diserahkan ke pembudidaya. Jika dihapus, akan terjadi kekosongan nomor urut dokumen (*missing document gap*) yang melanggar standar audit inspektorat/BPK dan menghilangkan bukti pertanggungjawaban aparatur sipil negara.
+- **Hak Akses Role**:
+  - **Petugas Lapangan**: Berwenang membuat draf pengujian baru, mengedit data draf miliknya, dan menginput hasil ukur.
+  - **Pengelola Mutu**: Berwenang mereview, mengedit draf, dan memverifikasi data sebelum difinalkan.
+  - **Kepala Dinas**: Berwenang membaca hasil pengujian dan menyetujui status final.
 
 ---
 
 ### Modul 6: Laporan Hasil Uji (LHU) Resmi & Rekap Tahunan
-*Output legal bernilai resmi untuk masyarakat dan arsip kedinasan.*
+*Dokumen hukum berkekuatan legal kedinasan dan instrumen pertanggungjawaban instansi.*
 
-- **Fungsi Utama**: Menerbitkan Lembar Hasil Uji (LHU) resmi dan rekapitulasi data tahunan.
-- **Fitur-Fitur Kunci**:
-  - **Format Dokumen Kedinasan Resmi A4**: Standar surat resmi lengkap dengan Kop Dinas Perikanan Kabupaten Lembata, logo daerah, dan garis pemisah.
-  - **Tabel Evaluasi Mutu Komparatif**: Membandingkan langsung antara *Nilai Hasil Uji*, *Satuan*, *Baku Mutu Rujukan*, dan *Status Kelayakan*.
-  - **Blok Pengesahan Berjenjang**: Ruang tanda tangan resmi untuk:
-    - Petugas Penguji Mutu Air (Ellen Veronika Maran, S.Pi)
-    - Kepala Dinas Perikanan Kabupaten Lembata (Ir. Hadi Mahmud, M.Si)
-  - **QR Code Keaslian Dokumen**: Tertanam di bagian bawah dokumen untuk mencegah pemalsuan sertifikat uji.
-  - **Manajemen Siklus Dokumen**: Status dokumen bertingkat (`Draft` -> `Final` -> `Arsip`) untuk menjaga integritas data agar dokumen yang sudah disahkan tidak dapat diubah sembarangan.
-  - **Fitur Rekap Tahunan**: Matriks evaluasi mutu air per Pokdakan per bulan untuk bahan evaluasi tahunan dinas.
-- **Nilai untuk Audiens Awam**: *"Pembudidaya menerima sertifikat resmi yang sah dan terpercaya, yang juga berguna jika mereka ingin mengajukan sertifikasi Cara Budidaya Ikan yang Baik (CBIB)."*
+- **Fungsi Utama**: Menghasilkan cetak-fisik Lembar Hasil Uji (LHU) standar A4 kedinasan dan laporan rekapitulasi mutu tahunan.
+- **Fitur Kunci**:
+  - **Format Dokumen Kedinasan Standar A4**: Lengkap dengan Logo Kabupaten Lembata, Garuda Pancasila, Kop Resmi Dinas Perikanan, dan garis pembatas dinas.
+  - **Tabel Matriks Uji Komparatif**: Menampilkan parameter, hasil uji, satuan, baku mutu acuan, dan status kelayakan secara jernih.
+  - **Blok Pengesahan Ganda (*Dual Digital Verification*)**:
+    - Penandatangan 1: Penguji Mutu Air (**Melania Herlinda Lete Boro, S.Si** — NIP. 19940318 202506 2 005).
+    - Penandatangan 2: Kepala Dinas Perikanan / Mentor (**Hadi Umar, S.Pd., MT**).
+  - **Embedded Security QR Code**: Tersemat pada kaki dokumen untuk memeriksa integritas dokumen via smartphone.
+  - **Manajemen Siklus Dokumen (*Document Lifecycle*)**: Status dokumen (`Draft` ➔ `Final` ➔ `Arsip`).
+  - **Rekapitulasi Tahunan Matriks Bulanan**: Tabel kompilasi mutu air 12 bulan per Pokdakan untuk bahan Laporan Akuntabilitas Kinerja Instansi Pemerintah (LAKIP).
+- **Keterkaitan Antar-Modul**:
+  - *Mengambil data dari*: Modul 5 (Hasil Pengujian), Modul 3 (Profil Pokdakan), Modul 9 (Data Pejabat TTD).
+  - *Mendukung Modul 8*: Menjadi rujukan utama halaman verifikasi publik yang dibuka oleh pembudidaya.
+- **Aturan Hapus Data**:
+  - Dokumen LHU yang telah diterbitkan dalam status **`Final`** atau **`Arsip`** **TIDAK BOLEH DIHAPUS**. Jika terjadi kekeliruan analisis laboratorium pada dokumen final, prosedur yang berlaku adalah penerbitan dokumen revisi/adendum, bukan menghapus dokumen awal dari database.
+- **Hak Akses Role**:
+  - **Kepala Dinas**: Berwenang menyetujui perubahan status dari `Draft` menjadi `Final` serta mengesahkan LHU resmi.
+  - **Pengelola Mutu**: Berwenang mencetak LHU resmi, menyusun draf laporan rekapitulasi tahunan.
+  - **Petugas Lapangan**: Berwenang mencetak draf LHU untuk arsip sementara lapangan.
+  - **Admin**: Akses pemeliharaan sistem laporan.
 
 ---
 
 ### Modul 7: Analisis Tren Mutu & Peringatan Dini
-*Instrumen analitik masa depan untuk deteksi anomali.*
+*Instrumen analitik prediktif untuk mendeteksi ancaman penurunan mutu air sebelum bencana terjadi.*
 
-- **Fungsi Utama**: Visualisasi grafik riwayat kualitas air dari waktu ke waktu per kolam budidaya.
-- **Fitur-Fitur Kunci**:
-  - **Grafik Interaktif Deret Waktu (Time Series Chart)**: Menampilkan kurva naik turunnya parameter (misal grafik pH atau DO selama 6 bulan terakhir).
-  - **Garis Ambang Batas Aman**: Menampilkan garis batas minimum dan maksimum baku mutu pada grafik, sehingga jika grafik menembus batas, polanya langsung terlihat jelas.
-  - **Filter Komparatif**: Memilih lokasi kolam dan parameter tertentu untuk analisis mendalam.
-- **Nilai untuk Audiens Awam**: *"Kita bisa melihat pola musiman. Misalnya, setiap bulan Agustus suhu kolam selalu drop atau amonia naik. Dinas bisa melakukan sosialisasi pencegahan sebelum musibah ikan mati terjadi lagi."*
+- **Fungsi Utama**: Memvisualisasikan kurva fluktuasi parameter kualitas air dalam rentang waktu mingguan, bulanan, hingga tahunan per kolam budidaya.
+- **Fitur Kunci**:
+  - **Interactive Time-Series Graph**: Menampilkan grafik naik-turunnya DO, pH, amonia, atau suhu dari waktu ke waktu.
+  - **Dynamic Threshold Guide Lines**: Garis batas horizontal warna merah (batas bahaya) dan hijau (batas ideal).
+  - **Penyaring Multi-Variabel**: Kemampuan memfilter berdasarkan Pokdakan tertentu, rentang bulan tertentu, atau parameter kimia tertentu.
+- **Keterkaitan Antar-Modul**:
+  - *Mengambil data dari*: Modul 5 (Nilai Uji Historis) dan Modul 4 (Garis Baku Mutu Acuan).
+  - *Mendukung Modul 1*: Memberikan pola analisis musiman bagi pimpinan.
+- **Aturan Hapus Data**:
+  - Modul analitik murni (*data visualization layer*); **tidak memiliki fungsi delete**. Data grafik berakar dari transaksi Modul 5.
+- **Hak Akses Role**:
+  - **Semua Role Internal (Kadis, Pengelola Mutu, Petugas Lapangan, Admin)** memiliki hak akses membaca grafik tren ini guna mendukung pembinaan budidaya.
 
 ---
 
 ### Modul 8: Portal Verifikasi Publik Berbasis QR Code
-*Transparansi layanan publik tanpa batasan birokrasi.*
+*Pemberian transparansi layanan publik bagi masyarakat, pembeli hasil panen, dan pembudidaya.*
 
-- **Fungsi Utama**: Memungkinkan pembudidaya, pedagang ikan, atau masyarakat luas memeriksa keabsahan hasil uji secara mandiri.
-- **Fitur-Fitur Kunci**:
-  - **Akses Terbuka Tanpa Login**: Masyarakat tidak perlu mendaftar atau memiliki akun dinas.
-  - **Cukup Pindai Kamera Smartphone**: Memindai stiker QR pada botol sampel atau dokumen LHU fisik langsung membuka halaman verifikasi resmi.
-  - **Tampilan Ramah Ponsel (Mobile Responsive)**: Informasi disajikan ringkas, jelas, dan mudah dibaca di layar HP.
-- **Nilai untuk Audiens Awam**: *"Transparansi total. Masyarakat bisa percaya 100% pada hasil uji dinas karena bisa diverifikasi kapan saja dan di mana saja."*
-
----
-
-### Modul 9: Manajemen Pegawai & Keamanan Akun (RBAC)
-*Tata kelola organisasi dan perlindungan keamanan data dinas.*
-
-- **Fungsi Utama**: Mengatur hak akses pengguna dan mencatat identitas aparatur penguji yang sah.
-- **Fitur-Fitur Kunci**:
-  - **Hak Akses Berbasis Peran (Role-Based Access Control / RBAC)**:
-    - **Administrator**: Hak penuh konfigurasi sistem dan manajemen akun.
-    - **Pengelola Mutu**: Mengelola SOP, baku mutu, lokasi kolam, dan validasi uji.
-    - **Petugas Lapangan**: Khusus input data pengujian kolam dan scan QR.
-    - **Kepala Dinas**: Mengakses dashboard eksekutif, rekap tahunan, dan pengesahan LHU.
-  - **Database Pegawai & NIP**: Integrasi data NIP, pangkat/golongan, dan jabatan untuk otomasi tanda tangan dokumen resmi.
-- **Nilai untuk Audiens Awam**: *"Data dinas terjamin aman dari manipulasi karena setiap orang hanya memiliki wewenang sesuai tugas pokok dan fungsinya masing-masing."*
+- **Fungsi Utama**: Menyediakan laman pemeriksaan keabsahan dokumen LHU dan identitas sampel air yang dapat dibuka oleh siapa saja tanpa akun.
+- **Fitur Kunci**:
+  - **Akses Bebas Tanpa Login (*Zero Login Requirement*)**: Masyarakat umum tidak perlu memasukkan email atau kata sandi.
+  - **Pindai Cepat Kamera HP**: Cukup mengarahkan kamera ponsel ke QR Code pada dokumen fisik atau botol sampel.
+  - **Tampilan Khusus Mobile Ringkas**: Menyajikan ringkasan sertifikat, nama kolam, tanggal pengujian, kesimpulan mutu air, dan verifikasi tanda tangan sah dinas.
+- **Keterkaitan Antar-Modul**:
+  - *Membaca data dari*: Modul 6 (LHU Terbit) dan Modul 2 (Label SOP).
+- **Aturan Hapus Data**:
+  - Halaman ini adalah gerbang luar (*public-facing portal*); tidak ada opsi manipulasi data.
+- **Hak Akses Role**:
+  - **Publik / Masyarakat Umum / Pembudidaya Ikan**: Hak akses terbuka (*Read-Only Public Access*).
 
 ---
 
-## 5. PERENCANAAN PROSES PEMBUATAN SISTEM (ROADMAP)
+### Modul 9: Manajemen Pegawai & Pejabat Penandatangan LHU
+*Penataan identitas aparatur penanggung jawab teknis dan legalitas dokumen dinas.*
 
-Proses pengembangan prototype SIPEKA disusun melalui tahapan yang terukur dan berorientasi pada kebutuhan pengguna:
+- **Fungsi Utama**: Mengelola data aparatur penguji laboratorium dan pejabat berwenang penandatangan LHU resmi.
+- **Fitur Kunci**:
+  - **Profil Aparatur Lengkap**: NIP, Nama Lengkap dengan Gelar, Jabatan Fungsional, dan Pangkat/Golongan Ruang.
+  - **Klasifikasi Peran Penandatanganan**:
+    * `penguji`: Menandatangani sebagai Penguji Mutu Air (contoh: Melania Herlinda Lete Boro, S.Si).
+    * `kepala_dinas`: Menandatangani sebagai Pengesah Utama / Pimpinan Instansi (contoh: Hadi Umar, S.Pd., MT).
+  - **Fitur Default Penanggung Jawab**: Menetapkan pejabat aktif yang otomatis tertera pada cetak LHU berikutnya.
+- **Keterkaitan Antar-Modul**:
+  - *Mendukung Modul 5 & Modul 6*: Menjamin nama, NIP, dan jabatan pada dokumen LHU selalu mutakhir dan sah secara hukum kepegawaian.
+- **Aturan Hapus Data (Boleh vs Dilarang Hapus)**:
+  - ✅ **Boleh Dihapus Permanen**: HANYA jika data pegawai baru diinput dan belum pernah tercatat pada riwayat dokumen uji air manapun.
+  - ❌ **DILARANG DIHAPUS**: Jika pegawai sudah pernah menandatangani atau menguji sampel pada dokumen LHU manapun di tabel `uji_kualitas_air`.
+  - *Alasan*: Menghapus pegawai akan mengakibatkan hilangnya figur penanggung jawab hukum pada arsip sertifikat uji dinas yang pernah dikeluarkan.
+  - 🔄 **Solusi Sistem (Nonaktifkan Pegawai)**: Cukup ubah status menjadi `aktif = false`. Pegawai mutasi/pensiun tidak akan muncul lagi di daftar penandatangan LHU baru, tetapi tanda tangan pada dokumen masa lalunya tetap sah dan terlindungi.
+- **Hak Akses Role**:
+  - **Admin & Pengelola Mutu**: Berwenang mengelola data pegawai dan penanggung jawab dinas.
+  - **Role Lain**: *Read-only* saat memilih petugas penguji.
+
+---
+
+## 5. ATURAN INTEGRITAS DATA: KEBIJAKAN PENGHAPUSAN (BOLEH VS DILARANG DIHAPUS)
+
+Salah satu aspek krusial dalam tata kelola Sistem Informasi Pemerintahan adalah **Integritas Bukti Audit (*Audit Trail & Data Preservation*)**. Penguji Latsar sering menguji apakah sistem ini aman dari penghapusan data sewenang-wenang.
+
+Berikut adalah landasan dan matriks aturan penghapusan data pada prototype sistem:
 
 ```mermaid
-flowchart LR
-    Fase0["Fase 1<br/>Identifikasi & Desain"] --> Fase1["Fase 2<br/>Fondasi & Database"]
-    Fase1 --> Fase2["Fase 3<br/>Master Data & QR"]
-    Fase2 --> Fase3["Fase 4<br/>Mesin Uji & Validasi"]
-    Fase3 --> Fase4["Fase 5<br/>Visualisasi & Pelaporan"]
-    Fase4 --> Fase5["Fase 6<br/>Sosialisasi & Uji Lapangan"]
+flowchart TD
+    Req["Permintaan Hapus Data"] --> CekTipe{"Apa Tipe Entitas Data?"}
+
+    CekTipe -->|Transaksi Pengujian / LHU| CekStatusUji{"Apakah Status Dokumen = DRAFT?"}
+    CekStatusUji -->|Ya, Masih Draft| HapusUji["BOLEH DIHAPUS PERMANEN<br/>(Belum memiliki nomor legal/belum disahkan)"]
+    CekStatusUji -->|Tidak, Sudah Final / Arsip| TolakUji["DILARANG DIHAPUS!<br/>(Dokumen sah negara, audit trail terkunci)"]
+
+    CekTipe -->|Master Data: Kolam / SOP / Baku Mutu / Pegawai| CekRelasi{"Apakah Sudah Terikat Riwayat Pengujian?"}
+    CekRelasi -->|Belum Pernah Dipakai| HapusMaster["BOLEH DIHAPUS PERMANEN<br/>(Bebas Foreign Key Constraint)"]
+    CekRelasi -->|Sudah Memiliki Relasi Transaksi| TolakMaster["DILARANG DIHAPUS (ON DELETE RESTRICT)!<br/>Gunakan Fitur: NONAKTIFKAN (TOGGLE AKTIF = FALSE)"]
+
+    CekTipe -->|Akun Pengguna / User RBAC| CekAktivitas{"Apakah User Pernah Menginput Transaksi?"}
+    CekAktivitas -->|Belum Ada Aktivitas| HapusUser["BOLEH DIHAPUS AKUNNYA"]
+    CekAktivitas -->|Sudah Memiliki Transaksi Uji| TolakUser["DILARANG DIHAPUS!<br/>Gunakan Fitur: SUSPEND / BANNED USER"]
 ```
 
-| Tahapan / Fase | Kegiatan Utama | Hasil / Deliverable | Status |
+### Tabel Rangkuman Kebijakan Penghapusan Data Sistem
+
+| Entitas Data | Boleh Dihapus? | Alasan Mengapa Boleh / Dilarang | Mekanisme Pengamanan Sistem |
 |---|---|---|---|
-| **Fase 1: Identifikasi Masalah & Desain** | - Wawancara kebutuhan pembudidaya ikan & petugas<br>- Pengumpulan regulasi (PP 22/2021 & SNI)<br>- Perancangan antarmuka ramah pengguna (UI/UX) | Dokumen Kebutuhan Sistem & Wireframe Desain | Selesai |
-| **Fase 2: Arsitektur & Database** | - Setup Next.js, Tailwind CSS, & Drizzle ORM<br>- Perancangan skema database relasional (PostgreSQL)<br>- Konfigurasi keamanan akun & peran (RBAC) | Sistem Fondasi & Skema Data Teruji | Selesai |
-| **Fase 3: Modul Master & QR Code** | - Pembangunan Modul Lokasi Kolam & Pokdakan<br>- Pembangunan Modul Master Baku Mutu Terstandar<br>- Generator kode QR & sistem label cetak | Master Data Siap Digunakan & Label QR Aktif | Selesai |
-| **Fase 4: Modul Transaksi & Smart Engine** | - Formulir input hasil uji lapangan<br>- Pembuatan algoritma validasi otomatis batas baku mutu<br>- Integrasi rekomendasi tindakan teknis lapangan | Fitur Input Uji Cerdas & Penilaian Otomatis | Selesai |
-| **Fase 5: Pelaporan LHU & Analitik** | - Desain print-out LHU standar dinas A4<br>- Modul grafik tren mutu air interaktif<br>- Portal verifikasi publik tanpa login | LHU Siap Cetak & Grafik Tren Berfungsi Penuh | Selesai |
-| **Fase 6: Evaluasi & Uji Coba Lapangan** | - Uji fungsi bersama petugas dinas dan Pokdakan<br>- Pengumpulan masukan pengguna untuk penyempurnaan<br>- Penyusunan SOP pemanfaatan aplikasi | Prototype Terverifikasi Siap Implementasi | Tahap Saat Ini |
+| **Draf Hasil Uji Air** | ✅ **Boleh Dihapus** | Masih berupa catatan draf mentah petugas, belum disahkan pimpinan, dan belum memiliki nilai hukum ke luar dinas. | Tombol Hapus aktif hanya jika `status === 'draft'`. |
+| **Laporan Hasil Uji (LHU) Final** | ❌ **DILARANG DIHAPUS** | Dokumen telah disahkan secara digital, memiliki nomor register resmi, dan menjadi sertifikat hukum pembudidaya. Jika dihapus terjadi manipulasi data dan *broken audit trail*. | Sistem backend menolak instruksi DELETE dan mengunci status dokumen secara permanen. |
+| **Master Lokasi Kolam** | ❌ **Dilarang jika berelasi**<br>✅ Boleh jika belum dipakai | Jika kolam yang sudah pernah diuji dihapus, seluruh riwayat LHU dan grafik tren kolam tersebut menjadi korup (*orphaned data*). | Menggunakan database constraint `ON DELETE RESTRICT`. Jika kolam tutup/alih fungsi, gunakan fitur **Nonaktifkan Kolam**. |
+| **Master Baku Mutu Air** | ❌ **Dilarang jika berelasi**<br>✅ Boleh jika belum dipakai | Menghapus baku mutu akan membuat riwayat pengujian masa lalu tidak dapat dievaluasi kesesuaiannya dengan hukum saat itu. | Pengecekan server-side: parameter yang telah terikat data uji ditolak penghapusannya. Gunakan fitur **Nonaktifkan Parameter**. |
+| **Master Pegawai & Pejabat** | ❌ **Dilarang jika berelasi**<br>✅ Boleh jika belum dipakai | Menghapus aparatur pengesah akan menghilangkan identitas pejabat berwenang pada dokumen LHU yang sudah diterbitkan. | Sistem memblokir aksi hapus jika NIP terdaftar di LHU. Pegawai mutasi/pensiun cukup diubah statusnya menjadi **Tidak Aktif**. |
+| **Instruksi Kerja (IK / SOP)** | ❌ **Dilarang jika berelasi**<br>✅ Boleh jika belum dipakai | Menghapus IK akan merusak label QR Code fisik yang sudah ditempel di kolam/botol sampel lapangan. | Diterapkan sistem pembaharuan versi bertingkat (`v1.0 -> v2.0`) dengan mempertahankan hash QR Code yang sama. |
+| **Akun Pengguna (User RBAC)** | ❌ **Dilarang jika berelasi**<br>✅ Boleh jika belum dipakai | Menghapus akun petugas penginput akan menghilangkan jejak pertanggungjawaban aparatur (*who did what*). | Tersedia fitur **Blokir Akun (Banned/Suspend)**. Akun tidak dapat login, namun rekam jejak nama penguji di LHU masa lalu tetap tersimpan abadi. |
 
 ---
 
-## 6. MANFAAT & DAMPAK NYATA INOVASI
+## 6. TATA KELOLA KEAMANAN AKUN & HAK AKSES PENGGUNA (RBAC)
 
-### 1. Bagi Kelompok Pembudidaya Ikan (Pokdakan)
-- **Mencegah Kematian Massal Ikan**: Peringatan dini memungkinkan tindakan penyelamatan sebelum kondisi air menjadi fatal.
-- **Meningkatkan Hasil Panen & Pendapatan**: Air yang selalu terjaga mutunya membuat ikan tumbuh lebih cepat, sehat, dan efisien dalam mengonsumsi pakan (FCR optimal).
-- **Mendapatkan Kepastian Layanan**: Petani menerima bukti tertulis (LHU) resmi dan bimbingan teknis yang jelas dari pemerintah.
+Untuk menjamin bahwa data pengawasan mutu air tidak dimanipulasi dan mematuhi asas kepatutan birokrasi, sistem menerapkan arsitektur **Role-Based Access Control (RBAC)** berstandar enterprise.
 
-### 2. Bagi Petugas Penguji & Dinas Perikanan Kab. Lembata
-- **Efisiensi Waktu & Tenaga**: Tidak ada lagi proses rekap manual berulang di buku; waktu kerja petugas menjadi 80% lebih cepat.
-- **Standarisasi Pengawasan**: Seluruh staf menggunakan standar acuan nasional yang seragam dan transparan.
-- **Database Terintegrasi**: Memiliki arsip data mutu air digital yang rapi, akurat, dan dapat diakses sewaktu-waktu.
+### A. Matriks Kewenangan Akses (RBAC Matrix)
 
-### 3. Bagi Kepala Dinas & Pemerintah Daerah
-- **Pengambilan Kebijakan Berbasis Data (Evidence-Based Policy)**: Mempermudah penentuan alokasi bantuan sarana budidaya bagi wilayah atau kolam yang paling membutuhkan.
-- **Akuntabilitas & Pelayanan Publik Modern**: Mewujudkan birokrasi yang adaptif, responsif, dan berorientasi teknologi sesuai tuntutan Core Values ASN BerAKHLAK.
-- **Mendukung Ketahanan Pangan Daerah**: Menjamin pasokan ikan konsumsi air tawar dan payau yang aman dan berkualitas bagi masyarakat Kabupaten Lembata.
+Sistem menetapkan 4 Role internal dan 1 Akses Publik dengan rincian kewenangan berikut:
+
+| Modul / Fitur Aplikasi | Administrator (`admin`) | Pengelola Mutu (`pengelola_mutu`) | Petugas Lapangan (`petugas_lapangan`) | Kepala Dinas (`kepala_dinas`) | Publik / Pokdakan (Tanpa Login) |
+|---|:---:|:---:|:---:|:---:|:---:|
+| **Dashboard Eksekutif** | Penuh (CRUD) | Lihat Ringkasan | Lihat Operasional | Lihat Eksekutif | ❌ Tidak Ada |
+| **Master Lokasi Kolam** | Penuh (CRUD) | Penuh (CRUD) | Lihat & Koordinat | Lihat Peta Aset | ❌ Tidak Ada |
+| **Master Baku Mutu Air** | Penuh (CRUD) | Penuh (CRUD) | Lihat Standar | Lihat Standar | ❌ Tidak Ada |
+| **Master SOP & Label QR** | Penuh (CRUD) | Penuh (CRUD) + Cetak | Lihat & Cetak Label | Lihat Dokumen | ❌ Tidak Ada |
+| **Master Pegawai & Pejabat** | Penuh (CRUD) | Kelola Penugasan | Lihat Penguji | Lihat & Tetapkan Plt | ❌ Tidak Ada |
+| **Input Pengujian Kualitas** | Penuh (CRUD) | Input, Edit, Review | Input & Edit Draf | Lihat Hasil Uji | ❌ Tidak Ada |
+| **Validasi Status Draf ➔ Final** | Penuh | Verifikasi Teknis | ❌ Tidak Berhak | **Mengesahkan (Final)** | ❌ Tidak Ada |
+| **Cetak LHU Resmi Dinas** | Ya | Ya | Cetak Draf | **Tanda Tangan & Cetak**| ❌ Tidak Ada |
+| **Analisis Tren & Grafik** | Akses Penuh | Akses Penuh | Akses Lapangan | Akses Strategis | ❌ Tidak Ada |
+| **Manajemen Akun & Role** | **Penuh (Hanya Admin)** | ❌ Tidak Berhak | ❌ Tidak Berhak | ❌ Tidak Berhak | ❌ Tidak Ada |
+| **Portal Verifikasi Publik** | Akses Publik | Akses Publik | Akses Publik | Akses Publik | **Scan QR Bebas** |
+
+*Keterangan Simbol:*
+- **CRUD**: Create (Buat), Read (Baca), Update (Ubah), Delete (Hapus terkontrol).
+- **Pengelola Mutu**: Merupakan jabatan fungsional yang diemban inovator (**Melania Herlinda Lete Boro, S.Si**).
+- **Kepala Dinas**: Merupakan pimpinan tertinggi instansi / Mentor (**Hadi Umar, S.Pd., MT**).
 
 ---
 
-## 7. BLUEPRINT SLIDE PRESENTASI POWERPOINT (SLIDE BY SLIDE)
+### B. Otoritas Pemberian & Pengubahan Wewenang Role
+Pertanyaan fundamental dalam seminar Latsar: *"Siapa yang berhak memberikan role akun kepada seseorang?"*
 
-Panduan praktis bagi presenter untuk menyusun materi slide PowerPoint beserta tips cara penyampaian di depan penguji / audiens:
+> **Prinsip Utama:**  
+> **HANYA AKUN DENGAN PERAN ADMINISTRATOR (`admin`) YANG MEMILIKI OTORITAS MUTLAK UNTUK MENAMBAH PENGGUNA BARU, MENGUBAH ROLE, MAUPUN MENONAKTIFKAN AKUN.**
+
+Alasan Ilmiah dan Tata Kelola:
+1. **Pemisahan Wewenang (*Separation of Duties*)**: Petugas lapangan maupun pengelola teknis tidak boleh memiliki wewenang mengangkat dirinya sendiri atau orang lain menjadi admin/pimpinan. Ini mencegah benturan kepentingan (*conflict of interest*).
+2. **Prinsip Hak Akses Terkecil (*Principle of Least Privilege*)**: Setiap pengguna hanya diberikan wewenang minimum yang dibutuhkan untuk menuntaskan uraian tugasnya (tupoksi).
+3. **Akuntabilitas Kepegawaian**: Hak akses ke sistem pemerintahan melekat pada Surat Keputusan (SK) Jabatan atau Surat Perintah Tugas (SPT) kedinasan yang sah.
 
 ---
 
-### Slide 1: Judul Presentasi
-- **Konten Slide**:
-  - Judul: **SIPEKA (Sistem Pemantauan Kualitas Air Budidaya)**
-  - Subjudul: *Digitalisasi Pengawasan Mutu Air Kolam Menuju Kemandirian Pembudidaya Ikan Kabupaten Lembata*
-  - Identitas: **Ellen Veronika Maran, S.Pi** — Pengelola Pengawasan Mutu Air
-  - Instansi: Dinas Perikanan Kabupaten Lembata — 2026
+### C. Prosedur Operasional Standar (SOP) Registrasi & Penugasan Akun
+
+Proses pemberian akun di lingkungan Dinas Perikanan Kabupaten Lembata mengikuti 5 tahapan formal:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Pegawai as Pegawai Baru / Staf Penguji
+    actor Subbag as Subbag Kepegawaian & Umum
+    actor Admin as Administrator Sistem
+    actor Kadis as Kepala Dinas Perikanan
+
+    Pegawai->>Subbag: Menyerahkan SK Penempatan / Surat Perintah Tugas (SPT)
+    Subbag->>Admin: Disposisi Resmi Permohonan Pembuatan Akun & Penentuan Role
+    Note over Admin: Admin memverifikasi NIP, Nama, & Jabatan di Portal Sistem
+    Admin->>Admin: Registrasi Akun & Penetapan Role RBAC di Menu Manajemen Pengguna
+    Admin-->>Pegawai: Menyerahkan Kredensial Awal (Email Dinas & Password Sementara)
+    Pegawai->>Pegawai: Login Pertama Kali & Wajib Ubah Password Mandiri
+    Kadis->>Admin: Pengawasan Berkala & Evaluasi Akun Pegawai Mutasi / Pensiun
+```
+
+1. **Tahap 1 (Dasar Penugasan)**: Pegawai penguji yang baru direkrut atau penyuluh lapangan membawa SPT resmi dari Subbag Kepegawaian Dinas Perikanan.
+2. **Tahap 2 (Verifikasi Administratif)**: Administrator memeriksa kebenaran NIP, nama lengkap dengan gelar, pangkat/golongan, dan posisi penugasan.
+3. **Tahap 3 (Provisioning Akun oleh Admin)**:
+   - Admin membuka menu khusus `/pengguna` (terproteksi middleware, hanya role `admin`).
+   - Admin mendaftarkan Nama, Email resmi, dan memilih salah satu dari 4 Role RBAC.
+4. **Tahap 4 (Aktivasi & Edukasi Keamanan)**: Kredensial awal diserahkan secara tertutup kepada pegawai yang bersangkutan dengan kewajiban mengganti kata sandi pada profil pengguna.
+5. **Tahap 5 (Pencabutan & Mutasi)**: Jika staf dipindahtugaskan ke dinas lain atau purna tugas (pensiun), Administrator melakukan *one-click suspend/banned*, sehingga akun nonaktif seketika tanpa menghilangkan riwayat uji masa lalu.
+
+---
+
+## 7. PERENCANAAN PROSES PEMBUATAN SISTEM (ROADMAP)
+
+Pembangunan sistem dilaksanakan secara terstruktur mengikuti siklus pengembangan perangkat lunak (*Software Development Life Cycle - SDLC*):
+
+| Fase | Durasi | Agenda Utama | Hasil / Deliverable | Status |
+|---|---|---|---|:---:|
+| **Fase 1: Analisis Kebutuhan & Regulasi** | Minggu 1 | - Observasi kendala lapangan pembudidaya di Lembata<br>- Studi regulasi PP 22/2021 dan SNI Perikanan Air Tawar<br>- Wawancara kebutuhan pimpinan dan penyuluh | Dokumen Kebutuhan Pengguna & Matriks Parameter Mutu | Selesai ✅ |
+| **Fase 2: Perancangan Arsitektur & UI/UX** | Minggu 2 | - Perancangan skema database relasional (PostgreSQL)<br>- Desain antarmuka modern yang nyaman bagi aparatur<br>- Penyusunan rancangan alur RBAC & keamanan | Wireframe UI & Skema Database Drizzle ORM | Selesai ✅ |
+| **Fase 3: Konstruksi Modul Master & QR** | Minggu 3 | - Pembuatan Modul Lokasi Kolam Pokdakan<br>- Pembuatan Modul Baku Mutu Terstandar<br>- Integrasi Generator QR Code & Label Stiker | Master Data Siap Pakai & Fitur Cetak Label Aktif | Selesai ✅ |
+| **Fase 4: Pembangunan Mesin Uji & Validasi** | Minggu 4 | - Pembuatan formulir pengujian lapangan ramah ponsel<br>- Penulisan algoritma validasi cerdas batas baku mutu<br>- Integrasi sistem rekomendasi penanganan otomatis | Mesin Uji Cerdas Berfungsi Real-Time | Selesai ✅ |
+| **Fase 5: Pelaporan LHU & Analitik Tren** | Minggu 5 | - Format layout cetak LHU standar dinas A4<br>- Pengembangan grafik tren kualitas air interaktif<br>- Pembangunan portal publik verifikasi QR tanpa login | LHU Siap Cetak Kedinasan & Portal Publik Aktif | Selesai ✅ |
+| **Fase 6: Uji Coba, Sosialisasi, & Evaluasi** | Minggu 6 | - Uji fungsi sistem (*user acceptance testing*) bersama petugas<br>- Uji coba pemindaian QR di lokasi kolam pembudidaya<br>- Penjaringan usulan nama branding definitif dari rekan Latsar | Prototype Terverifikasi Siap Implementasi Penuh | **Tahap Ini 🚀** |
+
+---
+
+## 8. MANFAAT & DAMPAK NYATA INOVASI
+
+### 1. Bagi Kelompok Pembudidaya Ikan (Pokdakan) di Kabupaten Lembata
+- **Mencegah Kematian Massal Ikan**: Deteksi dini pergeseran mutu air memberikan waktu bagi pembudidaya untuk menyelamatkan komoditasnya.
+- **Peningkatan Produktivitas & Efisiensi Pakan**: Air dengan DO dan pH seimbang memaksimalkan penyerapan pakan (FCR optimal), mempercepat masa panen dari 4 bulan menjadi 3 bulan.
+- **Mendukung Kelayakan Sertifikasi CBIB**: Memiliki rekaman Lembar Hasil Uji (LHU) resmi yang mempermudah Pokdakan mendapatkan sertifikat Cara Budidaya Ikan yang Baik (CBIB) dari KKP.
+
+### 2. Bagi Petugas Penguji & Dinas Perikanan Kabupaten Lembata
+- **Efisiensi Waktu Kerja Signifikan**: Memangkas waktu penerbitan laporan hasil uji dari 3–5 hari menjadi **kurang dari 2 menit**.
+- **Standarisasi Pengawasan**: Menghilangkan subyektivitas penilaian; seluruh aparatur mengacu pada standar baku mutu nasional yang seragam.
+- **Pengarsipan Digital Anti-Hilang**: Seluruh riwayat pengujian tersimpan rapi di cloud, tidak ada lagi arsip kertas yang rusak terkena air kolam.
+
+### 3. Bagi Kepala Dinas & Pemerintah Daerah Kabupaten Lembata
+- **Kebijakan Berbasis Bukti Nyata (*Evidence-Based Policy*)**: Pimpinan memiliki data akurat untuk menentukan wilayah prioritas bantuan sarana budidaya (pompa, kincir air, dolomit).
+- **Perwujudan Nilai ASN BerAKHLAK**: Bukti nyata pelayanan prima yang **Adaptif** terhadap teknologi dan **Akuntabel** dalam pertanggungjawaban data kepada publik.
+- **Ketahanan Pangan Daerah**: Menjamin pasokan ikan air tawar dan payau yang sehat, higienis, dan bermutu tinggi bagi masyarakat Kabupaten Lembata.
+
+---
+
+## 9. BLUEPRINT SLIDE PRESENTASI POWERPOINT (SLIDE BY SLIDE)
+
+Panduan naskah bicara (*script*) dan tata letak visual untuk setiap slide saat ujian/seminar:
+
+---
+
+### Slide 1: Judul Presentasi & Identitas Peserta
+- **Judul Slide**: PROTOTYPE SISTEM INFORMASI PEMANTAUAN MUTU AIR BUDIDAYA PERIKANAN TERPADU
+- **Subjudul**: *Digitalisasi Pengawasan Mutu Air Menuju Ketahanan Pangan & Kesejahteraan Pembudidaya Ikan Kabupaten Lembata*
+- **Identitas Presenter**:
+  - **Nama**: **MELANIA HERLINDA LETE BORO, S.Si**
+  - **NIP**: **19940318 202506 2 005**
+  - **Angkatan**: **353** | **Nomor Absen**: **8**
+  - **Jabatan**: Pengelola Pengawasan Mutu Air
+- **Instansi**: Dinas Perikanan Kabupaten Lembata — 2026
+- **Mentor**: **Hadi Umar, S.Pd., MT**
 - **Tips Penyampaian (Script Bicara)**:
-  > *"Selamat pagi/siang Bapak/Ibu Dewan Penguji, Mentor, dan hadirin sekalian. Pada hari ini saya dengan bangga mempresentasikan prototype inovasi digital kami bernama SIPEKA, sebuah sistem yang lahir dari dedikasi kami di Dinas Perikanan Kabupaten Lembata untuk melindungi dan meningkatkan kesejahteraan para pembudidaya ikan kita."*
+  > *"Selamat pagi/siang Yang Terhormat Bapak/Ibu Dewan Penguji, Bapak Mentor (Bapak Hadi Umar, S.Pd., MT), Coach, dan rekan-rekan peserta Pelatihan Dasar CPNS sekalian. Perkenalkan saya Melania Herlinda Lete Boro, S.Si, Pengelola Pengawasan Mutu Air Dinas Perikanan Kabupaten Lembata, peserta Latsar Angkatan 353 Nomor Absen 8. Pada hari ini saya merasa bangga dapat mempresentasikan rancang bangun prototype Sistem Informasi Pemantauan Mutu Air Budidaya Perikanan Terpadu. Sebagai catatan awal, untuk penamaan akronim atau branding resmi aplikasi ini sengaja belum kami patenkan, karena kami sangat membuka ruang bagi Bapak/Ibu Penguji, Mentor, dan rekan-rekan peserta untuk memberikan saran dan ide penamaan yang paling inspiratif."*
 
 ---
 
-### Slide 2: Latar Belakang & Masalah Utama
-- **Konten Slide**:
-  - Poin 1: Kematian ikan budidaya sering terjadi tanpa sempat diantisipasi.
-  - Poin 2: Pencatatan manual di kertas lambat, mudah rusak, dan sulit ditelusuri.
-  - Poin 3: Pembudidaya terlambat menerima saran perbaikan air dari dinas.
-  - Elemen Visual: Foto kolam budidaya di Lembata berdampingan dengan ilustrasi kertas catatan yang basah/rusak vs ikon digital.
+### Slide 2: Latar Belakang Masalah & Urgensi Inovasi
+- **Konten Visual**: Foto kolam budidaya ikan di Lembata + Ilustrasi perbandingan kertas basah rusak vs lambatnya laporan manual.
+- **Poin Kunci**: Kematian ikan massal, pencatatan manual di kertas, dan lambatnya saran penanganan dinas.
 - **Tips Penyampaian**:
-  > *"Bapak/Ibu, air adalah penentu utama keberhasilan budidaya ikan. Selama ini, kendala terbesar pembudidaya di Lembata adalah mereka baru tahu air kolamnya beracun saat ikan sudah mulai mati mengambang. Mengapa? Karena proses pengujian kita selama ini masih manual, dicatat di kertas, dan laporannya butuh berhari-hari untuk sampai ke tangan petani."*
+  > *"Bapak/Ibu Penguji, air adalah nyawa utama budidaya perikanan. Di Lembata, seringkali pembudidaya melapor ke dinas ketika ikan sudah terlanjur mati mengambang. Mengapa? Karena pengujian air selama ini dicatat manual pada buku tulis yang mudah basah dan rusak, serta butuh berhari-hari untuk menghitung ambang batas di kantor. Akibatnya, bantuan saran penyelamatan datang terlambat."*
 
 ---
 
-### Slide 3: Solusi Inovasi — Lahirnya SIPEKA
-- **Konten Slide**:
-  - Definisi Singkat SIPEKA.
-  - Tiga Pilar Utama:
-    1. **Digital & Cepat**: Input data dari smartphone langsung tersimpan.
-    2. **Cerdas & Akurat**: Validasi otomatis sesuai standar baku mutu nasional.
-    3. **Transparan & Akuntabel**: Label QR Code dan penerbitan LHU resmi berstandar kedinasan.
+### Slide 3: Gagasan Inovasi & Landasan Hukum Sistem
+- **Konten Visual**: Diagram konsep sistem digital berdampingan dengan lambang PP No. 22/2021 dan SNI Perikanan.
+- **Poin Kunci**: Platform digital terpadu, berbasis regulasi nasional, validasi instan otomatis.
 - **Tips Penyampaian**:
-  > *"Untuk mengatasi masalah tersebut, kami merancang SIPEKA. SIPEKA hadir sebagai jembatan cerdas yang mengubah seluruh proses pengawasan mutu air menjadi serba cepat, otomatis, dan akurat berdasarkan standar resmi Kementerian Kelautan dan Perikanan serta Kementerian Lingkungan Hidup."*
+  > *"Sebagai respon atas masalah tersebut, kami merancang prototype sistem informasi ini. Sistem ini bukan sekadar aplikasi pencatatan, melainkan instrumen digital cerdas berlandaskan PP No. 22 Tahun 2021 dan SNI yang mampu mengevaluasi kelayakan air secara otomatis dalam hitungan detik."*
 
 ---
 
-### Slide 4: Alur Kerja Sistem (Sederhana & Mudah Dipahami)
-- **Konten Slide**:
-  - Infografis 4 Langkah:
-    1. Ambil Sampel & Tempel Label QR Code.
-    2. Ukur Parameter & Input Nilai ke Sistem.
-    3. Sistem Menganalisis Otomatis (Aman/Waspada/Bahaya).
-    4. Terbit Lembar Hasil Uji (LHU) + Saran Penanganan Instan.
+### Slide 4: Alur Kerja & Keterkaitan Antar-Modul (System Flow)
+- **Konten Visual**: Diagram alur sinergi Master Data ➔ Input Uji Cerdas ➔ Cetak LHU Resmi ➔ Portal Publik QR.
 - **Tips Penyampaian**:
-  > *"Bagaimana SIPEKA bekerja di lapangan? Sangat sederhana. Petugas mengambil sampel air, menginput hasil pengukuran di HP, dan detik itu juga sistem langsung memberi tahu: apakah air ini aman, waspada, atau bahaya, lengkap dengan petunjuk apa yang harus segera dilakukan oleh pemilik kolam."*
+  > *"Bagaimana sistem ini bekerja? Seluruh modul saling menopang secara terpadu. Master data kolam dan baku mutu menjadi pondasi wajib. Saat petugas menginput angka di tepi kolam, mesin cerdas langsung mengolah status air, menerbitkan draf LHU, mengalirkan data ke grafik tren, dan menyajikan statistik ke dashboard pimpinan secara real-time."*
 
 ---
 
-### Slide 5: Fitur Unggulan 1 — Validasi Otomatis & Rekomendasi Instan
-- **Konten Slide**:
-  - Tangkapan Layar (Screenshot) Form Input Hasil Uji.
-  - Sorotan Visual: Badge Warna **Hijau (Normal)**, **Kuning (Peringatan)**, **Merah (Kritis)**.
-  - Kotak Saran Lapangan Otomatis (contoh: rekomendasi penambahan aerasi atau penyiponan).
+### Slide 5: Fitur Unggulan 1 — Validasi Cerdas & Solusi Otomatis
+- **Konten Visual**: Screenshot form input pengujian + Tampilan badge Hijau/Kuning/Merah + Kotak Rekomendasi Lapangan.
 - **Tips Penyampaian**:
-  > *"Inilah jantung dari SIPEKA. Petugas tidak perlu lagi menghafal atau menghitung ambang batas di kalkulator. Sistem secara otomatis mengevaluasi 6 parameter vital seperti oksigen dan amonia. Jika amonia tinggi, sistem langsung memunculkan saran teknis untuk penyiponan dasar kolam dan pengurangan pakan."*
+  > *"Inilah jantung dari sistem kami. Petugas di lapangan tidak perlu lagi menghafal rentang angka atau membuka buku tebal. Saat angka dimasukkan, sistem langsung mendeteksi parameter mana yang kritis dan seketika menerbitkan petunjuk tindakan darurat, seperti anjuran aerasi kincir air atau penyiponan endapan kotoran kolam."*
 
 ---
 
-### Slide 6: Fitur Unggulan 2 — LHU Resmi Berstandar A4 & Pengesahan Digital
-- **Konten Slide**:
-  - Tangkapan Layar Lembar Hasil Uji (LHU) siap cetak.
-  - Elemen: Kop Resmi Dinas Perikanan Kab. Lembata, Nomor Sampel Unik, Tabel Baku Mutu, QR Code Keaslian, dan Blok Tanda Tangan Kadis & Penguji.
+### Slide 6: Fitur Unggulan 2 — LHU Standar Dinas A4 & Pengesahan Digital
+- **Konten Visual**: Screenshot print-out resmi Lembar Hasil Uji (LHU) ber-kop dinas lengkap dengan QR Code dan blok TTD Kadis & Penguji.
 - **Tips Penyampaian**:
-  > *"Hasil akhir yang diterima masyarakat adalah Lembar Hasil Uji yang sah, berwibawa, dan rapi sesuai format standar administrasi pemerintah. Dokumen ini dilengkapi tanda tangan pejabat dan QR code pengaman agar tidak dapat dipalsukan."*
+  > *"Keluaran yang diterima masyarakat bukan secarik kertas biasa, melainkan Lembar Hasil Uji (LHU) resmi berstandar administrasi kedinasan A4 lengkap dengan kop surat Pemkab Lembata, tabel evaluasi mutu komparatif, tanda tangan penguji dan Kepala Dinas, serta kode QR antipemalsuan."*
 
 ---
 
-### Slide 7: Fitur Unggulan 3 — Dashboard Pimpinan & Grafik Tren Masa Depan
-- **Konten Slide**:
-  - Tangkapan Layar Dashboard Utama & Halaman Analisis Tren.
-  - Grafik garis deret waktu menunjukkan batas aman dan fluktuasi air kolam.
+### Slide 7: Tata Kelola Integritas Data & Aturan Hapus
+- **Konten Visual**: Bagan proteksi data: Dokumen Final Tidak Boleh Dihapus vs Master Data Terproteksi `RESTRICT` + Soft Toggle.
 - **Tips Penyampaian**:
-  > *"Bagi pimpinan, Bapak Kepala Dinas kini memiliki 'radar pemantau' kualitas air di seluruh wilayah Lembata. Beliau dapat melihat tren musiman: kolam mana yang sering mengalami penurunan mutu, sehingga dinas bisa mengalokasikan program pembinaan secara tepat sasaran."*
+  > *"Sistem kami dibangun dengan standar integritas audit yang sangat ketat. Dokumen LHU yang sudah final berstatus terkunci dan dilarang dihapus demi mencegah manipulasi laporan. Begitu pula master kolam dan baku mutu; jika sudah memiliki riwayat pengujian, sistem melarang penghapusan permanen dan menyediakannya dalam bentuk nonaktifkan kolam."*
 
 ---
 
-### Slide 8: Kemudahan Bagi Masyarakat — Verifikasi Publik Tanpa Login
-- **Konten Slide**:
-  - Ilustrasi seseorang memindai QR Code di botol sampel atau dokumen kertas menggunakan smartphone biasa.
-  - Tangkapan Layar Halaman Verifikasi Publik yang bersih dan informatif.
+### Slide 8: Keamanan & Hak Akses Pengguna (RBAC)
+- **Konten Visual**: Tabel matriks 4 Role (Admin, Pengelola Mutu, Petugas Lapangan, Kepala Dinas) + Alur pemberian role oleh Admin.
 - **Tips Penyampaian**:
-  > *"SIPEKA sangat berpihak pada masyarakat. Pembudidaya tidak perlu repot membuat akun atau mengingat kata sandi. Cukup arahkan kamera smartphone ke QR Code di botol sampel atau lembar laporan, seluruh informasi keabsahan hasil uji langsung terbuka seketika."*
+  > *"Terkait keamanan, kami menerapkan Role-Based Access Control. Hanya akun Administrator yang berhak memberikan wewenang akun berdasarkan surat perintah tugas resmi. Pengelola mutu berfokus pada substansi ilmiah, petugas lapangan pada input lapangan, dan Kepala Dinas memegang wewenang pengesahan dokumen serta monitoring strategis."*
 
 ---
 
-### Slide 9: Tahapan Pembangunan & Kesiapan Prototype
-- **Konten Slide**:
-  - Garis waktu (Roadmap) dari perencanaan, pembangunan database, pembuatan modul uji, hingga integrasi laporan.
-  - Status saat ini: Prototype sistem telah selesai dibangun secara fungsional dan siap diuji coba secara luas di lapangan.
+### Slide 9: Transparansi Publik — Scan QR Code Tanpa Login
+- **Konten Visual**: Ilustrasi pembudidaya memindai botol sampel/lembar LHU via smartphone ➔ Halaman verifikasi publik terbuka.
 - **Tips Penyampaian**:
-  > *"Prototype SIPEKA ini bukan sekadar konsep di atas kertas, melainkan sistem berbasis web yang sudah berfungsi penuh dan siap digunakan dalam operasional pengawasan mutu air budidaya di Dinas Perikanan Kabupaten Lembata."*
+  > *"Sistem ini sangat memuliakan asas pelayanan publik yang inklusif. Pembudidaya dan masyarakat luas tidak perlu dipusingkan dengan membuat akun atau login. Cukup arahkan kamera smartphone ke QR Code di botol sampel atau dokumen LHU, seluruh status keaslian pengujian terbuka secara transparan."*
 
 ---
 
-### Slide 10: Manfaat & Dampak Nyata
-- **Konten Slide**:
-  - Manfaat bagi Pembudidaya (Ikan sehat, panen melimpah, tidak ada kematian mendadak).
-  - Manfaat bagi Dinas (Pencatatan akurat, efisiensi waktu 80%, laporan instan).
-  - Manfaat bagi Pemda Lembata (Peningkatan produksi perikanan & pelayanan publik prima).
+### Slide 10: Analisis Tren & Dashboard Pimpinan
+- **Konten Visual**: Screenshot grafik deret waktu (Time-Series) bergaris threshold aman + Ringkasan KPI wilayah.
 - **Tips Penyampaian**:
-  > *"Dengan hadirnya SIPEKA, kita tidak hanya menyelamatkan ikan dari kematian, tetapi kita menjaga mata pencaharian dan harapan para pembudidaya kita di Lembata."*
+  > *"Bagi Bapak Kepala Dinas dan pengambil kebijakan, sistem ini berfungsi sebagai 'radar pemantau kualitas lingkungan perikanan'. Dinas dapat melihat grafik tren fluktuasi air kolam selama satu tahun, mendeteksi bulan-bulan rawan krisis air, dan menyalurkan bantuan sarana secara tepat sasaran."*
 
 ---
 
-### Slide 11: Penutup & Komitmen Keberlanjutan
-- **Konten Slide**:
-  - Kalimat Kunci: *"SIPEKA — Air Terjaga, Ikan Sehat, Pembudidaya Sejahtera."*
-  - Ucapan Terima Kasih & Sesi Tanya Jawab.
+### Slide 11: Manfaat Nyata & Keselarasan Nilai ASN BerAKHLAK
+- **Konten Visual**: Rangkuman manfaat bagi Pembudidaya, Dinas Perikanan, dan Daerah + Pilar BerAKHLAK (Akuntabel & Adaptif).
 - **Tips Penyampaian**:
-  > *"Demikian paparan prototype aplikasi SIPEKA. Besar harapan kami inovasi ini dapat terus berkelanjutan dan memberikan manfaat nyata bagi kemajuan sektor perikanan budidaya di Kabupaten Lembata. Terima kasih atas perhatian Bapak/Ibu sekalian, waktu dan ruang kami persilakan untuk diskusi dan masukan."*
+  > *"Melalui inovasi ini, efisiensi kerja dinas meningkat hingga 80%, pembudidaya terhindar dari risiko gagal panen, dan tata kelola instansi semakin akuntabel. Ini adalah wujud konkret penerapan core values ASN BerAKHLAK di bumi Lembata."*
 
 ---
 
-*(Dokumen disusun untuk mendukung Pelatihan Dasar CPNS — Inovasi Pengawasan Mutu Air Dinas Perikanan Kabupaten Lembata 2026)*
+### Slide 12: Penutup, Saran Penamaan Branding, & Diskusi
+- **Konten Visual**: Kalimat penutup: *"Air Terjaga, Ikan Sehat, Pembudidaya Sejahtera."* + Kotak Ajakan Ide Akronim Branding Aplikasi.
+- **Tips Penyampaian**:
+  > *"Demikian paparan prototype sistem pemantauan mutu air perikanan terpadu ini. Kami mengundang Bapak/Ibu Dewan Penguji, Bapak Mentor, dan rekan-rekan peserta untuk memberikan tanggapan, kritik membangun, serta usulan nama branding akronim terbaik untuk menyempurnakan aplikasi ini. Terima kasih atas perhatiannya, waktu dan ruang kami persilakan untuk sesi diskusi."*
+
+---
+
+## 10. SIMULASI TANYA JAWAB PENGUJI LATSAR (Q&A DEFENSE GUIDE)
+
+Bagian ini memuat bocoran pertanyaan yang paling sering diajukan oleh penguji Latsar CPNS beserta panduan jawaban taktis berbobot:
+
+#### ❓ Pertanyaan 1: "Mengapa Anda merancang banyak modul, apakah tidak terlalu rumit untuk skala Latsar?"
+> **💡 Jawaban Taktis Presenter:**  
+> *"Terima kasih Bapak/Ibu Penguji. Kesembilan modul dalam prototype ini sebenarnya merupakan cerminan satu siklus proses bisnis pengawasan mutu air yang utuh. Master data kolam dan baku mutu adalah syarat mutlak agar pengujian tidak salah sasaran. Modul input dan validasi adalah proses lapangannya, sedangkan LHU, dashboard, dan tren adalah instrumen akuntabilitas birokrasi bagi pimpinan dan masyarakat. Setiap modul memiliki fungsi spesifik yang saling mengunci sehingga data yang dihasilkan valid dan dapat dipertanggungjawabkan secara hukum."*
+
+#### ❓ Pertanyaan 2: "Bagaimana sistem Anda mencegah penghapusan data secara curang oleh oknum petugas jika terjadi kasus kematian ikan?"
+> **💡 Jawaban Taktis Presenter:**  
+> *"Sistem mengadopsi prinsip Audit Trail dan Immutability pada dokumen negara. Dokumen pengujian hanya dapat dihapus jika masih berstatus draf di tangan petugas. Begitu dokumen diverifikasi dan disahkan menjadi status 'Final', sistem backend di tingkat database memblokir fungsi hapus secara permanen. Selain itu, master kolam dan baku mutu dilindungi foreign key constraint `RESTRICT`. Artinya, jika suatu kolam sudah pernah diperiksa, data kolam tersebut tidak akan pernah bisa dihapus dari database dinas, melainkan hanya bisa dinonaktifkan."*
+
+#### ❓ Pertanyaan 3: "Siapa yang berhak memberikan akun dan mengubah role pengguna? Apakah petugas lapangan bisa menaikkan aksesnya sendiri?"
+> **💡 Jawaban Taktis Presenter:**  
+> *"Sama sekali tidak bisa, Bapak/Ibu. Dalam arsitektur RBAC sistem kami, pemegang otoritas tunggal manajemen akun adalah Administrator berdasarkan Surat Perintah Tugas resmi kedinasan dari Subbag Kepegawaian. Petugas lapangan hanya memiliki wewenang input dan pindai QR. Pengelola mutu berwenang pada substansi ilmiah laboratorium, sedangkan Kepala Dinas memegang otoritas pengesahan dokumen. Hal ini menjamin prinsip Separation of Duties dan Least Privilege berjalan secara murni."*
+
+#### ❓ Pertanyaan 4: "Jika ada regulasi baru dari Kementerian Kelautan dan Perikanan yang mengubah batas baku mutu air, apakah data pengujian lama Anda akan berubah status kelayakannya?"
+> **💡 Jawaban Taktis Presenter:**  
+> *"Tidak akan berubah, Bapak/Ibu. Modul Master Baku Mutu dirancang dengan skema Versioned Regulation yang mencatat tanggal berlaku (`berlaku_sejak`). Setiap transaksi pengujian menyimpan snapshot relasi baku mutu saat pengujian dilakukan. Sehingga jika di tahun 2027 ada Kepmen baru, pengujian tahun 2026 tetap mengacu pada PP No. 22 Tahun 2021 yang berlaku saat itu, sehingga keabsahan historisnya terlindungi."*
+
+#### ❓ Pertanyaan 5: "Bagaimana pembudidaya ikan di pedesaan yang awam teknologi dapat memanfaatkan sistem ini?"
+> **💡 Jawaban Taktis Presenter:**  
+> *"Itulah keunggulan utama Modul Portal Publik QR Code pada sistem ini. Pembudidaya tidak dituntut untuk mengunduh aplikasi, mendaftar akun, ataupun menghafal kata sandi. Cukup dengan mengarahkan kamera WhatsApp atau kamera bawaan HP ke stiker barcode pada botol sampel atau dokumen LHU fisik yang kami bagikan, ringkasan hasil uji air kolam mereka langsung muncul dalam bahasa yang sederhana dan mudah dipahami."*
+
+---
+
+*(Dokumen Bahan Belajar Presentasi Latsar CPNS — Golongan III — Inovasi Pengawasan Mutu Air Budidaya Perikanan Dinas Perikanan Kabupaten Lembata 2026)*

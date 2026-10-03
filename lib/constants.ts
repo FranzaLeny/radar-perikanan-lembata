@@ -49,27 +49,14 @@ export const APP_CONFIG = {
 
   /** Data author, pengembang, dan hak cipta */
   author: {
-    name: 'MHLB',
-    credit: 'with ❤️ by MHLB',
+    name: 'Melania Herlinda Lete Boro, S.Si',
+    nip: '19940318 202506 2 005',
+    angkatan: '353',
+    nomorAbsen: '8',
+    credit: 'with ❤️ by Melania Herlinda Lete Boro, S.Si',
     shortCredit: 'with ❤️ MHLB',
     copyrightYear: 2026,
-    copyrightText: '© 2026 Dinas Perikanan Kabupaten Lembata • SIPEKA',
-  },
-
-  /** Pejabat pengesahan & tanda tangan resmi dokumen LHU dan laporan */
-  officials: {
-    pengelola: {
-      name: 'Ellen Veronika Maran, S.Pi',
-      nip: '19890815 201503 2 004',
-      jabatan: 'Pengelola Pengawasan Mutu Air',
-    },
-    kepalaDinas: {
-      name: 'Ir. Hadi Mahmud, M.Si',
-      nip: '19740512 200003 1 005',
-      pangkat: 'Pembina Utama Muda (IV/c)',
-      jabatan: 'Kepala Dinas Perikanan Kabupaten Lembata',
-      lokasiTtd: 'Lewoleba',
-    },
+    copyrightText: '© 2026 Dinas Perikanan Kabupaten Lembata',
   },
 
   /** Referensi visual brand dan logo aplikasi serta pemerintah daerah */
@@ -118,7 +105,6 @@ export const APP_VERSION_LABEL = APP_CONFIG.versionLabel;
 export const APP_DESCRIPTION = APP_CONFIG.description;
 export const APP_INSTITUTION = APP_CONFIG.institution;
 export const APP_AUTHOR = APP_CONFIG.author;
-export const APP_OFFICIALS = APP_CONFIG.officials;
 export const APP_LOGO = APP_CONFIG.logo;
 export const LOGO_APP = APP_CONFIG.logo.app;
 export const LOGO_KAB_LEMBATA = APP_CONFIG.logo.kabupaten;

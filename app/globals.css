@@ -56,12 +56,14 @@ body {
 
 /* Print Styles for LHU & QR Labels */
 @media print {
+
   html,
   body {
     background: #ffffff !important;
     color: #000000 !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    color-scheme: light !important;
   }
 
   .no-print,

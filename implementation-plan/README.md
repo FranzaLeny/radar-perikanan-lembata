@@ -18,7 +18,7 @@ Bagi Anda yang akan mempresentasikan aplikasi ini di hadapan audiens awam, mento
 4. **Bedah Modul & Fitur (Bahasa Awam)**: Penjelasan 9 modul sistem lengkap dengan analogi dan manfaat praktisnya.
 5. **Manfaat & Dampak Nyata**: Bagi Pembudidaya (Pokdakan), Petugas Uji, dan Kepala Dinas / Pemda Lembata.
 6. **Roadmap Pembangunan Sistem**: Tahapan pengembangan dari analisis kebutuhan sampai prototype siap pakai.
-7. **Blueprint Slide Presentasi PowerPoint (Slide by Slide)**: Panduan 11 slide siap pakai lengkap dengan poin kunci dan naskah narasi presenter (*script* bicara).
+7. **Blueprint Slide Presentasi PowerPoint (Slide by Slide)**: Panduan 12 slide siap pakai lengkap dengan poin kunci dan naskah narasi presenter (*script* bicara).
 
 ---
 
@@ -62,12 +62,12 @@ Bagi tim teknis pengembang, berikut adalah tautan ke rencana implementasi fitur 
 
 | File Perencanaan | Deskripsi Fitur Teknis | Prioritas | Status |
 |---|---|---|---|
-| [01-lokasi-kolam-edit-nonaktifkan.md](./01-lokasi-kolam-edit-nonaktifkan.md) | Fitur Edit & Nonaktifkan Data Lokasi Kolam Pembudidaya | 🔴 Tinggi | Terencana |
-| [02-baku-mutu-nonaktifkan-hapus.md](./02-baku-mutu-nonaktifkan-hapus.md) | Proteksi Relasi & Nonaktifkan Baku Mutu Versi Lama | 🔴 Tinggi | Terencana |
-| [03-modul-pegawai-crud.md](./03-modul-pegawai-crud.md) | Manajemen CRUD Daftar Pegawai & Pejabat Penandatangan | 🔴 Tinggi | Terencana |
-| [04-integrasi-pelaporan-pegawai.md](./04-integrasi-pelaporan-pegawai.md) | Integrasi Otomatis Pejabat Penanggung Jawab pada LHU | 🟡 Sedang | Terencana |
-| [05-laporan-status-ubah-hapus.md](./05-laporan-status-ubah-hapus.md) | Siklus Dokumen LHU (Draft/Final/Arsip) & Manajemen Hapus | 🔴 Tinggi | Terencana |
-| [Arsip Rencana Pembangunan Awal](./implemted/) | Kumpulan rencana arsitektur awal, migrasi Better Auth, & standarisasi UI | 🟢 Arsip | Terimplementasi |
+| [01-lokasi-kolam-edit-nonaktifkan.md](./01-lokasi-kolam-edit-nonaktifkan.md) | Fitur Edit & Nonaktifkan Data Lokasi Kolam Pembudidaya | 🔴 Tinggi | ✅ Selesai |
+| [02-baku-mutu-nonaktifkan-hapus.md](./02-baku-mutu-nonaktifkan-hapus.md) | Proteksi Relasi & Nonaktifkan Baku Mutu Versi Lama | 🔴 Tinggi | ✅ Selesai |
+| [03-modul-pegawai-crud.md](./03-modul-pegawai-crud.md) | Manajemen CRUD Daftar Pegawai & Pejabat Penandatangan | 🔴 Tinggi | ✅ Selesai |
+| [04-integrasi-pelaporan-pegawai.md](./04-integrasi-pelaporan-pegawai.md) | Integrasi Otomatis Pejabat Penanggung Jawab pada LHU | 🟡 Sedang | ✅ Selesai |
+| [05-laporan-status-ubah-hapus.md](./05-laporan-status-ubah-hapus.md) | Siklus Dokumen LHU (Draft/Final/Arsip) & Manajemen Hapus | 🔴 Tinggi | ✅ Selesai |
+| [Arsip Rencana Pembangunan Awal](./implemted/) | Kumpulan rencana arsitektur awal, migrasi Better Auth, & standarisasi UI | 🟢 Arsip | ✅ Terimplementasi |
 
 ---
 

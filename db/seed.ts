@@ -1,7 +1,7 @@
-import { db } from './index';
-import { masterBakuMutu, instruksiKerja, lokasiKolam, masterPegawai, user, account } from './schema';
-import { generateIkHash } from '../lib/qr';
 import { hashPassword } from 'better-auth/crypto';
+import { generateIkHash } from '../lib/qr';
+import { db } from './index';
+import { account, instruksiKerja, lokasiKolam, masterBakuMutu, masterPegawai, user } from './schema';
 
 async function seed() {
   console.log('[SIPEKA Seed] 🌊 Memulai penyemaian data awal...');
@@ -142,16 +142,16 @@ async function seed() {
   const pegawaiList = [
     {
       nip: '197205141998031004',
-      nama: 'Ir. Hadi Mahmud, M.Si',
+      nama: 'Hadi Umar, S.Pd., MT',
       jabatan: 'Kepala Dinas Perikanan Kabupaten Lembata',
       pangkat_golongan: 'Pembina Utama Muda (IV/c)',
       peran_tanda_tangan: 'kepala_dinas',
       aktif: true,
     },
     {
-      nip: '199508122022032008',
-      nama: 'Ellen Veronika Maran, S.Pi',
-      jabatan: 'Pengelola Mutu Hasil Budidaya Perikanan',
+      nip: '199403182025062005',
+      nama: 'Melania Herlinda Lete Boro, S.Si',
+      jabatan: 'Pengelola Pengawasan Mutu Air',
       pangkat_golongan: 'Penata Muda (III/a)',
       peran_tanda_tangan: 'pengelola_mutu',
       aktif: true,
@@ -187,25 +187,25 @@ async function seed() {
   const usersToSeed = [
     {
       id: 'usr_admin_01',
-      name: 'Administrator SIPEKA',
+      name: 'Administrator Sistem',
       email: 'admin@sipeka.lembata.go.id',
       role: 'admin',
     },
     {
       id: 'usr_mutu_02',
-      name: 'Ellen Maran (Pengelola Mutu)',
+      name: 'Melania Herlinda Lete Boro, S.Si',
       email: 'pengelola@sipeka.lembata.go.id',
       role: 'pengelola_mutu',
     },
     {
       id: 'usr_petugas_01',
-      name: 'Petugas Lapangan Nubatukan',
+      name: 'Petugas Lapangan Pengawasan Mutu',
       email: 'petugas@sipeka.lembata.go.id',
       role: 'petugas_lapangan',
     },
     {
       id: 'usr_kadis_01',
-      name: 'Kepala Dinas Perikanan Lembata',
+      name: 'Hadi Umar, S.Pd., MT',
       email: 'kadin@sipeka.lembata.go.id',
       role: 'kepala_dinas',
     },
