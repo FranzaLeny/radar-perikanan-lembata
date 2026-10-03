@@ -84,7 +84,7 @@ export default async function CetakLhuPage({
   const pangkatPenandatangan = uji.penandatanganPegawai?.pangkat_golongan || '';
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print:space-y-0 print:p-0 print:m-0">
       {/* Top Action Bar (hidden when printing) */}
       <div className="flex items-center justify-between no-print">
         <Link href="/laporan">

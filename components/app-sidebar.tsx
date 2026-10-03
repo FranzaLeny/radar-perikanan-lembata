@@ -4,6 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { cn } from 'cn';
 import { APP_CONFIG } from '@/lib/constants';
 import { SearchForm } from '@/components/search-form';
 import {
@@ -110,7 +111,7 @@ interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
   user?: CurrentUser | null;
 }
 
-export function AppSidebar({ user, ...props }: AppSidebarProps) {
+export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [isLoggingOut, setIsLoggingOut] = React.useState(false);
@@ -251,7 +252,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
   };
 
   return (
-    <Sidebar {...props}>
+    <Sidebar className={cn('no-print print:hidden', className)} {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

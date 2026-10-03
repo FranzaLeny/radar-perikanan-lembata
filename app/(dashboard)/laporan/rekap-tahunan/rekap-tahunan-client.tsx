@@ -266,7 +266,7 @@ export function RekapTahunanClient({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print:space-y-0 print:p-0 print:m-0">
       {/* Top Action Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 no-print">
         <Link href="/laporan">
@@ -601,8 +601,8 @@ export function RekapTahunanClient({
       </div>
 
       {/* Printable Annual Recap Document Canvas */}
-      <div className="flex justify-center">
-        <div className="print-area bg-white text-slate-900 border border-slate-300 rounded-xl p-8 sm:p-10 w-full max-w-5xl shadow-2xl font-sans">
+      <div className="flex justify-center print:m-0 print:p-0">
+        <div className="print-area bg-white text-slate-900 border border-slate-300 rounded-xl p-8 sm:p-10 w-full max-w-5xl shadow-2xl font-sans print:border-none print:shadow-none print:p-0 print:max-w-none">
           {/* Header Dinas */}
           <div className="border-b-4 border-double border-slate-900 pb-4 mb-6">
             <div className="flex items-center justify-between gap-4">

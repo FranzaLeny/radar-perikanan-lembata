@@ -35,7 +35,7 @@ export default async function CetakLabelPage({
   ]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 print:space-y-0 print:p-0 print:m-0">
       {/* Action Bar (Hidden when printing) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 no-print">
         <Link href="/instruksi-kerja">

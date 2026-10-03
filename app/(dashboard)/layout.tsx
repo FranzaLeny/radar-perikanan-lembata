@@ -25,12 +25,12 @@ export default async function DashboardLayout({
   }
 
   return (
-    <SidebarProvider>
-      <AppSidebar user={user} />
-      <SidebarInset>
+    <SidebarProvider className="print:block print:min-h-0 print:w-full print:bg-transparent">
+      <AppSidebar user={user} className="no-print print:hidden" />
+      <SidebarInset className="print:m-0 print:p-0 print:w-full print:bg-transparent print:shadow-none">
         <header className="flex h-14 shrink-0 items-center justify-between border-b px-4 no-print bg-background/95 backdrop-blur-xs sticky top-0 z-20 transition-[width,height] ease-linear">
           <div className="flex items-center gap-2">
-            <SidebarTrigger className="-ml-1" />
+            <SidebarTrigger className="-ml-1 no-print" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <DashboardBreadcrumb />
           </div>
@@ -38,7 +38,7 @@ export default async function DashboardLayout({
             <ThemeToggle />
           </div>
         </header>
-        <main className="flex-1 p-4 md:p-6 lg:p-8 bg-muted/15 print:p-0 print:bg-white overflow-auto">
+        <main className="flex-1 p-4 md:p-6 lg:p-8 bg-muted/15 print:p-0 print:m-0 print:w-full print:bg-white print:overflow-visible overflow-auto">
           {children}
         </main>
         <footer className="border-t border-border py-3 px-6 text-center text-xs text-muted-foreground no-print bg-background/80 backdrop-blur-xs flex flex-col sm:flex-row items-center justify-between gap-2">
