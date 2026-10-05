@@ -33,6 +33,9 @@ export default async function EditUjiKualitasPage({
       orderBy: [schema.lokasiKolam.kecamatan, schema.lokasiKolam.nama_pokdakan],
     }),
     db.query.instruksiKerja.findMany({
+      with: {
+        kategoriDokumen: true,
+      },
       orderBy: [desc(schema.instruksiKerja.createdAt)],
     }),
     db.query.masterBakuMutu.findMany({
@@ -87,7 +90,9 @@ export default async function EditUjiKualitasPage({
           id: uji.id,
           nomor_sampel: uji.nomor_sampel,
           lokasi_id: uji.lokasi_id || '',
+          sop_id: uji.sop_id,
           ik_id: uji.ik_id,
+          suhu_lingkungan: uji.suhu_lingkungan,
           tanggal_pengambilan: uji.tanggal_pengambilan,
           petugas_uji: uji.petugas_uji,
           penguji_pegawai_id: uji.penguji_pegawai_id,
@@ -98,7 +103,11 @@ export default async function EditUjiKualitasPage({
           status: uji.status,
           detailParameters: uji.detailParameters?.map((dp) => ({
             baku_mutu_id: dp.baku_mutu_id || '',
+            ik_id: dp.ik_id || undefined,
             nilai_hasil: dp.nilai_hasil,
+            nilai_min_terapkan: dp.nilai_min_terapkan,
+            nilai_max_terapkan: dp.nilai_max_terapkan,
+            catatan_ambang: dp.catatan_ambang,
           })),
         }}
         lokasiList={lokasiList}

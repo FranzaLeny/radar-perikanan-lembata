@@ -175,14 +175,19 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
           ],
         },
         {
-          title: 'Instruksi Kerja (IK)',
+          title: 'Dokumen Mutu',
           icon: FileCheck2,
-          isActive: pathname.startsWith('/instruksi-kerja'),
+          isActive: pathname.startsWith('/dokumen-mutu') || pathname.startsWith('/instruksi-kerja'),
           subItems: [
             {
-              title: 'Jadwal Sampel & SOP',
-              url: '/instruksi-kerja',
-              isActive: pathname === '/instruksi-kerja',
+              title: 'Katalog Dokumen Mutu',
+              url: '/dokumen-mutu',
+              isActive: pathname === '/dokumen-mutu' || pathname === '/instruksi-kerja',
+            },
+            {
+              title: 'Kategori Dokumen',
+              url: '/dokumen-mutu/kategori',
+              isActive: pathname === '/dokumen-mutu/kategori',
             },
           ],
         },

@@ -37,11 +37,13 @@ export default async function CetakLhuPage({
     with: {
       lokasi: true,
       instruksiKerja: true,
+      sop: true,
       pengujiPegawai: true,
       penandatanganPegawai: true,
       detailParameters: {
         with: {
           bakuMutu: true,
+          ik: true,
         },
       },
     },
@@ -51,8 +53,8 @@ export default async function CetakLhuPage({
     notFound();
   }
 
-  // QR Code URL: verifikasi via IK hash
-  const qrHash = uji.instruksiKerja?.qr_code_hash || 'demo-hash';
+  // QR Code URL: verifikasi via SOP / IK hash
+  const qrHash = uji.sop?.qr_code_hash || uji.instruksiKerja?.qr_code_hash || 'demo-hash';
   const qrUrl = getVerificationUrl(qrHash);
   const qrDataUrl = await generateQrDataUrl(qrUrl);
 
@@ -83,12 +85,19 @@ export default async function CetakLhuPage({
   const nipPenandatangan = uji.penandatanganPegawai?.nip || '';
   const pangkatPenandatangan = uji.penandatanganPegawai?.pangkat_golongan || '';
 
+  // Data SOP Acuan
+  const sopAcuan = uji.sop
+    ? `[${uji.sop.kode_ik}] ${uji.sop.judul}`
+    : uji.instruksiKerja
+      ? `[${uji.instruksiKerja.kode_ik}] ${uji.instruksiKerja.judul}`
+      : 'Standar Operasional Dinas (Umum)';
+
   return (
     <div className="space-y-6 print:space-y-0 print:p-0 print:m-0">
       {/* Top Action Bar (hidden when printing) */}
       <div className="flex items-center justify-between no-print">
         <Link href="/laporan">
-          <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground hover:text-foreground">
+          <Button variant="ghost" size="sm" className="gap-1.5 text-xs text-muted-foreground hover:text-foreground cursor-pointer">
             <ArrowLeft className="size-4" />
             <span>Kembali ke Pusat Laporan</span>
           </Button>
@@ -100,7 +109,7 @@ export default async function CetakLhuPage({
       {/* A4 Paper Document Canvas (Strict Arial Font Rule for Official LHU) */}
       <div className="flex justify-center print:m-0 print:p-0">
         <div
-          className="print-area lhu-print-document bg-white text-slate-900 border border-slate-300 rounded-xl p-8 sm:p-12 w-full max-w-3xl shadow-xl print:border-none print:shadow-none print:p-0 print:max-w-none"
+          className="print-area lhu-print-document bg-white text-slate-900 border border-slate-300 rounded-xl p-8 sm:p-12 w-full max-w-4xl shadow-xl print:border-none print:shadow-none print:p-0 print:max-w-none"
           style={{ fontFamily: 'Arial, var(--font-geist-sans), sans-serif' }}
         >
           {/* KOP RESMI DINAS PERIKANAN KABUPATEN LEMBATA */}
@@ -139,10 +148,10 @@ export default async function CetakLhuPage({
           {/* JUDUL DOKUMEN */}
           <div className="text-center mb-4 print:mb-2.5">
             <h3 className="text-base sm:text-lg font-bold uppercase tracking-wide text-slate-900 underline">
-              LEMBAR HASIL UJI (LHU) KUALITAS AIR BUDIDAYA
+              LEMBAR HASIL UJI (LHU) KUALITAS AIR
             </h3>
             <p className="text-xs text-slate-600 font-mono mt-0.5">
-              Nomor Dokumen: LHU/{APP_NAME}/{uji.nomor_sampel}
+              Nomor: LHU/{APP_NAME}/{uji.nomor_sampel}
             </p>
           </div>
 
@@ -173,34 +182,42 @@ export default async function CetakLhuPage({
               <span className="font-semibold text-slate-900">{uji.lokasi?.komoditas_ikan || 'Ikan Air Tawar/Payau'}</span>
             </div>
             <div>
-              <span className="text-slate-500 block text-xs">SOP Instruksi Kerja (IK):</span>
+              <span className="text-slate-500 block text-xs">SOP Acuan Pelaksanaan:</span>
               <span className="font-semibold text-slate-900">
-                [{uji.instruksiKerja?.kode_ik}] {uji.instruksiKerja?.judul}
+                {sopAcuan}
               </span>
             </div>
+            {uji.suhu_lingkungan && (
+              <div>
+                <span className="text-slate-500 block text-xs">Suhu Udara / Lingkungan:</span>
+                <span className="font-semibold font-mono text-slate-900">{uji.suhu_lingkungan} °C</span>
+              </div>
+            )}
           </div>
 
-          {/* TABEL HASIL PARAMETER (Tanpa pembungkus overflow-auto untuk cetak sempurna) */}
+          {/* TABEL HASIL PARAMETER DENGAN KOLOM METODE PENGUJIAN */}
           <div className="mb-4 print:mb-2.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-800 mb-1.5 print:mb-1">
               A. Hasil Evaluasi Parameter Kualitas Air
             </h4>
-            <div className="border border-slate-300 rounded-lg">
+            <div className="border border-slate-300 rounded-lg min-w-fit">
               <Table className="text-xs">
                 <TableHeader className="bg-slate-100 border-b border-slate-300">
                   <TableRow className="border-b border-slate-300 hover:bg-slate-100">
                     <TableHead className="w-8 text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">No</TableHead>
                     <TableHead className="text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Parameter Uji</TableHead>
-                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Satuan</TableHead>
-                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Baku Mutu (PP 22/2021)</TableHead>
+                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1 w-14">Satuan</TableHead>
+                    <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Baku Mutu (Regulasi)</TableHead>
+                    <TableHead className="text-left text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Metode Pengujian (IK)</TableHead>
                     <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] border-r border-slate-300 py-1.5 print:py-1">Hasil Uji</TableHead>
                     <TableHead className="text-center text-slate-700 font-bold uppercase text-[11px] py-1.5 print:py-1">Status Kelayakan</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {uji.detailParameters.map((dp, idx) => {
-                    const min = dp.bakuMutu?.nilai_min;
-                    const max = dp.bakuMutu?.nilai_max;
+                    const min = dp.nilai_min_terapkan !== null && dp.nilai_min_terapkan !== undefined ? dp.nilai_min_terapkan : dp.bakuMutu?.nilai_min;
+                    const max = dp.nilai_max_terapkan !== null && dp.nilai_max_terapkan !== undefined ? dp.nilai_max_terapkan : dp.bakuMutu?.nilai_max;
+
                     let standardStr = '-';
                     if (min !== null && min !== undefined && max !== null && max !== undefined) {
                       standardStr = `${min} – ${max}`;
@@ -209,6 +226,9 @@ export default async function CetakLhuPage({
                     } else if (max !== null && max !== undefined) {
                       standardStr = `≤ ${max}`;
                     }
+
+                    const regulasiSingkat = dp.nomor_regulasi || dp.bakuMutu?.nomor_regulasi || 'PP No. 22/2021';
+                    const metodeUji = dp.metode_pengujian || dp.ik?.metode_pengujian || dp.ik?.judul || 'SNI Pengujian Mutu Air';
 
                     const isMelebihi = dp.status_kelayakan === 'MELEBIHI';
                     const isDibawah = dp.status_kelayakan === 'DIBAWAH';
@@ -225,7 +245,16 @@ export default async function CetakLhuPage({
                           {dp.bakuMutu?.satuan}
                         </TableCell>
                         <TableCell className="text-center font-mono text-slate-700 border-r border-slate-300 py-1.5 print:py-1">
-                          {standardStr}
+                          <div>
+                            <span className="font-bold">{standardStr}</span>
+                            <span className="text-[10px] text-slate-500 block font-sans">({regulasiSingkat})</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-left text-slate-800 border-r border-slate-300 py-1.5 print:py-1 text-[11px]">
+                          <span className="font-medium text-slate-900">{metodeUji}</span>
+                          {dp.ik?.kode_ik && (
+                            <span className="text-[10px] text-slate-500 font-mono block">[{dp.ik.kode_ik}]</span>
+                          )}
                         </TableCell>
                         <TableCell className="text-center font-mono font-bold text-slate-900 border-r border-slate-300 py-1.5 print:py-1">
                           {dp.nilai_hasil}
@@ -366,4 +395,3 @@ export default async function CetakLhuPage({
     </div>
   );
 }
-

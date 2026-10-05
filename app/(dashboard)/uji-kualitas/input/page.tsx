@@ -22,6 +22,9 @@ export default async function InputUjiKualitasPage({
       orderBy: [schema.lokasiKolam.kecamatan, schema.lokasiKolam.nama_pokdakan],
     }),
     db.query.instruksiKerja.findMany({
+      with: {
+        kategoriDokumen: true,
+      },
       orderBy: [desc(schema.instruksiKerja.createdAt)],
     }),
     // Muat semua baku mutu (aktif diutamakan, riwayat/arsip tetap tersedia sesuai kebutuhan uji)

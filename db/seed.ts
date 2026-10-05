@@ -1,12 +1,61 @@
 import { hashPassword } from 'better-auth/crypto';
 import { generateIkHash } from '../lib/qr';
 import { db } from './index';
-import { account, instruksiKerja, lokasiKolam, masterBakuMutu, masterPegawai, user } from './schema';
+import { account, instruksiKerja, kategoriDokumenMutu, lokasiKolam, masterBakuMutu, masterPegawai, user } from './schema';
 
 async function seed() {
   console.log('[SIPEKA Seed] 🌊 Memulai penyemaian data awal...');
 
-  // 1. Seed Master Baku Mutu (PP No. 22 Tahun 2021)
+  // 0. Seed Kategori Dokumen Mutu
+  console.log('[SIPEKA Seed] Menanam kategori dokumen mutu...');
+  const kategoriData = [
+    {
+      id: '11111111-1111-1111-1111-111111111111',
+      kode_kategori: 'PM',
+      nama_kategori: 'Pedoman Mutu',
+      deskripsi: 'Manual mutu kebijakan laboratorium dan tata kelola pengawasan perikanan',
+      urutan: 1,
+      aktif: true,
+    },
+    {
+      id: '22222222-2222-2222-2222-222222222222',
+      kode_kategori: 'PP',
+      nama_kategori: 'Prosedur Pelaksanaan',
+      deskripsi: 'Prosedur pelaksanaan teknis pengawasan kolam dan lintas fungsi',
+      urutan: 2,
+      aktif: true,
+    },
+    {
+      id: '33333333-3333-3333-3333-333333333333',
+      kode_kategori: 'SOP',
+      nama_kategori: 'Standar Operasional Prosedur',
+      deskripsi: 'Standar operasional prosedur rutin pengambilan sampel dan pengujian air',
+      urutan: 3,
+      aktif: true,
+    },
+    {
+      id: '44444444-4444-4444-4444-444444444444',
+      kode_kategori: 'IK',
+      nama_kategori: 'Instruksi Kerja',
+      deskripsi: 'Instruksi kerja teknis operasional alat & metode pengujian spesifik per 1 parameter',
+      urutan: 4,
+      aktif: true,
+    },
+    {
+      id: '55555555-5555-5555-5555-555555555555',
+      kode_kategori: 'FR',
+      nama_kategori: 'Formulir',
+      deskripsi: 'Formulir rekaman mutu, berita acara, dan lembar kerja pemeliharaan alat',
+      urutan: 5,
+      aktif: true,
+    },
+  ];
+
+  for (const k of kategoriData) {
+    await db.insert(kategoriDokumenMutu).values(k).onConflictDoNothing();
+  }
+
+  // 1. Seed Master Baku Mutu (PP No. 22 Tahun 2021 & SNI)
   const bakuMutuList = [
     {
       id: '871d3086-30f0-4e64-a045-7e7ff0c39ec5',
@@ -14,7 +63,10 @@ async function seed() {
       satuan: '°C',
       nilai_min: '28.00',
       nilai_max: '32.00',
-      dasar_regulasi: 'PP No. 22/2021 Lampiran VI (In-situ Thermometer)',
+      nomor_regulasi: 'PP No. 22/2021',
+      dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Deviasi ± 2°C dari Suhu Udara Alami)',
+      tipe_ambang_batas: 'deviasi_suhu_lingkungan',
+      deviasi_toleransi: '2.00',
       aktif: true,
       berlaku_sejak: '2026-01-01',
     },
@@ -24,7 +76,9 @@ async function seed() {
       satuan: '-',
       nilai_min: '6.50',
       nilai_max: '8.50',
-      dasar_regulasi: 'PP No. 22/2021 Lampiran VI (In-situ pH Meter)',
+      nomor_regulasi: 'PP No. 22/2021',
+      dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI',
+      tipe_ambang_batas: 'tetap',
       aktif: true,
       berlaku_sejak: '2026-01-01',
     },
@@ -34,7 +88,9 @@ async function seed() {
       satuan: 'mg/L',
       nilai_min: '3.00',
       nilai_max: null,
-      dasar_regulasi: 'PP No. 22/2021 Lampiran VI (In-situ DO Meter)',
+      nomor_regulasi: 'PP No. 22/2021',
+      dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI',
+      tipe_ambang_batas: 'tetap',
       aktif: true,
       berlaku_sejak: '2026-01-01',
     },
@@ -44,7 +100,9 @@ async function seed() {
       satuan: 'mg/L',
       nilai_min: null,
       nilai_max: '0.02',
-      dasar_regulasi: 'SNI Budidaya & PP 22/2021 (Spektrofotometri)',
+      nomor_regulasi: 'PP No. 22/2021',
+      dasar_regulasi: 'SNI Budidaya & PP 22/2021 Lampiran VI',
+      tipe_ambang_batas: 'tetap',
       aktif: true,
       berlaku_sejak: '2026-01-01',
     },
@@ -54,7 +112,9 @@ async function seed() {
       satuan: 'mg/L',
       nilai_min: null,
       nilai_max: '0.06',
-      dasar_regulasi: 'SNI Budidaya & PP 22/2021 (Spektrofotometri)',
+      nomor_regulasi: 'PP No. 22/2021',
+      dasar_regulasi: 'SNI Budidaya & PP 22/2021 Lampiran VI',
+      tipe_ambang_batas: 'tetap',
       aktif: true,
       berlaku_sejak: '2026-01-01',
     },
@@ -64,7 +124,9 @@ async function seed() {
       satuan: 'cm',
       nilai_min: '30.00',
       nilai_max: null,
-      dasar_regulasi: 'SNI Budidaya (Secchi Disk)',
+      nomor_regulasi: 'SNI Budidaya',
+      dasar_regulasi: 'SNI Budidaya Perikanan Air Tawar & Payau',
+      tipe_ambang_batas: 'tetap',
       aktif: true,
       berlaku_sejak: '2026-01-01',
     },
@@ -78,28 +140,56 @@ async function seed() {
       .onConflictDoNothing();
   }
 
-  // 2. Seed Contoh Instruksi Kerja
-  console.log('[SIPEKA Seed] Menanam contoh Instruksi Kerja (IK)...');
+  // 2. Seed Contoh Dokumen Mutu (SOP & IK per Parameter)
+  console.log('[SIPEKA Seed] Menanam Dokumen Mutu & Instruksi Kerja per parameter...');
   const ik1Hash = generateIkHash('IK-001');
   const ik2Hash = generateIkHash('IK-002');
+  const ik3Hash = generateIkHash('IK-003');
+  const sop1Hash = generateIkHash('SOP-001');
 
   await db
     .insert(instruksiKerja)
     .values([
       {
+        kode_ik: 'SOP-001',
+        judul: 'SOP Pengujian Kualitas Air Kolam Budidaya Lembata',
+        kategori: 'Standar Operasional Prosedur',
+        kategori_id: '33333333-3333-3333-3333-333333333333',
+        file_path: '/uploads/sop-001-kualitas-air.pdf',
+        qr_code_hash: sop1Hash,
+        versi: 1,
+      },
+      {
         kode_ik: 'IK-001',
-        judul: 'Pengukuran Parameter In-Situ Kualitas Air Kolam (Suhu, pH, DO)',
-        kategori: 'Standar Operasional In-Situ',
+        judul: 'Pengukuran Suhu Air Kolam Budidaya',
+        kategori: 'Instruksi Kerja',
+        kategori_id: '44444444-4444-4444-4444-444444444444',
+        parameter_uji: 'Suhu',
+        metode_pengujian: 'SNI 06-6989.23-2005 (In-situ Thermometer)',
         file_path: '/uploads/sop-ik-001-insitu.pdf',
         qr_code_hash: ik1Hash,
         versi: 1,
       },
       {
         kode_ik: 'IK-002',
-        judul: 'Prosedur Pengambilan Sampel & Uji Kimia Air (Amonia, Nitrit)',
-        kategori: 'Standar Operasional Laboratorium',
-        file_path: '/uploads/sop-ik-002-kimia.pdf',
+        judul: 'Pengujian Derajat Keasaman (pH) Air Kolam',
+        kategori: 'Instruksi Kerja',
+        kategori_id: '44444444-4444-4444-4444-444444444444',
+        parameter_uji: 'pH',
+        metode_pengujian: 'SNI 6989.11:2019 (In-situ pH Meter)',
+        file_path: '/uploads/sop-ik-002-ph.pdf',
         qr_code_hash: ik2Hash,
+        versi: 1,
+      },
+      {
+        kode_ik: 'IK-003',
+        judul: 'Pengujian Oksigen Terlarut (DO) Air Kolam',
+        kategori: 'Instruksi Kerja',
+        kategori_id: '44444444-4444-4444-4444-444444444444',
+        parameter_uji: 'DO (Oksigen Terlarut)',
+        metode_pengujian: 'SNI 06-6989.14-2004 (In-situ DO Meter)',
+        file_path: '/uploads/sop-ik-003-do.pdf',
+        qr_code_hash: ik3Hash,
         versi: 1,
       },
     ])
@@ -180,7 +270,6 @@ async function seed() {
       .values(p)
       .onConflictDoNothing();
   }
-
 
   // 4. Seed Akun Default Sistem
   console.log('[SIPEKA Seed] Menanam akun pengguna default...');

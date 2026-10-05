@@ -12,13 +12,23 @@ export const bakuMutuSchema = z
       (val) => (val === '' || val === null || val === undefined ? null : Number(val)),
       z.number({ message: 'Nilai maksimum harus berupa angka' }).nullable().optional()
     ),
-    dasar_regulasi: z.string().max(100).optional().or(z.literal('')),
+    nomor_regulasi: z
+      .string()
+      .min(1, { message: 'Nomor / singkatan regulasi wajib diisi (misal: PP No. 22/2021)' })
+      .max(50),
+    dasar_regulasi: z.string().max(500).optional().or(z.literal('')),
+    tipe_ambang_batas: z.enum(['tetap', 'deviasi_suhu_lingkungan', 'manual_lapangan']).default('tetap'),
+    deviasi_toleransi: z.preprocess(
+      (val) => (val === '' || val === null || val === undefined ? null : Number(val)),
+      z.number({ message: 'Nilai toleransi deviasi harus berupa angka' }).nullable().optional()
+    ),
     aktif: z.boolean().default(true),
     berlaku_sejak: z.string().optional().default(() => new Date().toISOString().split('T')[0]),
   })
   .refine(
     (data) => {
       if (
+        data.tipe_ambang_batas === 'tetap' &&
         data.nilai_min !== null &&
         data.nilai_min !== undefined &&
         data.nilai_max !== null &&

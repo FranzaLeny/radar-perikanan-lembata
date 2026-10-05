@@ -1,0 +1,23 @@
+Buatkan perencanaan perbaikan simpan di folder ./implementation-plan:
+1. Ada perbedaan antara SOP/Prosedur Pelaksanaan dibandingkan dengan Instruksi Kerja dimana Prosedur pelaksanaan/SOP lebih general misalanya SOP pengujian kalitas Air Koloam Budidaya sedangkan Instruksi lebihe spresifik; misalnya untuk kasus sekarang instruksi kerja berfokus pada pengujian parameter kualitas air yang mana intruksi kerja itu sebaikinya ada nama methode jika itu adalah intruksi kerja parameter kualitas air jadi saat mengisi data instruksi kerja pengujian parameter harus tuliskan nama methote yang digunakan misalnya SNI XX dll dan setiap intruksi kerja hanya untuk 1 parameter;
+2. Dengan demikian saat menginput hasil uji karena banyak parameter maka untuk field sop adalah pilihan untuk memilih SOP tidak wajib diisi; sedangkan untuk setiap parameter tambahkan juga menggunakan instruksi kerja yang mana tapi hanya untuk parameter tersebut wajib. Jadi otomatis memfilter instruksi kerja sesuai parameternya.
+3. Untuk baku mutu sebaiknya tambahkan field baru yaitu nomor peraturan dasarnya misalnya (PP No. 22 Tahun 2021) tolong lihat exixtring sarankan mana penamaan field seperti apa soalnya ada perbedaan antara yang lengkap dan singkatan dimana singkatan kan ditampilkan di kolom hasil uji nantinya; Tidak perlu ada methode pengujian karena metode pengujian diatur pada IK
+4. Sebagai akibatnya maka pada report hasil uji setiap parameternya ditampilkan nama metodenya, dan untuk
+
+
+
+
+menu instruksi kerja diubah menjadi Dokumen Mutu karena nanti akan berisi berberapa kategori:
+Contohnya:
+1. Pedoman Mutu;
+2. Produr Pelaksanaan;
+3. SOP;
+4. Instruksi Kerja;
+5. Formulir
+Untuk itu tambahakan tabel Kategori Dokumen Mutu untuk manajemen kategori dokumen mutu.
+
+untuk beberapa data kadang nilai ambang batasnya kadang bergantung pada parameter lain misalanya suhu air yang bergantung pada suhu lingkungan sehingga rumusnya berbeda jadi bisa diatur agar nilai max dan min nya bisa di atur agar bisa diinput manual sesuai nilai suhu linkungan
+
+
+
+Untuk baku mutu per parameter kalau hasil revisinya dara acuan serta nilai maks dan nilai minimunya sama maka sebaiknya jangan buat sebagai baru, karena bisa jadi user salah klik atau hanya mengakatifkan kemebali yang lama, jadi jangan langsung disimpan

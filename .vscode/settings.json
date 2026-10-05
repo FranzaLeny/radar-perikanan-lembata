@@ -5,5 +5,93 @@
     "source.fixAll.eslint": "explicit"
   },
   "typescript.preferences.includePackageJsonAutoImports": "auto",
-  "javascript.preferences.includePackageJsonAutoImports": "auto"
+  "javascript.preferences.includePackageJsonAutoImports": "auto",
+  "editor.formatOnSave": true,
+  "editor.fontFamily": "Fira Code Retina",
+  "editor.fontSize": 13,
+  "editor.fontLigatures": true,
+  "editor.fontVariations": true,
+  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.maxLineCount": 1,
+  "editor.wrappingIndent": "same",
+  // Suggestion and Intellisense
+  "editor.quickSuggestions": {
+    "comments": "off",
+    "other": "inline",
+    "strings": "off"
+  },
+  "editor.suggestOnTriggerCharacters": false,
+  "editor.parameterHints.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.suggest.showWords": false,
+  "editor.hover.enabled": "on",
+  // Files and Explorer Configurations
+  "files.eol": "\n",
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.js": "javascript",
+    "*.ts": "typescript",
+    "*.jsx": "javascriptreact",
+    "*.tsx": "typescriptreact"
+  },
+  "explorer.sortOrder": "type",
+  "explorer.sortOrderLexicographicOptions": "unicode",
+  // Search and Watcher Exclusions
+  "search.exclude": {
+    "**/.git": true,
+    "**/.next": true,
+    "**/.vscode": true,
+    "**/.logs": true,
+    "**/node_modules": true,
+    "**/env": true,
+    "**/venv": true,
+    "**/next-env.d.ts": true,
+    "**/bun.lock": true,
+    "**/public": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/build/**": true,
+    "**/.next/**": true,
+    "**/env/**": true,
+    "**/venv/**": true,
+    "env-*": true
+  },
+  // JavaScript / TypeScript Options
+  "js/ts.hover.maximumLength": 4000,
+  "typescript.tsserver.maxTsServerMemory": 2048,
+  "javascript.updateImportsOnFileMove.enabled": "prompt",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  //==> For new version IDE
+  "js/ts.tsserver.maxMemory": 2048,
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  // Biome & Linter LSP Configurations
+  "biome.lsp.bin": "./node_modules/@biomejs/biome/bin",
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  // Tailwind CSS Configurations
+  // "tailwindCSS.files.exclude": ["**/src/shared/components/ui/shadcn/**"],
+  "tailwindCSS.includeLanguages": {
+    "javascript": "javascript"
+  },
+  "tailwindCSS.classAttributes": [
+    "className",
+    "classNames"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    "class(?:Name|Names)?\\s*:\\s*[\"'`]([^\"'`]*)[\"'`]"
+  ],
+  "tailwindCSS.classFunctions": [
+    "cn",
+    "cva"
+  ],
+  "tailwindCSS.experimental.configFile": "./src/app/globals.css",
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  "tailwindCSS.lint.cssConflict": "ignore"
 }

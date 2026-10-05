@@ -1,43 +1,24 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
 import {
-  Droplets,
-  Send,
-  AlertCircle,
-  Sparkles,
-  Loader2,
-  Plus,
-  Trash2,
-  RefreshCw,
-  ExternalLink,
-} from 'lucide-react';
-import { BadgeStatus } from '@/components/badge-status';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import {
-  Field,
-  FieldLabel,
-  FieldDescription,
-  FieldError,
-} from '@/components/ui/field';
-import { toFieldErrors } from '@/lib/utils';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from '@/components/ui/card';
+  QuickAddLokasiDialog,
+  type LokasiItem,
+} from '@/components/quick-add-lokasi-dialog';
 import {
   Alert,
   AlertDescription,
   AlertTitle,
 } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import {
   Combobox,
   ComboboxContent,
@@ -47,32 +28,60 @@ import {
   ComboboxList,
 } from '@/components/ui/combobox';
 import {
-  QuickAddLokasiDialog,
-  type LokasiItem,
-} from '@/components/quick-add-lokasi-dialog';
-import { toast } from 'sonner';
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { submitHasilUjiAction, updateHasilUjiAction } from '@/lib/actions/uji-kualitas';
+import { toFieldErrors } from '@/lib/utils';
 import {
-  hitungStatusKelayakan,
+  hitungAmbangBatasDinamis,
   hitungKesimpulan,
+  hitungStatusKelayakan,
   type StatusKelayakan,
 } from '@/lib/validasi-baku-mutu';
+import {
+  AlertCircle,
+  Droplets,
+  ExternalLink,
+  FileCheck2,
+  Loader2,
+  Plus,
+  RefreshCw,
+  Send,
+  SlidersHorizontal,
+  Thermometer,
+  Trash2
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import React, { useMemo, useState } from 'react';
+import { toast } from 'sonner';
+import { BadgeStatus } from './badge-status';
 
-interface IKItem {
+export interface IKItem {
   id: string;
   kode_ik: string;
   judul: string;
   kategori?: string | null;
+  kategoriDokumen?: { kode_kategori: string; nama_kategori: string } | null;
+  parameter_uji?: string | null;
+  metode_pengujian?: string | null;
   file_path?: string | null;
 }
 
-interface BakuMutuItem {
+export interface BakuMutuItem {
   id: string;
   parameter: string;
   satuan: string;
   nilai_min: string | null;
   nilai_max: string | null;
+  nomor_regulasi: string;
   dasar_regulasi?: string | null;
+  tipe_ambang_batas?: string | null;
+  deviasi_toleransi?: string | null;
   aktif: boolean;
 }
 
@@ -90,7 +99,11 @@ export interface PegawaiItem {
 interface ParameterRow {
   tempId: string;
   baku_mutu_id: string;
+  ik_id: string; // Wajib per parameter
   nilai_hasil: string;
+  is_custom_ambang: boolean;
+  nilai_min_override: string;
+  nilai_max_override: string;
 }
 
 export interface OptionItem {
@@ -104,7 +117,9 @@ export interface ExistingUjiData {
   id: string;
   nomor_sampel: string;
   lokasi_id: string;
+  sop_id?: string | null;
   ik_id?: string | null;
+  suhu_lingkungan?: number | string | null;
   tanggal_pengambilan: Date | string;
   petugas_uji: string;
   penguji_pegawai_id?: string | null;
@@ -115,7 +130,11 @@ export interface ExistingUjiData {
   status?: string;
   detailParameters?: {
     baku_mutu_id: string;
-    nilai_hasil: string;
+    ik_id?: string;
+    nilai_hasil: string | number;
+    nilai_min_terapkan?: string | number | null;
+    nilai_max_terapkan?: string | number | null;
+    catatan_ambang?: string | null;
   }[];
 }
 
@@ -131,6 +150,20 @@ interface FormUjiLapanganProps {
   existingUji?: ExistingUjiData;
 }
 
+// Generate kode sampel otomatis standar: SMP-YYYYMMDD-[3 DIGIT RANDOM]
+function generateSampleNumber() {
+  const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const rand = Math.floor(100 + Math.random() * 900);
+  return `SMP-${today}-${rand}`;
+}
+
+// Format datetime-local sesuai zona waktu perangkat lokal
+function getLocalNowString() {
+  const now = new Date();
+  const tzOffset = now.getTimezoneOffset() * 60000;
+  return new Date(now.getTime() - tzOffset).toISOString().slice(0, 16);
+}
+
 export function FormUjiLapangan({
   lokasiList,
   ikList,
@@ -144,23 +177,10 @@ export function FormUjiLapangan({
 }: FormUjiLapanganProps) {
   const router = useRouter();
 
-  // Generate kode sampel otomatis standar: SMP-YYYYMMDD-[3 DIGIT RANDOM]
-  const generateSampleNumber = () => {
-    const today = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    const rand = Math.floor(100 + Math.random() * 900);
-    return `SMP-${today}-${rand}`;
-  };
-
-  // Format datetime-local sesuai zona waktu perangkat lokal
-  const getLocalNowString = () => {
-    const now = new Date();
-    const tzOffset = now.getTimezoneOffset() * 60000;
-    return new Date(now.getTime() - tzOffset).toISOString().slice(0, 16);
-  };
 
   // State Utama
   const [nomorSampel, setNomorSampel] = useState(
-    existingUji?.nomor_sampel || generateSampleNumber()
+    () => existingUji?.nomor_sampel || generateSampleNumber()
   );
   const [lokasiListState, setLokasiListState] = useState<LokasiItem[]>(lokasiList);
   const [lokasiId, setLokasiId] = useState(
@@ -168,11 +188,17 @@ export function FormUjiLapangan({
   );
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
 
-  // SOP: 'arsip' atau 'manual'
-  const [tipeSop, setTipeSop] = useState<'arsip' | 'manual'>('arsip');
-  const [ikId, setIkId] = useState(
-    existingUji?.ik_id || prefilledIkId || (ikList[0]?.id || '')
+  // Suhu Udara Lingkungan Lapangan (°C)
+  const [suhuLingkungan, setSuhuLingkungan] = useState<string>(
+    existingUji?.suhu_lingkungan ? existingUji.suhu_lingkungan.toString() : ''
   );
+
+  // SOP Induk: Opsional (pilihan SOP terarsip, manual, atau tanpa SOP)
+  const initialSopId = existingUji?.sop_id || existingUji?.ik_id || prefilledIkId || '';
+  const [tipeSop, setTipeSop] = useState<'arsip' | 'manual' | 'tanpa_sop'>(
+    initialSopId ? 'arsip' : 'tanpa_sop'
+  );
+  const [sopId, setSopId] = useState<string>(initialSopId);
   const [sopManualKode, setSopManualKode] = useState('');
   const [sopManualJudul, setSopManualJudul] = useState('');
 
@@ -210,13 +236,45 @@ export function FormUjiLapangan({
     return getLocalNowString();
   });
 
+  // Maps untuk akses cepat data
+  const bakuMutuMap = useMemo(() => {
+    return new Map(bakuMutuList.map((b) => [b.id, b]));
+  }, [bakuMutuList]);
+
+  const ikMap = useMemo(() => {
+    return new Map(ikList.map((ik) => [ik.id, ik]));
+  }, [ikList]);
+
+  // Fungsi pembantu: Cari IK pertama yang cocok untuk parameter tertentu
+  const findDefaultIkForParam = (bmId: string): string => {
+    const bm = bakuMutuMap.get(bmId);
+    if (!bm) return ikList[0]?.id || '';
+
+    const paramName = bm.parameter.toLowerCase().trim();
+    // Prioritaskan IK yang parameter_uji cocok
+    const matching = ikList.find(
+      (ik) => ik.parameter_uji && ik.parameter_uji.toLowerCase().trim() === paramName
+    );
+    if (matching) return matching.id;
+
+    // Fallback IK yang judulnya mengandung nama parameter
+    const byTitle = ikList.find((ik) => ik.judul.toLowerCase().includes(paramName));
+    if (byTitle) return byTitle.id;
+
+    return ikList[0]?.id || '';
+  };
+
   // 1. Parameter Dimulai Kosong (atau prefill saat edit)
   const [parameterRows, setParameterRows] = useState<ParameterRow[]>(() => {
     if (existingUji?.detailParameters && existingUji.detailParameters.length > 0) {
       return existingUji.detailParameters.map((d, idx) => ({
         tempId: `param-${idx}-${Date.now()}`,
         baku_mutu_id: d.baku_mutu_id,
+        ik_id: d.ik_id || findDefaultIkForParam(d.baku_mutu_id),
         nilai_hasil: d.nilai_hasil.toString(),
+        is_custom_ambang: Boolean(d.nilai_min_terapkan || d.nilai_max_terapkan),
+        nilai_min_override: d.nilai_min_terapkan !== null && d.nilai_min_terapkan !== undefined ? d.nilai_min_terapkan.toString() : '',
+        nilai_max_override: d.nilai_max_terapkan !== null && d.nilai_max_terapkan !== undefined ? d.nilai_max_terapkan.toString() : '',
       }));
     }
     return [];
@@ -226,12 +284,8 @@ export function FormUjiLapangan({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alertError, setAlertError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (prefilledLokasiId) setLokasiId(prefilledLokasiId);
-    if (prefilledIkId) setIkId(prefilledIkId);
-  }, [prefilledLokasiId, prefilledIkId]);
 
-  // Options untuk Combobox Pegawai Penguji
+  // Options Pegawai Penguji
   const pengujiPegawaiOptions: OptionItem[] = useMemo(() => {
     return pegawaiList.map((p) => ({
       value: p.id,
@@ -241,7 +295,7 @@ export function FormUjiLapangan({
     }));
   }, [pegawaiList]);
 
-  // Options untuk Combobox Pejabat Penandatangan LHU
+  // Options Pejabat Penandatangan LHU
   const penandatanganPegawaiOptions: OptionItem[] = useMemo(() => {
     return pegawaiList.map((p) => ({
       value: p.id,
@@ -250,14 +304,14 @@ export function FormUjiLapangan({
       badge: p.is_penanggungjawab
         ? '⭐ Default Penandatangan'
         : p.peran_tanda_tangan === 'kepala_dinas'
-        ? 'Kepala Dinas'
-        : p.peran_tanda_tangan === 'pengelola_mutu'
-        ? 'Pengelola Mutu'
-        : undefined,
+          ? 'Kepala Dinas'
+          : p.peran_tanda_tangan === 'pengelola_mutu'
+            ? 'Pengelola Mutu'
+            : undefined,
     }));
   }, [pegawaiList]);
 
-  // Options untuk Combobox Lokasi Kolam (hanya yang aktif)
+  // Options Lokasi Kolam (hanya yang aktif)
   const lokasiOptions: OptionItem[] = useMemo(() => {
     return lokasiListState
       .filter((l) => l.aktif !== false)
@@ -268,52 +322,66 @@ export function FormUjiLapangan({
       }));
   }, [lokasiListState]);
 
-  // Options untuk Combobox SOP Terarsip
-  const ikOptions: OptionItem[] = useMemo(() => {
-    return ikList.map((ik) => ({
-      value: ik.id,
-      label: `[${ik.kode_ik}] ${ik.judul}`,
-      sublabel: ik.kategori || 'Standar Operasional Prosedur',
-    }));
+  // Options untuk Pilihan SOP Induk (Kategori SOP atau Prosedur Pelaksanaan)
+  const sopOptions: OptionItem[] = useMemo(() => {
+    return ikList
+      .filter((doc) => {
+        const isSopCategory =
+          doc.kategori?.toLowerCase().includes('sop') ||
+          doc.kategoriDokumen?.kode_kategori === 'SOP' ||
+          doc.kategoriDokumen?.kode_kategori === 'PP' ||
+          doc.kode_ik.startsWith('SOP-') ||
+          doc.kode_ik.startsWith('PP-');
+        // Jika belum ada SOP, sertakan dokumen apapun sebagai fallback
+        return isSopCategory || !doc.parameter_uji;
+      })
+      .map((sop) => ({
+        value: sop.id,
+        label: `[${sop.kode_ik}] ${sop.judul}`,
+        sublabel: sop.kategori || 'Standar Operasional Prosedur',
+      }));
   }, [ikList]);
 
-  // Options untuk Combobox Parameter Baku Mutu (Aktif & Versi Arsip)
+  // Options Parameter Baku Mutu
   const bakuMutuOptions: OptionItem[] = useMemo(() => {
     return bakuMutuList.map((bm) => {
-      const min = bm.nilai_min;
-      const max = bm.nilai_max;
-      let limitStr = 'Ambang batas: ';
-      if (min !== null && max !== null) limitStr += `${min} – ${max} ${bm.satuan}`;
-      else if (min !== null) limitStr += `≥ ${min} ${bm.satuan}`;
-      else if (max !== null) limitStr += `≤ ${max} ${bm.satuan}`;
-      else limitStr += '-';
+      let limitStr = '';
+      if (bm.tipe_ambang_batas === 'deviasi_suhu_lingkungan') {
+        limitStr = `Deviasi ±${bm.deviasi_toleransi || '2.00'}°C dari Suhu Udara`;
+      } else {
+        const min = bm.nilai_min;
+        const max = bm.nilai_max;
+        if (min !== null && max !== null) limitStr = `Ambang: ${min} – ${max} ${bm.satuan}`;
+        else if (min !== null) limitStr = `Ambang: ≥ ${min} ${bm.satuan}`;
+        else if (max !== null) limitStr = `Ambang: ≤ ${max} ${bm.satuan}`;
+        else limitStr = 'Ambang: -';
+      }
 
       return {
         value: bm.id,
         label: `${bm.parameter} (${bm.satuan})`,
-        sublabel: `${limitStr}${bm.dasar_regulasi ? ` • ${bm.dasar_regulasi}` : ''}`,
+        sublabel: `${limitStr} • ${bm.nomor_regulasi || 'PP No. 22/2021'}`,
         badge: bm.aktif ? 'Aktif' : 'Arsip Versi Lama',
       };
     });
   }, [bakuMutuList]);
 
-  // Map untuk akses cepat ke data baku mutu
-  const bakuMutuMap = useMemo(() => {
-    return new Map(bakuMutuList.map((b) => [b.id, b]));
-  }, [bakuMutuList]);
-
   // Handler Tambah Baris Parameter
   const handleAddParameterRow = () => {
-    // Pilih parameter pertama yang belum dipilih jika ada
     const chosenIds = new Set(parameterRows.map((r) => r.baku_mutu_id));
-    const available = bakuMutuList.find((b) => !chosenIds.has(b.id));
+    const available = bakuMutuList.find((b) => !chosenIds.has(b.id)) || bakuMutuList[0];
+    const defaultBmId = available?.id || '';
 
     setParameterRows((prev) => [
       ...prev,
       {
         tempId: `row-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-        baku_mutu_id: available?.id || (bakuMutuList[0]?.id || ''),
+        baku_mutu_id: defaultBmId,
+        ik_id: findDefaultIkForParam(defaultBmId),
         nilai_hasil: '',
+        is_custom_ambang: false,
+        nilai_min_override: '',
+        nilai_max_override: '',
       },
     ]);
   };
@@ -323,10 +391,29 @@ export function FormUjiLapangan({
     setParameterRows((prev) => prev.filter((r) => r.tempId !== tempId));
   };
 
-  // Handler Ubah Parameter yang Dipilih pada Baris
+  // Handler Ubah Parameter pada Baris (otomatis ganti IK yang cocok)
   const handleSelectBakuMutu = (tempId: string, bmId: string) => {
+    const matchingIkId = findDefaultIkForParam(bmId);
     setParameterRows((prev) =>
-      prev.map((r) => (r.tempId === tempId ? { ...r, baku_mutu_id: bmId } : r))
+      prev.map((r) =>
+        r.tempId === tempId
+          ? {
+            ...r,
+            baku_mutu_id: bmId,
+            ik_id: matchingIkId,
+            is_custom_ambang: false,
+            nilai_min_override: '',
+            nilai_max_override: '',
+          }
+          : r
+      )
+    );
+  };
+
+  // Handler Ubah IK pada Baris
+  const handleSelectIk = (tempId: string, ikIdVal: string) => {
+    setParameterRows((prev) =>
+      prev.map((r) => (r.tempId === tempId ? { ...r, ik_id: ikIdVal } : r))
     );
   };
 
@@ -337,32 +424,82 @@ export function FormUjiLapangan({
     );
   };
 
-  // Evaluasi Kesimpulan Real-time
+  // Handler Toggle Custom Ambang Batas
+  const handleToggleCustomAmbang = (tempId: string) => {
+    setParameterRows((prev) =>
+      prev.map((r) => {
+        if (r.tempId !== tempId) return r;
+        const currentBm = bakuMutuMap.get(r.baku_mutu_id);
+        const willBeCustom = !r.is_custom_ambang;
+        return {
+          ...r,
+          is_custom_ambang: willBeCustom,
+          nilai_min_override: willBeCustom && currentBm?.nilai_min ? currentBm.nilai_min : '',
+          nilai_max_override: willBeCustom && currentBm?.nilai_max ? currentBm.nilai_max : '',
+        };
+      })
+    );
+  };
+
+  // Evaluasi Kesimpulan & Status Kelayakan Real-time (Termasuk Ambang Dinamis Suhu)
   const evaluatedRows = useMemo(() => {
     return parameterRows.map((r) => {
       const bm = bakuMutuMap.get(r.baku_mutu_id);
+      const ik = ikMap.get(r.ik_id);
+
+      let effectiveMin: number | null = null;
+      let effectiveMax: number | null = null;
+      let isDinamis = false;
+      let catatanAmbang: string | null = null;
+
+      if (r.is_custom_ambang && (r.nilai_min_override !== '' || r.nilai_max_override !== '')) {
+        effectiveMin = r.nilai_min_override !== '' ? Number(r.nilai_min_override) : null;
+        effectiveMax = r.nilai_max_override !== '' ? Number(r.nilai_max_override) : null;
+        catatanAmbang = 'Disesuaikan manual di lapangan';
+      } else if (bm) {
+        const dynamicCalc = hitungAmbangBatasDinamis(
+          bm.tipe_ambang_batas,
+          bm.deviasi_toleransi !== null && bm.deviasi_toleransi !== undefined ? Number(bm.deviasi_toleransi) : 2.0,
+          suhuLingkungan !== '' ? Number(suhuLingkungan) : null,
+          bm.nilai_min !== null && bm.nilai_min !== undefined ? Number(bm.nilai_min) : null,
+          bm.nilai_max !== null && bm.nilai_max !== undefined ? Number(bm.nilai_max) : null
+        );
+        effectiveMin = dynamicCalc.min;
+        effectiveMax = dynamicCalc.max;
+        isDinamis = dynamicCalc.isDinamis;
+        catatanAmbang = dynamicCalc.catatan;
+      }
+
       if (!bm || r.nilai_hasil === '' || isNaN(Number(r.nilai_hasil))) {
         return {
           ...r,
           bm,
+          ik,
+          effectiveMin,
+          effectiveMax,
+          isDinamis,
+          catatanAmbang,
           status: 'MEMENUHI' as StatusKelayakan,
           isEvaluated: false,
         };
       }
 
       const numVal = Number(r.nilai_hasil);
-      const minVal = bm.nilai_min !== null ? Number(bm.nilai_min) : null;
-      const maxVal = bm.nilai_max !== null ? Number(bm.nilai_max) : null;
-      const status = hitungStatusKelayakan(numVal, minVal, maxVal);
+      const status = hitungStatusKelayakan(numVal, effectiveMin, effectiveMax);
 
       return {
         ...r,
         bm,
+        ik,
+        effectiveMin,
+        effectiveMax,
+        isDinamis,
+        catatanAmbang,
         status,
         isEvaluated: true,
       };
     });
-  }, [parameterRows, bakuMutuMap]);
+  }, [parameterRows, bakuMutuMap, ikMap, suhuLingkungan]);
 
   const liveConclusion = useMemo(() => {
     const validRows = evaluatedRows.filter((r) => r.isEvaluated);
@@ -401,6 +538,13 @@ export function FormUjiLapangan({
       return;
     }
 
+    // Cek IK per parameter wajib diisi
+    const emptyIk = parameterRows.some((r) => !r.ik_id);
+    if (emptyIk) {
+      setAlertError('Setiap parameter yang diuji wajib memilih Instruksi Kerja (IK) yang digunakan.');
+      return;
+    }
+
     // Cek duplikasi parameter
     const bmIds = parameterRows.map((r) => r.baku_mutu_id);
     if (new Set(bmIds).size !== bmIds.length) {
@@ -408,7 +552,7 @@ export function FormUjiLapangan({
       return;
     }
 
-    // Validasi SOP manual
+    // Validasi SOP manual jika dipilih
     if (tipeSop === 'manual' && !sopManualJudul.trim()) {
       setAlertError('Harap isi judul atau metodologi SOP pengujian manual.');
       return;
@@ -417,18 +561,24 @@ export function FormUjiLapangan({
     setIsSubmitting(true);
 
     try {
-      const details = parameterRows.map((r) => ({
+      const details = evaluatedRows.map((r) => ({
         baku_mutu_id: r.baku_mutu_id,
+        ik_id: r.ik_id,
         nilai_hasil: Number(r.nilai_hasil),
+        nilai_min_terapkan: r.effectiveMin,
+        nilai_max_terapkan: r.effectiveMax,
+        catatan_ambang: r.catatanAmbang,
       }));
 
       const payload = {
         nomor_sampel: nomorSampel.trim(),
         lokasi_id: lokasiId,
         tipe_sop: tipeSop,
-        ik_id: tipeSop === 'arsip' ? ikId : undefined,
+        sop_id: tipeSop === 'arsip' && sopId ? sopId : undefined,
+        ik_id: tipeSop === 'arsip' && sopId ? sopId : undefined,
         sop_manual_kode: tipeSop === 'manual' ? sopManualKode.trim() : undefined,
         sop_manual_judul: tipeSop === 'manual' ? sopManualJudul.trim() : undefined,
+        suhu_lingkungan: suhuLingkungan !== '' ? Number(suhuLingkungan) : undefined,
         tanggal_pengambilan: new Date(tanggalPengambilan).toISOString(),
         petugas_uji: petugasUji.trim(),
         penguji_pegawai_id: pengujiPegawaiId || undefined,
@@ -475,8 +625,8 @@ export function FormUjiLapangan({
   };
 
   const selectedLokasiOption = lokasiOptions.find((l) => l.value === lokasiId) || null;
-  const selectedIkOption = ikOptions.find((ik) => ik.value === ikId) || null;
-  const selectedIk = ikList.find((ik) => ik.id === ikId) || null;
+  const selectedSopOption = sopOptions.find((s) => s.value === sopId) || null;
+  const selectedSopDoc = ikList.find((ik) => ik.id === sopId) || null;
   const selectedPengujiOption = pengujiPegawaiOptions.find((p) => p.value === pengujiPegawaiId) || null;
   const selectedPenandatanganOption = penandatanganPegawaiOptions.find((p) => p.value === penandatanganPegawaiId) || null;
 
@@ -492,63 +642,62 @@ export function FormUjiLapangan({
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Kolom Kiri: Metadata Sampel & Lokasi (2 Kolom) */}
+          {/* Kolom Kiri: Metadata Sampel, Lokasi, & Parameter (2 Kolom) */}
           <div className="lg:col-span-2 space-y-6">
             <Card>
               <CardHeader className="pb-3 border-b border-border">
                 <CardTitle className="text-base font-heading">
-                  1. Informasi Sampel & Titik Lokasi Kolam
+                  1. Informasi Sampel, Lokasi Kolam & Kondisi Lapangan
                 </CardTitle>
                 <CardDescription className="text-xs">
-                  Nomor kode identifikasi sampel, penanggung jawab, dan lokasi kolam budidaya.
+                  Identitas botol sampel, titik pemantauan kolam, waktu pengambilan, serta suhu udara sekitar.
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="pt-4 space-y-4">
-                {/* Kode Sampel & Waktu Sampling Lapangan (Sejajar Sempurna) */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+                {/* Baris 1: Nomor Sampel, Suhu Lingkungan, Tanggal Sampling */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <Field>
-                    <div className="flex items-center justify-between h-7">
-                      <FieldLabel htmlFor="nomorSampel">Kode / Nomor Sampel *</FieldLabel>
-                      <Button
-                        type="button"
-                        size="xs"
-                        onClick={() => setNomorSampel(generateSampleNumber())}
-                        title="Acak kode sampel baru"
-                        variant="ghost"
-                        className="h-6 gap-1 px-2 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
-                      >
-                        <RefreshCw className="size-3" />
-                        <span>Acak Ulang</span>
-                      </Button>
-                    </div>
+                    <FieldLabel htmlFor="nomorSampel">Nomor ID Sampel *</FieldLabel>
                     <Input
                       id="nomorSampel"
                       value={nomorSampel}
                       onChange={(e) => setNomorSampel(e.target.value)}
-                      placeholder="Contoh: SMP-20260926-318"
+                      placeholder="SMP-YYYYMMDD-XXX"
                       className="font-mono font-semibold"
                       required
                     />
-                    <FieldDescription>
-                      Format standar otomatis atau ubah sesuai kode fisik botol laboratorium.
-                    </FieldDescription>
                     <FieldError errors={toFieldErrors(fieldErrors.nomor_sampel)} />
                   </Field>
 
                   <Field>
-                    <div className="flex items-center justify-between h-7">
-                      <FieldLabel htmlFor="tanggal">Waktu Sampling Lapangan *</FieldLabel>
+                    <div className="flex items-center gap-1.5">
+                      <Thermometer className="size-3.5 text-amber-600" />
+                      <FieldLabel htmlFor="suhuLingkungan">Suhu Lingkungan (°C)</FieldLabel>
+                    </div>
+                    <Input
+                      id="suhuLingkungan"
+                      type="number"
+                      step="0.1"
+                      value={suhuLingkungan}
+                      onChange={(e) => setSuhuLingkungan(e.target.value)}
+                      placeholder="Misal: 30.5"
+                      className="font-mono"
+                    />
+                  </Field>
+
+                  <Field>
+                    <div className="flex items-center justify-between">
+                      <FieldLabel htmlFor="tanggal">Waktu Pengambilan *</FieldLabel>
                       <Button
                         type="button"
+                        variant="ghost"
                         size="xs"
                         onClick={() => setTanggalPengambilan(getLocalNowString())}
-                        title="Setel ke waktu saat ini"
-                        variant="ghost"
-                        className="h-6 gap-1 px-2 text-xs text-muted-foreground hover:text-foreground cursor-pointer"
+                        className="text-[11px] gap-1 text-muted-foreground hover:text-foreground cursor-pointer h-5 px-1.5"
                       >
                         <RefreshCw className="size-3" />
-                        <span>Waktu Sekarang</span>
+                        <span>Sekarang</span>
                       </Button>
                     </div>
                     <Input
@@ -559,14 +708,11 @@ export function FormUjiLapangan({
                       className="font-mono"
                       required
                     />
-                    <FieldDescription>
-                      Waktu saat pelaksanaan pengambilan sampel fisik air di lokasi kolam.
-                    </FieldDescription>
                     <FieldError errors={toFieldErrors(fieldErrors.tanggal_pengambilan)} />
                   </Field>
                 </div>
 
-                {/* Lokasi Kolam: Combobox Autocomplete + Tombol Quick-Add */}
+                {/* Lokasi Kolam: Combobox Autocomplete + Quick-Add */}
                 <Field className="pt-2 border-t border-border">
                   <div className="flex items-center justify-between">
                     <FieldLabel>Titik Lokasi Kolam Pembudidaya (Pokdakan) *</FieldLabel>
@@ -599,10 +745,10 @@ export function FormUjiLapangan({
                       <ComboboxList>
                         {(item) => (
                           <ComboboxItem key={item.value} value={item}>
-                            <div className="flex flex-col py-0.5 text-left">
-                              <span className="font-medium text-foreground">{item.label}</span>
+                            <div>
+                              {item.label}
                               {item.sublabel && (
-                                <span className="text-muted-foreground">{item.sublabel}</span>
+                                <span className="text-muted-foreground">{" • "}[{item.sublabel}]</span>
                               )}
                             </div>
                           </ComboboxItem>
@@ -610,24 +756,47 @@ export function FormUjiLapangan({
                       </ComboboxList>
                     </ComboboxContent>
                   </Combobox>
-
                   <FieldError errors={toFieldErrors(fieldErrors.lokasi_id)} />
                 </Field>
 
-                {/* SOP / Instruksi Kerja: Pilihan Arsip vs Input Manual */}
+                {/* SOP Induk: Opsional (Pilihan Umum) */}
                 <div className="space-y-3 pt-2 border-t border-border">
                   <div className="flex items-center justify-between">
-                    <FieldLabel>Standar Operasional Prosedur (SOP / IK) *</FieldLabel>
+                    <div>
+                      <FieldLabel className="text-xs font-semibold">
+                        SOP / Prosedur Pelaksanaan Induk (Opsional)
+                      </FieldLabel>
+                      <p className="text-[11px] text-muted-foreground">
+                        SOP bersifat umum untuk alur sampling. Pengujian spesifik tiap parameter diatur oleh Instruksi Kerja di bawah.
+                      </p>
+                    </div>
+
                     <div className="flex items-center gap-1 p-0.5 bg-muted rounded-lg text-xs">
                       <button
                         type="button"
-                        onClick={() => setTipeSop('arsip')}
+                        onClick={() => {
+                          setTipeSop('arsip');
+                          if (!sopId && sopOptions[0]) setSopId(sopOptions[0].value);
+                        }}
                         className={`px-2 py-0.5 rounded-md font-medium transition-colors cursor-pointer ${tipeSop === 'arsip'
                           ? 'bg-background text-foreground shadow-xs'
                           : 'text-muted-foreground hover:text-foreground'
                           }`}
                       >
-                        Pilih dari Arsip
+                        Pilih SOP
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTipeSop('tanpa_sop');
+                          setSopId('');
+                        }}
+                        className={`px-2 py-0.5 rounded-md font-medium transition-colors cursor-pointer ${tipeSop === 'tanpa_sop'
+                          ? 'bg-background text-foreground shadow-xs'
+                          : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                      >
+                        Tanpa SOP
                       </button>
                       <button
                         type="button"
@@ -637,7 +806,7 @@ export function FormUjiLapangan({
                           : 'text-muted-foreground hover:text-foreground'
                           }`}
                       >
-                        Isi Manual Lapangan
+                        Manual
                       </button>
                     </div>
                   </div>
@@ -645,17 +814,14 @@ export function FormUjiLapangan({
                   {tipeSop === 'arsip' ? (
                     <Field>
                       <Combobox<OptionItem>
-                        items={ikOptions}
-                        value={selectedIkOption}
+                        items={sopOptions}
+                        value={selectedSopOption}
                         onValueChange={(val) => {
-                          if (val) setIkId(val.value);
+                          setSopId(val ? val.value : '');
                         }}
                         itemToStringValue={(item) => (item ? item.label : '')}
                       >
-                        <ComboboxInput
-                          placeholder="Pilih SOP / IK yang terdaftar..."
-                          showClear
-                        />
+                        <ComboboxInput placeholder="Pilih SOP / Prosedur acuan induk..." showClear />
                         <ComboboxContent>
                           <ComboboxEmpty>SOP tidak ditemukan.</ComboboxEmpty>
                           <ComboboxList>
@@ -672,24 +838,25 @@ export function FormUjiLapangan({
                           </ComboboxList>
                         </ComboboxContent>
                       </Combobox>
-                      {selectedIk && selectedIk.file_path && (
+
+                      {selectedSopDoc && selectedSopDoc.file_path && (
                         <div className="flex items-center justify-between text-xs pt-1 px-1">
                           <span className="text-muted-foreground font-mono truncate max-w-[240px]">
-                            Tautan: {selectedIk.file_path}
+                            File: {selectedSopDoc.file_path}
                           </span>
                           <a
-                            href={selectedIk.file_path}
+                            href={selectedSopDoc.file_path}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-foreground hover:underline font-medium inline-flex items-center gap-1 cursor-pointer"
                           >
                             <ExternalLink className="size-3 text-muted-foreground" />
-                            <span>Buka Tautan Dokumen</span>
+                            <span>Buka Dokumen SOP</span>
                           </a>
                         </div>
                       )}
                     </Field>
-                  ) : (
+                  ) : tipeSop === 'manual' ? (
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-3 rounded-xl bg-muted/30 border border-border">
                       <Field>
                         <FieldLabel htmlFor="sopManualKode">Kode / No. SOP Manual</FieldLabel>
@@ -697,39 +864,38 @@ export function FormUjiLapangan({
                           id="sopManualKode"
                           value={sopManualKode}
                           onChange={(e) => setSopManualKode(e.target.value)}
-                          placeholder="IK-M-01"
+                          placeholder="SOP-M-01"
                         />
                       </Field>
                       <Field className="sm:col-span-2">
-                        <FieldLabel htmlFor="sopManualJudul">Judul / Metodologi Pengujian *</FieldLabel>
+                        <FieldLabel htmlFor="sopManualJudul">Judul Prosedur Manual *</FieldLabel>
                         <Input
                           id="sopManualJudul"
                           value={sopManualJudul}
                           onChange={(e) => setSopManualJudul(e.target.value)}
-                          placeholder="Contoh: Pengujian Lapangan Strip Celup Kit Cepat"
+                          placeholder="Contoh: Prosedur Pengujian Mandiri Lapangan Kit Cepat"
                           required
                         />
                       </Field>
                     </div>
+                  ) : (
+                    <p className="text-xs text-muted-foreground italic bg-muted/20 p-2.5 rounded-lg border border-border">
+                      Pengujian ini menggunakan standar umum dinas tanpa dokumen SOP spesifik.
+                    </p>
                   )}
-                  <FieldDescription>
-                    {tipeSop === 'arsip'
-                      ? 'SOP resmi Dinas yang telah diterbitkan lengkap dengan barcode QR keabsahan.'
-                      : 'SOP manual akan otomatis diarsipkan ke sistem dengan kode QR unik agar dokumen tetap terverifikasi.'}
-                  </FieldDescription>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Parameter Pengujian: Dimulai Kosong + Tambah/Hapus Dinamis */}
+            {/* Parameter Pengujian: Auto-Filter IK per Parameter & Ambang Dinamis */}
             <Card>
               <CardHeader className="pb-3 border-b border-border flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-base font-heading">
-                    2. Parameter Mutu Air yang Diukur
+                    2. Parameter Mutu Air & Instruksi Kerja (IK) Terkait
                   </CardTitle>
                   <CardDescription className="text-xs">
-                    Pilih dan tambahkan hanya parameter yang benar-benar diuji pada sampel ini.
+                    Setiap baris parameter wajib dihubungkan ke Instruksi Kerja (IK) yang digunakan beserta metode pengujian resminya.
                   </CardDescription>
                 </div>
                 <Button
@@ -752,7 +918,7 @@ export function FormUjiLapangan({
                       Belum Ada Parameter Uji Ditambahkan
                     </p>
                     <p className="text-xs text-muted-foreground mt-1 max-w-sm mx-auto">
-                      Form pengujian dimulai kosong agar efisien. Klik tombol di bawah untuk menentukan parameter apa saja yang diuji pada sampel ini.
+                      Pilih dan tambahkan parameter uji. Sistem akan otomatis memfilter Instruksi Kerja (IK) dan metode resmi yang sesuai.
                     </p>
                     <Button
                       type="button"
@@ -765,27 +931,37 @@ export function FormUjiLapangan({
                     </Button>
                   </div>
                 ) : (
-                  <div className="space-y-2.5">
+                  <div className="space-y-3">
                     {parameterRows.map((row, idx) => {
                       const evalRow = evaluatedRows.find((r) => r.tempId === row.tempId);
                       const currentBm = bakuMutuMap.get(row.baku_mutu_id);
                       const currentOption = bakuMutuOptions.find((b) => b.value === row.baku_mutu_id) || null;
 
+                      // Auto-Filter: Hanya IK yang cocok dengan parameter ini
+                      const paramName = currentBm?.parameter.toLowerCase().trim() || '';
+                      const filteredIks = ikList.filter((ik) => {
+                        if (!ik.parameter_uji) return false;
+                        return ik.parameter_uji.toLowerCase().trim() === paramName;
+                      });
+                      const availableIks = filteredIks.length > 0 ? filteredIks : ikList;
+                      const selectedIkDoc = ikMap.get(row.ik_id) || null;
+
+                      const isDinamisSuhu = currentBm?.tipe_ambang_batas === 'deviasi_suhu_lingkungan';
+
                       return (
                         <div
                           key={row.tempId}
-                          className="p-3 rounded-xl border border-border bg-card shadow-xs transition-all"
+                          className="p-3.5 rounded-xl border border-border bg-card shadow-xs transition-all space-y-3"
                         >
-                          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-                            {/* Pilihan Parameter & Versi Baku Mutu via Combobox */}
-                            <Field className="md:col-span-6">
+                          {/* Baris Atas: Parameter Uji & Pilihan IK (Auto-Filter) */}
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-start">
+                            {/* Pilihan Parameter Baku Mutu */}
+                            <Field className="md:col-span-5">
                               <div className="flex items-center justify-between">
-                                <FieldLabel>
-                                  #{idx + 1} Parameter & Regulasi
-                                </FieldLabel>
-                                {currentBm && !currentBm.aktif && (
-                                  <Badge variant="secondary" className="text-xs py-0 px-1 font-mono">
-                                    Arsip Versi Lama
+                                <FieldLabel>#{idx + 1} Parameter Uji *</FieldLabel>
+                                {currentBm && (
+                                  <Badge variant="secondary" className="text-[11px] py-0 px-1 font-mono">
+                                    {currentBm.nomor_regulasi || 'PP 22/2021'}
                                   </Badge>
                                 )}
                               </div>
@@ -798,9 +974,7 @@ export function FormUjiLapangan({
                                 }}
                                 itemToStringValue={(item) => (item ? item.label : '')}
                               >
-                                <ComboboxInput
-                                  placeholder="Pilih parameter mutu..."
-                                />
+                                <ComboboxInput placeholder="Pilih parameter kualitas air..." />
                                 <ComboboxContent>
                                   <ComboboxEmpty>Parameter tidak ditemukan.</ComboboxEmpty>
                                   <ComboboxList>
@@ -812,14 +986,14 @@ export function FormUjiLapangan({
                                             {item.badge && (
                                               <Badge
                                                 variant={item.badge === 'Aktif' ? 'outline' : 'secondary'}
-                                                className="text-xs py-0 px-1 font-mono"
+                                                className="text-[11px] py-0 px-1 font-mono"
                                               >
                                                 {item.badge}
                                               </Badge>
                                             )}
                                           </div>
                                           {item.sublabel && (
-                                            <span className="text-xs text-muted-foreground">{item.sublabel}</span>
+                                            <span className="text-[11px] text-muted-foreground">{item.sublabel}</span>
                                           )}
                                         </div>
                                       </ComboboxItem>
@@ -829,33 +1003,141 @@ export function FormUjiLapangan({
                               </Combobox>
                             </Field>
 
-                            {/* Nilai Ukur Numerik */}
-                            <Field className="md:col-span-3">
+                            {/* Pilihan Instruksi Kerja (Auto-Filter sesuai Parameter) - WAJIB */}
+                            <Field className="md:col-span-7">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-1">
+                                  <FileCheck2 className="size-3 text-primary" />
+                                  <FieldLabel>Instruksi Kerja (IK) & Metode Uji *</FieldLabel>
+                                </div>
+                                <span className="text-[11px] text-muted-foreground">
+                                  {filteredIks.length} IK tersedia
+                                </span>
+                              </div>
+
+                              <select
+                                value={row.ik_id}
+                                onChange={(e) => handleSelectIk(row.tempId, e.target.value)}
+                                className="w-full text-xs h-9 rounded-md border border-input bg-transparent px-3 py-1 shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer"
+                                required
+                              >
+                                {availableIks.map((ik) => (
+                                  <option key={ik.id} value={ik.id} className="text-xs bg-popover text-foreground">
+                                    [{ik.kode_ik}] {ik.judul} {ik.metode_pengujian ? `• Metode: ${ik.metode_pengujian}` : ''}
+                                  </option>
+                                ))}
+                              </select>
+
+                              {selectedIkDoc && selectedIkDoc.metode_pengujian && (
+                                <p className="text-[11px] text-primary font-mono mt-1">
+                                  Metode Resmi: <strong>{selectedIkDoc.metode_pengujian}</strong>
+                                </p>
+                              )}
+                            </Field>
+                          </div>
+
+                          {/* Baris Bawah: Hasil Ukur, Info Ambang Batas & Evaluasi Realtime */}
+                          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center pt-2 border-t border-border/60">
+                            {/* Input Hasil Ukur */}
+                            <Field className="md:col-span-4">
                               <FieldLabel>
-                                Hasil Ukur {currentBm ? `(${currentBm.satuan})` : ''} *
+                                Hasil Pengukuran {currentBm ? `(${currentBm.satuan})` : ''} *
                               </FieldLabel>
                               <Input
                                 type="number"
-                                step="0.01"
+                                step="any"
                                 value={row.nilai_hasil}
                                 onChange={(e) => handleValueChange(row.tempId, e.target.value)}
-                                placeholder="Contoh: 7.5"
+                                placeholder="Contoh: 7.50"
                                 className="font-mono font-semibold"
                                 required
                               />
                             </Field>
 
-                            {/* Evaluasi Status Realtime & Tombol Hapus */}
-                            <div className="md:col-span-3 flex items-center justify-between gap-2 h-9">
-                              <div className="flex-1">
-                                {evalRow?.isEvaluated ? (
-                                  <BadgeStatus status={evalRow.status} size="sm" />
-                                ) : (
-                                  <span className="text-xs text-muted-foreground italic">
-                                    Masukkan nilai
-                                  </span>
-                                )}
+                            {/* Ambang Batas Efektif (Dinamis / Statis) */}
+                            <div className="md:col-span-5 text-xs space-y-1">
+                              <div className="flex items-center justify-between">
+                                <span className="text-muted-foreground font-medium">Batas Evaluasi:</span>
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="xs"
+                                  onClick={() => handleToggleCustomAmbang(row.tempId)}
+                                  className="text-[11px] h-5 px-1.5 gap-1 text-muted-foreground hover:text-foreground cursor-pointer"
+                                  title="Sesuaikan batas manual jika ada kondisi khusus lapangan"
+                                >
+                                  <SlidersHorizontal className="size-3" />
+                                  <span>{row.is_custom_ambang ? 'Batal Override' : 'Sesuaikan'}</span>
+                                </Button>
                               </div>
+
+                              {row.is_custom_ambang ? (
+                                <div className="flex items-center gap-1.5">
+                                  <Input
+                                    type="number"
+                                    step="any"
+                                    value={row.nilai_min_override}
+                                    onChange={(e) =>
+                                      setParameterRows((prev) =>
+                                        prev.map((r) =>
+                                          r.tempId === row.tempId ? { ...r, nilai_min_override: e.target.value } : r
+                                        )
+                                      )
+                                    }
+                                    placeholder="Min"
+                                    className="font-mono text-xs h-7 w-20"
+                                  />
+                                  <span>s/d</span>
+                                  <Input
+                                    type="number"
+                                    step="any"
+                                    value={row.nilai_max_override}
+                                    onChange={(e) =>
+                                      setParameterRows((prev) =>
+                                        prev.map((r) =>
+                                          r.tempId === row.tempId ? { ...r, nilai_max_override: e.target.value } : r
+                                        )
+                                      )
+                                    }
+                                    placeholder="Max"
+                                    className="font-mono text-xs h-7 w-20"
+                                  />
+                                  <span className="text-[11px] font-mono text-muted-foreground">{currentBm?.satuan}</span>
+                                </div>
+                              ) : isDinamisSuhu ? (
+                                <div className="space-y-0.5">
+                                  <Badge
+                                    variant="outline"
+                                    className="bg-amber-50 text-amber-800 border-amber-300 dark:bg-amber-950/40 dark:text-amber-300 text-[11px] gap-1"
+                                  >
+                                    <Thermometer className="size-2.5" />
+                                    <span>
+                                      {suhuLingkungan !== ''
+                                        ? `Batas: ${evalRow?.effectiveMin ?? '-'} s/d ${evalRow?.effectiveMax ?? '-'} °C (Deviasi ±${currentBm?.deviasi_toleransi || 2}°C)`
+                                        : `Deviasi ±${currentBm?.deviasi_toleransi || 2}°C dari Suhu Udara`}
+                                    </span>
+                                  </Badge>
+                                </div>
+                              ) : (
+                                <span className="font-mono text-xs font-semibold text-foreground">
+                                  {evalRow && evalRow.effectiveMin !== null && evalRow.effectiveMax !== null
+                                    ? `${evalRow.effectiveMin} – ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
+                                    : evalRow && evalRow.effectiveMin !== null
+                                      ? `≥ ${evalRow.effectiveMin} ${currentBm?.satuan || ''}`
+                                      : evalRow && evalRow.effectiveMax !== null
+                                        ? `≤ ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
+                                        : '-'}
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Status Kelayakan & Tombol Hapus */}
+                            <div className="md:col-span-3 flex items-center justify-end gap-2">
+                              {evalRow?.isEvaluated ? (
+                                <BadgeStatus status={evalRow.status} size="sm" />
+                              ) : (
+                                <span className="text-[11px] text-muted-foreground italic">Isi hasil ukur</span>
+                              )}
 
                               <Button
                                 type="button"
@@ -889,24 +1171,15 @@ export function FormUjiLapangan({
             </Card>
           </div>
 
-          {/* Kolom Kanan: Evaluasi Kesimpulan & Petugas (1 Kolom) */}
-          <div className="space-y-6">
+          {/* Kolom Kanan: Evaluasi Kesimpulan, Legalitas & Rekomendasi (1 Kolom) */}
+          <div className="space-y-3">
             {/* Live Evaluasi Mutu */}
-            <Card className="border-border bg-card shadow-xs">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-1.5 text-muted-foreground text-xs font-semibold uppercase tracking-wider">
-                  <Sparkles className="size-3.5" />
-                  <span>Evaluasi Kepatuhan Otomatis</span>
-                </div>
-                <CardTitle className="text-base font-heading">
-                  Status Kesimpulan Sampel
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3 pt-2 text-xs">
+            <Card >
+              <CardContent>
                 {liveConclusion ? (
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-background border border-border">
-                      <span className="font-semibold text-foreground">Kesimpulan Mutu:</span>
+                    <div className="flex items-center justify-between ">
+                      <span className="font-semibold text-foreground">Kualitas Air:</span>
                       <BadgeStatus status={liveConclusion} size="md" />
                     </div>
                     <p className="text-xs text-muted-foreground leading-relaxed">
@@ -915,7 +1188,7 @@ export function FormUjiLapangan({
                       {liveConclusion === 'PERINGATAN' &&
                         'Terdapat parameter yang mendekati ambang batas toleransi. Direkomendasikan evaluasi berkala.'}
                       {liveConclusion === 'KRITIS' &&
-                        'Terdapat parameter yang melampaui ambang batas bahaya! Memerlukan tindakan korektif segera.'}
+                        'Terdapat parameter yang melampaui ambang batas aman! Memerlukan tindakan penanganan segera.'}
                     </p>
                   </div>
                 ) : (
@@ -928,13 +1201,8 @@ export function FormUjiLapangan({
 
             {/* Petugas Penguji & Penandatangan Dokumen LHU */}
             <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-sm font-heading">
-                  Legalitas & Penandatangan Dokumen
-                </CardTitle>
-                <CardDescription className="text-xs">
-                  Petugas analisis uji lapangan dan pejabat berwenang penandatangan LHU.
-                </CardDescription>
+              <CardHeader>
+                <CardTitle>Legalitas & Penandatangan Dokumen</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Combobox Petugas Penguji */}
@@ -950,12 +1218,10 @@ export function FormUjiLapangan({
                           setPetugasUji(val.label);
                         }
                       }}
+                      onInputValueChange={setPetugasUji}
                       itemToStringValue={(item) => (item ? item.label : '')}
                     >
-                      <ComboboxInput
-                        placeholder="Pilih petugas terdaftar..."
-                        showClear
-                      />
+                      <ComboboxInput placeholder="Pilih petugas terdaftar..." showClear />
                       <ComboboxContent>
                         <ComboboxEmpty>Pegawai tidak ditemukan.</ComboboxEmpty>
                         <ComboboxList>
@@ -974,13 +1240,7 @@ export function FormUjiLapangan({
                     </Combobox>
                   ) : null}
 
-                  <Input
-                    id="petugasUji"
-                    value={petugasUji}
-                    onChange={(e) => setPetugasUji(e.target.value)}
-                    placeholder="Atau ketik nama lengkap petugas..."
-                    required
-                  />
+
                   <FieldError errors={toFieldErrors(fieldErrors.petugas_uji)} />
                 </Field>
 
@@ -996,10 +1256,7 @@ export function FormUjiLapangan({
                       }}
                       itemToStringValue={(item) => (item ? item.label : '')}
                     >
-                      <ComboboxInput
-                        placeholder="Pilih pejabat penandatangan..."
-                        showClear
-                      />
+                      <ComboboxInput placeholder="Pilih pejabat penandatangan..." showClear />
                       <ComboboxContent>
                         <ComboboxEmpty>Pejabat tidak ditemukan.</ComboboxEmpty>
                         <ComboboxList>

@@ -13,6 +13,41 @@ export interface EvaluasiParameter {
 }
 
 /**
+ * Menghitung batas ambang dinamis berdasarkan suhu lingkungan (misal deviasi ± 2°C pada suhu air).
+ */
+export function hitungAmbangBatasDinamis(
+  tipeAmbang: string | null | undefined,
+  deviasiToleransi: number | null | undefined,
+  suhuLingkungan: number | null | undefined,
+  defaultMin: number | null | undefined,
+  defaultMax: number | null | undefined
+): { min: number | null; max: number | null; isDinamis: boolean; catatan: string | null } {
+  if (
+    tipeAmbang === 'deviasi_suhu_lingkungan' &&
+    suhuLingkungan !== null &&
+    suhuLingkungan !== undefined &&
+    !isNaN(suhuLingkungan)
+  ) {
+    const dev = deviasiToleransi !== null && deviasiToleransi !== undefined ? Number(deviasiToleransi) : 2.0;
+    const min = parseFloat((suhuLingkungan - dev).toFixed(2));
+    const max = parseFloat((suhuLingkungan + dev).toFixed(2));
+    return {
+      min,
+      max,
+      isDinamis: true,
+      catatan: `Baku mutu dihitung dari deviasi ±${dev}°C terhadap suhu lingkungan (${suhuLingkungan}°C)`,
+    };
+  }
+
+  return {
+    min: defaultMin !== null && defaultMin !== undefined ? Number(defaultMin) : null,
+    max: defaultMax !== null && defaultMax !== undefined ? Number(defaultMax) : null,
+    isDinamis: false,
+    catatan: null,
+  };
+}
+
+/**
  * Menghitung status kelayakan nilai parameter terhadap ambang batas baku mutu.
  * Logika ini berjalan server-side dan tidak dapat dimanipulasi dari client.
  */

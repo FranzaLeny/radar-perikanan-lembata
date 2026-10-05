@@ -8,8 +8,9 @@ import {
 import {
   hitungStatusKelayakan,
   hitungKesimpulan,
+  hitungAmbangBatasDinamis,
   type StatusKelayakan,
-} from '@/lib/validations/../validasi-baku-mutu';
+} from '@/lib/validasi-baku-mutu';
 import { eq, inArray, and, ne } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
@@ -27,7 +28,9 @@ export async function submitHasilUjiAction(payload: unknown) {
   const {
     nomor_sampel,
     lokasi_id,
+    sop_id,
     ik_id,
+    suhu_lingkungan,
     tanggal_pengambilan,
     petugas_uji,
     penguji_pegawai_id,
@@ -42,12 +45,12 @@ export async function submitHasilUjiAction(payload: unknown) {
   } = validation.data;
 
   // 2. Buat SOP baru jika mode manual dipilih
-  let effectiveIkId = ik_id || null;
+  let effectiveSopId = sop_id || ik_id || null;
   if (tipe_sop === 'manual' && sop_manual_judul) {
     const { generateIkHash } = await import('@/lib/qr');
-    const kode = sop_manual_kode?.trim() || `IK-M-${Date.now().toString().slice(-4)}`;
+    const kode = sop_manual_kode?.trim() || `SOP-M-${Date.now().toString().slice(-4)}`;
     const qrHash = generateIkHash(kode);
-    const [createdIk] = await db
+    const [createdSop] = await db
       .insert(schema.instruksiKerja)
       .values({
         kode_ik: kode,
@@ -58,9 +61,11 @@ export async function submitHasilUjiAction(payload: unknown) {
         versi: 1,
       })
       .returning();
-    if (createdIk) {
-      effectiveIkId = createdIk.id;
+    if (createdSop) {
+      effectiveSopId = createdSop.id;
     }
+  } else if (tipe_sop === 'tanpa_sop') {
+    effectiveSopId = null;
   }
 
   // 3. Cek nomor sampel duplikat
@@ -76,31 +81,77 @@ export async function submitHasilUjiAction(payload: unknown) {
     };
   }
 
-  // 4. Ambil data baku mutu terkait dari database (Server Otoritatif)
+  // 4. Ambil data baku mutu dan Instruksi Kerja terkait dari database (Server Otoritatif)
   const bakuMutuIds = detail_parameter.map((d) => d.baku_mutu_id);
+  const ikIds = detail_parameter.map((d) => d.ik_id);
+
   const bakuMutuRecords = await db.query.masterBakuMutu.findMany({
     where: inArray(schema.masterBakuMutu.id, bakuMutuIds),
   });
-
   const bakuMutuMap = new Map(bakuMutuRecords.map((bm) => [bm.id, bm]));
 
-  // 5. Hitung Status Kelayakan per Parameter secara Server-Side
+  const ikRecords = await db.query.instruksiKerja.findMany({
+    where: inArray(schema.instruksiKerja.id, ikIds),
+  });
+  const ikMap = new Map(ikRecords.map((ik) => [ik.id, ik]));
+
+  // 5. Hitung Status Kelayakan per Parameter secara Server-Side (Termasuk Ambang Batas Dinamis)
   const calculatedDetails: {
     baku_mutu_id: string;
+    ik_id: string;
+    metode_pengujian: string;
+    nomor_regulasi: string;
     nilai_hasil: string;
+    nilai_min_terapkan: string | null;
+    nilai_max_terapkan: string | null;
+    is_ambang_dinamis: boolean;
+    catatan_ambang: string | null;
     status_kelayakan: StatusKelayakan;
   }[] = [];
 
   for (const item of detail_parameter) {
     const bm = bakuMutuMap.get(item.baku_mutu_id);
-    const minVal = bm?.nilai_min !== null && bm?.nilai_min !== undefined ? Number(bm.nilai_min) : null;
-    const maxVal = bm?.nilai_max !== null && bm?.nilai_max !== undefined ? Number(bm.nilai_max) : null;
+    const ik = ikMap.get(item.ik_id);
 
-    const status = hitungStatusKelayakan(item.nilai_hasil, minVal, maxVal);
+    // Evaluasi ambang batas dinamis atau manual override
+    let effectiveMin: number | null = null;
+    let effectiveMax: number | null = null;
+    let isDinamis = false;
+    let catatanAmbang: string | null = item.catatan_ambang || null;
+
+    if (item.nilai_min_terapkan !== null && item.nilai_min_terapkan !== undefined) {
+      effectiveMin = Number(item.nilai_min_terapkan);
+    }
+    if (item.nilai_max_terapkan !== null && item.nilai_max_terapkan !== undefined) {
+      effectiveMax = Number(item.nilai_max_terapkan);
+    }
+
+    if (effectiveMin === null && effectiveMax === null && bm) {
+      const dynamicCalc = hitungAmbangBatasDinamis(
+        bm.tipe_ambang_batas,
+        bm.deviasi_toleransi !== null && bm.deviasi_toleransi !== undefined ? Number(bm.deviasi_toleransi) : null,
+        suhu_lingkungan !== null && suhu_lingkungan !== undefined ? Number(suhu_lingkungan) : null,
+        bm.nilai_min !== null && bm.nilai_min !== undefined ? Number(bm.nilai_min) : null,
+        bm.nilai_max !== null && bm.nilai_max !== undefined ? Number(bm.nilai_max) : null
+      );
+      effectiveMin = dynamicCalc.min;
+      effectiveMax = dynamicCalc.max;
+      isDinamis = dynamicCalc.isDinamis;
+      if (!catatanAmbang) catatanAmbang = dynamicCalc.catatan;
+    }
+
+    const status = hitungStatusKelayakan(item.nilai_hasil, effectiveMin, effectiveMax);
 
     calculatedDetails.push({
       baku_mutu_id: item.baku_mutu_id,
+      ik_id: item.ik_id,
+      metode_pengujian: ik?.metode_pengujian || ik?.judul || 'SNI Pengujian Mutu Air',
+      nomor_regulasi: bm?.nomor_regulasi || 'PP No. 22/2021',
       nilai_hasil: item.nilai_hasil.toString(),
+      nilai_min_terapkan: effectiveMin !== null ? effectiveMin.toString() : null,
+      nilai_max_terapkan: effectiveMax !== null ? effectiveMax.toString() : null,
+      is_ambang_dinamis: isDinamis,
+      catatan_ambang: catatanAmbang,
       status_kelayakan: status,
     });
   }
@@ -117,7 +168,9 @@ export async function submitHasilUjiAction(payload: unknown) {
       .values({
         nomor_sampel,
         lokasi_id,
-        ik_id: effectiveIkId,
+        ik_id: effectiveSopId,
+        sop_id: effectiveSopId,
+        suhu_lingkungan: suhu_lingkungan !== null && suhu_lingkungan !== undefined ? suhu_lingkungan.toString() : null,
         tanggal_pengambilan,
         petugas_uji,
         penguji_pegawai_id: penguji_pegawai_id || null,
@@ -135,7 +188,14 @@ export async function submitHasilUjiAction(payload: unknown) {
       await db.insert(schema.detailUjiParameter).values({
         uji_id: ujiBaru.id,
         baku_mutu_id: detail.baku_mutu_id,
+        ik_id: detail.ik_id,
+        metode_pengujian: detail.metode_pengujian,
+        nomor_regulasi: detail.nomor_regulasi,
         nilai_hasil: detail.nilai_hasil,
+        nilai_min_terapkan: detail.nilai_min_terapkan,
+        nilai_max_terapkan: detail.nilai_max_terapkan,
+        is_ambang_dinamis: detail.is_ambang_dinamis,
+        catatan_ambang: detail.catatan_ambang,
         status_kelayakan: detail.status_kelayakan,
       });
     }
@@ -190,7 +250,9 @@ export async function updateHasilUjiAction(ujiId: string, payload: unknown) {
   const {
     nomor_sampel,
     lokasi_id,
+    sop_id,
     ik_id,
+    suhu_lingkungan,
     tanggal_pengambilan,
     petugas_uji,
     penguji_pegawai_id,
@@ -221,12 +283,12 @@ export async function updateHasilUjiAction(ujiId: string, payload: unknown) {
     }
   }
 
-  let effectiveIkId = ik_id || null;
+  let effectiveSopId = sop_id || ik_id || null;
   if (tipe_sop === 'manual' && sop_manual_judul) {
     const { generateIkHash } = await import('@/lib/qr');
-    const kode = sop_manual_kode?.trim() || `IK-M-${Date.now().toString().slice(-4)}`;
+    const kode = sop_manual_kode?.trim() || `SOP-M-${Date.now().toString().slice(-4)}`;
     const qrHash = generateIkHash(kode);
-    const [createdIk] = await db
+    const [createdSop] = await db
       .insert(schema.instruksiKerja)
       .values({
         kode_ik: kode,
@@ -237,35 +299,82 @@ export async function updateHasilUjiAction(ujiId: string, payload: unknown) {
         versi: 1,
       })
       .returning();
-    if (createdIk) {
-      effectiveIkId = createdIk.id;
+    if (createdSop) {
+      effectiveSopId = createdSop.id;
     }
+  } else if (tipe_sop === 'tanpa_sop') {
+    effectiveSopId = null;
   }
 
   // Hitung ulang kelayakan dan kesimpulan
   const bakuMutuIds = detail_parameter.map((d) => d.baku_mutu_id);
+  const ikIds = detail_parameter.map((d) => d.ik_id);
+
   const bakuMutuRecords = await db.query.masterBakuMutu.findMany({
     where: inArray(schema.masterBakuMutu.id, bakuMutuIds),
   });
-
   const bakuMutuMap = new Map(bakuMutuRecords.map((bm) => [bm.id, bm]));
+
+  const ikRecords = await db.query.instruksiKerja.findMany({
+    where: inArray(schema.instruksiKerja.id, ikIds),
+  });
+  const ikMap = new Map(ikRecords.map((ik) => [ik.id, ik]));
 
   const calculatedDetails: {
     baku_mutu_id: string;
+    ik_id: string;
+    metode_pengujian: string;
+    nomor_regulasi: string;
     nilai_hasil: string;
+    nilai_min_terapkan: string | null;
+    nilai_max_terapkan: string | null;
+    is_ambang_dinamis: boolean;
+    catatan_ambang: string | null;
     status_kelayakan: StatusKelayakan;
   }[] = [];
 
   for (const item of detail_parameter) {
     const bm = bakuMutuMap.get(item.baku_mutu_id);
-    const minVal = bm?.nilai_min !== null && bm?.nilai_min !== undefined ? Number(bm.nilai_min) : null;
-    const maxVal = bm?.nilai_max !== null && bm?.nilai_max !== undefined ? Number(bm.nilai_max) : null;
+    const ik = ikMap.get(item.ik_id);
 
-    const status = hitungStatusKelayakan(item.nilai_hasil, minVal, maxVal);
+    let effectiveMin: number | null = null;
+    let effectiveMax: number | null = null;
+    let isDinamis = false;
+    let catatanAmbang: string | null = item.catatan_ambang || null;
+
+    if (item.nilai_min_terapkan !== null && item.nilai_min_terapkan !== undefined) {
+      effectiveMin = Number(item.nilai_min_terapkan);
+    }
+    if (item.nilai_max_terapkan !== null && item.nilai_max_terapkan !== undefined) {
+      effectiveMax = Number(item.nilai_max_terapkan);
+    }
+
+    if (effectiveMin === null && effectiveMax === null && bm) {
+      const dynamicCalc = hitungAmbangBatasDinamis(
+        bm.tipe_ambang_batas,
+        bm.deviasi_toleransi !== null && bm.deviasi_toleransi !== undefined ? Number(bm.deviasi_toleransi) : null,
+        suhu_lingkungan !== null && suhu_lingkungan !== undefined ? Number(suhu_lingkungan) : null,
+        bm.nilai_min !== null && bm.nilai_min !== undefined ? Number(bm.nilai_min) : null,
+        bm.nilai_max !== null && bm.nilai_max !== undefined ? Number(bm.nilai_max) : null
+      );
+      effectiveMin = dynamicCalc.min;
+      effectiveMax = dynamicCalc.max;
+      isDinamis = dynamicCalc.isDinamis;
+      if (!catatanAmbang) catatanAmbang = dynamicCalc.catatan;
+    }
+
+    const status = hitungStatusKelayakan(item.nilai_hasil, effectiveMin, effectiveMax);
 
     calculatedDetails.push({
       baku_mutu_id: item.baku_mutu_id,
+      ik_id: item.ik_id,
+      metode_pengujian: ik?.metode_pengujian || ik?.judul || 'SNI Pengujian Mutu Air',
+      nomor_regulasi: bm?.nomor_regulasi || 'PP No. 22/2021',
       nilai_hasil: item.nilai_hasil.toString(),
+      nilai_min_terapkan: effectiveMin !== null ? effectiveMin.toString() : null,
+      nilai_max_terapkan: effectiveMax !== null ? effectiveMax.toString() : null,
+      is_ambang_dinamis: isDinamis,
+      catatan_ambang: catatanAmbang,
       status_kelayakan: status,
     });
   }
@@ -281,7 +390,9 @@ export async function updateHasilUjiAction(ujiId: string, payload: unknown) {
       .set({
         nomor_sampel,
         lokasi_id,
-        ik_id: effectiveIkId,
+        ik_id: effectiveSopId,
+        sop_id: effectiveSopId,
+        suhu_lingkungan: suhu_lingkungan !== null && suhu_lingkungan !== undefined ? suhu_lingkungan.toString() : null,
         tanggal_pengambilan,
         petugas_uji,
         penguji_pegawai_id: penguji_pegawai_id || null,
@@ -302,33 +413,38 @@ export async function updateHasilUjiAction(ujiId: string, payload: unknown) {
       await db.insert(schema.detailUjiParameter).values({
         uji_id: ujiId,
         baku_mutu_id: detail.baku_mutu_id,
+        ik_id: detail.ik_id,
+        metode_pengujian: detail.metode_pengujian,
+        nomor_regulasi: detail.nomor_regulasi,
         nilai_hasil: detail.nilai_hasil,
+        nilai_min_terapkan: detail.nilai_min_terapkan,
+        nilai_max_terapkan: detail.nilai_max_terapkan,
+        is_ambang_dinamis: detail.is_ambang_dinamis,
+        catatan_ambang: detail.catatan_ambang,
         status_kelayakan: detail.status_kelayakan,
       });
     }
 
-    revalidatePath('/laporan');
     revalidatePath('/uji-kualitas');
+    revalidatePath('/laporan');
+    revalidatePath(`/laporan/${ujiId}/cetak`);
     revalidatePath('/dashboard');
     revalidatePath('/tren');
 
     return {
       success: true,
-      message: `Data pengujian ${nomor_sampel} berhasil diperbarui (Kesimpulan: ${calculatedKesimpulan}).`,
+      message: 'Data pengujian kualitas air berhasil diperbarui.',
     };
   } catch (error) {
     console.error('Error updateHasilUjiAction:', error);
     return {
       success: false,
-      message: 'Gagal memperbarui data pengujian.',
+      message: 'Gagal memperbarui data pengujian kualitas air.',
     };
   }
 }
 
-export async function updateStatusUjiAction(
-  ujiId: string,
-  newStatus: 'draft' | 'final' | 'arsip'
-) {
+export async function updateStatusUjiAction(ujiId: string, newStatus: 'draft' | 'final' | 'arsip') {
   try {
     const existing = await db.query.ujiKualitasAir.findFirst({
       where: eq(schema.ujiKualitasAir.id, ujiId),
@@ -344,19 +460,16 @@ export async function updateStatusUjiAction(
       .where(eq(schema.ujiKualitasAir.id, ujiId));
 
     revalidatePath('/laporan');
+    revalidatePath(`/laporan/${ujiId}/cetak`);
     revalidatePath('/uji-kualitas');
     revalidatePath('/dashboard');
 
     const statusLabel =
-      newStatus === 'final'
-        ? 'difinalkan'
-        : newStatus === 'arsip'
-        ? 'diarsipkan'
-        : 'dikembalikan ke status draft';
+      newStatus === 'final' ? 'Difinalisasi' : newStatus === 'arsip' ? 'Diarsipkan' : 'Dikembalikan ke Draft';
 
     return {
       success: true,
-      message: `Laporan hasil uji ${existing.nomor_sampel} berhasil ${statusLabel}.`,
+      message: `Status dokumen sampel ${existing.nomor_sampel} berhasil diubah menjadi ${statusLabel}.`,
     };
   } catch (error) {
     console.error('Error updateStatusUjiAction:', error);
@@ -367,7 +480,7 @@ export async function updateStatusUjiAction(
   }
 }
 
-export async function deleteHasilUjiAction(ujiId: string) {
+export async function deleteUjiAction(ujiId: string) {
   try {
     const existing = await db.query.ujiKualitasAir.findFirst({
       where: eq(schema.ujiKualitasAir.id, ujiId),
@@ -380,12 +493,13 @@ export async function deleteHasilUjiAction(ujiId: string) {
     if (existing.status !== 'draft') {
       return {
         success: false,
-        message: `Dokumen berstatus "${existing.status}" tidak dapat dihapus. Hanya dokumen berstatus "draft" yang dapat dihapus.`,
+        message: `Hanya pengujian berstatus "Draft" yang dapat dihapus. Dokumen berstatus "${existing.status}" harus diarsipkan atau dikembalikan ke draft terlebih dahulu.`,
       };
     }
 
-    // detail_uji_parameter memiliki onDelete: 'cascade'
-    await db.delete(schema.ujiKualitasAir).where(eq(schema.ujiKualitasAir.id, ujiId));
+    await db
+      .delete(schema.ujiKualitasAir)
+      .where(eq(schema.ujiKualitasAir.id, ujiId));
 
     revalidatePath('/laporan');
     revalidatePath('/uji-kualitas');
@@ -394,10 +508,10 @@ export async function deleteHasilUjiAction(ujiId: string) {
 
     return {
       success: true,
-      message: `Laporan hasil uji ${existing.nomor_sampel} berhasil dihapus.`,
+      message: `Data pengujian sampel ${existing.nomor_sampel} berhasil dihapus permanen.`,
     };
   } catch (error) {
-    console.error('Error deleteHasilUjiAction:', error);
+    console.error('Error deleteUjiAction:', error);
     return {
       success: false,
       message: 'Gagal menghapus data pengujian.',
@@ -405,3 +519,4 @@ export async function deleteHasilUjiAction(ujiId: string) {
   }
 }
 
+export const deleteHasilUjiAction = deleteUjiAction;
