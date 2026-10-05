@@ -36,7 +36,7 @@ export function ProfilInfoCard({ user }: ProfilInfoCardProps) {
 	};
 
 	return (
-		<Card className='border-border bg-card/60 backdrop-blur-md'>
+		<Card className='bg-card/60 backdrop-blur-md'>
 			<CardHeader className='pb-2 text-center'>
 				<Avatar className='mx-auto size-20 border-2 border-border shadow-md'>
 					<AvatarFallback className='bg-muted font-bold text-foreground text-xl'>

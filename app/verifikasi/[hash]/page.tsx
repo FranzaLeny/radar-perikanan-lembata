@@ -50,7 +50,7 @@ export default async function PublicVerificationPage({
 					<div className='mx-auto mb-4 flex size-16 items-center justify-center rounded-2xl border border-destructive/20 bg-destructive/10 text-destructive'>
 						<ShieldCheck className='size-8' />
 					</div>
-					<CardTitle className='mb-2 font-heading text-xl'>QR Code Tidak Terdaftar</CardTitle>
+					<CardTitle className='mb-2 text-xl'>QR Code Tidak Terdaftar</CardTitle>
 					<CardDescription className='text-xs leading-relaxed'>
 						Kode QR atau hash verifikasi ini tidak ditemukan dalam basis data resmi{' '}
 						{APP_CONFIG.institution.name}.
@@ -115,9 +115,9 @@ export default async function PublicVerificationPage({
 			<main className='relative z-10 mx-auto my-auto w-full max-w-2xl py-6'>
 				<Card className='border-primary/20 shadow-2xl'>
 					{/* Top Seal */}
-					<CardHeader className='flex flex-col items-center border-border border-b pb-6 text-center'>
+					<CardHeader className='flex flex-col items-center border-b pb-6 text-center'>
 						<Badge
-							className='mb-3 gap-1.5 border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-semibold text-emerald-600 text-xs dark:text-emerald-400'
+							className='mb-3 gap-1.5 border-emerald-500/30 bg-emerald-500/10 px-3 py-1 font-semibold text-emerald-600 dark:text-emerald-400'
 							variant='outline'
 						>
 							<CheckCircle2 className='size-4 text-emerald-500' />
@@ -144,7 +144,7 @@ export default async function PublicVerificationPage({
 							/>
 						</div>
 
-						<CardTitle className='font-bold font-heading text-xl tracking-tight sm:text-2xl'>
+						<CardTitle className='font-bold text-xl tracking-tight sm:text-2xl'>
 							{APP_CONFIG.institution.government}
 						</CardTitle>
 						<p className='mt-0.5 font-semibold text-muted-foreground text-xs uppercase tracking-wider'>
@@ -158,7 +158,7 @@ export default async function PublicVerificationPage({
 							<span className='rounded-lg border border-border bg-muted px-2.5 py-1 font-bold text-foreground text-xs'>
 								{ik.kode_ik}
 							</span>
-							<Badge className='font-semibold text-xs' variant='secondary'>
+							<Badge className='font-semibold' variant='secondary'>
 								Versi Dokumen: {ik.versi}.0
 							</Badge>
 						</div>
@@ -236,7 +236,7 @@ export default async function PublicVerificationPage({
 									rel='noopener noreferrer'
 									target='_blank'
 								>
-									<Button className='w-full gap-2 font-medium sm:w-auto' size='sm' variant='outline'>
+									<Button className='w-full gap-2 sm:w-auto' size='sm' variant='outline'>
 										<ExternalLink className='size-3.5 text-muted-foreground' />
 										<span>Buka Tautan Dokumen</span>
 									</Button>
@@ -244,7 +244,7 @@ export default async function PublicVerificationPage({
 							)}
 
 							<Link className='w-full sm:w-auto' href={`/uji-kualitas/input?ik_id=${ik.id}`}>
-								<Button className='w-full gap-2 font-medium sm:w-auto' size='sm'>
+								<Button className='w-full gap-2 sm:w-auto' size='sm'>
 									<span>Input Uji via SOP Ini</span>
 									<ArrowRight className='size-3.5' />
 								</Button>

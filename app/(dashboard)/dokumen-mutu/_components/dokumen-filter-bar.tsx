@@ -90,7 +90,7 @@ export function DokumenFilterBar({
 				</InputGroup>
 
 				{filteredCount < totalCount ? (
-					<Badge className='shrink-0 py-0.5 text-xs' variant='secondary'>
+					<Badge variant='secondary'>
 						{filteredCount} dari {totalCount}
 					</Badge>
 				) : null}

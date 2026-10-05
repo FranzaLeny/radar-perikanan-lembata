@@ -68,8 +68,8 @@ export function BadgeStatus({ status, size = 'md', showIcon = true, className }:
 	const IconComponent = config.icon;
 
 	const sizeClasses = {
-		sm: 'text-xs h-5 px-2 gap-1',
-		md: 'text-xs h-6 px-2.5 gap-1.5 font-medium',
+		sm: '',
+		md: 'h-6 px-2.5 gap-1.5',
 		lg: 'text-sm h-7 px-3.5 gap-2 font-semibold'
 	};
 
@@ -78,7 +78,7 @@ export function BadgeStatus({ status, size = 'md', showIcon = true, className }:
 	return (
 		<Badge
 			className={cn(
-				'font-medium shadow-2xs transition-colors',
+				'shadow-2xs',
 				config.badgeClass,
 				sizeClasses[size],
 				className

@@ -22,7 +22,7 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 				>
 					<div className='flex w-full items-center justify-between font-semibold text-foreground transition-colors group-hover:text-primary'>
 						<span>Administrator</span>
-						<Badge className='px-1 py-0 text-xs' variant='outline'>
+						<Badge className='px-1 py-0' variant='outline'>
 							ADM
 						</Badge>
 					</div>
@@ -37,7 +37,7 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 				>
 					<div className='flex w-full items-center justify-between font-semibold text-foreground transition-colors group-hover:text-primary'>
 						<span>Pengelola Mutu</span>
-						<Badge className='px-1 py-0 text-xs' variant='outline'>
+						<Badge className='px-1 py-0' variant='outline'>
 							PM
 						</Badge>
 					</div>
@@ -52,7 +52,7 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 				>
 					<div className='flex w-full items-center justify-between font-semibold text-foreground transition-colors group-hover:text-primary'>
 						<span>Petugas Lapangan</span>
-						<Badge className='px-1 py-0 text-xs' variant='outline'>
+						<Badge className='px-1 py-0' variant='outline'>
 							PL
 						</Badge>
 					</div>
@@ -67,7 +67,7 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 				>
 					<div className='flex w-full items-center justify-between font-semibold text-foreground transition-colors group-hover:text-primary'>
 						<span>Kepala Dinas</span>
-						<Badge className='px-1 py-0 text-xs' variant='outline'>
+						<Badge className='px-1 py-0' variant='outline'>
 							KD
 						</Badge>
 					</div>

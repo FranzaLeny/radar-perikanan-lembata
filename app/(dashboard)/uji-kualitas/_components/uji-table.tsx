@@ -25,7 +25,7 @@ type UjiTableProps = {
 
 export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<div className='overflow-x-auto'>
 				<Table>
 					<TableHeader>
@@ -84,12 +84,12 @@ export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 											<TableCell className='text-xs'>
 												<div className='flex max-w-xs flex-wrap gap-1'>
 													{item.detailParameters.slice(0, 3).map((dp) => (
-														<Badge className='px-1.5 py-0 text-xs' key={dp.id} variant='secondary'>
+														<Badge className='px-1.5 py-0' key={dp.id} variant='secondary'>
 															{dp.bakuMutu?.parameter.split(' ')[0]}: {dp.nilai_hasil}
 														</Badge>
 													))}
 													{item.detailParameters.length > 3 && (
-														<Badge className='px-1 py-0 text-xs' variant='outline'>
+														<Badge className='px-1 py-0' variant='outline'>
 															+{item.detailParameters.length - 3} lainnya
 														</Badge>
 													)}

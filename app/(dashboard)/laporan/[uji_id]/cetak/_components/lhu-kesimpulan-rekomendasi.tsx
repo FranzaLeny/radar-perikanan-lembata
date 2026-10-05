@@ -15,15 +15,17 @@ export function LhuKesimpulanRekomendasi({
 	saranRekomendasiLapangan,
 	catatanLapangan
 }: LhuKesimpulanRekomendasiProps) {
+	const telaahanUmum = [
+		{ label: 'Saran & Rekomendasi', value: saranRekomendasiLapangan || '' },
+		{ label: 'Catatan', value: catatanLapangan || '' }
+	].filter((d) => !!d.value);
 	return (
 		<>
 			{/* KESIMPULAN & REKOMENDASI TEKNIS OTOMATIS */}
 			<div className='mb-4 space-y-1.5 print:mb-2.5 print:space-y-1'>
-				<h4 className='font-bold text-slate-800 text-xs uppercase tracking-wider'>
-					B. Kesimpulan Evaluasi & Rekomendasi Teknis
-				</h4>
+				<h4 className='font-bold text-slate-800 text-xs uppercase tracking-wider'>B. Kesimpulan</h4>
 
-				<div className='rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs print:bg-white print:p-2'>
+				<div className='rounded-lg border border-slate-300 not-print:bg-slate-50 p-3 text-xs print:p-2'>
 					<div className='mb-1.5 flex items-center gap-2 font-bold'>
 						<span>Status Kepatuhan Baku Mutu:</span>
 						<span
@@ -47,9 +49,6 @@ export function LhuKesimpulanRekomendasi({
 						</p>
 					) : (
 						<div className='mt-1.5 space-y-1'>
-							<p className='font-semibold text-slate-800 text-xs'>
-								Rekomendasi Tindakan Korektif Lapangan:
-							</p>
 							<ul className='list-inside list-disc space-y-0.5 text-slate-700 text-xs'>
 								{rekomendasiList.map((rec, i) => (
 									<li key={i}>
@@ -59,36 +58,23 @@ export function LhuKesimpulanRekomendasi({
 							</ul>
 						</div>
 					)}
+					{kesimpulanUmum && <p className='pt-2'>{kesimpulanUmum}</p>}
 				</div>
 			</div>
 
 			{/* TELAAH UMUM & CATATAN LAPANGAN PETUGAS */}
-			{(kesimpulanUmum || saranRekomendasiLapangan || catatanLapangan) && (
+			{telaahanUmum.length > 0 && (
 				<div className='mb-4 space-y-1.5 print:mb-2.5 print:space-y-1'>
 					<h4 className='font-bold text-slate-800 text-xs uppercase tracking-wider'>
-						C. Telaah Lapangan & Rekomendasi Terpadu
+						C. Saran dan Rekomendasi
 					</h4>
 					<div className='space-y-1.5 rounded-lg border border-slate-300 bg-slate-50 p-3 text-xs print:bg-white print:p-2'>
-						{kesimpulanUmum && (
-							<div>
-								<span className='mb-0.5 block font-bold text-slate-900'>Kesimpulan Umum Pengujian:</span>
-								<p className='text-slate-700 leading-relaxed'>{kesimpulanUmum}</p>
+						{telaahanUmum.map((item) => (
+							<div className='even:border-slate-200 even:border-t' key={item.label}>
+								<span className='mb-0.5 block font-bold text-slate-900'>{item.label}:</span>
+								<p className='text-slate-700 leading-relaxed'>{item.value}</p>
 							</div>
-						)}
-						{saranRekomendasiLapangan && (
-							<div className='border-slate-200 border-t pt-1'>
-								<span className='mb-0.5 block font-bold text-slate-900'>Saran & Rekomendasi Petugas:</span>
-								<p className='text-slate-700 leading-relaxed'>{saranRekomendasiLapangan}</p>
-							</div>
-						)}
-						{catatanLapangan && (
-							<div className='border-slate-200 border-t pt-1'>
-								<span className='mb-0.5 block font-bold text-slate-900'>
-									Catatan Observasi Fisik Kolam:
-								</span>
-								<p className='text-slate-600 italic leading-relaxed'>{catatanLapangan}</p>
-							</div>
-						)}
+						))}
 					</div>
 				</div>
 			)}

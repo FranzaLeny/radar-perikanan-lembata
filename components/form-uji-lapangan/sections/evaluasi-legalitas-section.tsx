@@ -167,7 +167,7 @@ export function EvaluasiLegalitasSection({
 			{/* Narasi Evaluasi, Saran & Rekomendasi Terpadu */}
 			<Card>
 				<CardHeader className='pb-2'>
-					<CardTitle className='font-heading text-sm'>Kesimpulan & Saran Rekomendasi Lapangan</CardTitle>
+					<CardTitle className='text-sm'>Kesimpulan & Saran Rekomendasi Lapangan</CardTitle>
 					<CardDescription className='text-xs'>
 						Hasil telaah terpadu dan saran tindak lanjut bagi pembudidaya.
 					</CardDescription>
@@ -209,7 +209,7 @@ export function EvaluasiLegalitasSection({
 
 				<CardFooter className='border-border border-t pt-2'>
 					<Button
-						className='w-full cursor-pointer gap-2 font-medium'
+						className='w-full cursor-pointer gap-2'
 						disabled={isSubmitting}
 						size='default'
 						type='submit'

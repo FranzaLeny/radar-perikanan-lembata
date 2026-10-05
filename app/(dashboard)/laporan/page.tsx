@@ -39,7 +39,7 @@ export default async function LaporanHubPage() {
 						<div className='mb-2 flex size-10 items-center justify-center rounded-xl bg-muted text-foreground'>
 							<FileSpreadsheet className='size-5' />
 						</div>
-						<CardTitle className='font-heading text-base'>
+						<CardTitle>
 							Matriks Rekapitulasi Tahunan Mutu Air (2026)
 						</CardTitle>
 						<CardDescription className='text-xs leading-relaxed'>
@@ -49,7 +49,7 @@ export default async function LaporanHubPage() {
 					</CardHeader>
 					<CardFooter className='pt-2'>
 						<Link className='w-full sm:w-auto' href='/laporan/rekap-tahunan'>
-							<Button className='w-full gap-2 font-medium sm:w-auto' size='sm'>
+							<Button className='w-full gap-2 sm:w-auto' size='sm'>
 								<span>Buka Matriks Rekap Tahunan</span>
 								<ArrowRight className='size-3.5' />
 							</Button>
@@ -63,7 +63,7 @@ export default async function LaporanHubPage() {
 						<div className='mb-2 flex size-10 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500 dark:text-emerald-400'>
 							<TrendingUp className='size-5' />
 						</div>
-						<CardTitle className='font-heading text-base'>Analisis Fluktuasi Parameter</CardTitle>
+						<CardTitle>Analisis Fluktuasi Parameter</CardTitle>
 						<CardDescription className='text-xs leading-relaxed'>
 							Lihat visualisasi pergerakan parameter utama (Suhu, pH, DO, Amonia, Nitrit) terhadap batas
 							aman regulasi PP No. 22 Tahun 2021.
@@ -71,7 +71,7 @@ export default async function LaporanHubPage() {
 					</CardHeader>
 					<CardFooter className='pt-2'>
 						<Link className='w-full sm:w-auto' href='/tren'>
-							<Button className='w-full gap-2 font-medium sm:w-auto' size='sm' variant='outline'>
+							<Button className='w-full gap-2 sm:w-auto' size='sm' variant='outline'>
 								<span>Buka Analisis Grafik Tren</span>
 								<ArrowRight className='size-3.5' />
 							</Button>

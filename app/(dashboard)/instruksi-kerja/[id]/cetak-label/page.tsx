@@ -76,7 +76,7 @@ export default async function CetakLabelPage({ params }: { params: Promise<{ id:
 							</div>
 						</div>
 						<div className='text-right'>
-							<Badge className='border-slate-400 font-bold text-slate-900 text-xs' variant='outline'>
+							<Badge className='border-slate-400 font-bold text-slate-900' variant='outline'>
 								{APP_NAME}
 							</Badge>
 						</div>

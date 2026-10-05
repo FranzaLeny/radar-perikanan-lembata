@@ -28,7 +28,7 @@ export function RekapActionBar({
 				</Link>
 				<div className='hidden h-4 w-px bg-border sm:block' />
 				<div className='flex items-center gap-2'>
-					<Badge className='font-bold text-xs' variant='outline'>
+					<Badge className='font-bold' variant='outline'>
 						TA {tahunAnggaran}
 					</Badge>
 					{filterTahun && (

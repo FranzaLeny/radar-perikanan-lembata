@@ -15,7 +15,7 @@ export function DashboardKpiGrid({
 	return (
 		<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
 			{/* Card 1: Tingkat Kepatuhan */}
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 					<CardTitle className='font-medium text-muted-foreground text-xs'>
 						Tingkat Kepatuhan Mutu
@@ -40,7 +40,7 @@ export function DashboardKpiGrid({
 			</Card>
 
 			{/* Card 2: Pengujian Kritis / Melebihi */}
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 					<CardTitle className='font-medium text-muted-foreground text-xs'>
 						Sampel Perlu Perhatian
@@ -63,7 +63,7 @@ export function DashboardKpiGrid({
 			</Card>
 
 			{/* Card 3: Pokdakan Terpantau */}
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 					<CardTitle className='font-medium text-muted-foreground text-xs'>
 						Titik Kolam Pokdakan
@@ -84,7 +84,7 @@ export function DashboardKpiGrid({
 			</Card>
 
 			{/* Card 4: SOP / IK Aktif */}
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
 					<CardTitle className='font-medium text-muted-foreground text-xs'>
 						Instruksi Kerja (IK)

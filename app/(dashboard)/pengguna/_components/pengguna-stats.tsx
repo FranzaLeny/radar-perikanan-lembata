@@ -13,13 +13,13 @@ export function PenggunaStats({ users }: PenggunaStatsProps) {
 
 	return (
 		<div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<p className='font-medium text-muted-foreground text-xs'>Total Akun</p>
 					<p className='mt-1 font-bold text-2xl text-foreground'>{totalUsers}</p>
 				</CardContent>
 			</Card>
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<div className='flex items-center justify-between'>
 						<p className='font-medium text-muted-foreground text-xs'>Administrator</p>
@@ -28,7 +28,7 @@ export function PenggunaStats({ users }: PenggunaStatsProps) {
 					<p className='mt-1 font-bold text-2xl text-rose-600 dark:text-rose-400'>{adminCount}</p>
 				</CardContent>
 			</Card>
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<div className='flex items-center justify-between'>
 						<p className='font-medium text-muted-foreground text-xs'>Pengelola Mutu</p>
@@ -37,7 +37,7 @@ export function PenggunaStats({ users }: PenggunaStatsProps) {
 					<p className='mt-1 font-bold text-2xl text-blue-600 dark:text-blue-400'>{mutuCount}</p>
 				</CardContent>
 			</Card>
-			<Card className='border-border bg-card shadow-xs'>
+			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<div className='flex items-center justify-between'>
 						<p className='font-medium text-muted-foreground text-xs'>Petugas Lapangan</p>

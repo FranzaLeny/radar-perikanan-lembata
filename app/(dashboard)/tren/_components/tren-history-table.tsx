@@ -14,7 +14,7 @@ type TrenHistoryTableProps = { parameterName: string; satuan: string; rows: Deta
 
 export function TrenHistoryTable({ parameterName, satuan, rows }: TrenHistoryTableProps) {
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<CardHeader className='flex flex-row items-center justify-between border-b px-4 py-3'>
 				<CardTitle className='font-semibold text-muted-foreground text-xs uppercase tracking-wider'>
 					Riwayat Titik Uji Parameter: {parameterName}

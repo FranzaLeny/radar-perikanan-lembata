@@ -48,9 +48,9 @@ export function ProfilPersonalForm({ initialName, email }: ProfilPersonalFormPro
 	};
 
 	return (
-		<Card className='border-border bg-card/60 backdrop-blur-md'>
+		<Card className='bg-card/60 backdrop-blur-md'>
 			<CardHeader>
-				<CardTitle className='flex items-center gap-2 font-semibold text-base'>
+				<CardTitle className='flex items-center gap-2 font-semibold'>
 					<User className='size-4 text-muted-foreground' /> Informasi Pribadi
 				</CardTitle>
 				<CardDescription className='text-xs'>

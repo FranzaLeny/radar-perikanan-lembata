@@ -6,7 +6,7 @@ type UjiRowDetailProps = { item: UjiItem };
 
 export function UjiRowDetail({ item }: UjiRowDetailProps) {
 	return (
-		<Card className='border-border bg-card shadow-xs'>
+		<Card>
 			<CardHeader className='border-b px-4 py-2.5'>
 				<CardTitle className='flex items-center justify-between font-semibold text-xs'>
 					<span>Rincian Lengkap Hasil Uji Sampel #{item.nomor_sampel}</span>

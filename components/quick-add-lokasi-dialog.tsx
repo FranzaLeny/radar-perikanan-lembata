@@ -125,7 +125,7 @@ export function QuickAddLokasiDialog({ open, onOpenChange, onSuccess }: QuickAdd
 							<MapPin className='size-3.5' />
 							<span>Tambah Lokasi Cepat</span>
 						</div>
-						<DialogTitle className='font-heading text-base'>Daftarkan Titik Kolam Baru</DialogTitle>
+						<DialogTitle className='text-base'>Daftarkan Titik Kolam Baru</DialogTitle>
 						<DialogDescription className='text-xs'>
 							Tambahkan data kolam Pokdakan baru langsung ke sistem tanpa me-reset lembar pengujian.
 						</DialogDescription>

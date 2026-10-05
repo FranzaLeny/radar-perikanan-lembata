@@ -104,7 +104,7 @@ export function LoginForm() {
 	};
 
 	return (
-		<Card className='border-border bg-card shadow-xl backdrop-blur-xs'>
+		<Card className='shadow-xl backdrop-blur-xs'>
 			<LoginHeader />
 
 			<CardContent className='space-y-4'>

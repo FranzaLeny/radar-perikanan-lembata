@@ -38,7 +38,7 @@ export function TrenFilterBar({
 	onResetLokasi
 }: TrenFilterBarProps) {
 	return (
-		<Card className='border-border bg-card shadow-xs'>
+		<Card>
 			<CardContent className='space-y-3 p-4 text-xs'>
 				<div className='flex flex-col items-center gap-4 sm:flex-row'>
 					<Field className='w-full flex-1 sm:w-auto'>

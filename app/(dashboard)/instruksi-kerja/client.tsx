@@ -286,7 +286,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 				<div className='flex items-center gap-2 self-start text-xs sm:self-auto'>
 					{filteredList.length < list.length ? (
 						<div className='flex items-center gap-2'>
-							<Badge className='py-0.5 text-xs' variant='secondary'>
+							<Badge variant='secondary'>
 								Menampilkan {filteredList.length} dari {list.length} SOP (Hasil Filter)
 							</Badge>
 							<Button
@@ -307,7 +307,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 			</div>
 
 			{/* Table Card */}
-			<Card className='overflow-hidden border-border bg-card shadow-xs'>
+			<Card>
 				<div className='overflow-x-auto'>
 					<Table>
 						<TableHeader>
@@ -363,7 +363,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 														{item.file_path}
 													</span>
 													{item.file_path.startsWith('http') && (
-														<Badge className='h-4 px-1.5 py-0 text-xs' variant='secondary'>
+														<Badge className='h-4 px-1.5 py-0' variant='secondary'>
 															Tautan Eksternal
 														</Badge>
 													)}
@@ -371,7 +371,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 											</div>
 										</TableCell>
 										<TableCell className='text-xs'>
-											<Badge className='font-normal text-xs' variant='secondary'>
+											<Badge className='font-normal' variant='secondary'>
 												{item.kategori || 'Standar Uji'}
 											</Badge>
 										</TableCell>

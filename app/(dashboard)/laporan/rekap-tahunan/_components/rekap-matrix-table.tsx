@@ -73,28 +73,28 @@ export function RekapMatrixTable({
 				{/* Legend Status Indikator Mutu */}
 				<div className='mb-4 flex flex-wrap items-center justify-center gap-3 font-medium text-xs'>
 					<Badge
-						className='gap-1.5 border-emerald-300 bg-emerald-50 py-0.5 text-emerald-800 text-xs'
+						className='gap-1.5 border-emerald-300 bg-emerald-50 text-emerald-800'
 						variant='outline'
 					>
 						<span className='size-2 rounded-full bg-emerald-600' />
 						<span>Memenuhi Baku Mutu (Normal)</span>
 					</Badge>
 					<Badge
-						className='gap-1.5 border-amber-300 bg-amber-50 py-0.5 text-amber-800 text-xs'
+						className='gap-1.5 border-amber-300 bg-amber-50 text-amber-800'
 						variant='outline'
 					>
 						<span className='size-2 rounded-full bg-amber-500' />
 						<span>Peringatan (Mendekati Batas)</span>
 					</Badge>
 					<Badge
-						className='gap-1.5 border-rose-300 bg-rose-50 py-0.5 text-rose-800 text-xs'
+						className='gap-1.5 border-rose-300 bg-rose-50 text-rose-800'
 						variant='outline'
 					>
 						<span className='size-2 rounded-full bg-rose-600' />
 						<span>Kritis (Melebihi/Kurang)</span>
 					</Badge>
 					<Badge
-						className='gap-1.5 border-slate-300 bg-slate-50 py-0.5 text-slate-500 text-xs'
+						className='gap-1.5 border-slate-300 bg-slate-50 text-slate-500'
 						variant='outline'
 					>
 						<span className='size-2 rounded-full bg-slate-300' />

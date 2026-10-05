@@ -49,7 +49,7 @@ export function GrafikTren({
 
 	if (!data || data.length === 0) {
 		return (
-			<Card className='border-border bg-card p-8 text-center'>
+			<Card className='p-8 text-center'>
 				<p className='font-medium text-muted-foreground text-sm'>
 					Belum ada rekaman data historis untuk grafik tren ini.
 				</p>
@@ -61,10 +61,10 @@ export function GrafikTren({
 	}
 
 	return (
-		<Card className='border-border bg-card shadow-xs'>
+		<Card>
 			<CardHeader className='flex flex-col gap-2 pb-4 sm:flex-row sm:items-center sm:justify-between'>
 				<div>
-					<CardTitle className='font-semibold text-base'>{title}</CardTitle>
+					<CardTitle className='font-semibold'>{title}</CardTitle>
 					<CardDescription className='mt-0.5 text-xs'>
 						Parameter: <span className='font-semibold text-foreground'>{parameterName}</span> ({satuan})
 					</CardDescription>
@@ -73,7 +73,7 @@ export function GrafikTren({
 				<div className='flex items-center gap-3 text-xs'>
 					{nilaiMin !== null && nilaiMin !== undefined && (
 						<Badge
-							className='gap-1.5 border-amber-300 bg-amber-50 text-amber-700 text-xs dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-300'
+							className='gap-1.5 border-amber-300 bg-amber-50 text-amber-700 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-300'
 							variant='outline'
 						>
 							<span className='size-2 rounded-full bg-amber-500' />
@@ -82,7 +82,7 @@ export function GrafikTren({
 					)}
 					{nilaiMax !== null && nilaiMax !== undefined && (
 						<Badge
-							className='gap-1.5 border-rose-300 bg-rose-50 text-rose-700 text-xs dark:border-rose-700 dark:bg-rose-950/40 dark:text-rose-300'
+							className='gap-1.5 border-rose-300 bg-rose-50 text-rose-700 dark:border-rose-700 dark:bg-rose-950/40 dark:text-rose-300'
 							variant='outline'
 						>
 							<span className='size-2 rounded-full bg-rose-500' />

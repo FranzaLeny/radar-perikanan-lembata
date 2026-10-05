@@ -36,7 +36,7 @@ export function LaporanRowActions({ item, onUpdateStatus, onDelete }: LaporanRow
 	return (
 		<div className='flex items-center justify-end gap-1.5'>
 			<Link href={`/laporan/${item.id}/cetak`}>
-				<Button className='h-7 cursor-pointer gap-1 px-2 font-medium' size='xs' variant='default'>
+				<Button className='h-7 cursor-pointer gap-1 px-2' size='xs'>
 					<Printer className='size-3' />
 					<span className='hidden sm:inline'>Cetak</span>
 				</Button>

@@ -32,7 +32,7 @@ export function BakuMutuTable({
 	onDelete
 }: BakuMutuTableProps) {
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<div className='overflow-x-auto'>
 				<Table>
 					<TableHeader>
@@ -70,7 +70,7 @@ export function BakuMutuTable({
 									<TableRow className='hover:bg-muted/30' key={item.id}>
 										<TableCell className='font-semibold text-foreground text-xs'>{item.parameter}</TableCell>
 										<TableCell className='text-xs'>
-											<Badge className='text-xs' variant='secondary'>
+											<Badge variant='secondary'>
 												{item.satuan}
 											</Badge>
 										</TableCell>
@@ -103,7 +103,7 @@ export function BakuMutuTable({
 											)}
 										</TableCell>
 										<TableCell className='text-xs'>
-											<Badge className='font-semibold text-xs' variant='secondary'>
+											<Badge className='font-semibold' variant='secondary'>
 												{item.nomor_regulasi || 'PP No. 22/2021'}
 											</Badge>
 										</TableCell>
@@ -116,14 +116,14 @@ export function BakuMutuTable({
 										<TableCell>
 											{item.aktif ? (
 												<Badge
-													className='gap-1 border-emerald-300 bg-emerald-50 text-emerald-800 text-xs dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'
+													className='border-emerald-300 bg-emerald-50 text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300'
 													variant='outline'
 												>
 													<span className='size-1.5 rounded-full bg-emerald-500' />
 													<span>Berlaku</span>
 												</Badge>
 											) : (
-												<Badge className='gap-1 text-xs' variant='secondary'>
+												<Badge variant='secondary'>
 													<History className='size-3 text-muted-foreground' />
 													<span>Arsip</span>
 												</Badge>

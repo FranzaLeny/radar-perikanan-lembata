@@ -32,7 +32,7 @@ export function LokasiTable({
 	onDelete
 }: LokasiTableProps) {
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<div className='overflow-x-auto'>
 				<Table>
 					<TableHeader>
@@ -79,7 +79,7 @@ export function LokasiTable({
 										<div className='text-muted-foreground text-xs'>Desa {item.desa}</div>
 									</TableCell>
 									<TableCell className='text-xs'>
-										<Badge className='gap-1 font-normal text-xs' variant='secondary'>
+										<Badge className='font-normal' variant='secondary'>
 											<Fish className='size-3 text-muted-foreground' />
 											{item.komoditas_ikan || 'Campuran'}
 										</Badge>

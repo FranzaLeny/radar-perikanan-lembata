@@ -72,8 +72,8 @@ export function InformasiSampelSection({
 }: InformasiSampelSectionProps) {
 	return (
 		<Card>
-			<CardHeader className='border-border border-b pb-3'>
-				<CardTitle className='font-heading text-base'>
+			<CardHeader className='border-b pb-3'>
+				<CardTitle>
 					1. Informasi Sampel, Lokasi Kolam & Kondisi Lapangan
 				</CardTitle>
 				<CardDescription className='text-xs'>

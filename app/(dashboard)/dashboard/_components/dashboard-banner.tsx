@@ -8,10 +8,10 @@ import { APP_CONFIG } from '@/lib/constants';
 
 export function DashboardBanner() {
 	return (
-		<Card className='border-border bg-card p-6 shadow-xs sm:p-8'>
+		<Card className='p-6 sm:p-8'>
 			<div className='relative z-10 flex flex-col justify-between gap-6 md:flex-row md:items-center'>
 				<div className='max-w-2xl'>
-					<Badge className='mb-3 gap-1.5 px-3 py-1 font-semibold text-xs' variant='secondary'>
+					<Badge className='mb-3 gap-1.5 px-3 py-1 font-semibold' variant='secondary'>
 						<Droplets className='size-3.5' />
 						<span>{APP_CONFIG.institution.name}</span>
 					</Badge>

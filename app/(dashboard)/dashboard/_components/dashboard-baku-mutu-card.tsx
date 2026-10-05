@@ -58,7 +58,7 @@ export function DashboardBakuMutuCard({ items }: DashboardBakuMutuCardProps) {
 								</span>
 							</p>
 						</div>
-						<Badge className='text-xs' variant='secondary'>
+						<Badge variant='secondary'>
 							{bm.satuan}
 						</Badge>
 					</div>

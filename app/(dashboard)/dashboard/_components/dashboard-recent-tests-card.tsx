@@ -24,7 +24,7 @@ type DashboardRecentTestsCardProps = { items: RecentUjiItem[] };
 
 export function DashboardRecentTestsCard({ items }: DashboardRecentTestsCardProps) {
 	return (
-		<Card className='border-border bg-card shadow-xs lg:col-span-2'>
+		<Card className='lg:col-span-2'>
 			<CardHeader className='flex flex-row items-center justify-between border-b pb-4'>
 				<div>
 					<CardTitle className='flex items-center gap-2 font-semibold text-sm'>

@@ -108,7 +108,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 		<Card>
 			<CardHeader className='flex flex-col justify-between gap-3 pb-3 sm:flex-row sm:items-center'>
 				<div>
-					<CardTitle className='font-heading text-base'>
+					<CardTitle>
 						Daftar Lembar Hasil Uji (LHU) Siap Cetak
 					</CardTitle>
 					<CardDescription className='text-xs'>
@@ -120,13 +120,13 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 				{/* Indikator Counter */}
 				<div className='flex items-center gap-2 self-start sm:self-auto'>
 					{isFiltered ? (
-						<Badge className='gap-1.5 py-0.5 text-xs' variant='secondary'>
+						<Badge className='gap-1.5' variant='secondary'>
 							<span>
 								Menampilkan {filteredList.length} dari {list.length} Dokumen
 							</span>
 						</Badge>
 					) : (
-						<Badge className='text-xs' variant='outline'>
+						<Badge variant='outline'>
 							{list.length} Dokumen Terdaftar
 						</Badge>
 					)}

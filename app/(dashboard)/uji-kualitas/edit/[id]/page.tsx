@@ -62,13 +62,13 @@ export default async function EditUjiKualitasPage({ params }: { params: Promise<
 					</Link>
 					<div className='flex items-center gap-2'>
 						<Badge
-							className='gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+							className='gap-1.5 px-2.5 font-semibold uppercase tracking-wider'
 							variant='secondary'
 						>
 							<TestTube2 className='size-3' />
 							<span>Mode Edit Dokumen Draft</span>
 						</Badge>
-						<Badge className='text-xs' variant='outline'>
+						<Badge variant='outline'>
 							{uji.nomor_sampel}
 						</Badge>
 					</div>

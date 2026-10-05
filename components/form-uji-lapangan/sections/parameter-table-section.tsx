@@ -54,9 +54,9 @@ export function ParameterTableSection({
 }: ParameterTableSectionProps) {
 	return (
 		<Card>
-			<CardHeader className='flex flex-row items-center justify-between border-border border-b pb-3'>
+			<CardHeader className='flex flex-row items-center justify-between border-b pb-3'>
 				<div>
-					<CardTitle className='font-heading text-base'>
+					<CardTitle>
 						2. Parameter Mutu Air & Instruksi Kerja (IK) Terkait
 					</CardTitle>
 					<CardDescription className='text-xs'>

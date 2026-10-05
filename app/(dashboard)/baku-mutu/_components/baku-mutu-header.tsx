@@ -10,7 +10,7 @@ export function BakuMutuHeader({ onOpenAdd }: BakuMutuHeaderProps) {
 		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
 			<div>
 				<Badge
-					className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+					className='mb-1.5 gap-1.5 px-2.5 font-semibold uppercase tracking-wider'
 					variant='secondary'
 				>
 					<Scale className='size-3' />

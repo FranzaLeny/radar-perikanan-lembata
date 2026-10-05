@@ -29,7 +29,7 @@ export function DokumenTable({
 	onDelete
 }: DokumenTableProps) {
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<div className='overflow-x-auto'>
 				<Table>
 					<TableHeader>
@@ -65,11 +65,11 @@ export function DokumenTable({
 										<TableCell className='font-bold text-foreground text-xs'>{item.kode_ik}</TableCell>
 										<TableCell>
 											<Badge
-												className={`text-xs ${
+												className={
 													isIK
 														? 'border-blue-200 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300'
 														: 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200'
-												}`}
+												}
 												variant='secondary'
 											>
 												{item.kategoriDokumen?.nama_kategori || item.kategori || 'Dokumen Mutu'}

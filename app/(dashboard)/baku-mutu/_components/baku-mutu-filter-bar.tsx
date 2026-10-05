@@ -40,19 +40,19 @@ export function BakuMutuFilterBar({
 				<TabsList>
 					<TabsTrigger className='gap-2 text-xs' value='active'>
 						<span>Standar Aktif</span>
-						<Badge className='px-1.5 py-0 text-xs' variant='secondary'>
+						<Badge className='px-1.5 py-0' variant='secondary'>
 							{activeCount}
 						</Badge>
 					</TabsTrigger>
 					<TabsTrigger className='gap-2 text-xs' value='archived'>
 						<span>Arsip Versi Lama</span>
-						<Badge className='px-1.5 py-0 text-xs' variant='outline'>
+						<Badge className='px-1.5 py-0' variant='outline'>
 							{archivedCount}
 						</Badge>
 					</TabsTrigger>
 					<TabsTrigger className='gap-2 text-xs' value='all'>
 						<span>Semua Riwayat</span>
-						<Badge className='px-1.5 py-0 text-xs' variant='outline'>
+						<Badge className='px-1.5 py-0' variant='outline'>
 							{totalCount}
 						</Badge>
 					</TabsTrigger>
@@ -87,7 +87,7 @@ export function BakuMutuFilterBar({
 
 				{filteredCount < totalCount ? (
 					<div className='flex shrink-0 items-center gap-1.5'>
-						<Badge className='py-0.5 text-xs' variant='secondary'>
+						<Badge variant='secondary'>
 							{filteredCount} dari {totalCount}
 						</Badge>
 						<Button

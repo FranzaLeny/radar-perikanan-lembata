@@ -60,7 +60,7 @@ export function PegawaiTable({
 	};
 
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<div className='overflow-x-auto'>
 				<Table>
 					<TableHeader>

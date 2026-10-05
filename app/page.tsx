@@ -42,7 +42,7 @@ export default async function HomePage() {
 				<div className='flex items-center gap-3'>
 					<ThemeToggle />
 					<Link href='/login'>
-						<Button className='gap-2 font-medium' size='sm'>
+						<Button className='gap-2' size='sm'>
 							<span>Masuk Sistem</span>
 							<ArrowRight className='size-3.5' />
 						</Button>
@@ -52,7 +52,7 @@ export default async function HomePage() {
 
 			{/* Hero Section */}
 			<main className='relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-12 text-center sm:py-20'>
-				<Badge className='mb-6 gap-1.5 px-3.5 py-1 font-semibold text-xs' variant='secondary'>
+				<Badge className='mb-6 gap-1.5 px-3.5 py-1 font-semibold' variant='secondary'>
 					<ShieldCheck className='size-3.5' />
 					<span>Sistem Informasi Mutu Air Budidaya Perikanan Terpadu</span>
 				</Badge>
@@ -76,7 +76,7 @@ export default async function HomePage() {
 						</Button>
 					</Link>
 					<Link href='/verifikasi/preview'>
-						<Button className='w-full gap-2 font-medium sm:w-auto' size='lg' variant='outline'>
+						<Button className='w-full gap-2 sm:w-auto' size='lg' variant='outline'>
 							<QrCode className='size-4 text-muted-foreground' />
 							<span>Simulasi Verifikasi QR</span>
 						</Button>
@@ -85,8 +85,8 @@ export default async function HomePage() {
 
 				{/* Value Highlights */}
 				<div className='mt-16 grid w-full grid-cols-1 gap-6 text-left sm:grid-cols-3'>
-					<Card className='border-border bg-card/60 shadow-xs backdrop-blur-xs'>
-						<CardContent className='p-6'>
+					<Card className='bg-card/60 backdrop-blur-xs'>
+						<CardContent>
 							<div className='mb-3 w-fit rounded-xl bg-muted p-2.5 text-foreground'>
 								<Scale className='size-5' />
 							</div>
@@ -98,8 +98,8 @@ export default async function HomePage() {
 						</CardContent>
 					</Card>
 
-					<Card className='border-border bg-card/60 shadow-xs backdrop-blur-xs'>
-						<CardContent className='p-6'>
+					<Card className='bg-card/60 backdrop-blur-xs'>
+						<CardContent>
 							<div className='mb-3 w-fit rounded-xl bg-muted p-2.5 text-foreground'>
 								<QrCode className='size-5' />
 							</div>
@@ -111,8 +111,8 @@ export default async function HomePage() {
 						</CardContent>
 					</Card>
 
-					<Card className='border-border bg-card/60 shadow-xs backdrop-blur-xs'>
-						<CardContent className='p-6'>
+					<Card className='bg-card/60 backdrop-blur-xs'>
+						<CardContent>
 							<div className='mb-3 w-fit rounded-xl bg-muted p-2.5 text-foreground'>
 								<TrendingUp className='size-5' />
 							</div>

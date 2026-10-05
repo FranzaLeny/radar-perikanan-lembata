@@ -6,7 +6,7 @@ export function TrenHeader() {
 	return (
 		<div>
 			<Badge
-				className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+				className='mb-1.5 gap-1.5 px-2.5 font-semibold uppercase tracking-wider'
 				variant='secondary'
 			>
 				<TrendingUp className='size-3' />

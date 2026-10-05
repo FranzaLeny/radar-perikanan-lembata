@@ -43,7 +43,7 @@ export function UjiFilterBar({
 		searchTerm.trim() !== '' || selectedKecamatan !== 'SEMUA' || selectedKesimpulan !== 'SEMUA';
 
 	return (
-		<Card className='border-border bg-card shadow-xs'>
+		<Card>
 			<CardContent className='space-y-3 p-3.5 text-xs'>
 				<div className='flex flex-col items-stretch justify-between gap-3 md:flex-row md:items-center'>
 					<InputGroup className='flex-1'>

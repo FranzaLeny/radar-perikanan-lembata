@@ -68,7 +68,7 @@ export function PenggunaTable({
 	};
 
 	return (
-		<Card className='overflow-hidden border-border bg-card shadow-xs'>
+		<Card>
 			<div className='overflow-x-auto'>
 				<Table>
 					<TableHeader>
