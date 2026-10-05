@@ -1,20 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Users2, Mail, Lock, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Field,
-  FieldLabel,
-  FieldDescription,
-  FieldError,
-} from '@/components/ui/field';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from '@/components/ui/input-group';
 import {
   Dialog,
   DialogContent,
@@ -24,17 +10,31 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from '@/components/ui/input-group';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { toFieldErrors } from '@/lib/utils';
-import { APP_CONFIG } from '@/lib/constants';
-import { toast } from 'sonner';
-import { penggunaSchema } from '@/lib/validations/pengguna';
 import { authClient } from '@/lib/auth-client';
+import { APP_CONFIG } from '@/lib/constants';
+import { toFieldErrors } from '@/lib/utils';
+import { penggunaSchema } from '@/lib/validations/pengguna';
+import { Loader2, Lock, Mail, Users2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import type { UserItem, UserRole } from '../types';
 
 interface PenggunaCreateDialogProps {
@@ -87,11 +87,11 @@ export function PenggunaCreateDialog({
         email: email.toLowerCase().trim(),
         password: password || 'password123',
         name: nama,
-        role: role as any,
+        role: role as "user" | "admin" | ("user" | "admin")[],
       });
 
       if (!error && data) {
-        const u = data.user as any;
+        const u = data.user;
         const createdUser: UserItem = {
           id: u.id,
           name: u.name,

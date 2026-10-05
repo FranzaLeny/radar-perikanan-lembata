@@ -1,13 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { ShieldCheck, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import {
-  Field,
-  FieldLabel,
-  FieldDescription,
-} from '@/components/ui/field';
 import {
   Dialog,
   DialogContent,
@@ -17,14 +10,21 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import {
+  Field,
+  FieldDescription,
+  FieldLabel,
+} from '@/components/ui/field';
+import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { toast } from 'sonner';
 import { authClient } from '@/lib/auth-client';
+import { Loader2, ShieldCheck } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import type { UserItem, UserRole } from '../types';
 
 interface PenggunaRoleDialogProps {
@@ -57,7 +57,7 @@ export function PenggunaRoleDialog({
     try {
       const { error } = await authClient.admin.setRole({
         userId: selectedUser.id,
-        role: selectedRole as any,
+        role: selectedRole as "user" | "admin" | ("user" | "admin")[],
       });
 
       if (!error) {

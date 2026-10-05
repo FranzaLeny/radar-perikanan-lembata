@@ -1,8 +1,8 @@
 {
   "editor.codeActionsOnSave": {
     "source.organizeImports": "always",
-    "source.removeUnused": "always",
-    "source.fixAll.eslint": "explicit"
+    // "source.removeUnused": "always",
+    "source.fixAll.eslint": "always"
   },
   "typescript.preferences.includePackageJsonAutoImports": "auto",
   "javascript.preferences.includePackageJsonAutoImports": "auto",
@@ -68,8 +68,6 @@
   //==> For new version IDE
   "js/ts.tsserver.maxMemory": 2048,
   "js/ts.updateImportsOnFileMove.enabled": "always",
-  // Biome & Linter LSP Configurations
-  "biome.lsp.bin": "./node_modules/@biomejs/biome/bin",
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },

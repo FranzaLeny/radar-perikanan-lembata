@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { getCurrentUser } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import {
-  Droplets,
   ArrowRight,
   ShieldCheck,
   Scale,

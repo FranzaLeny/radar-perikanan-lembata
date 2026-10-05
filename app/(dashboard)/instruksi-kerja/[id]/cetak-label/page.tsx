@@ -4,7 +4,7 @@ import * as schema from '@/db/schema';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { generateQrDataUrl, generateQrSvg, getVerificationUrl } from '@/lib/qr';
-import { ArrowLeft, ShieldCheck, Droplets } from 'lucide-react';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
 import { PrintButton } from '@/components/print-button';
 import { QrDownloadButton } from '@/components/qr-download-button';
 import { Button } from '@/components/ui/button';

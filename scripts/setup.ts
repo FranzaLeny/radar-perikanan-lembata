@@ -1,5 +1,5 @@
 import { $ } from 'bun';
-import { existsSync, copyFileSync } from 'fs';
+import { copyFileSync, existsSync } from 'fs';
 
 const LOG_PREFIX = '[SIPEKA Setup]';
 
@@ -61,7 +61,7 @@ async function setup() {
       await $`bunx drizzle-kit generate`;
       await $`bunx drizzle-kit migrate`;
       console.log(`${LOG_PREFIX} ✅ Migrasi berhasil dijalankan.`);
-    } catch (migErr) {
+    } catch {
       console.error(`${LOG_PREFIX} ❌ Gagal migrasi: Pastikan database PostgreSQL aktif.`);
     }
   }
@@ -71,7 +71,7 @@ async function setup() {
   try {
     await $`bun run db/seed.ts`;
     console.log(`${LOG_PREFIX} ✅ Seeding data awal sukses.`);
-  } catch (err) {
+  } catch {
     console.warn(`${LOG_PREFIX} ⚠️ Gagal seeding data: Pastikan database sudah terhubung.`);
   }
 

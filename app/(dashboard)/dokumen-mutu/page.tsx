@@ -1,7 +1,6 @@
-import React from 'react';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { desc, asc, eq } from 'drizzle-orm';
+import { asc, desc, eq } from 'drizzle-orm';
 import { DokumenMutuClient } from './client';
 
 export default async function DokumenMutuPage() {
@@ -33,7 +32,7 @@ export default async function DokumenMutuPage() {
 
   return (
     <DokumenMutuClient
-      initialList={dokumenList as any}
+      initialList={dokumenList}
       kategoriList={kategoriList}
       parameterList={parameterList}
     />

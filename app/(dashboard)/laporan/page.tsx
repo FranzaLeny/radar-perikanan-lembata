@@ -1,35 +1,31 @@
-import React from 'react';
-import { db } from '@/db';
-import * as schema from '@/db/schema';
-import { desc } from 'drizzle-orm';
-import {
-  FileSpreadsheet,
-  TrendingUp,
-  ArrowRight,
-} from 'lucide-react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardDescription,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from '@/components/ui/card';
-import { LaporanTableClient } from './laporan-table-client';
+import { db } from '@/db';
+import * as schema from '@/db/schema';
 import { APP_CONFIG } from '@/lib/constants';
+import { desc } from 'drizzle-orm';
+import {
+  ArrowRight,
+  FileSpreadsheet,
+  TrendingUp,
+} from 'lucide-react';
+import Link from 'next/link';
+import { LaporanTableClient } from './laporan-table-client';
 
 export default async function LaporanHubPage() {
-  const [allUji, allPokdakan] = await Promise.all([
+  const allUji = await
     db.query.ujiKualitasAir.findMany({
       orderBy: [desc(schema.ujiKualitasAir.tanggal_pengambilan)],
       with: {
         lokasi: true,
       },
-    }),
-    db.query.lokasiKolam.findMany(),
-  ]);
-
+    })
   return (
     <div className="space-y-6">
       {/* Header */}

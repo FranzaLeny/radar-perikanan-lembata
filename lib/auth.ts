@@ -1,8 +1,8 @@
+import { db } from '@/db';
+import * as authSchema from '@/db/auth-schema';
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { admin } from 'better-auth/plugins';
-import { db } from '@/db';
-import * as authSchema from '@/db/auth-schema';
 import { headers } from 'next/headers';
 
 export const auth = betterAuth({
@@ -77,8 +77,8 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
       banned: u.banned ?? false,
       banReason: u.banReason ?? null,
     };
-  } catch (error: any) {
-    if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
+  } catch (error) {
+    if ((error as { digest?: string })?.digest === 'DYNAMIC_SERVER_USAGE') {
       throw error;
     }
     console.error('Error saat getCurrentUser:', error);

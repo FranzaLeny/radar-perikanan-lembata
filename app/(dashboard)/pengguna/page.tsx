@@ -1,10 +1,9 @@
-import React from 'react';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { auth, getCurrentUser } from '@/lib/auth';
+import { ShieldAlert } from 'lucide-react';
 import { headers } from 'next/headers';
 import { PenggunaClient } from './client';
-import { ShieldAlert } from 'lucide-react';
 
 export default async function PenggunaPage() {
   const user = await getCurrentUser();
@@ -37,7 +36,7 @@ export default async function PenggunaPage() {
     }).from(schema.ujiKualitasAir),
   ]);
 
-  const enrichedUsers = users.map((u: any) => {
+  const enrichedUsers = users.map((u) => {
     const uName = (u.name || '').trim().toLowerCase();
     const uEmail = (u.email || '').trim().toLowerCase();
     const uId = (u.id || '').trim().toLowerCase();

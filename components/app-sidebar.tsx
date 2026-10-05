@@ -31,7 +31,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { QuickThemeToggle } from '@/components/theme-toggle';
 import {
-  Droplets,
   PlusIcon,
   MinusIcon,
   LayoutDashboard,
