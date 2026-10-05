@@ -1,35 +1,34 @@
-import React from 'react';
-import { Users2, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import { Plus, Users2 } from 'lucide-react';
 
-interface PenggunaHeaderProps {
-  onOpenAdd: () => void;
-}
+import { Badge } from '@/components/shadcn/badge';
+import { Button } from '@/components/shadcn/button';
+
+type PenggunaHeaderProps = { onOpenAdd: () => void };
 
 export function PenggunaHeader({ onOpenAdd }: PenggunaHeaderProps) {
-  return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div>
-        <Badge
-          variant="secondary"
-          className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider"
-        >
-          <Users2 className="size-3" />
-          <span>Manajemen Akses & Keamanan</span>
-        </Badge>
-        <h1 className="text-2xl font-bold font-heading tracking-tight text-foreground">
-          Kelola Akun & Hak Akses Pengguna
-        </h1>
-        <p className="text-xs text-muted-foreground mt-1">
-          Daftarkan akun petugas dinas, ubah peran wewenang (Role-Based Access Control), dan kelola status keaktifan login.
-        </p>
-      </div>
+	return (
+		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+			<div>
+				<Badge
+					className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+					variant='secondary'
+				>
+					<Users2 className='size-3' />
+					<span>Manajemen Akses & Keamanan</span>
+				</Badge>
+				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+					Kelola Akun & Hak Akses Pengguna
+				</h1>
+				<p className='mt-1 text-muted-foreground text-xs'>
+					Daftarkan akun petugas dinas, ubah peran wewenang (Role-Based Access Control), dan kelola
+					status keaktifan login.
+				</p>
+			</div>
 
-      <Button onClick={onOpenAdd} className="gap-2 shadow-xs self-start sm:self-auto cursor-pointer">
-        <Plus className="size-4" />
-        <span>Tambah Pengguna Baru</span>
-      </Button>
-    </div>
-  );
+			<Button className='cursor-pointer gap-2 self-start shadow-xs sm:self-auto' onClick={onOpenAdd}>
+				<Plus className='size-4' />
+				<span>Tambah Pengguna Baru</span>
+			</Button>
+		</div>
+	);
 }

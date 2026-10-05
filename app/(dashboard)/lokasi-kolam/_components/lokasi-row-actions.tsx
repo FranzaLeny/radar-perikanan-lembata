@@ -1,59 +1,54 @@
-import React from 'react';
-import { MoreHorizontal, Pencil, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { Eye, EyeOff, MoreHorizontal, Pencil, Trash2 } from 'lucide-react';
+
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger
+} from '@/components/shadcn/dropdown-menu';
 import type { LokasiItem } from '../types';
 
-interface LokasiRowActionsProps {
-  item: LokasiItem;
-  onEdit: (item: LokasiItem) => void;
-  onToggleAktif: (item: LokasiItem) => void;
-  onDelete: (item: LokasiItem) => void;
-}
+type LokasiRowActionsProps = {
+	item: LokasiItem;
+	onEdit: (item: LokasiItem) => void;
+	onToggleAktif: (item: LokasiItem) => void;
+	onDelete: (item: LokasiItem) => void;
+};
 
-export function LokasiRowActions({
-  item,
-  onEdit,
-  onToggleAktif,
-  onDelete,
-}: LokasiRowActionsProps) {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        className="inline-flex items-center justify-center rounded-md size-7 text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-colors focus-visible:outline-none"
-        title="Menu Aksi"
-      >
-        <MoreHorizontal className="size-4" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => onEdit(item)}>
-          <Pencil className="size-3.5 mr-2" />
-          Edit Lokasi
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onToggleAktif(item)}>
-          {item.aktif ? (
-            <>
-              <EyeOff className="size-3.5 mr-2 text-amber-600" />
-              <span>Nonaktifkan</span>
-            </>
-          ) : (
-            <>
-              <Eye className="size-3.5 mr-2 text-emerald-600" />
-              <span>Aktifkan Kembali</span>
-            </>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onClick={() => onDelete(item)}>
-          <Trash2 className="size-3.5 mr-2" />
-          Hapus Lokasi
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+export function LokasiRowActions({ item, onEdit, onToggleAktif, onDelete }: LokasiRowActionsProps) {
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger
+				className='inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none'
+				title='Menu Aksi'
+			>
+				<MoreHorizontal className='size-4' />
+			</DropdownMenuTrigger>
+			<DropdownMenuContent align='end'>
+				<DropdownMenuItem onClick={() => onEdit(item)}>
+					<Pencil className='mr-2 size-3.5' />
+					Edit Lokasi
+				</DropdownMenuItem>
+				<DropdownMenuItem onClick={() => onToggleAktif(item)}>
+					{item.aktif ? (
+						<>
+							<EyeOff className='mr-2 size-3.5 text-amber-600' />
+							<span>Nonaktifkan</span>
+						</>
+					) : (
+						<>
+							<Eye className='mr-2 size-3.5 text-emerald-600' />
+							<span>Aktifkan Kembali</span>
+						</>
+					)}
+				</DropdownMenuItem>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem onClick={() => onDelete(item)} variant='destructive'>
+					<Trash2 className='mr-2 size-3.5' />
+					Hapus Lokasi
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
 }

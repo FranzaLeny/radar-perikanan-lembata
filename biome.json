@@ -1,0 +1,135 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							[":BUN:", ":NODE:"],
+							":BLANK_LINE:",
+							[":PACKAGE:", "!@myown/**"],
+							":BLANK_LINE:",
+							"@myown/**",
+							":BLANK_LINE:",
+							[":ALIAS:", ":PATH:"]
+						]
+					}
+				},
+				"useSortedAttributes": "on",
+				"useSortedProperties": "on"
+			}
+		},
+		"enabled": true
+	},
+	"css": {
+		"formatter": { "enabled": true },
+		"parser": { "cssModules": true, "tailwindDirectives": true }
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"includes": [
+			"**/*.ts",
+			"**/*.js",
+			"**/*.tsx",
+			"**/*.jsx",
+			"**/*.mts",
+			"**/*.mjs",
+			"**/*.json",
+			"**/*.css",
+			"**/*.html",
+			"!components/shadcn/**/*"
+		]
+	},
+	"formatter": {
+		"attributePosition": "auto",
+		"bracketSameLine": false,
+		"bracketSpacing": true,
+		"enabled": true,
+		"expand": "never",
+		"formatWithErrors": false,
+		"indentStyle": "tab",
+		"indentWidth": 1,
+		"lineEnding": "lf",
+		"lineWidth": 100,
+		"useEditorconfig": true
+	},
+	"html": { "formatter": { "selfCloseVoidElements": "always" } },
+	"javascript": {
+		"formatter": {
+			"arrowParentheses": "always",
+			"indentWidth": 1,
+			"jsxQuoteStyle": "single",
+			"quoteProperties": "asNeeded",
+			"quoteStyle": "single",
+			"semicolons": "always",
+			"trailingCommas": "none"
+		}
+	},
+	"linter": {
+		"domains": { "next": "recommended", "react": "recommended", "tailwind": "recommended" },
+		"enabled": true,
+		"rules": {
+			"a11y": {
+				"noStaticElementInteractions": "on",
+				"noSvgWithoutTitle": "on",
+				"useFocusableInteractive": "off",
+				"useKeyWithClickEvents": "off",
+				"useSemanticElements": "off"
+			},
+			"complexity": {
+				"noImportantStyles": "off",
+				"useOptionalChain": { "fix": "safe", "level": "warn" }
+			},
+			"correctness": {
+				"noUnusedImports": { "fix": "safe", "level": "warn" },
+				"noUnusedVariables": "error",
+				"useExhaustiveDependencies": "on"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"fix": "safe",
+					"level": "error",
+					"options": { "attributes": ["className", "class"], "functions": ["cn"] }
+				}
+			},
+			"performance": { "noImgElement": "off" },
+			"preset": "recommended",
+			"style": {
+				"useConsistentTypeDefinitions": {
+					"fix": "safe",
+					"level": "error",
+					"options": { "style": "type" }
+				},
+				"useImportType": { "fix": "safe", "level": "warn" },
+				"useTemplate": { "fix": "safe", "level": "on" }
+			},
+			"suspicious": {
+				"noArrayIndexKey": "off",
+				"noConsole": { "fix": "unsafe", "level": "warn", "options": { "allow": ["error"] } },
+				"noExplicitAny": "error",
+				"noUnknownAtRules": "off",
+				"useIterableCallbackReturn": "off"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.d.ts"],
+			"linter": { "rules": { "correctness": { "noUnusedVariables": "off" } } }
+		},
+		{
+			"assist": { "actions": { "source": { "organizeImports": "off" } } },
+			"includes": ["components/shadcn/**/*.tsx"],
+			"linter": {
+				"rules": {
+					"a11y": { "noLabelWithoutControl": "off", "noRedundantRoles": "off" },
+					"suspicious": { "noDocumentCookie": "off", "noDoubleEquals": "off" }
+				}
+			}
+		},
+		{ "assist": { "actions": { "source": { "useSortedKeys": "on" } } }, "includes": ["biome.json"] }
+	],
+	"vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true }
+}

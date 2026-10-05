@@ -1,5 +1,3 @@
 import type { CurrentUser } from '@/lib/auth';
 
-export interface ProfilClientProps {
-  user: CurrentUser;
-}
+export type ProfilClientProps = { user: CurrentUser };

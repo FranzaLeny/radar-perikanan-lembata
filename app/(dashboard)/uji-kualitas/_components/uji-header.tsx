@@ -1,34 +1,34 @@
-import React from 'react';
+import { Plus, TestTube2 } from 'lucide-react';
 import Link from 'next/link';
-import { TestTube2, Plus } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+
+import { Badge } from '@/components/shadcn/badge';
+import { Button } from '@/components/shadcn/button';
 
 export function UjiHeader() {
-  return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div>
-        <Badge
-          variant="secondary"
-          className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider"
-        >
-          <TestTube2 className="size-3" />
-          <span>Pengujian Mutu Air</span>
-        </Badge>
-        <h1 className="text-2xl font-bold font-heading tracking-tight text-foreground">
-          Log & Riwayat Pengujian Kualitas Air
-        </h1>
-        <p className="text-xs text-muted-foreground mt-1">
-          Daftar hasil uji lapangan dan laboratorium dengan evaluasi otomatis kesimpulan mutu air kolam.
-        </p>
-      </div>
+	return (
+		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+			<div>
+				<Badge
+					className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+					variant='secondary'
+				>
+					<TestTube2 className='size-3' />
+					<span>Pengujian Mutu Air</span>
+				</Badge>
+				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+					Log & Riwayat Pengujian Kualitas Air
+				</h1>
+				<p className='mt-1 text-muted-foreground text-xs'>
+					Daftar hasil uji lapangan dan laboratorium dengan evaluasi otomatis kesimpulan mutu air kolam.
+				</p>
+			</div>
 
-      <Link href="/uji-kualitas/input">
-        <Button className="gap-2 shadow-xs self-start sm:self-auto cursor-pointer">
-          <Plus className="size-4" />
-          <span>Input Hasil Uji Baru</span>
-        </Button>
-      </Link>
-    </div>
-  );
+			<Link href='/uji-kualitas/input'>
+				<Button className='cursor-pointer gap-2 self-start shadow-xs sm:self-auto'>
+					<Plus className='size-4' />
+					<span>Input Hasil Uji Baru</span>
+				</Button>
+			</Link>
+		</div>
+	);
 }

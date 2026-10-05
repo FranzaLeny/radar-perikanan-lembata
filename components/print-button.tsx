@@ -1,19 +1,19 @@
 'use client';
 
-import React from 'react';
 import { Printer } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+
+import { Button } from '@/components/shadcn/button';
 
 export function PrintButton({ label = 'Cetak Dokumen' }: { label?: string }) {
-  return (
-    <Button
-      variant="default"
-      size="sm"
-      onClick={() => window.print()}
-      className="gap-2 shadow-xs cursor-pointer no-print font-medium"
-    >
-      <Printer className="size-4" />
-      <span>{label}</span>
-    </Button>
-  );
+	return (
+		<Button
+			className='no-print cursor-pointer gap-2 font-medium shadow-xs'
+			onClick={() => window.print()}
+			size='sm'
+			variant='default'
+		>
+			<Printer className='size-4' />
+			<span>{label}</span>
+		</Button>
+	);
 }

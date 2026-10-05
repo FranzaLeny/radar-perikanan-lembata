@@ -1,61 +1,61 @@
-import React from 'react';
-import { MoreHorizontal, FileEdit, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { Eye, EyeOff, FileEdit, MoreHorizontal, Trash2 } from 'lucide-react';
+
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger
+} from '@/components/shadcn/dropdown-menu';
 import type { BakuMutuItem } from '../types';
 
-interface BakuMutuRowActionsProps {
-  item: BakuMutuItem;
-  onRevise: (item: BakuMutuItem) => void;
-  onToggleAktif: (item: BakuMutuItem) => void;
-  onDelete: (item: BakuMutuItem) => void;
-}
+type BakuMutuRowActionsProps = {
+	item: BakuMutuItem;
+	onRevise: (item: BakuMutuItem) => void;
+	onToggleAktif: (item: BakuMutuItem) => void;
+	onDelete: (item: BakuMutuItem) => void;
+};
 
 export function BakuMutuRowActions({
-  item,
-  onRevise,
-  onToggleAktif,
-  onDelete,
+	item,
+	onRevise,
+	onToggleAktif,
+	onDelete
 }: BakuMutuRowActionsProps) {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        className="inline-flex items-center justify-center rounded-md size-7 text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer transition-colors focus-visible:outline-none"
-        title="Menu Aksi"
-      >
-        <MoreHorizontal className="size-4" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {item.aktif && (
-          <DropdownMenuItem onClick={() => onRevise(item)}>
-            <FileEdit className="size-3.5 mr-2" />
-            Revisi Versi Baru
-          </DropdownMenuItem>
-        )}
-        <DropdownMenuItem onClick={() => onToggleAktif(item)}>
-          {item.aktif ? (
-            <>
-              <EyeOff className="size-3.5 mr-2 text-amber-600" />
-              <span>Nonaktifkan</span>
-            </>
-          ) : (
-            <>
-              <Eye className="size-3.5 mr-2 text-emerald-600" />
-              <span>Aktifkan Kembali</span>
-            </>
-          )}
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onClick={() => onDelete(item)}>
-          <Trash2 className="size-3.5 mr-2" />
-          Hapus Permanen
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger
+				className='inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none'
+				title='Menu Aksi'
+			>
+				<MoreHorizontal className='size-4' />
+			</DropdownMenuTrigger>
+			<DropdownMenuContent align='end'>
+				{item.aktif && (
+					<DropdownMenuItem onClick={() => onRevise(item)}>
+						<FileEdit className='mr-2 size-3.5' />
+						Revisi Versi Baru
+					</DropdownMenuItem>
+				)}
+				<DropdownMenuItem onClick={() => onToggleAktif(item)}>
+					{item.aktif ? (
+						<>
+							<EyeOff className='mr-2 size-3.5 text-amber-600' />
+							<span>Nonaktifkan</span>
+						</>
+					) : (
+						<>
+							<Eye className='mr-2 size-3.5 text-emerald-600' />
+							<span>Aktifkan Kembali</span>
+						</>
+					)}
+				</DropdownMenuItem>
+				<DropdownMenuSeparator />
+				<DropdownMenuItem onClick={() => onDelete(item)} variant='destructive'>
+					<Trash2 className='mr-2 size-3.5' />
+					Hapus Permanen
+				</DropdownMenuItem>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	);
 }

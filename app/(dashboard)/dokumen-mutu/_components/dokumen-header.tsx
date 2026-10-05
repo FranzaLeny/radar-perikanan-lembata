@@ -1,45 +1,44 @@
-import React from 'react';
-import Link from 'next/link';
 import { FileCheck2, FolderKanban, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
-interface DokumenHeaderProps {
-  onOpenAdd: () => void;
-}
+import { Badge } from '@/components/shadcn/badge';
+import { Button } from '@/components/shadcn/button';
+
+type DokumenHeaderProps = { onOpenAdd: () => void };
 
 export function DokumenHeader({ onOpenAdd }: DokumenHeaderProps) {
-  return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div>
-        <Badge
-          variant="secondary"
-          className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider"
-        >
-          <FileCheck2 className="size-3" />
-          <span>Standarisasi Laboratorium Mutu</span>
-        </Badge>
-        <h1 className="text-2xl font-bold font-heading tracking-tight text-foreground">
-          Dokumen Mutu & Instruksi Kerja (IK)
-        </h1>
-        <p className="text-xs text-muted-foreground mt-1">
-          Katalog dokumen standarisasi mutu air budidaya: Pedoman Mutu, Prosedur Pelaksanaan, SOP, Instruksi Kerja per parameter, dan Formulir resmi.
-        </p>
-      </div>
+	return (
+		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+			<div>
+				<Badge
+					className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+					variant='secondary'
+				>
+					<FileCheck2 className='size-3' />
+					<span>Standarisasi Laboratorium Mutu</span>
+				</Badge>
+				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+					Dokumen Mutu & Instruksi Kerja (IK)
+				</h1>
+				<p className='mt-1 text-muted-foreground text-xs'>
+					Katalog dokumen standarisasi mutu air budidaya: Pedoman Mutu, Prosedur Pelaksanaan, SOP,
+					Instruksi Kerja per parameter, dan Formulir resmi.
+				</p>
+			</div>
 
-      <div className="flex items-center gap-2 self-start sm:self-auto">
-        <Link href="/dokumen-mutu/kategori">
-          <Button variant="outline" size="sm" className="gap-1.5 text-xs cursor-pointer">
-            <FolderKanban className="size-3.5" />
-            <span>Kelola Kategori</span>
-          </Button>
-        </Link>
+			<div className='flex items-center gap-2 self-start sm:self-auto'>
+				<Link href='/dokumen-mutu/kategori'>
+					<Button className='cursor-pointer gap-1.5 text-xs' size='sm' variant='outline'>
+						<FolderKanban className='size-3.5' />
+						<span>Kelola Kategori</span>
+					</Button>
+				</Link>
 
-        <Button onClick={onOpenAdd} size="sm" className="gap-1.5 text-xs cursor-pointer shadow-xs">
-          <Plus className="size-3.5" />
-          <span>Tambah Dokumen</span>
-        </Button>
-      </div>
-    </div>
-  );
+				<Button className='cursor-pointer gap-1.5 text-xs shadow-xs' onClick={onOpenAdd} size='sm'>
+					<Plus className='size-3.5' />
+					<span>Tambah Dokumen</span>
+				</Button>
+			</div>
+		</div>
+	);
 }

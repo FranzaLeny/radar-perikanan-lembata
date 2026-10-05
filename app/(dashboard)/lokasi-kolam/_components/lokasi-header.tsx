@@ -1,35 +1,34 @@
-import React from 'react';
 import { MapPin, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
-interface LokasiHeaderProps {
-  onOpenAdd: () => void;
-}
+import { Badge } from '@/components/shadcn/badge';
+import { Button } from '@/components/shadcn/button';
+
+type LokasiHeaderProps = { onOpenAdd: () => void };
 
 export function LokasiHeader({ onOpenAdd }: LokasiHeaderProps) {
-  return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-      <div>
-        <Badge
-          variant="secondary"
-          className="gap-1.5 px-2.5 py-0.5 mb-1.5 text-xs font-semibold uppercase tracking-wider"
-        >
-          <MapPin className="size-3" />
-          <span>Master Data Wilayah</span>
-        </Badge>
-        <h1 className="text-2xl font-bold font-heading tracking-tight text-foreground">
-          Lokasi Kolam Pembudidaya (Pokdakan)
-        </h1>
-        <p className="text-xs text-muted-foreground mt-1">
-          Kelola data kelompok pembudidaya ikan, sebaran titik kolam pemantauan, dan komoditas per kecamatan di Kabupaten Lembata.
-        </p>
-      </div>
+	return (
+		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+			<div>
+				<Badge
+					className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+					variant='secondary'
+				>
+					<MapPin className='size-3' />
+					<span>Master Data Wilayah</span>
+				</Badge>
+				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+					Lokasi Kolam Pembudidaya (Pokdakan)
+				</h1>
+				<p className='mt-1 text-muted-foreground text-xs'>
+					Kelola data kelompok pembudidaya ikan, sebaran titik kolam pemantauan, dan komoditas per
+					kecamatan di Kabupaten Lembata.
+				</p>
+			</div>
 
-      <Button onClick={onOpenAdd} className="gap-2 shadow-xs self-start sm:self-auto cursor-pointer">
-        <Plus className="size-4" />
-        <span>Tambah Lokasi Kolam</span>
-      </Button>
-    </div>
-  );
+			<Button className='cursor-pointer gap-2 self-start shadow-xs sm:self-auto' onClick={onOpenAdd}>
+				<Plus className='size-4' />
+				<span>Tambah Lokasi Kolam</span>
+			</Button>
+		</div>
+	);
 }

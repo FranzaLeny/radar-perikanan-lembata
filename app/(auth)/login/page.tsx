@@ -1,10 +1,11 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
+
 import { LoginForm } from './_components/login-form';
 
 export default function LoginPage() {
-  return (
-    <Suspense fallback={null}>
-      <LoginForm />
-    </Suspense>
-  );
+	return (
+		<Suspense fallback={null}>
+			<LoginForm />
+		</Suspense>
+	);
 }

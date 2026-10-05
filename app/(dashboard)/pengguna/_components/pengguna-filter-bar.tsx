@@ -1,110 +1,110 @@
-import React from 'react';
 import { Search, X } from 'lucide-react';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+
+import { Badge } from '@/components/shadcn/badge';
+import { Button } from '@/components/shadcn/button';
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-  InputGroupButton,
-} from '@/components/ui/input-group';
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput
+} from '@/components/shadcn/input-group';
+import { Tabs, TabsList, TabsTrigger } from '@/components/shadcn/tabs';
 import type { FilterTab } from '../types';
 
-interface PenggunaFilterBarProps {
-  filterTab: FilterTab;
-  onTabChange: (tab: FilterTab) => void;
-  activeCount: number;
-  bannedCount: number;
-  totalCount: number;
-  filteredCount: number;
-  searchTerm: string;
-  onSearchChange: (val: string) => void;
-  onResetSearch: () => void;
-}
+type PenggunaFilterBarProps = {
+	filterTab: FilterTab;
+	onTabChange: (tab: FilterTab) => void;
+	activeCount: number;
+	bannedCount: number;
+	totalCount: number;
+	filteredCount: number;
+	searchTerm: string;
+	onSearchChange: (val: string) => void;
+	onResetSearch: () => void;
+};
 
 export function PenggunaFilterBar({
-  filterTab,
-  onTabChange,
-  activeCount,
-  bannedCount,
-  totalCount,
-  filteredCount,
-  searchTerm,
-  onSearchChange,
-  onResetSearch,
+	filterTab,
+	onTabChange,
+	activeCount,
+	bannedCount,
+	totalCount,
+	filteredCount,
+	searchTerm,
+	onSearchChange,
+	onResetSearch
 }: PenggunaFilterBarProps) {
-  return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-      <Tabs value={filterTab} onValueChange={(val) => onTabChange(val as FilterTab)}>
-        <TabsList>
-          <TabsTrigger value="active" className="text-xs gap-2">
-            <span>Akun Aktif</span>
-            <Badge variant="secondary" className="text-xs px-1.5 py-0">
-              {activeCount}
-            </Badge>
-          </TabsTrigger>
-          <TabsTrigger value="banned" className="text-xs gap-2">
-            <span>Dinonaktifkan</span>
-            <Badge variant="outline" className="text-xs px-1.5 py-0">
-              {bannedCount}
-            </Badge>
-          </TabsTrigger>
-          <TabsTrigger value="all" className="text-xs gap-2">
-            <span>Semua Akun</span>
-            <Badge variant="outline" className="text-xs px-1.5 py-0">
-              {totalCount}
-            </Badge>
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
+	return (
+		<div className='flex flex-col justify-between gap-3 md:flex-row md:items-center'>
+			<Tabs onValueChange={(val) => onTabChange(val as FilterTab)} value={filterTab}>
+				<TabsList>
+					<TabsTrigger className='gap-2 text-xs' value='active'>
+						<span>Akun Aktif</span>
+						<Badge className='px-1.5 py-0 text-xs' variant='secondary'>
+							{activeCount}
+						</Badge>
+					</TabsTrigger>
+					<TabsTrigger className='gap-2 text-xs' value='banned'>
+						<span>Dinonaktifkan</span>
+						<Badge className='px-1.5 py-0 text-xs' variant='outline'>
+							{bannedCount}
+						</Badge>
+					</TabsTrigger>
+					<TabsTrigger className='gap-2 text-xs' value='all'>
+						<span>Semua Akun</span>
+						<Badge className='px-1.5 py-0 text-xs' variant='outline'>
+							{totalCount}
+						</Badge>
+					</TabsTrigger>
+				</TabsList>
+			</Tabs>
 
-      {/* Search Input */}
-      <div className="flex items-center gap-2">
-        <InputGroup className="w-full sm:w-72">
-          <InputGroupAddon align="inline-start">
-            <Search className="size-4 text-muted-foreground" />
-          </InputGroupAddon>
-          <InputGroupInput
-            type="text"
-            value={searchTerm}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Cari nama, email, atau role..."
-          />
-          {searchTerm && (
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                type="button"
-                size="icon-xs"
-                onClick={onResetSearch}
-                title="Hapus pencarian"
-              >
-                <X className="size-3.5" />
-              </InputGroupButton>
-            </InputGroupAddon>
-          )}
-        </InputGroup>
+			{/* Search Input */}
+			<div className='flex items-center gap-2'>
+				<InputGroup className='w-full sm:w-72'>
+					<InputGroupAddon align='inline-start'>
+						<Search className='size-4 text-muted-foreground' />
+					</InputGroupAddon>
+					<InputGroupInput
+						onChange={(e) => onSearchChange(e.target.value)}
+						placeholder='Cari nama, email, atau role...'
+						type='text'
+						value={searchTerm}
+					/>
+					{searchTerm && (
+						<InputGroupAddon align='inline-end'>
+							<InputGroupButton
+								onClick={onResetSearch}
+								size='icon-xs'
+								title='Hapus pencarian'
+								type='button'
+							>
+								<X className='size-3.5' />
+							</InputGroupButton>
+						</InputGroupAddon>
+					)}
+				</InputGroup>
 
-        {filteredCount < totalCount ? (
-          <div className="flex items-center gap-1.5 shrink-0">
-            <Badge variant="secondary" className="text-xs py-0.5">
-              {filteredCount} dari {totalCount}
-            </Badge>
-            <Button
-              variant="ghost"
-              size="xs"
-              onClick={onResetSearch}
-              className="text-xs text-muted-foreground hover:text-foreground cursor-pointer"
-            >
-              Reset
-            </Button>
-          </div>
-        ) : (
-          <span className="text-xs text-muted-foreground shrink-0 hidden sm:inline">
-            Total: <strong className="text-foreground">{totalCount}</strong>
-          </span>
-        )}
-      </div>
-    </div>
-  );
+				{filteredCount < totalCount ? (
+					<div className='flex shrink-0 items-center gap-1.5'>
+						<Badge className='py-0.5 text-xs' variant='secondary'>
+							{filteredCount} dari {totalCount}
+						</Badge>
+						<Button
+							className='cursor-pointer text-muted-foreground text-xs hover:text-foreground'
+							onClick={onResetSearch}
+							size='xs'
+							variant='ghost'
+						>
+							Reset
+						</Button>
+					</div>
+				) : (
+					<span className='hidden shrink-0 text-muted-foreground text-xs sm:inline'>
+						Total: <strong className='text-foreground'>{totalCount}</strong>
+					</span>
+				)}
+			</div>
+		</div>
+	);
 }
