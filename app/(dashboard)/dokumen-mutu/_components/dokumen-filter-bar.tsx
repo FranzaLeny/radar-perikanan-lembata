@@ -2,7 +2,6 @@ import React from 'react';
 import { Search, X } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import {
   InputGroup,
   InputGroupAddon,

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import type { UjiItem, UjiKualitasListClientProps } from './types';
+import type { UjiKualitasListClientProps } from './types';
 import { UjiHeader } from './_components/uji-header';
 import { UjiFilterBar } from './_components/uji-filter-bar';
 import { UjiTable } from './_components/uji-table';

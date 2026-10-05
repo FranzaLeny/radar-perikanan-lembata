@@ -1,4 +1,3 @@
-import type { StatusKelayakan } from '@/lib/validasi-baku-mutu';
 
 export interface DetailParameterUji {
   id: string;
