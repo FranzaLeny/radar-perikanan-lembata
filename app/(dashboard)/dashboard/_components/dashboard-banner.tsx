@@ -24,7 +24,7 @@ export function DashboardBanner() {
 					</p>
 				</div>
 
-				<div className='flex shrink-0 flex-wrap gap-3 sm:flex-nowrap'>
+				<div className='flex shrink-0 flex-wrap gap-3 sm:flex-col'>
 					<Link href='/uji-kualitas/input'>
 						<Button className='cursor-pointer gap-2 shadow-xs'>
 							<Plus className='size-4' />

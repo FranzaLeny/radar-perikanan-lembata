@@ -70,10 +70,10 @@ export function GrafikTren({
 					</CardDescription>
 				</div>
 
-				<div className='flex items-center gap-3 font-mono text-xs'>
+				<div className='flex items-center gap-3 text-xs'>
 					{nilaiMin !== null && nilaiMin !== undefined && (
 						<Badge
-							className='gap-1.5 border-amber-300 bg-amber-50 font-mono text-amber-700 text-xs dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-300'
+							className='gap-1.5 border-amber-300 bg-amber-50 text-amber-700 text-xs dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-300'
 							variant='outline'
 						>
 							<span className='size-2 rounded-full bg-amber-500' />
@@ -82,7 +82,7 @@ export function GrafikTren({
 					)}
 					{nilaiMax !== null && nilaiMax !== undefined && (
 						<Badge
-							className='gap-1.5 border-rose-300 bg-rose-50 font-mono text-rose-700 text-xs dark:border-rose-700 dark:bg-rose-950/40 dark:text-rose-300'
+							className='gap-1.5 border-rose-300 bg-rose-50 text-rose-700 text-xs dark:border-rose-700 dark:bg-rose-950/40 dark:text-rose-300'
 							variant='outline'
 						>
 							<span className='size-2 rounded-full bg-rose-500' />

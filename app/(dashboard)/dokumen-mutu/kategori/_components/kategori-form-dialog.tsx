@@ -69,7 +69,7 @@ export function KategoriFormDialog({
 					<Field>
 						<FieldLabel htmlFor='kode_kategori'>Kode Singkatan Kategori *</FieldLabel>
 						<Input
-							className='font-mono uppercase'
+							className='uppercase'
 							disabled={isEditing}
 							id='kode_kategori'
 							onChange={(e) => setKodeKategori(e.target.value.toUpperCase())}
@@ -107,7 +107,6 @@ export function KategoriFormDialog({
 					<Field>
 						<FieldLabel htmlFor='urutan'>Nomor Urutan Tampilan</FieldLabel>
 						<Input
-							className='font-mono'
 							id='urutan'
 							onChange={(e) => setUrutan(e.target.value)}
 							placeholder='1'

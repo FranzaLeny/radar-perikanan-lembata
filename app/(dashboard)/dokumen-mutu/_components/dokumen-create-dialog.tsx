@@ -172,7 +172,7 @@ export function DokumenCreateDialog({
 						<Field className='sm:col-span-1'>
 							<FieldLabel htmlFor='kode_dokumen'>Kode Dokumen *</FieldLabel>
 							<Input
-								className='font-bold font-mono'
+								className='font-bold'
 								id='kode_dokumen'
 								onChange={(e) => setKodeDokumen(e.target.value)}
 								placeholder='IK-001'
@@ -238,7 +238,7 @@ export function DokumenCreateDialog({
 					<Field>
 						<FieldLabel htmlFor='file_path'>Path / URL Berkas PDF Dokumen *</FieldLabel>
 						<Input
-							className='font-mono text-xs'
+							className='text-xs'
 							id='file_path'
 							onChange={(e) => setFilePath(e.target.value)}
 							placeholder='/uploads/ik-001.pdf'

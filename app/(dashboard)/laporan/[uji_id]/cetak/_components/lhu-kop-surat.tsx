@@ -45,7 +45,7 @@ export function LhuKopSurat({ nomorSampel }: LhuKopSuratProps) {
 				<h3 className='font-bold text-base text-slate-900 uppercase tracking-wide underline sm:text-lg'>
 					LEMBAR HASIL UJI (LHU) KUALITAS AIR
 				</h3>
-				<p className='mt-0.5 font-mono text-slate-600 text-xs'>
+				<p className='mt-0.5 text-slate-600 text-xs'>
 					Nomor: LHU/{APP_NAME}/{nomorSampel}
 				</p>
 			</div>

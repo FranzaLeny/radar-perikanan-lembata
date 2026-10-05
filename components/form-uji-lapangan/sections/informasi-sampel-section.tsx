@@ -87,7 +87,7 @@ export function InformasiSampelSection({
 					<Field>
 						<FieldLabel htmlFor='nomorSampel'>Nomor ID Sampel *</FieldLabel>
 						<Input
-							className='font-mono font-semibold'
+							className='font-semibold'
 							id='nomorSampel'
 							onChange={(e) => onNomorSampelChange(e.target.value)}
 							placeholder='SMP-YYYYMMDD-XXX'
@@ -103,7 +103,6 @@ export function InformasiSampelSection({
 							<FieldLabel htmlFor='suhuLingkungan'>Suhu Lingkungan (°C)</FieldLabel>
 						</div>
 						<Input
-							className='font-mono'
 							id='suhuLingkungan'
 							onChange={(e) => onSuhuLingkunganChange(e.target.value)}
 							placeholder='Misal: 30.5'
@@ -128,7 +127,6 @@ export function InformasiSampelSection({
 							</Button>
 						</div>
 						<Input
-							className='font-mono'
 							id='tanggal'
 							onChange={(e) => onTanggalPengambilanChange(e.target.value)}
 							required
@@ -261,7 +259,7 @@ export function InformasiSampelSection({
 
 							{selectedSopDoc?.file_path && (
 								<div className='flex items-center justify-between px-1 pt-1 text-xs'>
-									<span className='max-w-[240px] truncate font-mono text-muted-foreground'>
+									<span className='max-w-[240px] truncate text-muted-foreground'>
 										File: {selectedSopDoc.file_path}
 									</span>
 									<a

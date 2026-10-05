@@ -159,7 +159,6 @@ export function PegawaiFormDialog({
 					<Field>
 						<FieldLabel htmlFor='nip'>NIP (Nomor Induk Pegawai) *</FieldLabel>
 						<Input
-							className='font-mono'
 							id='nip'
 							onChange={(e) => setNip(e.target.value)}
 							placeholder='Contoh: 198501012010011001'

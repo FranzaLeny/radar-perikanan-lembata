@@ -25,7 +25,7 @@ export function LhuMetadataCard({
 		<div className='mb-4 grid grid-cols-2 gap-x-6 gap-y-1.5 rounded-lg border border-slate-200 bg-slate-50/70 p-3 text-xs print:mb-2.5 print:border-slate-300 print:bg-white print:p-2'>
 			<div>
 				<span className='block text-slate-500 text-xs'>Nomor Sampel:</span>
-				<span className='font-bold font-mono text-slate-900'>{nomorSampel}</span>
+				<span className='font-bold text-slate-900'>{nomorSampel}</span>
 			</div>
 			<div>
 				<span className='block text-slate-500 text-xs'>Tanggal Pengambilan:</span>
@@ -54,7 +54,7 @@ export function LhuMetadataCard({
 			{suhuLingkungan && (
 				<div>
 					<span className='block text-slate-500 text-xs'>Suhu Udara / Lingkungan:</span>
-					<span className='font-mono font-semibold text-slate-900'>{suhuLingkungan} °C</span>
+					<span className='font-semibold text-slate-900'>{suhuLingkungan} °C</span>
 				</div>
 			)}
 		</div>

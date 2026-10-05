@@ -25,7 +25,7 @@ export function LhuTandaTangan({
 				<p className='mb-10 text-slate-500 print:mb-8'>Petugas Analis / Penguji,</p>
 				<p className='font-bold text-slate-900 uppercase underline'>{namaPenguji}</p>
 				<p className='text-slate-600 text-xs'>{jabatanPenguji}</p>
-				{nipPenguji && <p className='mt-0.5 font-mono text-slate-500 text-xs'>{nipPenguji}</p>}
+				{nipPenguji && <p className='mt-0.5 text-slate-500 text-xs'>{nipPenguji}</p>}
 			</div>
 
 			<div className='text-center'>
@@ -35,9 +35,7 @@ export function LhuTandaTangan({
 				</p>
 				<p className='font-bold text-slate-900 uppercase underline'>{namaPenandatangan || '-'}</p>
 				<p className='text-slate-600 text-xs'>{pangkatPenandatangan}</p>
-				{nipPenandatangan && (
-					<p className='mt-0.5 font-mono text-slate-500 text-xs'>NIP. {nipPenandatangan}</p>
-				)}
+				{nipPenandatangan && <p className='mt-0.5 text-slate-500 text-xs'>NIP. {nipPenandatangan}</p>}
 			</div>
 		</div>
 	);

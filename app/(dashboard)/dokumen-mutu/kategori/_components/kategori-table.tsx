@@ -37,16 +37,14 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 				<TableBody>
 					{items.map((item) => (
 						<TableRow className='hover:bg-muted/30' key={item.id}>
-							<TableCell className='font-bold font-mono text-xs'>
-								<Badge className='font-mono text-xs' variant='secondary'>
+							<TableCell className='font-bold text-xs'>
+								<Badge className='text-xs' variant='secondary'>
 									{item.kode_kategori}
 								</Badge>
 							</TableCell>
 							<TableCell className='font-semibold text-foreground text-xs'>{item.nama_kategori}</TableCell>
 							<TableCell className='text-muted-foreground text-xs'>{item.deskripsi || '-'}</TableCell>
-							<TableCell className='text-center font-mono text-muted-foreground text-xs'>
-								{item.urutan}
-							</TableCell>
+							<TableCell className='text-center text-muted-foreground text-xs'>{item.urutan}</TableCell>
 							<TableCell className='text-center'>
 								{item.aktif ? (
 									<Badge

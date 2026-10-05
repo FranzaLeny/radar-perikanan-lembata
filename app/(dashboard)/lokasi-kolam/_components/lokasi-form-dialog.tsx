@@ -197,7 +197,6 @@ export function LokasiFormDialog({
 					<Field>
 						<FieldLabel htmlFor='titik_koordinat'>Titik Koordinat (Latitude, Longitude)</FieldLabel>
 						<Input
-							className='font-mono'
 							id='titik_koordinat'
 							onChange={(e) => setTitikKoordinat(e.target.value)}
 							placeholder='-8.36841, 123.53812'

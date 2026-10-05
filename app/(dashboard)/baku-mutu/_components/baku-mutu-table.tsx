@@ -69,8 +69,8 @@ export function BakuMutuTable({
 								return (
 									<TableRow className='hover:bg-muted/30' key={item.id}>
 										<TableCell className='font-semibold text-foreground text-xs'>{item.parameter}</TableCell>
-										<TableCell className='font-mono text-xs'>
-											<Badge className='font-mono text-xs' variant='secondary'>
+										<TableCell className='text-xs'>
+											<Badge className='text-xs' variant='secondary'>
 												{item.satuan}
 											</Badge>
 										</TableCell>
@@ -85,13 +85,13 @@ export function BakuMutuTable({
 														<span>Deviasi ±{item.deviasi_toleransi || '2.00'}°C dari Suhu Udara</span>
 													</Badge>
 													{item.nilai_min && item.nilai_max && (
-														<p className='font-mono text-[11px] text-muted-foreground'>
+														<p className='text-[11px] text-muted-foreground'>
 															Acuan kisaran: {item.nilai_min} – {item.nilai_max} {item.satuan}
 														</p>
 													)}
 												</div>
 											) : (
-												<span className='font-medium font-mono text-foreground'>
+												<span className='font-medium text-foreground'>
 													{item.nilai_min !== null && item.nilai_max !== null
 														? `${item.nilai_min} – ${item.nilai_max}`
 														: item.nilai_min !== null

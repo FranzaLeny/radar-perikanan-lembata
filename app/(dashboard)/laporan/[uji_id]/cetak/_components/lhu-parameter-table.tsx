@@ -72,16 +72,16 @@ export function LhuParameterTable({ parameters }: LhuParameterTableProps) {
 
 							return (
 								<TableRow className='border-slate-200 border-b hover:bg-slate-50/80' key={dp.id}>
-									<TableCell className='border-slate-300 border-r py-1.5 text-center font-mono text-slate-500 print:py-1'>
+									<TableCell className='border-slate-300 border-r py-1.5 text-center text-slate-500 print:py-1'>
 										{idx + 1}
 									</TableCell>
 									<TableCell className='border-slate-300 border-r py-1.5 font-medium text-slate-900 print:py-1'>
 										{dp.bakuMutu?.parameter}
 									</TableCell>
-									<TableCell className='border-slate-300 border-r py-1.5 text-center font-mono text-slate-600 print:py-1'>
+									<TableCell className='border-slate-300 border-r py-1.5 text-center text-slate-600 print:py-1'>
 										{dp.bakuMutu?.satuan}
 									</TableCell>
-									<TableCell className='border-slate-300 border-r py-1.5 text-center font-mono text-slate-700 print:py-1'>
+									<TableCell className='border-slate-300 border-r py-1.5 text-center text-slate-700 print:py-1'>
 										<div>
 											<span className='font-bold'>{standardStr}</span>
 											<span className='block font-sans text-[10px] text-slate-500'>({regulasiSingkat})</span>
@@ -90,10 +90,10 @@ export function LhuParameterTable({ parameters }: LhuParameterTableProps) {
 									<TableCell className='border-slate-300 border-r py-1.5 text-left text-[11px] text-slate-800 print:py-1'>
 										<span className='font-medium text-slate-900'>{metodeUji}</span>
 										{dp.ik?.kode_ik && (
-											<span className='block font-mono text-[10px] text-slate-500'>[{dp.ik.kode_ik}]</span>
+											<span className='block text-[10px] text-slate-500'>[{dp.ik.kode_ik}]</span>
 										)}
 									</TableCell>
-									<TableCell className='border-slate-300 border-r py-1.5 text-center font-bold font-mono text-slate-900 print:py-1'>
+									<TableCell className='border-slate-300 border-r py-1.5 text-center font-bold text-slate-900 print:py-1'>
 										{dp.nilai_hasil}
 									</TableCell>
 									<TableCell className='py-1.5 text-center font-bold text-xs print:py-1'>

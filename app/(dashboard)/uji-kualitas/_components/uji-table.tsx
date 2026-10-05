@@ -55,7 +55,7 @@ export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 								return (
 									<React.Fragment key={item.id}>
 										<TableRow className='hover:bg-muted/30'>
-											<TableCell className='font-mono font-semibold text-foreground text-xs'>
+											<TableCell className='font-semibold text-foreground text-xs'>
 												{item.nomor_sampel}
 											</TableCell>
 											<TableCell className='text-xs'>
@@ -84,12 +84,12 @@ export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 											<TableCell className='text-xs'>
 												<div className='flex max-w-xs flex-wrap gap-1'>
 													{item.detailParameters.slice(0, 3).map((dp) => (
-														<Badge className='px-1.5 py-0 font-mono text-xs' key={dp.id} variant='secondary'>
+														<Badge className='px-1.5 py-0 text-xs' key={dp.id} variant='secondary'>
 															{dp.bakuMutu?.parameter.split(' ')[0]}: {dp.nilai_hasil}
 														</Badge>
 													))}
 													{item.detailParameters.length > 3 && (
-														<Badge className='px-1 py-0 font-mono text-xs' variant='outline'>
+														<Badge className='px-1 py-0 text-xs' variant='outline'>
 															+{item.detailParameters.length - 3} lainnya
 														</Badge>
 													)}

@@ -155,7 +155,7 @@ export default async function PublicVerificationPage({
 					{/* IK Detail Section */}
 					<CardContent className='space-y-4 py-6'>
 						<div className='flex items-center justify-between'>
-							<span className='rounded-lg border border-border bg-muted px-2.5 py-1 font-bold font-mono text-foreground text-xs'>
+							<span className='rounded-lg border border-border bg-muted px-2.5 py-1 font-bold text-foreground text-xs'>
 								{ik.kode_ik}
 							</span>
 							<Badge className='font-semibold text-xs' variant='secondary'>
@@ -209,7 +209,7 @@ export default async function PublicVerificationPage({
 								{bakuMutuList.map((bm) => (
 									<div className='rounded-xl border border-border bg-muted/30 p-2.5 text-xs' key={bm.id}>
 										<p className='font-semibold text-foreground'>{bm.parameter}</p>
-										<p className='mt-0.5 font-medium font-mono text-foreground text-xs'>
+										<p className='mt-0.5 font-medium text-foreground text-xs'>
 											{bm.nilai_min !== null && bm.nilai_max !== null
 												? `${bm.nilai_min} - ${bm.nilai_max} ${bm.satuan}`
 												: bm.nilai_min !== null
@@ -226,9 +226,7 @@ export default async function PublicVerificationPage({
 
 					{/* Action Footer */}
 					<CardFooter className='flex flex-col items-center justify-between gap-3 border-border border-t pt-4 sm:flex-row'>
-						<span className='truncate font-mono text-muted-foreground text-xs'>
-							HASH ID: {ik.qr_code_hash}
-						</span>
+						<span className='truncate text-muted-foreground text-xs'>HASH ID: {ik.qr_code_hash}</span>
 
 						<div className='flex w-full flex-wrap items-center gap-2 sm:w-auto'>
 							{ik.file_path && (

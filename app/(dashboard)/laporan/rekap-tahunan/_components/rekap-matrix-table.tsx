@@ -53,7 +53,7 @@ export function RekapMatrixTable({
 							<p className='mt-0.5 text-[11px] text-slate-600 leading-snug'>
 								Jl. Trans Lembata, Lewoleba, Kab. Lembata, Nusa Tenggara Timur
 							</p>
-							<p className='font-mono text-[11px] text-slate-500'>
+							<p className='text-[11px] text-slate-500'>
 								Email: {APP_CONFIG.institution.email} | Portal: {APP_CONFIG.institution.emailDomain}
 							</p>
 						</div>
@@ -65,7 +65,7 @@ export function RekapMatrixTable({
 					<h1 className='font-bold text-slate-900 text-sm uppercase tracking-wide'>
 						Rekapitulasi Pemantauan Kualitas Air Kolam Pembudidaya (Pokdakan)
 					</h1>
-					<p className='mt-0.5 font-mono font-semibold text-slate-600 text-xs uppercase'>
+					<p className='mt-0.5 font-semibold text-slate-600 text-xs uppercase'>
 						Tahun Anggaran {settings.tahunAnggaran}
 					</p>
 				</div>
@@ -129,7 +129,7 @@ export function RekapMatrixTable({
 						<TableBody>
 							{allPokdakan.map((p, idx) => (
 								<TableRow className='border-slate-200 border-b hover:bg-slate-50/80' key={p.id}>
-									<TableCell className='border-slate-200 border-r px-0.5 py-1.5 text-center font-mono text-slate-500 text-xs'>
+									<TableCell className='border-slate-200 border-r px-0.5 py-1.5 text-center text-slate-500 text-xs'>
 										{idx + 1}
 									</TableCell>
 									<TableCell className='truncate border-slate-200 border-r px-2 py-1.5 font-semibold text-slate-900 text-xs'>
@@ -147,7 +147,7 @@ export function RekapMatrixTable({
 									</TableCell>
 									{months.map((_, mIdx) => {
 										const stat = matrix[p.id]?.[mIdx];
-										let cellContent = <span className='font-mono text-slate-300 text-xs'>-</span>;
+										let cellContent = <span className='text-slate-300 text-xs'>-</span>;
 
 										if (stat === 'NORMAL') {
 											cellContent = (
@@ -199,7 +199,7 @@ export function RekapMatrixTable({
 						<p className='mb-16 text-slate-500'>{settings.pengelolaJabatan},</p>
 						<p className='font-bold text-slate-900 uppercase underline'>{settings.pengelolaNama}</p>
 						{settings.pengelolaNip && (
-							<p className='font-mono text-slate-500 text-xs'>NIP. {settings.pengelolaNip}</p>
+							<p className='text-slate-500 text-xs'>NIP. {settings.pengelolaNip}</p>
 						)}
 					</div>
 
@@ -210,7 +210,7 @@ export function RekapMatrixTable({
 						<p className='mb-14 text-slate-500'>Mengetahui, {settings.kepalaDinasJabatan},</p>
 						<p className='font-bold text-slate-900 uppercase underline'>{settings.kepalaDinasNama}</p>
 						{settings.kepalaDinasNip && (
-							<p className='font-mono text-slate-500 text-xs'>NIP. {settings.kepalaDinasNip}</p>
+							<p className='text-slate-500 text-xs'>NIP. {settings.kepalaDinasNip}</p>
 						)}
 					</div>
 				</div>
@@ -236,7 +236,7 @@ export function RekapMatrixTable({
 						</div>
 					</div>
 
-					<div className='text-right font-mono text-xs'>
+					<div className='text-right text-xs'>
 						<span className='block text-slate-400'>DOKUMEN REKAPITULASI TAHUNAN</span>
 						<p>Dicetak melalui {APP_CLOUD_NAME}</p>
 					</div>

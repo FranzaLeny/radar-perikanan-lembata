@@ -144,7 +144,6 @@ export function LoginForm() {
 							</InputGroupAddon>
 							<InputGroupInput
 								autoComplete='current-password'
-								className='font-mono'
 								id='password'
 								onChange={(e) => setPassword(e.target.value)}
 								placeholder='••••••••'

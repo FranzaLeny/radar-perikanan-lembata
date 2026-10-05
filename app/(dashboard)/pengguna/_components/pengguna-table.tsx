@@ -131,7 +131,7 @@ export function PenggunaTable({
 															</Badge>
 														)}
 													</div>
-													<span className='font-mono text-[11px] text-muted-foreground'>{user.email}</span>
+													<span className='text-[11px] text-muted-foreground'>{user.email}</span>
 												</div>
 											</div>
 										</TableCell>
@@ -148,7 +148,7 @@ export function PenggunaTable({
 												{user.aktif ? 'Aktif' : 'Dinonaktifkan'}
 											</Badge>
 										</TableCell>
-										<TableCell className='font-mono text-muted-foreground text-xs'>
+										<TableCell className='text-muted-foreground text-xs'>
 											{new Date(user.createdAt).toLocaleDateString('id-ID', {
 												day: 'numeric',
 												month: 'short',
@@ -158,7 +158,7 @@ export function PenggunaTable({
 										<TableCell className='text-xs'>
 											{user.isUsed ? (
 												<Badge
-													className='border-blue-500/20 bg-blue-500/10 font-mono text-[10px] text-blue-700 dark:text-blue-300'
+													className='border-blue-500/20 bg-blue-500/10 text-[10px] text-blue-700 dark:text-blue-300'
 													variant='secondary'
 												>
 													{user.transactionCount} Pengujian

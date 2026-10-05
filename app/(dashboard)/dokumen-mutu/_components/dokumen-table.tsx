@@ -62,9 +62,7 @@ export function DokumenTable({
 
 								return (
 									<TableRow className='hover:bg-muted/30' key={item.id}>
-										<TableCell className='font-bold font-mono text-foreground text-xs'>
-											{item.kode_ik}
-										</TableCell>
+										<TableCell className='font-bold text-foreground text-xs'>{item.kode_ik}</TableCell>
 										<TableCell>
 											<Badge
 												className={`text-xs ${
@@ -97,7 +95,7 @@ export function DokumenTable({
 														)}
 														{item.metode_pengujian && (
 															<Badge
-																className='gap-1 bg-muted/60 font-mono text-[11px] text-muted-foreground'
+																className='gap-1 bg-muted/60 text-[11px] text-muted-foreground'
 																variant='outline'
 															>
 																<BookOpen className='size-2.5' />
@@ -110,7 +108,7 @@ export function DokumenTable({
 												) : null}
 											</div>
 										</TableCell>
-										<TableCell className='text-center font-mono text-xs'>
+										<TableCell className='text-center text-xs'>
 											<Badge className='text-[11px]' variant='outline'>
 												v{item.versi}
 											</Badge>

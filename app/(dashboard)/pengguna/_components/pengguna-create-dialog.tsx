@@ -174,7 +174,6 @@ export function PenggunaCreateDialog({
 								<Lock className='size-4 text-muted-foreground' />
 							</InputGroupAddon>
 							<InputGroupInput
-								className='font-mono'
 								id='password'
 								onChange={(e) => setPassword(e.target.value)}
 								type='text'

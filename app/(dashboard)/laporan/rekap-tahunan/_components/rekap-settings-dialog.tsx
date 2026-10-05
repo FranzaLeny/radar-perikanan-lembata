@@ -213,7 +213,7 @@ export function RekapSettingsDialog({
 								<div>
 									<Label className='text-[11px] text-muted-foreground'>NIP</Label>
 									<Input
-										className='mt-0.5 h-7 font-mono text-xs'
+										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, pengelolaNip: e.target.value }))}
 										placeholder='18 digit NIP...'
 										type='text'
@@ -273,7 +273,7 @@ export function RekapSettingsDialog({
 								<div>
 									<Label className='text-[11px] text-muted-foreground'>NIP</Label>
 									<Input
-										className='mt-0.5 h-7 font-mono text-xs'
+										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, kepalaDinasNip: e.target.value }))}
 										placeholder='18 digit NIP...'
 										type='text'

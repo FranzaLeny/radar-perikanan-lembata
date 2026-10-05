@@ -76,9 +76,7 @@ export function DashboardRecentTestsCard({ items }: DashboardRecentTestsCardProp
 
 									return (
 										<TableRow className='hover:bg-muted/30' key={u.id}>
-											<TableCell className='font-medium font-mono text-foreground text-xs'>
-												{u.nomor_sampel}
-											</TableCell>
+											<TableCell className='font-medium text-foreground text-xs'>{u.nomor_sampel}</TableCell>
 											<TableCell className='text-xs'>
 												<span className='font-semibold text-foreground'>
 													{u.lokasi?.nama_pokdakan || 'Pokdakan'}

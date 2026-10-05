@@ -16,14 +16,14 @@ type DashboardBakuMutuCardProps = { items: MasterBakuMutuItem[] };
 
 export function DashboardBakuMutuCard({ items }: DashboardBakuMutuCardProps) {
 	return (
-		<Card className='border-border bg-card shadow-xs'>
+		<Card>
 			<CardHeader className='flex flex-row items-center justify-between border-b pb-4'>
 				<div>
-					<CardTitle className='flex items-center gap-2 font-semibold text-sm'>
+					<CardTitle className='flex items-center gap-2'>
 						<ShieldCheck className='size-4 text-muted-foreground' />
 						<span>Baku Mutu Aktif (SNI/KKP)</span>
 					</CardTitle>
-					<CardDescription className='mt-0.5 text-xs'>Ambang batas mutu air acuan</CardDescription>
+					<CardDescription>Ambang batas mutu air acuan</CardDescription>
 				</div>
 				<Link href='/baku-mutu'>
 					<Button
@@ -47,7 +47,7 @@ export function DashboardBakuMutuCard({ items }: DashboardBakuMutuCardProps) {
 							<p className='font-semibold text-foreground'>{bm.parameter}</p>
 							<p className='mt-0.5 text-muted-foreground text-xs'>
 								Ambang:{' '}
-								<span className='font-medium font-mono text-foreground'>
+								<span className='font-medium text-foreground'>
 									{bm.nilai_min !== null && bm.nilai_max !== null
 										? `${bm.nilai_min} – ${bm.nilai_max}`
 										: bm.nilai_min !== null
@@ -58,7 +58,7 @@ export function DashboardBakuMutuCard({ items }: DashboardBakuMutuCardProps) {
 								</span>
 							</p>
 						</div>
-						<Badge className='font-mono text-xs' variant='secondary'>
+						<Badge className='text-xs' variant='secondary'>
 							{bm.satuan}
 						</Badge>
 					</div>

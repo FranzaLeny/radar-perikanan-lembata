@@ -173,7 +173,7 @@ export function DokumenEditDialog({
 					<Field>
 						<FieldLabel htmlFor='edit_file_path'>Path / URL Berkas PDF</FieldLabel>
 						<Input
-							className='font-mono text-xs'
+							className='text-xs'
 							id='edit_file_path'
 							onChange={(e) => setEditFilePath(e.target.value)}
 							required

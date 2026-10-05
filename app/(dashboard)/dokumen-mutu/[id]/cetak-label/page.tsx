@@ -85,10 +85,7 @@ export default async function CetakLabelDokumenPage({
 							</div>
 						</div>
 						<div className='text-right'>
-							<Badge
-								className='border-slate-400 font-bold font-mono text-slate-900 text-xs'
-								variant='outline'
-							>
+							<Badge className='border-slate-400 font-bold text-slate-900 text-xs' variant='outline'>
 								{APP_NAME}
 							</Badge>
 						</div>
@@ -96,7 +93,7 @@ export default async function CetakLabelDokumenPage({
 
 					{/* Badge & Title */}
 					<div className='mb-3'>
-						<span className='mb-2 inline-block rounded-lg border border-cyan-300 bg-cyan-100 px-3 py-1 font-bold font-mono text-cyan-900 text-sm'>
+						<span className='mb-2 inline-block rounded-lg border border-cyan-300 bg-cyan-100 px-3 py-1 font-bold text-cyan-900 text-sm'>
 							{ik.kode_ik} • v{ik.versi}.0
 						</span>
 						<h2 className='px-2 font-extrabold text-base text-slate-900 leading-snug'>{ik.judul}</h2>
@@ -112,7 +109,7 @@ export default async function CetakLabelDokumenPage({
 									</span>
 								)}
 								{ik.metode_pengujian && (
-									<span className='inline-block rounded border border-slate-300 bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-800'>
+									<span className='inline-block rounded border border-slate-300 bg-slate-100 px-2 py-0.5 text-[11px] text-slate-800'>
 										Metode: {ik.metode_pengujian}
 									</span>
 								)}
@@ -147,14 +144,14 @@ export default async function CetakLabelDokumenPage({
 								: 'Pindai QR ini menggunakan kamera ponsel untuk memverifikasi keabsahan dokumen atau melakukan input hasil uji lapangan secara langsung.'}
 						</p>
 						{ik.file_path && (
-							<p className='mx-auto mt-1.5 max-w-[280px] truncate rounded border border-cyan-200 bg-cyan-50/80 px-2 py-0.5 font-mono text-cyan-800 text-xs'>
+							<p className='mx-auto mt-1.5 max-w-[280px] truncate rounded border border-cyan-200 bg-cyan-50/80 px-2 py-0.5 text-cyan-800 text-xs'>
 								{ik.file_path}
 							</p>
 						)}
 					</div>
 
 					{/* Footer Metadata */}
-					<div className='mt-4 flex w-full items-center justify-between border-slate-200 border-t pt-2.5 font-mono text-slate-500 text-xs'>
+					<div className='mt-4 flex w-full items-center justify-between border-slate-200 border-t pt-2.5 text-slate-500 text-xs'>
 						<span>HASH: {ik.qr_code_hash.substring(0, 16)}...</span>
 						<span>{APP_NAME}-LEMBATA</span>
 					</div>

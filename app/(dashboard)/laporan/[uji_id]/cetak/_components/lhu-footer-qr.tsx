@@ -26,7 +26,7 @@ export function LhuFooterQr({ qrDataUrl, ujiId }: LhuFooterQrProps) {
 				</div>
 			</div>
 
-			<div className='text-right font-mono text-[10px]'>
+			<div className='text-right text-[10px]'>
 				<span>ID: {ujiId.substring(0, 18)}</span>
 				<p>Dicetak melalui {APP_CLOUD_NAME}</p>
 			</div>

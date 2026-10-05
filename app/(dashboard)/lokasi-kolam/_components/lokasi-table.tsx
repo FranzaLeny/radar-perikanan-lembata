@@ -87,7 +87,7 @@ export function LokasiTable({
 									<TableCell className='text-xs'>
 										{item.titik_koordinat ? (
 											<a
-												className='inline-flex items-center gap-1 font-mono text-foreground text-xs hover:underline'
+												className='inline-flex items-center gap-1 text-foreground text-xs hover:underline'
 												href={`https://maps.google.com/?q=${item.titik_koordinat}`}
 												rel='noreferrer'
 												target='_blank'
@@ -97,7 +97,7 @@ export function LokasiTable({
 												<span>{item.titik_koordinat}</span>
 											</a>
 										) : (
-											<span className='font-mono text-muted-foreground text-xs'>-</span>
+											<span className='text-muted-foreground text-xs'>-</span>
 										)}
 									</TableCell>
 									<TableCell className='text-xs'>

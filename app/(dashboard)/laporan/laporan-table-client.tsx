@@ -126,7 +126,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 							</span>
 						</Badge>
 					) : (
-						<Badge className='font-mono text-xs' variant='outline'>
+						<Badge className='text-xs' variant='outline'>
 							{list.length} Dokumen Terdaftar
 						</Badge>
 					)}

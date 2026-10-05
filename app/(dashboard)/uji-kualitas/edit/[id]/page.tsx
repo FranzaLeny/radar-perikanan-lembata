@@ -68,7 +68,7 @@ export default async function EditUjiKualitasPage({ params }: { params: Promise<
 							<TestTube2 className='size-3' />
 							<span>Mode Edit Dokumen Draft</span>
 						</Badge>
-						<Badge className='font-mono text-xs' variant='outline'>
+						<Badge className='text-xs' variant='outline'>
 							{uji.nomor_sampel}
 						</Badge>
 					</div>

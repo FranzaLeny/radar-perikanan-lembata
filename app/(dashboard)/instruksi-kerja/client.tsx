@@ -344,9 +344,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 							) : (
 								filteredList.map((item) => (
 									<TableRow className='hover:bg-muted/30' key={item.id}>
-										<TableCell className='font-mono font-semibold text-foreground text-xs'>
-											{item.kode_ik}
-										</TableCell>
+										<TableCell className='font-semibold text-foreground text-xs'>{item.kode_ik}</TableCell>
 										<TableCell className='font-semibold text-foreground text-xs'>
 											<div className='space-y-0.5'>
 												<a
@@ -360,7 +358,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 													<span>{item.judul}</span>
 													<ExternalLink className='size-3 shrink-0 text-muted-foreground opacity-60 group-hover:text-foreground group-hover:opacity-100' />
 												</a>
-												<div className='flex items-center gap-1.5 font-mono text-muted-foreground text-xs'>
+												<div className='flex items-center gap-1.5 text-muted-foreground text-xs'>
 													<span className='max-w-[240px] truncate' title={item.file_path}>
 														{item.file_path}
 													</span>
@@ -377,8 +375,8 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 												{item.kategori || 'Standar Uji'}
 											</Badge>
 										</TableCell>
-										<TableCell className='font-mono text-xs'>v{item.versi}.0</TableCell>
-										<TableCell className='font-mono text-muted-foreground text-xs'>
+										<TableCell className='text-xs'>v{item.versi}.0</TableCell>
+										<TableCell className='text-muted-foreground text-xs'>
 											<span className='rounded bg-muted px-1.5 py-0.5 text-xs'>
 												{item.qr_code_hash.substring(0, 10)}...
 											</span>
@@ -462,7 +460,6 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 							<Field>
 								<FieldLabel htmlFor='kode_ik'>Kode IK *</FieldLabel>
 								<Input
-									className='font-mono'
 									id='kode_ik'
 									onChange={(e) => setKodeIk(e.target.value)}
 									placeholder='IK-001'
@@ -510,7 +507,6 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 								<FieldLabel htmlFor='file_path'>Tautan URL / Path Dokumen *</FieldLabel>
 								<InputGroup>
 									<InputGroupInput
-										className='font-mono'
 										id='file_path'
 										onChange={(e) => setFilePath(e.target.value)}
 										placeholder='https://drive.google.com/... atau /uploads/ik-001.pdf'
@@ -534,7 +530,6 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 							<Field>
 								<FieldLabel htmlFor='versi'>Nomor Versi</FieldLabel>
 								<Input
-									className='font-mono'
 									id='versi'
 									onChange={(e) => setVersi(e.target.value)}
 									placeholder='1'
@@ -630,7 +625,6 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 							<FieldLabel htmlFor='edit_file_path'>Tautan URL / Path Dokumen *</FieldLabel>
 							<InputGroup>
 								<InputGroupInput
-									className='font-mono'
 									id='edit_file_path'
 									onChange={(e) => setEditFilePath(e.target.value)}
 									placeholder='https://drive.google.com/... atau /uploads/ik-001.pdf'

@@ -21,8 +21,8 @@ export function UjiRowDetail({ item }: UjiRowDetailProps) {
 						<div className='rounded-lg border border-border bg-muted/40 p-2.5' key={dp.id}>
 							<p className='font-semibold text-foreground text-xs'>{dp.bakuMutu?.parameter}</p>
 							<div className='mt-1 flex items-baseline justify-between'>
-								<span className='font-bold font-mono text-base text-foreground'>{dp.nilai_hasil}</span>
-								<span className='font-mono text-muted-foreground text-xs'>{dp.bakuMutu?.satuan}</span>
+								<span className='font-bold text-base text-foreground'>{dp.nilai_hasil}</span>
+								<span className='text-muted-foreground text-xs'>{dp.bakuMutu?.satuan}</span>
 							</div>
 							<div className='mt-1.5'>
 								<BadgeStatus size='sm' status={dp.status_kelayakan || 'NORMAL'} />

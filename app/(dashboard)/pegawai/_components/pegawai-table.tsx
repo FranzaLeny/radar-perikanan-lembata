@@ -108,7 +108,7 @@ export function PegawaiTable({
 											)}
 										</div>
 									</TableCell>
-									<TableCell className='font-mono text-muted-foreground text-xs'>{item.nip}</TableCell>
+									<TableCell className='text-muted-foreground text-xs'>{item.nip}</TableCell>
 									<TableCell className='text-xs'>
 										<div className='font-medium text-foreground'>{item.jabatan}</div>
 										{item.pangkat_golongan && (

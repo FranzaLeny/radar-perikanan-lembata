@@ -225,7 +225,6 @@ export function BakuMutuFormDialog({
 								Toleransi Deviasi Terhadap Suhu Udara (°C) *
 							</FieldLabel>
 							<Input
-								className='font-mono'
 								id='deviasi_toleransi'
 								onChange={(e) => setDeviasiToleransi(e.target.value)}
 								placeholder='2.0'
@@ -249,7 +248,6 @@ export function BakuMutuFormDialog({
 									: 'Batas Nilai Min (Boleh Kosong)'}
 							</FieldLabel>
 							<Input
-								className='font-mono'
 								id='nilai_min'
 								onChange={(e) => setNilaiMin(e.target.value)}
 								placeholder='Contoh: 6.5'
@@ -267,7 +265,6 @@ export function BakuMutuFormDialog({
 									: 'Batas Nilai Max (Boleh Kosong)'}
 							</FieldLabel>
 							<Input
-								className='font-mono'
 								id='nilai_max'
 								onChange={(e) => setNilaiMax(e.target.value)}
 								placeholder='Contoh: 8.5'

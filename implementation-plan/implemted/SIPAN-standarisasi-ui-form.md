@@ -28,7 +28,7 @@ Banyak komponen mendapat **override className** yang seharusnya tidak diperlukan
 <Label className="text-xs">Nama *</Label>
 
 // ❌ ANTI-PATTERN: Custom className di Input (text-xs, h-8 dll)
-<Input className="text-xs font-mono font-semibold h-8" />
+<Input className="text-xs  font-semibold h-8" />
 
 // ❌ ANTI-PATTERN: Custom native <textarea> padahal sudah ada <Textarea>
 <textarea className="w-full rounded-lg border border-input bg-transparent px-3 py-2 text-xs ..." />
@@ -77,7 +77,7 @@ Setiap pasangan label + input control **WAJIB** dibungkus dengan komponen `Field
 | `className="w-full"` pada Input/Select | ❌ | `Field` orientation="vertical" sudah set `*:w-full` |
 | `className="text-xs text-destructive"` untuk error | ❌ | Gunakan `<FieldError>` |
 | `className="text-xs text-muted-foreground"` untuk helper | ❌ | Gunakan `<FieldDescription>` |
-| `className="font-mono font-semibold"` pada Input | ✅ | Ini **format data spesifik** (kode sampel), bukan style umum |
+| `className=" font-semibold"` pada Input | ✅ | Ini **format data spesifik** (kode sampel), bukan style umum |
 | `className="pl-10"` untuk input dengan ikon kiri | ✅ | Ini **layout unik** yang tidak ada varian standar |
 
 ### 2.3 Aturan Custom className — Hanya 2 Kondisi
@@ -85,7 +85,7 @@ Setiap pasangan label + input control **WAJIB** dibungkus dengan komponen `Field
 Custom `className` **HANYA diperbolehkan** apabila:
 
 1. **Semantik Unik** — kebutuhan yang benar-benar spesifik untuk komponen itu dan tidak ada di varian/size standar shadcn.
-   - Contoh: `className="font-mono"` untuk kode sampel
+   - Contoh: `className=""` untuk kode sampel
    - Contoh: `className="pl-10"` untuk input dengan ikon di dalamnya
 
 2. **Layout Unik** — pengaturan posisi yang benar-benar berbeda dari default.
@@ -242,7 +242,7 @@ Custom `className` **HANYA diperbolehkan** apabila:
   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <Field>
       <FieldLabel htmlFor="kode">Kode Sampel *</FieldLabel>
-      <Input id="kode" className="font-mono" ... />
+      <Input id="kode" className="" ... />
     </Field>
     <Field>
       <FieldLabel htmlFor="tanggal">Tanggal *</FieldLabel>

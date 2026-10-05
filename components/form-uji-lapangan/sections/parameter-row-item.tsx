@@ -76,7 +76,7 @@ export function ParameterRowItem({
 					<div className='flex items-center justify-between'>
 						<FieldLabel>#{idx + 1} Parameter Uji *</FieldLabel>
 						{currentBm && (
-							<Badge className='px-1 py-0 font-mono text-[11px]' variant='secondary'>
+							<Badge className='px-1 py-0 text-[11px]' variant='secondary'>
 								{currentBm.nomor_regulasi || 'PP 22/2021'}
 							</Badge>
 						)}
@@ -101,7 +101,7 @@ export function ParameterRowItem({
 												<span className='font-medium text-foreground'>{item.label}</span>
 												{item.badge && (
 													<Badge
-														className='px-1 py-0 font-mono text-[11px]'
+														className='px-1 py-0 text-[11px]'
 														variant={item.badge === 'Aktif' ? 'outline' : 'secondary'}
 													>
 														{item.badge}
@@ -143,7 +143,7 @@ export function ParameterRowItem({
 					</select>
 
 					{selectedIkDoc?.metode_pengujian && (
-						<p className='mt-1 font-mono text-[11px] text-primary'>
+						<p className='mt-1 text-[11px] text-primary'>
 							Metode Resmi: <strong>{selectedIkDoc.metode_pengujian}</strong>
 						</p>
 					)}
@@ -156,7 +156,7 @@ export function ParameterRowItem({
 				<Field className='md:col-span-4'>
 					<FieldLabel>Hasil Pengukuran {currentBm ? `(${currentBm.satuan})` : ''} *</FieldLabel>
 					<Input
-						className='font-mono font-semibold'
+						className='font-semibold'
 						onChange={(e) => onValueChange(row.tempId, e.target.value)}
 						placeholder='Contoh: 7.50'
 						required
@@ -186,7 +186,7 @@ export function ParameterRowItem({
 					{row.is_custom_ambang ? (
 						<div className='flex items-center gap-1.5'>
 							<Input
-								className='h-7 w-20 font-mono text-xs'
+								className='h-7 w-20 text-xs'
 								onChange={(e) => onOverrideMinChange(row.tempId, e.target.value)}
 								placeholder='Min'
 								step='any'
@@ -195,14 +195,14 @@ export function ParameterRowItem({
 							/>
 							<span>s/d</span>
 							<Input
-								className='h-7 w-20 font-mono text-xs'
+								className='h-7 w-20 text-xs'
 								onChange={(e) => onOverrideMaxChange(row.tempId, e.target.value)}
 								placeholder='Max'
 								step='any'
 								type='number'
 								value={row.nilai_max_override}
 							/>
-							<span className='font-mono text-[11px] text-muted-foreground'>{currentBm?.satuan}</span>
+							<span className='text-[11px] text-muted-foreground'>{currentBm?.satuan}</span>
 						</div>
 					) : isDinamisSuhu ? (
 						<div className='space-y-0.5'>
@@ -219,7 +219,7 @@ export function ParameterRowItem({
 							</Badge>
 						</div>
 					) : (
-						<span className='font-mono font-semibold text-foreground text-xs'>
+						<span className='font-semibold text-foreground text-xs'>
 							{evalRow && evalRow.effectiveMin !== null && evalRow.effectiveMax !== null
 								? `${evalRow.effectiveMin} – ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
 								: evalRow && evalRow.effectiveMin !== null

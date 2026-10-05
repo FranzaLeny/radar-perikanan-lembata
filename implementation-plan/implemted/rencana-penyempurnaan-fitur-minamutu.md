@@ -89,7 +89,7 @@ Berdasarkan pengujian operasional lapangan pada prototipe awal MINAMUTU, ditemuk
   - **Gunakan Shadcn `<Select>` Biasa**:
     - Data yang opsinya sedikit dan tetap (contoh: Pilihan 9 Kecamatan Lembata, Status Mutu: Semua/Normal/Peringatan/Kritis, Role Pengguna: Admin/Pengelola/Petugas/Kadin).
 * **Aturan Tipografi Font Sistem**:
-  - **Sistem Global & Seluruh Halaman Dashboard**: Menggunakan font **Geist** (`font-sans` dan `font-heading`). Seluruh antarmuka web menggunakan token `--font-sans: var(--font-geist-sans)` dan `--font-mono: var(--font-geist-mono)`.
+  - **Sistem Global & Seluruh Halaman Dashboard**: Menggunakan font **Geist** (`font-sans` dan `font-heading`). Seluruh antarmuka web menggunakan token `--font-sans: var(--font-geist-sans)` .
   - **Laporan Hasil Uji (LHU) Resmi & Lembar Cetak A4**: Menggunakan font instansi resmi **Arial** dengan deklarasi CSS khusus:
     ```css
     .print-lhu-canvas {
@@ -197,7 +197,6 @@ Pada [app/layout.tsx](file:///e:/LATSAR%20ELLEN/SISTEM/minamutu/app/layout.tsx) 
 @theme inline {
   --font-sans: var(--font-geist-sans), sans-serif;
   --font-heading: var(--font-geist-sans), sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
   --font-lhu-print: Arial, var(--font-geist-sans), sans-serif;
 }
 
