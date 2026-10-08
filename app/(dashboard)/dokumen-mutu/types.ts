@@ -3,7 +3,7 @@ export type KategoriItem = {
 	kode_kategori: string;
 	nama_kategori: string;
 	deskripsi?: string | null;
-	urutan: number;
+	tingkatan: number;
 	aktif: boolean;
 };
 

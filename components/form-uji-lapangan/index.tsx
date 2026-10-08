@@ -123,21 +123,29 @@ export function FormUjiLapangan({
 		return new Map(ikList.map((ik) => [ik.id, ik]));
 	}, [ikList]);
 
-	// Fungsi pembantu: Cari IK pertama yang cocok untuk parameter tertentu
+	// Fungsi pembantu: Cari IK pertama (Tingkatan 3) yang cocok untuk parameter tertentu
 	const findDefaultIkForParam = (bmId: string): string => {
 		const bm = bakuMutuMap.get(bmId);
-		if (!bm) return ikList[0]?.id || '';
+		const ikCandidates = ikList.filter(
+			(ik) =>
+				ik.kategoriDokumen?.tingkatan === 3 ||
+				ik.kategoriDokumen?.kode_kategori === 'IK' ||
+				ik.kode_ik.startsWith('IK-') ||
+				Boolean(ik.parameter_uji)
+		);
+
+		if (!bm) return ikCandidates[0]?.id || ikList[0]?.id || '';
 
 		const paramName = bm.parameter.toLowerCase().trim();
-		const matching = ikList.find(
+		const matching = ikCandidates.find(
 			(ik) => ik.parameter_uji && ik.parameter_uji.toLowerCase().trim() === paramName
 		);
 		if (matching) return matching.id;
 
-		const byTitle = ikList.find((ik) => ik.judul.toLowerCase().includes(paramName));
+		const byTitle = ikCandidates.find((ik) => ik.judul.toLowerCase().includes(paramName));
 		if (byTitle) return byTitle.id;
 
-		return ikList[0]?.id || '';
+		return ikCandidates[0]?.id || ikList[0]?.id || '';
 	};
 
 	// Parameter Dimulai Kosong (atau prefill saat edit)
@@ -205,22 +213,23 @@ export function FormUjiLapangan({
 			}));
 	}, [lokasiListState]);
 
-	// Options untuk Pilihan SOP Induk
+	// Options untuk Pilihan SOP Induk (Tingkatan 2: General / Umum)
 	const sopOptions: OptionItem[] = useMemo(() => {
 		return ikList
 			.filter((doc) => {
-				const isSopCategory =
+				const isTingkat2General =
+					doc.kategoriDokumen?.tingkatan === 2 ||
 					doc.kategori?.toLowerCase().includes('sop') ||
 					doc.kategoriDokumen?.kode_kategori === 'SOP' ||
 					doc.kategoriDokumen?.kode_kategori === 'PP' ||
 					doc.kode_ik.startsWith('SOP-') ||
 					doc.kode_ik.startsWith('PP-');
-				return isSopCategory || !doc.parameter_uji;
+				return isTingkat2General;
 			})
 			.map((sop) => ({
 				value: sop.id,
 				label: `[${sop.kode_ik}] ${sop.judul}`,
-				sublabel: sop.kategori || 'Standar Operasional Prosedur'
+				sublabel: sop.kategori || sop.kategoriDokumen?.nama_kategori || 'Standar Operasional Prosedur'
 			}));
 	}, [ikList]);
 

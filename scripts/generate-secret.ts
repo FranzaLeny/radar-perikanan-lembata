@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noConsole: <console> */
 import { randomBytes } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';

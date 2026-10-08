@@ -58,13 +58,26 @@ export function ParameterRowItem({
 	onOverrideMaxChange,
 	onRemoveRow
 }: ParameterRowItemProps) {
-	// Auto-Filter: Hanya IK yang cocok dengan parameter ini
+	// Auto-Filter: Hanya IK Teknis (Tingkatan 3) yang cocok dengan parameter ini
 	const paramName = currentBm?.parameter.toLowerCase().trim() || '';
-	const filteredIks = ikList.filter((ik) => {
+
+	// Saring hanya dokumen Tingkatan 3 (Instruksi Kerja Teknis Parameter)
+	const tingkat3Iks = ikList.filter((doc) => {
+		const isTingkat3 =
+			doc.kategoriDokumen?.tingkatan === 3 ||
+			doc.kategoriDokumen?.kode_kategori === 'IK' ||
+			doc.kode_ik.startsWith('IK-') ||
+			(!doc.kategoriDokumen && Boolean(doc.parameter_uji));
+		return isTingkat3;
+	});
+
+	// Cocokkan parameter uji
+	const filteredIks = tingkat3Iks.filter((ik) => {
 		if (!ik.parameter_uji) return false;
 		return ik.parameter_uji.toLowerCase().trim() === paramName;
 	});
-	const availableIks = filteredIks.length > 0 ? filteredIks : ikList;
+	const availableIks =
+		filteredIks.length > 0 ? filteredIks : tingkat3Iks.length > 0 ? tingkat3Iks : ikList;
 	const isDinamisSuhu = currentBm?.tipe_ambang_batas === 'deviasi_suhu_lingkungan';
 
 	return (

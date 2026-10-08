@@ -6,7 +6,7 @@ export type IKItem = {
 	kode_ik: string;
 	judul: string;
 	kategori?: string | null;
-	kategoriDokumen?: { kode_kategori: string; nama_kategori: string } | null;
+	kategoriDokumen?: { kode_kategori: string; nama_kategori: string; tingkatan?: number } | null;
 	parameter_uji?: string | null;
 	metode_pengujian?: string | null;
 	file_path?: string | null;

@@ -13,7 +13,10 @@ export default async function DokumenMutuPage() {
 
 	// 2. Ambil daftar Kategori Dokumen Mutu yang aktif
 	const kategoriList = await db.query.kategoriDokumenMutu.findMany({
-		orderBy: [asc(schema.kategoriDokumenMutu.urutan), asc(schema.kategoriDokumenMutu.nama_kategori)]
+		orderBy: [
+			asc(schema.kategoriDokumenMutu.tingkatan),
+			asc(schema.kategoriDokumenMutu.nama_kategori)
+		]
 	});
 
 	// 3. Ambil daftar parameter unik dari master baku mutu aktif untuk dropdown 1 IK = 1 parameter

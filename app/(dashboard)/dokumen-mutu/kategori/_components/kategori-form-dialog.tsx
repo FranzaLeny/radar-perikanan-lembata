@@ -26,8 +26,8 @@ type KategoriFormDialogProps = {
 	setNamaKategori: (val: string) => void;
 	deskripsi: string;
 	setDeskripsi: (val: string) => void;
-	urutan: string;
-	setUrutan: (val: string) => void;
+	tingkatan: string;
+	setTingkatan: (val: string) => void;
 	fieldErrors: Record<string, string[]>;
 	isSubmitting: boolean;
 	onSubmit: (e: React.FormEvent) => void;
@@ -44,8 +44,8 @@ export function KategoriFormDialog({
 	setNamaKategori,
 	deskripsi,
 	setDeskripsi,
-	urutan,
-	setUrutan,
+	tingkatan,
+	setTingkatan,
 	fieldErrors,
 	isSubmitting,
 	onSubmit
@@ -61,7 +61,7 @@ export function KategoriFormDialog({
 						</span>
 					</DialogTitle>
 					<DialogDescription>
-						Kelola kategori dokumen standarisasi mutu laboratorium perikanan.
+						Kelola kategori dan tingkatan peran dokumen mutu laboratorium perikanan.
 					</DialogDescription>
 				</DialogHeader>
 
@@ -94,6 +94,37 @@ export function KategoriFormDialog({
 					</Field>
 
 					<Field>
+						<FieldLabel htmlFor='tingkatan'>Tingkatan / Peran Dokumen *</FieldLabel>
+						<select
+							className='h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+							id='tingkatan'
+							onChange={(e) => setTingkatan(e.target.value)}
+							value={tingkatan}
+						>
+							<option className='bg-popover text-foreground text-xs' value='1'>
+								Tingkat 1: Pedoman / Kebijakan Mutu (Hanya Arsip)
+							</option>
+							<option className='bg-popover text-foreground text-xs' value='2'>
+								Tingkat 2: General / SOP Induk (Dapat Dipilih untuk Pengujian Umum)
+							</option>
+							<option className='bg-popover text-foreground text-xs' value='3'>
+								Tingkat 3: Instruksi Kerja Teknis (Dapat Dipilih saat Input Parameter Uji)
+							</option>
+							<option className='bg-popover text-foreground text-xs' value='4'>
+								Tingkat 4: Formulir / Rekaman Mutu (Hanya Arsip)
+							</option>
+							<option className='bg-popover text-foreground text-xs' value='5'>
+								Tingkat 5+: Dokumen Eksternal / Pendukung Lainnya (Arsip)
+							</option>
+						</select>
+						<FieldDescription>
+							Tingkat 2 digunakan sebagai SOP Umum, Tingkat 3 untuk pilihan saat input parameter, dan
+							tingkat lain sebagai arsip.
+						</FieldDescription>
+						<FieldError errors={toFieldErrors(fieldErrors.tingkatan)} />
+					</Field>
+
+					<Field>
 						<FieldLabel htmlFor='deskripsi'>Deskripsi / Ruang Lingkup</FieldLabel>
 						<Input
 							id='deskripsi'
@@ -101,17 +132,6 @@ export function KategoriFormDialog({
 							placeholder='Penjelasan fungsi kategori dokumen'
 							type='text'
 							value={deskripsi}
-						/>
-					</Field>
-
-					<Field>
-						<FieldLabel htmlFor='urutan'>Nomor Urutan Tampilan</FieldLabel>
-						<Input
-							id='urutan'
-							onChange={(e) => setUrutan(e.target.value)}
-							placeholder='1'
-							type='number'
-							value={urutan}
 						/>
 					</Field>
 

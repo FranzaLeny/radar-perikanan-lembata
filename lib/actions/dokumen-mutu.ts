@@ -15,7 +15,10 @@ import { dokumenMutuSchema, kategoriDokumenSchema } from '@/lib/validations/doku
 export async function getKategoriDokumenListAction() {
 	try {
 		const list = await db.query.kategoriDokumenMutu.findMany({
-			orderBy: [asc(schema.kategoriDokumenMutu.urutan), asc(schema.kategoriDokumenMutu.nama_kategori)]
+			orderBy: [
+				asc(schema.kategoriDokumenMutu.tingkatan),
+				asc(schema.kategoriDokumenMutu.nama_kategori)
+			]
 		});
 		return { success: true, data: list };
 	} catch (error) {
@@ -36,7 +39,7 @@ export async function createKategoriDokumenAction(formData: FormData | Record<st
 		};
 	}
 
-	const { kode_kategori, nama_kategori, deskripsi, urutan, aktif } = validation.data;
+	const { kode_kategori, nama_kategori, deskripsi, tingkatan, aktif } = validation.data;
 
 	// Cek duplikasi kode_kategori
 	const existing = await db.query.kategoriDokumenMutu.findFirst({
@@ -54,7 +57,7 @@ export async function createKategoriDokumenAction(formData: FormData | Record<st
 	try {
 		const [inserted] = await db
 			.insert(schema.kategoriDokumenMutu)
-			.values({ kode_kategori, nama_kategori, deskripsi: deskripsi || null, urutan, aktif })
+			.values({ kode_kategori, nama_kategori, deskripsi: deskripsi || null, tingkatan, aktif })
 			.returning();
 
 		revalidatePath('/dokumen-mutu');
@@ -85,12 +88,12 @@ export async function updateKategoriDokumenAction(
 		};
 	}
 
-	const { kode_kategori, nama_kategori, deskripsi, urutan, aktif } = validation.data;
+	const { kode_kategori, nama_kategori, deskripsi, tingkatan, aktif } = validation.data;
 
 	try {
 		const [updated] = await db
 			.update(schema.kategoriDokumenMutu)
-			.set({ kode_kategori, nama_kategori, deskripsi: deskripsi || null, urutan, aktif })
+			.set({ kode_kategori, nama_kategori, deskripsi: deskripsi || null, tingkatan, aktif })
 			.where(eq(schema.kategoriDokumenMutu.id, id))
 			.returning();
 

@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noConsole: <console> */
 import postgres from 'postgres';
 
 async function resetAuth() {

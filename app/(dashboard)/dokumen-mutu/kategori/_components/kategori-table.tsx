@@ -26,10 +26,10 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 			<Table>
 				<TableHeader>
 					<TableRow className='bg-muted/40 hover:bg-muted/40'>
-						<TableHead className='w-24 font-semibold text-xs'>Kode</TableHead>
+						<TableHead className='w-20 font-semibold text-xs'>Kode</TableHead>
 						<TableHead className='font-semibold text-xs'>Nama Kategori Dokumen</TableHead>
+						<TableHead className='w-48 font-semibold text-xs'>Tingkatan / Peran</TableHead>
 						<TableHead className='font-semibold text-xs'>Deskripsi / Ruang Lingkup</TableHead>
-						<TableHead className='w-24 text-center font-semibold text-xs'>Urutan</TableHead>
 						<TableHead className='w-24 text-center font-semibold text-xs'>Status</TableHead>
 						<TableHead className='w-28 text-right font-semibold text-xs'>Aksi</TableHead>
 					</TableRow>
@@ -41,8 +41,28 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 								<Badge variant='secondary'>{item.kode_kategori}</Badge>
 							</TableCell>
 							<TableCell className='font-semibold text-foreground text-xs'>{item.nama_kategori}</TableCell>
+							<TableCell>
+								{item.tingkatan === 2 ? (
+									<Badge
+										className='border-blue-300 bg-blue-50 text-[11px] text-blue-800 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-300'
+										variant='outline'
+									>
+										Tingkat 2 (General / SOP Induk)
+									</Badge>
+								) : item.tingkatan === 3 ? (
+									<Badge
+										className='border-purple-300 bg-purple-50 text-[11px] text-purple-800 dark:border-purple-800 dark:bg-purple-950/40 dark:text-purple-300'
+										variant='outline'
+									>
+										Tingkat 3 (Parameter Uji / IK)
+									</Badge>
+								) : (
+									<Badge className='text-[11px] text-muted-foreground' variant='secondary'>
+										Tingkat {item.tingkatan} (Arsip)
+									</Badge>
+								)}
+							</TableCell>
 							<TableCell className='text-muted-foreground text-xs'>{item.deskripsi || '-'}</TableCell>
-							<TableCell className='text-center text-muted-foreground text-xs'>{item.urutan}</TableCell>
 							<TableCell className='text-center'>
 								{item.aktif ? (
 									<Badge

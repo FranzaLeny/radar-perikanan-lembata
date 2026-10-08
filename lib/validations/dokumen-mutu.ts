@@ -14,7 +14,10 @@ export const kategoriDokumenSchema = z.object({
 		.max(100, { message: 'Nama kategori maksimal 100 karakter' })
 		.trim(),
 	deskripsi: z.string().max(500).optional().or(z.literal('')),
-	urutan: z.preprocess((val) => (val === '' ? 0 : Number(val)), z.number().int().default(0)),
+	tingkatan: z.preprocess(
+		(val) => (val === '' ? 1 : Number(val)),
+		z.number().int().min(1).default(1)
+	),
 	aktif: z.boolean().default(true)
 });
 

@@ -8,7 +8,7 @@
 		"start": "next start",
 		"format": "biome format --write .",
 		"format:check": "biome format .",
-		"check": "biome check --write .",
+		"check": "biome check --write . && tsc --noEmit",
 		"lint": "biome lint .",
 		"lint:fix": "biome lint --write .",
 		"setup": "bun run scripts/setup.ts",

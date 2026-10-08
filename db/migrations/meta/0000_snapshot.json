@@ -1,77 +1,9 @@
 {
-	"id": "ce2d25b2-6177-4dc6-b45f-dcb02288e3ff",
+	"id": "6ed6fdef-a4af-4c30-95ad-c361d9afa2e2",
 	"prevId": "00000000-0000-0000-0000-000000000000",
 	"version": "7",
 	"dialect": "postgresql",
 	"tables": {
-		"public.account": {
-			"name": "account",
-			"schema": "",
-			"columns": {
-				"id": { "name": "id", "type": "text", "primaryKey": true, "notNull": true },
-				"account_id": { "name": "account_id", "type": "text", "primaryKey": false, "notNull": true },
-				"provider_id": { "name": "provider_id", "type": "text", "primaryKey": false, "notNull": true },
-				"user_id": { "name": "user_id", "type": "text", "primaryKey": false, "notNull": true },
-				"access_token": {
-					"name": "access_token",
-					"type": "text",
-					"primaryKey": false,
-					"notNull": false
-				},
-				"refresh_token": {
-					"name": "refresh_token",
-					"type": "text",
-					"primaryKey": false,
-					"notNull": false
-				},
-				"id_token": { "name": "id_token", "type": "text", "primaryKey": false, "notNull": false },
-				"access_token_expires_at": {
-					"name": "access_token_expires_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": false
-				},
-				"refresh_token_expires_at": {
-					"name": "refresh_token_expires_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": false
-				},
-				"scope": { "name": "scope", "type": "text", "primaryKey": false, "notNull": false },
-				"password": { "name": "password", "type": "text", "primaryKey": false, "notNull": false },
-				"created_at": {
-					"name": "created_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true,
-					"default": "now()"
-				},
-				"updated_at": {
-					"name": "updated_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true,
-					"default": "now()"
-				}
-			},
-			"indexes": {},
-			"foreignKeys": {
-				"account_user_id_user_id_fk": {
-					"name": "account_user_id_user_id_fk",
-					"tableFrom": "account",
-					"tableTo": "user",
-					"columnsFrom": ["user_id"],
-					"columnsTo": ["id"],
-					"onDelete": "cascade",
-					"onUpdate": "no action"
-				}
-			},
-			"compositePrimaryKeys": {},
-			"uniqueConstraints": {},
-			"policies": {},
-			"checkConstraints": {},
-			"isRLSEnabled": false
-		},
 		"public.detail_uji_parameter": {
 			"name": "detail_uji_parameter",
 			"schema": "",
@@ -90,11 +22,49 @@
 					"primaryKey": false,
 					"notNull": false
 				},
+				"ik_id": { "name": "ik_id", "type": "uuid", "primaryKey": false, "notNull": false },
+				"metode_pengujian": {
+					"name": "metode_pengujian",
+					"type": "varchar(150)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"nomor_regulasi": {
+					"name": "nomor_regulasi",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": false
+				},
 				"nilai_hasil": {
 					"name": "nilai_hasil",
 					"type": "numeric(8, 2)",
 					"primaryKey": false,
 					"notNull": true
+				},
+				"nilai_min_terapkan": {
+					"name": "nilai_min_terapkan",
+					"type": "numeric(8, 2)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"nilai_max_terapkan": {
+					"name": "nilai_max_terapkan",
+					"type": "numeric(8, 2)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"is_ambang_dinamis": {
+					"name": "is_ambang_dinamis",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": false
+				},
+				"catatan_ambang": {
+					"name": "catatan_ambang",
+					"type": "varchar(150)",
+					"primaryKey": false,
+					"notNull": false
 				},
 				"status_kelayakan": {
 					"name": "status_kelayakan",
@@ -119,6 +89,15 @@
 					"tableFrom": "detail_uji_parameter",
 					"tableTo": "master_baku_mutu",
 					"columnsFrom": ["baku_mutu_id"],
+					"columnsTo": ["id"],
+					"onDelete": "restrict",
+					"onUpdate": "no action"
+				},
+				"detail_uji_parameter_ik_id_instruksi_kerja_id_fk": {
+					"name": "detail_uji_parameter_ik_id_instruksi_kerja_id_fk",
+					"tableFrom": "detail_uji_parameter",
+					"tableTo": "instruksi_kerja",
+					"columnsFrom": ["ik_id"],
 					"columnsTo": ["id"],
 					"onDelete": "restrict",
 					"onUpdate": "no action"
@@ -149,6 +128,20 @@
 					"primaryKey": false,
 					"notNull": false
 				},
+				"kategori_id": { "name": "kategori_id", "type": "uuid", "primaryKey": false, "notNull": false },
+				"parameter_uji": {
+					"name": "parameter_uji",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"metode_pengujian": {
+					"name": "metode_pengujian",
+					"type": "varchar(150)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"deskripsi": { "name": "deskripsi", "type": "text", "primaryKey": false, "notNull": false },
 				"file_path": {
 					"name": "file_path",
 					"type": "varchar(255)",
@@ -168,6 +161,88 @@
 					"notNull": true,
 					"default": 1
 				},
+				"aktif": {
+					"name": "aktif",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": true
+				},
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {
+				"instruksi_kerja_kategori_id_kategori_dokumen_mutu_id_fk": {
+					"name": "instruksi_kerja_kategori_id_kategori_dokumen_mutu_id_fk",
+					"tableFrom": "instruksi_kerja",
+					"tableTo": "kategori_dokumen_mutu",
+					"columnsFrom": ["kategori_id"],
+					"columnsTo": ["id"],
+					"onDelete": "set null",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {
+				"instruksi_kerja_kode_ik_unique": {
+					"name": "instruksi_kerja_kode_ik_unique",
+					"nullsNotDistinct": false,
+					"columns": ["kode_ik"]
+				},
+				"instruksi_kerja_qr_code_hash_unique": {
+					"name": "instruksi_kerja_qr_code_hash_unique",
+					"nullsNotDistinct": false,
+					"columns": ["qr_code_hash"]
+				}
+			},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
+		"public.kategori_dokumen_mutu": {
+			"name": "kategori_dokumen_mutu",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
+				},
+				"kode_kategori": {
+					"name": "kode_kategori",
+					"type": "varchar(20)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"nama_kategori": {
+					"name": "nama_kategori",
+					"type": "varchar(100)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"deskripsi": { "name": "deskripsi", "type": "text", "primaryKey": false, "notNull": false },
+				"tingkatan": {
+					"name": "tingkatan",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true,
+					"default": 1
+				},
+				"aktif": {
+					"name": "aktif",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": true
+				},
 				"created_at": {
 					"name": "created_at",
 					"type": "timestamp",
@@ -180,15 +255,10 @@
 			"foreignKeys": {},
 			"compositePrimaryKeys": {},
 			"uniqueConstraints": {
-				"instruksi_kerja_kode_ik_unique": {
-					"name": "instruksi_kerja_kode_ik_unique",
+				"kategori_dokumen_mutu_kode_kategori_unique": {
+					"name": "kategori_dokumen_mutu_kode_kategori_unique",
 					"nullsNotDistinct": false,
-					"columns": ["kode_ik"]
-				},
-				"instruksi_kerja_qr_code_hash_unique": {
-					"name": "instruksi_kerja_qr_code_hash_unique",
-					"nullsNotDistinct": false,
-					"columns": ["qr_code_hash"]
+					"columns": ["kode_kategori"]
 				}
 			},
 			"policies": {},
@@ -231,6 +301,13 @@
 					"type": "varchar(50)",
 					"primaryKey": false,
 					"notNull": false
+				},
+				"aktif": {
+					"name": "aktif",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": true
 				}
 			},
 			"indexes": {},
@@ -271,9 +348,29 @@
 					"primaryKey": false,
 					"notNull": false
 				},
+				"nomor_regulasi": {
+					"name": "nomor_regulasi",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "'PP No. 22/2021'"
+				},
 				"dasar_regulasi": {
 					"name": "dasar_regulasi",
-					"type": "varchar(100)",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"tipe_ambang_batas": {
+					"name": "tipe_ambang_batas",
+					"type": "varchar(30)",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "'tetap'"
+				},
+				"deviasi_toleransi": {
+					"name": "deviasi_toleransi",
+					"type": "numeric(5, 2)",
 					"primaryKey": false,
 					"notNull": false
 				},
@@ -300,54 +397,63 @@
 			"checkConstraints": {},
 			"isRLSEnabled": false
 		},
-		"public.session": {
-			"name": "session",
+		"public.master_pegawai": {
+			"name": "master_pegawai",
 			"schema": "",
 			"columns": {
-				"id": { "name": "id", "type": "text", "primaryKey": true, "notNull": true },
-				"expires_at": {
-					"name": "expires_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
 				},
-				"token": { "name": "token", "type": "text", "primaryKey": false, "notNull": true },
+				"nip": { "name": "nip", "type": "varchar(30)", "primaryKey": false, "notNull": true },
+				"nama": { "name": "nama", "type": "varchar(150)", "primaryKey": false, "notNull": true },
+				"jabatan": { "name": "jabatan", "type": "varchar(150)", "primaryKey": false, "notNull": true },
+				"pangkat_golongan": {
+					"name": "pangkat_golongan",
+					"type": "varchar(100)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"aktif": {
+					"name": "aktif",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": true
+				},
+				"peran_tanda_tangan": {
+					"name": "peran_tanda_tangan",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "'penguji'"
+				},
+				"is_penanggungjawab": {
+					"name": "is_penanggungjawab",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": false
+				},
 				"created_at": {
 					"name": "created_at",
 					"type": "timestamp",
 					"primaryKey": false,
 					"notNull": true,
 					"default": "now()"
-				},
-				"updated_at": {
-					"name": "updated_at",
-					"type": "timestamp",
-					"primaryKey": false,
-					"notNull": true,
-					"default": "now()"
-				},
-				"ip_address": { "name": "ip_address", "type": "text", "primaryKey": false, "notNull": false },
-				"user_agent": { "name": "user_agent", "type": "text", "primaryKey": false, "notNull": false },
-				"user_id": { "name": "user_id", "type": "text", "primaryKey": false, "notNull": true }
-			},
-			"indexes": {},
-			"foreignKeys": {
-				"session_user_id_user_id_fk": {
-					"name": "session_user_id_user_id_fk",
-					"tableFrom": "session",
-					"tableTo": "user",
-					"columnsFrom": ["user_id"],
-					"columnsTo": ["id"],
-					"onDelete": "cascade",
-					"onUpdate": "no action"
 				}
 			},
+			"indexes": {},
+			"foreignKeys": {},
 			"compositePrimaryKeys": {},
 			"uniqueConstraints": {
-				"session_token_unique": {
-					"name": "session_token_unique",
+				"master_pegawai_nip_unique": {
+					"name": "master_pegawai_nip_unique",
 					"nullsNotDistinct": false,
-					"columns": ["token"]
+					"columns": ["nip"]
 				}
 			},
 			"policies": {},
@@ -373,6 +479,13 @@
 				},
 				"lokasi_id": { "name": "lokasi_id", "type": "uuid", "primaryKey": false, "notNull": false },
 				"ik_id": { "name": "ik_id", "type": "uuid", "primaryKey": false, "notNull": false },
+				"sop_id": { "name": "sop_id", "type": "uuid", "primaryKey": false, "notNull": false },
+				"suhu_lingkungan": {
+					"name": "suhu_lingkungan",
+					"type": "numeric(5, 2)",
+					"primaryKey": false,
+					"notNull": false
+				},
 				"tanggal_pengambilan": {
 					"name": "tanggal_pengambilan",
 					"type": "timestamp",
@@ -385,6 +498,18 @@
 					"primaryKey": false,
 					"notNull": true
 				},
+				"penguji_pegawai_id": {
+					"name": "penguji_pegawai_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"penandatangan_pegawai_id": {
+					"name": "penandatangan_pegawai_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": false
+				},
 				"catatan_lapangan": {
 					"name": "catatan_lapangan",
 					"type": "text",
@@ -396,6 +521,25 @@
 					"type": "varchar(20)",
 					"primaryKey": false,
 					"notNull": false
+				},
+				"kesimpulan_umum": {
+					"name": "kesimpulan_umum",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"saran_rekomendasi_lapangan": {
+					"name": "saran_rekomendasi_lapangan",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"status": {
+					"name": "status",
+					"type": "varchar(20)",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "'draft'"
 				},
 				"created_at": {
 					"name": "created_at",
@@ -422,7 +566,34 @@
 					"tableTo": "instruksi_kerja",
 					"columnsFrom": ["ik_id"],
 					"columnsTo": ["id"],
-					"onDelete": "restrict",
+					"onDelete": "set null",
+					"onUpdate": "no action"
+				},
+				"uji_kualitas_air_sop_id_instruksi_kerja_id_fk": {
+					"name": "uji_kualitas_air_sop_id_instruksi_kerja_id_fk",
+					"tableFrom": "uji_kualitas_air",
+					"tableTo": "instruksi_kerja",
+					"columnsFrom": ["sop_id"],
+					"columnsTo": ["id"],
+					"onDelete": "set null",
+					"onUpdate": "no action"
+				},
+				"uji_kualitas_air_penguji_pegawai_id_master_pegawai_id_fk": {
+					"name": "uji_kualitas_air_penguji_pegawai_id_master_pegawai_id_fk",
+					"tableFrom": "uji_kualitas_air",
+					"tableTo": "master_pegawai",
+					"columnsFrom": ["penguji_pegawai_id"],
+					"columnsTo": ["id"],
+					"onDelete": "set null",
+					"onUpdate": "no action"
+				},
+				"uji_kualitas_air_penandatangan_pegawai_id_master_pegawai_id_fk": {
+					"name": "uji_kualitas_air_penandatangan_pegawai_id_master_pegawai_id_fk",
+					"tableFrom": "uji_kualitas_air",
+					"tableTo": "master_pegawai",
+					"columnsFrom": ["penandatangan_pegawai_id"],
+					"columnsTo": ["id"],
+					"onDelete": "set null",
 					"onUpdate": "no action"
 				}
 			},
@@ -438,11 +609,183 @@
 			"checkConstraints": {},
 			"isRLSEnabled": false
 		},
+		"public.account": {
+			"name": "account",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
+				},
+				"account_id": { "name": "account_id", "type": "text", "primaryKey": false, "notNull": true },
+				"provider_id": { "name": "provider_id", "type": "text", "primaryKey": false, "notNull": true },
+				"user_id": { "name": "user_id", "type": "uuid", "primaryKey": false, "notNull": true },
+				"access_token": {
+					"name": "access_token",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"refresh_token": {
+					"name": "refresh_token",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"id_token": { "name": "id_token", "type": "text", "primaryKey": false, "notNull": false },
+				"access_token_expires_at": {
+					"name": "access_token_expires_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"refresh_token_expires_at": {
+					"name": "refresh_token_expires_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"scope": { "name": "scope", "type": "text", "primaryKey": false, "notNull": false },
+				"password": { "name": "password", "type": "text", "primaryKey": false, "notNull": false },
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {
+				"account_userId_idx": {
+					"name": "account_userId_idx",
+					"columns": [{ "expression": "user_id", "isExpression": false, "asc": true, "nulls": "last" }],
+					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				},
+				"idx_account": {
+					"name": "idx_account",
+					"columns": [
+						{ "expression": "account_id", "isExpression": false, "asc": true, "nulls": "last" }
+					],
+					"isUnique": true,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				}
+			},
+			"foreignKeys": {
+				"account_user_id_user_id_fk": {
+					"name": "account_user_id_user_id_fk",
+					"tableFrom": "account",
+					"tableTo": "user",
+					"columnsFrom": ["user_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
+		"public.session": {
+			"name": "session",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
+				},
+				"expires_at": {
+					"name": "expires_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"token": { "name": "token", "type": "text", "primaryKey": false, "notNull": true },
+				"created_at": {
+					"name": "created_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updated_at": {
+					"name": "updated_at",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"ip_address": { "name": "ip_address", "type": "text", "primaryKey": false, "notNull": false },
+				"user_agent": { "name": "user_agent", "type": "text", "primaryKey": false, "notNull": false },
+				"user_id": { "name": "user_id", "type": "uuid", "primaryKey": false, "notNull": true },
+				"impersonated_by": {
+					"name": "impersonated_by",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {
+				"session_userId_idx": {
+					"name": "session_userId_idx",
+					"columns": [{ "expression": "user_id", "isExpression": false, "asc": true, "nulls": "last" }],
+					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				}
+			},
+			"foreignKeys": {
+				"session_user_id_user_id_fk": {
+					"name": "session_user_id_user_id_fk",
+					"tableFrom": "session",
+					"tableTo": "user",
+					"columnsFrom": ["user_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {
+				"session_token_unique": {
+					"name": "session_token_unique",
+					"nullsNotDistinct": false,
+					"columns": ["token"]
+				}
+			},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
 		"public.user": {
 			"name": "user",
 			"schema": "",
 			"columns": {
-				"id": { "name": "id", "type": "text", "primaryKey": true, "notNull": true },
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
+				},
 				"name": { "name": "name", "type": "text", "primaryKey": false, "notNull": true },
 				"email": { "name": "email", "type": "text", "primaryKey": false, "notNull": true },
 				"email_verified": {
@@ -471,15 +814,22 @@
 					"name": "role",
 					"type": "text",
 					"primaryKey": false,
-					"notNull": true,
+					"notNull": false,
 					"default": "'petugas_lapangan'"
 				},
-				"aktif": {
-					"name": "aktif",
+				"banned": {
+					"name": "banned",
 					"type": "boolean",
 					"primaryKey": false,
-					"notNull": true,
-					"default": true
+					"notNull": false,
+					"default": false
+				},
+				"ban_reason": { "name": "ban_reason", "type": "text", "primaryKey": false, "notNull": false },
+				"ban_expires": {
+					"name": "ban_expires",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": false
 				}
 			},
 			"indexes": {},
@@ -500,7 +850,13 @@
 			"name": "verification",
 			"schema": "",
 			"columns": {
-				"id": { "name": "id", "type": "text", "primaryKey": true, "notNull": true },
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true,
+					"default": "gen_random_uuid()"
+				},
 				"identifier": { "name": "identifier", "type": "text", "primaryKey": false, "notNull": true },
 				"value": { "name": "value", "type": "text", "primaryKey": false, "notNull": true },
 				"expires_at": {
@@ -513,18 +869,29 @@
 					"name": "created_at",
 					"type": "timestamp",
 					"primaryKey": false,
-					"notNull": false,
+					"notNull": true,
 					"default": "now()"
 				},
 				"updated_at": {
 					"name": "updated_at",
 					"type": "timestamp",
 					"primaryKey": false,
-					"notNull": false,
+					"notNull": true,
 					"default": "now()"
 				}
 			},
-			"indexes": {},
+			"indexes": {
+				"verification_identifier_idx": {
+					"name": "verification_identifier_idx",
+					"columns": [
+						{ "expression": "identifier", "isExpression": false, "asc": true, "nulls": "last" }
+					],
+					"isUnique": false,
+					"concurrently": false,
+					"method": "btree",
+					"with": {}
+				}
+			},
 			"foreignKeys": {},
 			"compositePrimaryKeys": {},
 			"uniqueConstraints": {},

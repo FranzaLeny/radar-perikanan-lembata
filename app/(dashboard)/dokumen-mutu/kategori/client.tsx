@@ -30,7 +30,7 @@ export function KategoriDokumenClient({ initialList }: KategoriDokumenClientProp
 	const [kodeKategori, setKodeKategori] = useState('');
 	const [namaKategori, setNamaKategori] = useState('');
 	const [deskripsi, setDeskripsi] = useState('');
-	const [urutan, setUrutan] = useState('0');
+	const [tingkatan, setTingkatan] = useState('2');
 	const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({});
 
 	const handleOpenAdd = () => {
@@ -39,7 +39,7 @@ export function KategoriDokumenClient({ initialList }: KategoriDokumenClientProp
 		setKodeKategori('');
 		setNamaKategori('');
 		setDeskripsi('');
-		setUrutan(String(list.length + 1));
+		setTingkatan('2');
 		setFieldErrors({});
 		setIsModalOpen(true);
 	};
@@ -50,7 +50,7 @@ export function KategoriDokumenClient({ initialList }: KategoriDokumenClientProp
 		setKodeKategori(item.kode_kategori);
 		setNamaKategori(item.nama_kategori);
 		setDeskripsi(item.deskripsi || '');
-		setUrutan(String(item.urutan || 0));
+		setTingkatan(String(item.tingkatan || 2));
 		setFieldErrors({});
 		setIsModalOpen(true);
 	};
@@ -63,7 +63,7 @@ export function KategoriDokumenClient({ initialList }: KategoriDokumenClientProp
 			kode_kategori: kodeKategori.trim().toUpperCase(),
 			nama_kategori: namaKategori.trim(),
 			deskripsi: deskripsi.trim() || null,
-			urutan: Number(urutan) || 0,
+			tingkatan: Number(tingkatan) || 2,
 			aktif: true
 		};
 
@@ -161,8 +161,8 @@ export function KategoriDokumenClient({ initialList }: KategoriDokumenClientProp
 				setDeskripsi={setDeskripsi}
 				setKodeKategori={setKodeKategori}
 				setNamaKategori={setNamaKategori}
-				setUrutan={setUrutan}
-				urutan={urutan}
+				setTingkatan={setTingkatan}
+				tingkatan={tingkatan}
 			/>
 		</div>
 	);

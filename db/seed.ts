@@ -33,7 +33,7 @@ async function seed() {
 				kode_kategori: k.kode_kategori,
 				nama_kategori: k.nama_kategori,
 				deskripsi: k.deskripsi,
-				urutan: k.urutan,
+				tingkatan: k.tingkatan,
 				aktif: k.aktif
 			})
 			.onConflictDoNothing();

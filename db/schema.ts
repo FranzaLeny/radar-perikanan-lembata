@@ -19,7 +19,7 @@ export const kategoriDokumenMutu = pgTable('kategori_dokumen_mutu', {
 	kode_kategori: varchar('kode_kategori', { length: 20 }).notNull().unique(), // 'PM', 'PP', 'SOP', 'IK', 'FR'
 	nama_kategori: varchar('nama_kategori', { length: 100 }).notNull(), // 'Pedoman Mutu', 'Prosedur Pelaksanaan', 'Standar Operasional Prosedur', 'Instruksi Kerja', 'Formulir'
 	deskripsi: text('deskripsi'),
-	urutan: integer('urutan').notNull().default(0),
+	tingkatan: integer('tingkatan').notNull().default(1), // 1 = Pedoman/Arsip, 2 = General/SOP Induk Pengujian, 3 = Parameter Uji / IK, 4+ = Formulir/Arsip
 	aktif: boolean('aktif').notNull().default(true),
 	createdAt: timestamp('created_at', { mode: 'date' }).defaultNow().notNull()
 });
