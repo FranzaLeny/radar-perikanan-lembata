@@ -15,7 +15,8 @@ export function generateIkHash(kodeIk: string): string {
  */
 export function getVerificationUrl(hash: string): string {
 	const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-	return `${baseUrl}/verifikasi/${hash}`;
+	const url = new URL(`/verifikasi/${hash}`, baseUrl);
+	return url.href;
 }
 
 /**

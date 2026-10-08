@@ -5,7 +5,8 @@ import { RekapTahunanClient } from './rekap-tahunan-client';
 
 export default async function RekapTahunanPage() {
 	const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-	const qrDataUrl = await generateQrDataUrl(`${baseUrl}/laporan/rekap-tahunan`);
+	const url = new URL('/laporan/rekap-tahunan', baseUrl);
+	const qrDataUrl = await generateQrDataUrl(url.href);
 
 	const [allPokdakan, allUji, allPegawai] = await Promise.all([
 		db.query.lokasiKolam.findMany({
