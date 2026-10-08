@@ -12,6 +12,7 @@
 		"lint": "biome lint .",
 		"lint:fix": "biome lint --write .",
 		"setup": "bun run scripts/setup.ts",
+		"auth:secret": "bun run scripts/generate-secret.ts",
 		"auth:generate": "bunx @better-auth/cli generate --config ./lib/auth.ts --output ./db/auth-schema.ts -y",
 		"db:generate": "bunx drizzle-kit generate",
 		"db:push": "bunx drizzle-kit push",
