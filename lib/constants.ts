@@ -26,8 +26,9 @@ export const APP_CONFIG = {
 	description:
 		'RADAR (Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata) merupakan instrumen digital terpadu yang dirancang untuk menghimpun, merekapitulasi, dan menganalisis parameter mutu air pada sentra kolam budidaya perikanan secara sistematis dan berkala. Sistem ini memadukan data pengukuran lapangan langsung dengan pengujian laboratorium—mencakup parameter kritis seperti derajat keasaman (pH), oksigen terlarut (Dissolved Oxygen), suhu, kekeruhan, serta senyawa nitrogen/amonia—ke dalam basis data terpusat. Melalui rekapitulasi yang terstruktur dan analisis tren yang akurat, RADAR berfungsi sebagai sistem peringatan dini terhadap penurunan baku mutu lingkungan budidaya sekaligus rujukan pengambilan keputusan teknis bagi Dinas Perikanan dan petambak demi menekan risiko kematian biota dan meningkatkan efisiensi panen perikanan di Kabupaten Lembata.',
 
-	/** Deskripsi singkat aplikasi */
-	shortDescription: 'Dinas Perikanan Kabupaten Lembata',
+	/** Deskripsi singkat aplikasi untuk media sosial dan preview link */
+	shortDescription:
+		'Sistem digital rekapitulasi dan analisis parameter mutu air kolam budidaya perikanan Dinas Perikanan Kabupaten Lembata.',
 
 	/** Versi rilis aplikasi */
 	version: '1.0.0',
@@ -92,7 +93,7 @@ export const SITE_METADATA: Metadata = {
 	],
 	openGraph: {
 		title: APP_CONFIG.title,
-		description: APP_CONFIG.description,
+		description: APP_CONFIG.shortDescription,
 		url: process.env.NEXT_PUBLIC_APP_URL,
 		siteName: APP_CONFIG.title,
 		images: [{ url: APP_CONFIG.logo.app, width: 781, height: 781, alt: APP_CONFIG.title }],
@@ -102,7 +103,7 @@ export const SITE_METADATA: Metadata = {
 	twitter: {
 		card: 'summary_large_image',
 		title: APP_CONFIG.title,
-		description: APP_CONFIG.description,
+		description: APP_CONFIG.shortDescription,
 		images: [APP_CONFIG.logo.app]
 	}
 	// applicationName: SITE_NAME,
@@ -118,6 +119,7 @@ export const APP_TAGLINE = APP_CONFIG.tagline;
 export const APP_VERSION = APP_CONFIG.version;
 export const APP_VERSION_LABEL = APP_CONFIG.versionLabel;
 export const APP_DESCRIPTION = APP_CONFIG.description;
+export const APP_SHORT_DESCRIPTION = APP_CONFIG.shortDescription;
 export const APP_INSTITUTION = APP_CONFIG.institution;
 export const APP_AUTHOR = APP_CONFIG.author;
 export const APP_LOGO = APP_CONFIG.logo;
