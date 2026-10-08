@@ -40,25 +40,18 @@ async function seedDemoUsers() {
 				set: { role: u.role, banned: false, emailVerified: true, name: u.name }
 			});
 
-		const existingAccount = await db.query.account.findFirst({
-			where: (tbl, { and, eq }) => and(eq(tbl.userId, targetUser.id), eq(tbl.providerId, 'credential'))
-		});
-
-		if (existingAccount) {
-			await db
-				.update(account)
-				.set({ password: hashedPassword })
-				.where((tbl, { eq }) => eq(tbl.id, existingAccount.id));
-		} else {
-			await db
-				.insert(account)
-				.values({
-					accountId: targetUser.id,
-					providerId: 'credential',
-					userId: targetUser.id,
-					password: hashedPassword
-				});
-		}
+		await db
+			.insert(account)
+			.values({
+				accountId: targetUser.id,
+				providerId: 'credential',
+				userId: targetUser.id,
+				password: hashedPassword
+			})
+			.onConflictDoUpdate({
+				target: account.accountId,
+				set: { password: hashedPassword, providerId: 'credential' }
+			});
 
 		console.log(`  ✓ Akun demo [${u.role}]: ${u.email} siap digunakan.`);
 	}

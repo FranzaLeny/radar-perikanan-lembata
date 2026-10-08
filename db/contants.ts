@@ -3,35 +3,35 @@ export const KATEGORI_DATA = [
 		kode_kategori: 'PM',
 		nama_kategori: 'Pedoman Mutu',
 		deskripsi: 'Manual mutu kebijakan laboratorium dan tata kelola pengawasan perikanan',
-		urutan: 1,
+		tingkatan: 1,
 		aktif: true
 	},
 	{
 		kode_kategori: 'PP',
 		nama_kategori: 'Prosedur Pelaksanaan',
 		deskripsi: 'Prosedur pelaksanaan teknis pengawasan kolam dan lintas fungsi',
-		urutan: 2,
+		tingkatan: 2,
 		aktif: true
 	},
 	{
 		kode_kategori: 'SOP',
 		nama_kategori: 'Standar Operasional Prosedur',
 		deskripsi: 'Standar operasional prosedur rutin pengambilan sampel dan pengujian air',
-		urutan: 3,
+		tingkatan: 2,
 		aktif: true
 	},
 	{
 		kode_kategori: 'IK',
 		nama_kategori: 'Instruksi Kerja',
 		deskripsi: 'Instruksi kerja teknis operasional alat & metode pengujian spesifik per 1 parameter',
-		urutan: 4,
+		tingkatan: 3,
 		aktif: true
 	},
 	{
 		kode_kategori: 'FR',
 		nama_kategori: 'Formulir',
 		deskripsi: 'Formulir rekaman mutu, berita acara, dan lembar kerja pemeliharaan alat',
-		urutan: 5,
+		tingkatan: 4,
 		aktif: true
 	}
 ];

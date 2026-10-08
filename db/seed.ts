@@ -101,27 +101,29 @@ async function seed() {
 	const hashedPassword = await hashPassword(defaultPassword);
 
 	for (const u of USERS_TO_SEED) {
-		const res = await db
+		const [seededUser] = await db
 			.insert(user)
 			.values({ name: u.name, email: u.email, role: u.role, banned: false, emailVerified: true })
-			.returning()
-			.onConflictDoNothing();
 
-		const seededUser =
-			res?.[0] ||
-			(await db.query.user.findFirst({ where: (user, { eq }) => eq(user.email, u.email) }));
+			.onConflictDoUpdate({
+				target: user.email,
+				set: { name: u.name, role: u.role, banned: false, emailVerified: true }
+			})
+			.returning();
+		console.log({ seededUser });
 
-		if (seededUser) {
-			await db
-				.insert(account)
-				.values({
-					accountId: seededUser.id,
-					providerId: 'credential',
-					userId: seededUser.id,
-					password: hashedPassword
-				})
-				.onConflictDoNothing();
-		}
+		await db
+			.insert(account)
+			.values({
+				accountId: seededUser.id,
+				providerId: 'credential',
+				userId: seededUser.id,
+				password: hashedPassword
+			})
+			.onConflictDoUpdate({
+				target: account.accountId,
+				set: { password: hashedPassword, providerId: 'credential' }
+			});
 	}
 
 	console.log('[RADAR Seed] ✅ Penyemaian master data awal selesai!');
