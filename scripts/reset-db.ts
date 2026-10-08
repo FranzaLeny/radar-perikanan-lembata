@@ -4,6 +4,7 @@ import { $ } from 'bun';
 import postgres from 'postgres';
 
 async function resetDatabase() {
+	// biome-ignore lint/style/noNonNullAssertion: <DATABASE_URL>
 	const conn = process.env.DATABASE_URL!;
 	const sql = postgres(conn);
 

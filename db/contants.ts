@@ -2,37 +2,35 @@ export const KATEGORI_DATA = [
 	{
 		kode_kategori: 'PM',
 		nama_kategori: 'Pedoman Mutu',
-		deskripsi: 'Manual mutu kebijakan laboratorium dan tata kelola pengawasan perikanan (Arsip)',
+		deskripsi: 'Manual mutu kebijakan laboratorium dan tata kelola pengawasan perikanan',
 		tingkatan: 1,
 		aktif: true
 	},
 	{
 		kode_kategori: 'PP',
 		nama_kategori: 'Prosedur Pelaksanaan',
-		deskripsi: 'Prosedur pelaksanaan teknis pengawasan kolam budidaya dan lintas fungsi (General)',
+		deskripsi: 'Prosedur pelaksanaan teknis pengawasan kolam budidaya dan lintas fungsi',
 		tingkatan: 2,
 		aktif: true
 	},
 	{
 		kode_kategori: 'SOP',
 		nama_kategori: 'Standar Operasional Prosedur',
-		deskripsi:
-			'Standar operasional prosedur rutin pengambilan sampel dan pengujian mutu air (General)',
+		deskripsi: 'Standar operasional prosedur rutin pengambilan sampel dan pengujian mutu air ',
 		tingkatan: 2,
 		aktif: true
 	},
 	{
 		kode_kategori: 'IK',
 		nama_kategori: 'Instruksi Kerja',
-		deskripsi:
-			'Instruksi kerja teknis operasional alat & metode pengujian spesifik per 1 parameter (Uji Lapangan/Lab)',
+		deskripsi: 'Instruksi kerja teknis operasional alat & metode pengujian parameter kualitas air',
 		tingkatan: 3,
 		aktif: true
 	},
 	{
 		kode_kategori: 'FR',
 		nama_kategori: 'Formulir',
-		deskripsi: 'Formulir rekaman mutu, berita acara, dan lembar kerja pemeliharaan alat uji (Arsip)',
+		deskripsi: 'Formulir rekaman mutu, berita acara, dan lembar kerja pemeliharaan alat uji',
 		tingkatan: 4,
 		aktif: true
 	}
@@ -44,22 +42,20 @@ export const BAKU_MUTU = [
 		satuan: '°C',
 		nilai_min: '28.00',
 		nilai_max: '32.00',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi:
-			'Kepmen LH No. 115/2003 Lampiran I & PP No. 22/2021 (Deviasi ± 2°C dari Suhu Udara Alami)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Deviasi ± 3°C dari Suhu Udara)',
 		tipe_ambang_batas: 'deviasi_suhu_lingkungan',
-		deviasi_toleransi: '2.00',
+		deviasi_toleransi: '3.00',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
 	},
 	{
 		parameter: 'pH',
 		satuan: '-',
-		nilai_min: '6.50',
-		nilai_max: '8.50',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi:
-			'Kepmen LH No. 115/2003 Lampiran I (Tabel 1.2) & PP No. 22 Tahun 2021 Lampiran VI',
+		nilai_min: '6.00',
+		nilai_max: '9.00',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II & III: 6 - 9)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -69,9 +65,9 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: '3.00',
 		nilai_max: null,
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
+		nomor_regulasi: 'PP No. 22/2021',
 		dasar_regulasi:
-			'Kepmen LH No. 115/2003 (DO > 3 mg/L) & PP No. 22 Tahun 2021 Lampiran VI (DO ≥ 3 mg/L)',
+			'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: ≥ 4 mg/L, Kelas III: ≥ 3 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -80,9 +76,9 @@ export const BAKU_MUTU = [
 		parameter: 'Amonia (NH₃-N)',
 		satuan: 'mg/L',
 		nilai_min: null,
-		nilai_max: '0.02',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 (Tabel 1.2 Baku 0.02 mg/L) & PP No. 22/2021 Lampiran VI',
+		nilai_max: '0.20',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II & III: 0,2 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -92,8 +88,8 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.06',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 (Tabel 1.2 Baku 0.06 mg/L) & PP No. 22/2021 Lampiran VI',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II & III: 0,06 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -103,8 +99,9 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '10.00',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 & PP No. 22/2021 Lampiran VI (Baku Mutu Kelas II & III)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi:
+			'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: 10 mg/L, Kelas III: 20 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -114,20 +111,8 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.002',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 (Tabel 1.2 Baku 0.002 mg/L) & PP No. 22/2021 Lampiran VI',
-		tipe_ambang_batas: 'tetap',
-		aktif: true,
-		berlaku_sejak: '2026-01-01'
-	},
-	{
-		parameter: 'Kecerahan / Turbiditas',
-		satuan: 'cm',
-		nilai_min: '30.00',
-		nilai_max: '45.00',
-		nomor_regulasi: 'SNI Budidaya & Kepmen LH 115/2003',
-		dasar_regulasi:
-			'SNI 01-6141 & SNI 7545.1 Budidaya Air Tawar/Payau (Kedalaman Secchi Disk 30 - 45 cm)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II & III: 0,002 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -137,8 +122,9 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '50.00',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 Lampiran II & PP No. 22/2021 Lampiran VI (Maks 50 mg/L)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi:
+			'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: 50 mg/L, Kelas III: 100 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -148,8 +134,9 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '6.00',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 & PP No. 22/2021 Lampiran VI (Kelas II & III Perikanan)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi:
+			'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: 3 mg/L, Kelas III: 6 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -159,8 +146,9 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '25.00',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 & PP No. 22/2021 Lampiran VI (Maks 25 - 50 mg/L)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi:
+			'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: 25 mg/L, Kelas III: 40 mg/L)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -170,8 +158,20 @@ export const BAKU_MUTU = [
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.20',
-		nomor_regulasi: 'Kepmen LH 115/2003 & PP 22/2021',
-		dasar_regulasi: 'Kepmen LH No. 115/2003 & PP No. 22/2021 Lampiran VI (Maks 0,2 mg/L)',
+		nomor_regulasi: 'PP No. 22/2021',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: 0,2 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Kecerahan / Turbiditas',
+		satuan: 'cm',
+		nilai_min: '30.00',
+		nilai_max: '45.00',
+		nomor_regulasi: 'Template',
+		dasar_regulasi:
+			'Template Acuan Operasional Budidaya Kolam Perikanan (Kedalaman Secchi Disk 30 - 45 cm)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -181,8 +181,9 @@ export const BAKU_MUTU = [
 		satuan: 'ppt',
 		nilai_min: '0.00',
 		nilai_max: '15.00',
-		nomor_regulasi: 'SNI Budidaya Perikanan',
-		dasar_regulasi: 'Standar Budidaya Ikan Air Tawar & Payau Lembata (Rentang Optimal 0 - 15 ppt)',
+		nomor_regulasi: 'Template',
+		dasar_regulasi:
+			'Template Acuan Operasional Salinitas Kolam Budidaya Lembata (Rentang Optimal 0 - 15 ppt)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
