@@ -1,6 +1,8 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
-export function proxy(request: NextRequest) {
+
+import { auth } from './lib/auth';
+export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
 
 	// 1. Rute publik yang bebas diakses siapa saja
@@ -10,10 +12,16 @@ export function proxy(request: NextRequest) {
 		pathname.startsWith('/_next') ||
 		pathname.startsWith('/static') ||
 		pathname === '/favicon.ico' ||
-		pathname === '/login' || // Halaman Login selalu bebas diakses (hindari redirect loop)
 		pathname.includes('.') // file statis
 	) {
 		return NextResponse.next();
+	}
+
+	if (pathname.startsWith('/login')) {
+		const session = await auth.api.getSession({ headers: request.headers });
+		if (session) {
+			return NextResponse.redirect(new URL('/dashboard', request.url));
+		}
 	}
 
 	// Cek apakah ada cookie session token BetterAuth (mendukung HTTP lokal maupun HTTPS __Secure- prefix)

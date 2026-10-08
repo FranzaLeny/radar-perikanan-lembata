@@ -3,7 +3,7 @@
 import { AlertCircle, ArrowRight, Eye, EyeOff, Loader2, Lock, Mail } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/shadcn/alert';
@@ -28,13 +28,6 @@ export function LoginForm() {
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const errorParam = searchParams.get('error');
-	const { data: session, isPending: isSessionPending } = authClient.useSession();
-
-	useEffect(() => {
-		if (!isSessionPending && session?.user && !errorParam) {
-			router.replace('/dashboard');
-		}
-	}, [session, isSessionPending, errorParam, router]);
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
