@@ -63,7 +63,7 @@ export const APP_CONFIG = {
 	/** Referensi visual brand dan logo aplikasi serta pemerintah daerah */
 	logo: {
 		app: '/images/app-logo.png',
-		ogImage: '/images/og-image.png',
+		ogImage: '/images/og-image.jpg',
 		kabupaten: '/images/lembata-kab.webp',
 		garuda: '/images/garuda.png',
 		Icon: Droplets,
