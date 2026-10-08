@@ -74,7 +74,13 @@ export function ParameterRowItem({
 	// Cocokkan parameter uji
 	const filteredIks = tingkat3Iks.filter((ik) => {
 		if (!ik.parameter_uji) return false;
-		return ik.parameter_uji.toLowerCase().trim() === paramName;
+		const ikParam = ik.parameter_uji.toLowerCase().trim();
+		return (
+			paramName === ikParam ||
+			paramName.startsWith(ikParam) ||
+			paramName.includes(ikParam) ||
+			ikParam.includes(paramName)
+		);
 	});
 	const availableIks =
 		filteredIks.length > 0 ? filteredIks : tingkat3Iks.length > 0 ? tingkat3Iks : ikList;

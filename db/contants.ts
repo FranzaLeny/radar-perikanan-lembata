@@ -2,55 +2,251 @@ export const KATEGORI_DATA = [
 	{
 		kode_kategori: 'PM',
 		nama_kategori: 'Pedoman Mutu',
-		deskripsi: 'Manual mutu kebijakan laboratorium dan tata kelola pengawasan perikanan',
+		deskripsi: 'Manual mutu kebijakan laboratorium dan tata kelola pengawasan perikanan (Arsip)',
 		tingkatan: 1,
 		aktif: true
 	},
 	{
 		kode_kategori: 'PP',
 		nama_kategori: 'Prosedur Pelaksanaan',
-		deskripsi: 'Prosedur pelaksanaan teknis pengawasan kolam budidaya dan lintas fungsi',
+		deskripsi: 'Prosedur pelaksanaan teknis pengawasan kolam budidaya dan lintas fungsi (General)',
 		tingkatan: 2,
 		aktif: true
 	},
 	{
 		kode_kategori: 'SOP',
 		nama_kategori: 'Standar Operasional Prosedur',
-		deskripsi: 'Standar operasional prosedur rutin pengambilan sampel dan pengujian mutu air ',
+		deskripsi:
+			'Standar operasional prosedur rutin pengambilan sampel dan pengujian mutu air (General)',
 		tingkatan: 2,
 		aktif: true
 	},
 	{
 		kode_kategori: 'IK',
 		nama_kategori: 'Instruksi Kerja',
-		deskripsi: 'Instruksi kerja teknis operasional alat & metode pengujian parameter kualitas air',
+		deskripsi:
+			'Instruksi kerja teknis operasional alat & metode pengujian spesifik per 1 parameter (Uji Lapangan/Lab)',
 		tingkatan: 3,
 		aktif: true
 	},
 	{
 		kode_kategori: 'FR',
 		nama_kategori: 'Formulir',
-		deskripsi: 'Formulir rekaman mutu, berita acara, dan lembar kerja pemeliharaan alat uji',
+		deskripsi: 'Formulir rekaman mutu, berita acara, dan lembar kerja pemeliharaan alat uji (Arsip)',
 		tingkatan: 4,
 		aktif: true
 	}
 ];
 
 export const BAKU_MUTU = [
+	// =========================================================================
+	// 1. REGULASI: PERMEN KKP NOMOR 75/PERMEN-KP/2016 (LENGKAP AIR BUDIDAYA)
+	// =========================================================================
 	{
-		parameter: 'Suhu',
+		parameter: 'Suhu (Permen KKP)',
+		satuan: '°C',
+		nilai_min: '28.00',
+		nilai_max: '32.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: 28 - 32 °C)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Salinitas Air (Permen KKP)',
+		satuan: 'ppt',
+		nilai_min: '5.00',
+		nilai_max: '40.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: 5 - 40 g/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'pH Air (Permen KKP)',
+		satuan: '-',
+		nilai_min: '7.50',
+		nilai_max: '8.50',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: 7,5 - 8,5)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'DO / Oksigen Terlarut (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: '3.00',
+		nilai_max: null,
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: > 3,0 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Alkalinitas (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: '100.00',
+		nilai_max: '250.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: 100 - 250 ppm)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Bahan Organik Total / TOM (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '55.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: Maks 55 - 90 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Amonia (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.01',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: < 0,01 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Nitrit (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.01',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: < 0,01 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Nitrat (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.50',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: Maks 0,5 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Phosfat (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: '0.10',
+		nilai_max: '5.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: 0,1 - 5,0 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Kecerahan Air (Permen KKP)',
+		satuan: 'cm',
+		nilai_min: '30.00',
+		nilai_max: '45.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: 30 - 45 cm)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'TDS / Total Padatan Terlarut (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: '150.00',
+		nilai_max: '200.00',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1: 150 - 200 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Hidrogen Sulfida / H₂S (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.010',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: ≤ 0,01 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Timbal / Pb (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.03',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: Maks 0,03 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Kadmium / Cd (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.01',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: Maks 0,01 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Raksa / Hg (Permen KKP)',
+		satuan: 'mg/L',
+		nilai_min: null,
+		nilai_max: '0.002',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: Maks 0,002 mg/L)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+	{
+		parameter: 'Total Vibrio (Permen KKP)',
+		satuan: 'CFU/ml',
+		nilai_min: null,
+		nilai_max: '1000',
+		nomor_regulasi: 'Permen KKP No. 75/2016',
+		dasar_regulasi: 'Permen KKP No. 75/PERMEN-KP/2016 Lampiran (Tabel 1 & 2: ≤ 1x10³ CFU/ml)',
+		tipe_ambang_batas: 'tetap',
+		aktif: true,
+		berlaku_sejak: '2026-01-01'
+	},
+
+	// =========================================================================
+	// 2. REGULASI: PP NO. 22 TAHUN 2021 (KHUSUS KELAS II & III BUDIDAYA AIR)
+	// =========================================================================
+	{
+		parameter: 'Suhu (PP 22/2021)',
 		satuan: '°C',
 		nilai_min: '28.00',
 		nilai_max: '32.00',
 		nomor_regulasi: 'PP No. 22/2021',
-		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Deviasi ± 3°C dari Suhu Udara)',
+		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Deviasi ± 3°C dari Suhu Udara Alami)',
 		tipe_ambang_batas: 'deviasi_suhu_lingkungan',
 		deviasi_toleransi: '3.00',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'pH',
+		parameter: 'pH (PP 22/2021)',
 		satuan: '-',
 		nilai_min: '6.00',
 		nilai_max: '9.00',
@@ -61,7 +257,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'DO (Oksigen Terlarut)',
+		parameter: 'DO / Oksigen Terlarut (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: '3.00',
 		nilai_max: null,
@@ -73,7 +269,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'Amonia (NH₃-N)',
+		parameter: 'Amonia (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.20',
@@ -84,7 +280,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'Nitrit (NO₂-N)',
+		parameter: 'Nitrit (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.06',
@@ -95,7 +291,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'Nitrat (NO₃-N)',
+		parameter: 'Nitrat (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '10.00',
@@ -107,7 +303,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'Asam Sulfida (H₂S)',
+		parameter: 'Asam Sulfida / H₂S (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.002',
@@ -118,7 +314,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'Padatan Tersuspensi Total (TSS)',
+		parameter: 'Padatan Tersuspensi / TSS (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '50.00',
@@ -130,7 +326,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'BOD₅ (Kebutuhan Oksigen Biokimia)',
+		parameter: 'BOD₅ (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '6.00',
@@ -142,7 +338,7 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'COD (Kebutuhan Oksigen Kimiawi)',
+		parameter: 'COD (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '25.00',
@@ -154,36 +350,12 @@ export const BAKU_MUTU = [
 		berlaku_sejak: '2026-01-01'
 	},
 	{
-		parameter: 'Fosfat / Ortofosfat (PO₄-P)',
+		parameter: 'Fosfat / PO₄-P (PP 22/2021)',
 		satuan: 'mg/L',
 		nilai_min: null,
 		nilai_max: '0.20',
 		nomor_regulasi: 'PP No. 22/2021',
 		dasar_regulasi: 'PP No. 22 Tahun 2021 Lampiran VI (Baku Mutu Kelas II: 0,2 mg/L)',
-		tipe_ambang_batas: 'tetap',
-		aktif: true,
-		berlaku_sejak: '2026-01-01'
-	},
-	{
-		parameter: 'Kecerahan / Turbiditas',
-		satuan: 'cm',
-		nilai_min: '30.00',
-		nilai_max: '45.00',
-		nomor_regulasi: 'Template',
-		dasar_regulasi:
-			'Template Acuan Operasional Budidaya Kolam Perikanan (Kedalaman Secchi Disk 30 - 45 cm)',
-		tipe_ambang_batas: 'tetap',
-		aktif: true,
-		berlaku_sejak: '2026-01-01'
-	},
-	{
-		parameter: 'Salinitas Air',
-		satuan: 'ppt',
-		nilai_min: '0.00',
-		nilai_max: '15.00',
-		nomor_regulasi: 'Template',
-		dasar_regulasi:
-			'Template Acuan Operasional Salinitas Kolam Budidaya Lembata (Rentang Optimal 0 - 15 ppt)',
 		tipe_ambang_batas: 'tetap',
 		aktif: true,
 		berlaku_sejak: '2026-01-01'
@@ -227,7 +399,7 @@ export const DOKUMEN_MUTU = [
 		kode_ik: 'IK-003',
 		judul: 'Pengujian Oksigen Terlarut (DO) Air Kolam In-situ',
 		kategori: 'IK',
-		parameter_uji: 'DO (Oksigen Terlarut)',
+		parameter_uji: 'DO',
 		metode_pengujian: 'SNI 06-6989.14-2004 (In-situ DO Meter)',
 		file_path: '/uploads/sop-ik-003-do.pdf',
 		versi: 1
@@ -236,7 +408,7 @@ export const DOKUMEN_MUTU = [
 		kode_ik: 'IK-004',
 		judul: 'Pengujian Kadar Amonia Bebas (NH₃-N) Air Kolam',
 		kategori: 'IK',
-		parameter_uji: 'Amonia (NH₃-N)',
+		parameter_uji: 'Amonia',
 		metode_pengujian: 'SNI 06-6989.30-2005 (Spektrofotometri Fenat)',
 		file_path: '/uploads/sop-ik-004-amonia.pdf',
 		versi: 1
@@ -245,7 +417,7 @@ export const DOKUMEN_MUTU = [
 		kode_ik: 'IK-005',
 		judul: 'Pengujian Kadar Nitrit (NO₂-N) Air Kolam',
 		kategori: 'IK',
-		parameter_uji: 'Nitrit (NO₂-N)',
+		parameter_uji: 'Nitrit',
 		metode_pengujian: 'SNI 06-6989.9-2004 (Spektrofotometri NED Dihidroklorida)',
 		file_path: '/uploads/sop-ik-005-nitrit.pdf',
 		versi: 1
@@ -254,7 +426,7 @@ export const DOKUMEN_MUTU = [
 		kode_ik: 'IK-006',
 		judul: 'Pengujian Kadar Nitrat (NO₃-N) Air Kolam',
 		kategori: 'IK',
-		parameter_uji: 'Nitrat (NO₃-N)',
+		parameter_uji: 'Nitrat',
 		metode_pengujian: 'SNI 6989.79:2011 (Spektrofotometri Reduksi Kadmium)',
 		file_path: '/uploads/sop-ik-006-nitrat.pdf',
 		versi: 1
@@ -263,7 +435,7 @@ export const DOKUMEN_MUTU = [
 		kode_ik: 'IK-007',
 		judul: 'Pengujian Kadar Asam Sulfida (H₂S) Air Kolam',
 		kategori: 'IK',
-		parameter_uji: 'Asam Sulfida (H₂S)',
+		parameter_uji: 'Asam Sulfida',
 		metode_pengujian: 'SNI 6989.70:2009 (Spektrofotometri Metilen Biru)',
 		file_path: '/uploads/sop-ik-007-h2s.pdf',
 		versi: 1
@@ -272,54 +444,99 @@ export const DOKUMEN_MUTU = [
 		kode_ik: 'IK-008',
 		judul: 'Pengukuran Kecerahan Air Kolam Budidaya',
 		kategori: 'IK',
-		parameter_uji: 'Kecerahan / Turbiditas',
-		metode_pengujian: 'Metode Visual Secchi Disk (SNI Budidaya Perikanan)',
+		parameter_uji: 'Kecerahan',
+		metode_pengujian: 'Metode Visual Secchi Disk (Permen KKP No. 75/2016)',
 		file_path: '/uploads/sop-ik-008-kecerahan.pdf',
 		versi: 1
 	},
 	{
 		kode_ik: 'IK-009',
-		judul: 'Pengujian Padatan Tersuspensi Total (TSS)',
+		judul: 'Pengukuran Salinitas Air Kolam Budidaya',
 		kategori: 'IK',
-		parameter_uji: 'Padatan Tersuspensi Total (TSS)',
-		metode_pengujian: 'SNI 06-6989.3-2004 (Gravimetri)',
-		file_path: '/uploads/sop-ik-009-tss.pdf',
+		parameter_uji: 'Salinitas',
+		metode_pengujian: 'Metode Refraktometer Optik / Salinometer Digital',
+		file_path: '/uploads/sop-ik-009-salinitas.pdf',
 		versi: 1
 	},
 	{
 		kode_ik: 'IK-010',
-		judul: 'Pengujian Kebutuhan Oksigen Biokimia (BOD₅)',
+		judul: 'Pengujian Alkalinitas Air Kolam Budidaya',
 		kategori: 'IK',
-		parameter_uji: 'BOD₅ (Kebutuhan Oksigen Biokimia)',
-		metode_pengujian: 'SNI 6989.72:2009 (Inkubasi 5 Hari 20°C)',
-		file_path: '/uploads/sop-ik-010-bod.pdf',
+		parameter_uji: 'Alkalinitas',
+		metode_pengujian: 'SNI 06-2420-1991 (Titrasi Asidimetri)',
+		file_path: '/uploads/sop-ik-010-alkalinitas.pdf',
 		versi: 1
 	},
 	{
 		kode_ik: 'IK-011',
-		judul: 'Pengujian Kebutuhan Oksigen Kimiawi (COD)',
+		judul: 'Pengujian Bahan Organik Total (TOM) Air Kolam',
 		kategori: 'IK',
-		parameter_uji: 'COD (Kebutuhan Oksigen Kimiawi)',
-		metode_pengujian: 'SNI 6989.73:2019 (Refluks Tertutup Spektrofotometri)',
-		file_path: '/uploads/sop-ik-011-cod.pdf',
+		parameter_uji: 'Bahan Organik Total',
+		metode_pengujian: 'SNI 06-6989.22-2004 (Permanganometri)',
+		file_path: '/uploads/sop-ik-011-tom.pdf',
 		versi: 1
 	},
 	{
 		kode_ik: 'IK-012',
-		judul: 'Pengujian Kadar Fosfat / Ortofosfat (PO₄-P)',
+		judul: 'Pengujian Total Padatan Terlarut (TDS)',
 		kategori: 'IK',
-		parameter_uji: 'Fosfat / Ortofosfat (PO₄-P)',
-		metode_pengujian: 'SNI 06-6989.31-2005 (Spektrofotometri Asam Askorbat)',
-		file_path: '/uploads/sop-ik-012-fosfat.pdf',
+		parameter_uji: 'TDS',
+		metode_pengujian: 'SNI 06-6989.27-2005 (Gravimetri / TDS Meter)',
+		file_path: '/uploads/sop-ik-012-tds.pdf',
 		versi: 1
 	},
 	{
 		kode_ik: 'IK-013',
-		judul: 'Pengukuran Salinitas Air Kolam Budidaya',
+		judul: 'Pengujian Padatan Tersuspensi Total (TSS)',
 		kategori: 'IK',
-		parameter_uji: 'Salinitas Air',
-		metode_pengujian: 'Metode Refraktometer Optik / Salinometer Digital',
-		file_path: '/uploads/sop-ik-013-salinitas.pdf',
+		parameter_uji: 'Padatan Tersuspensi',
+		metode_pengujian: 'SNI 06-6989.3-2004 (Gravimetri)',
+		file_path: '/uploads/sop-ik-013-tss.pdf',
+		versi: 1
+	},
+	{
+		kode_ik: 'IK-014',
+		judul: 'Pengujian Kebutuhan Oksigen Biokimia (BOD₅)',
+		kategori: 'IK',
+		parameter_uji: 'BOD₅',
+		metode_pengujian: 'SNI 6989.72:2009 (Inkubasi 5 Hari 20°C)',
+		file_path: '/uploads/sop-ik-014-bod.pdf',
+		versi: 1
+	},
+	{
+		kode_ik: 'IK-015',
+		judul: 'Pengujian Kebutuhan Oksigen Kimiawi (COD)',
+		kategori: 'IK',
+		parameter_uji: 'COD',
+		metode_pengujian: 'SNI 6989.73:2019 (Refluks Tertutup Spektrofotometri)',
+		file_path: '/uploads/sop-ik-015-cod.pdf',
+		versi: 1
+	},
+	{
+		kode_ik: 'IK-016',
+		judul: 'Pengujian Kadar Fosfat / Ortofosfat (PO₄-P)',
+		kategori: 'IK',
+		parameter_uji: 'Fosfat',
+		metode_pengujian: 'SNI 06-6989.31-2005 (Spektrofotometri Asam Askorbat)',
+		file_path: '/uploads/sop-ik-016-fosfat.pdf',
+		versi: 1
+	},
+	{
+		kode_ik: 'IK-017',
+		judul: 'Pengujian Logam Berat (Pb, Cd, Hg) Air Kolam',
+		kategori: 'IK',
+		parameter_uji: 'Logam Berat',
+		metode_pengujian: 'SNI 6989.8:2009 (AAS / Atomic Absorption Spectroscopy)',
+		file_path: '/uploads/sop-ik-017-logam-berat.pdf',
+		versi: 1
+	},
+	{
+		kode_ik: 'IK-018',
+		judul: 'Pengujian Total Bakteri Vibrio sp. Air Kolam',
+		kategori: 'IK',
+		parameter_uji: 'Total Vibrio',
+		metode_pengujian: 'SNI 01-2332.1-2006 (Metode Cawan Tuang Media TCBS)',
+		file_path: '/uploads/sop-ik-018-vibrio.pdf',
 		versi: 1
 	},
 	{
@@ -353,7 +570,7 @@ export const LOKASI_KOLAM = [
 		kecamatan: 'Ile Ape',
 		desa: 'Waowala',
 		titik_koordinat: '-8.31250, 123.58720',
-		komoditas_ikan: 'Ikan Bandeng'
+		komoditas_ikan: 'Ikan Bandeng & Udang'
 	},
 	{
 		nama_pokdakan: 'Pokdakan Uyelewun Jaya',
@@ -361,7 +578,7 @@ export const LOKASI_KOLAM = [
 		kecamatan: 'Omesuri',
 		desa: 'Balauring',
 		titik_koordinat: '-8.23910, 123.75420',
-		komoditas_ikan: 'Ikan Kerapu & Kakap'
+		komoditas_ikan: 'Ikan Kerapu, Kakap & Udang Vaname'
 	}
 ];
 

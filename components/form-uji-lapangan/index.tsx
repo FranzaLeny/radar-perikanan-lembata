@@ -137,9 +137,16 @@ export function FormUjiLapangan({
 		if (!bm) return ikCandidates[0]?.id || ikList[0]?.id || '';
 
 		const paramName = bm.parameter.toLowerCase().trim();
-		const matching = ikCandidates.find(
-			(ik) => ik.parameter_uji && ik.parameter_uji.toLowerCase().trim() === paramName
-		);
+		const matching = ikCandidates.find((ik) => {
+			if (!ik.parameter_uji) return false;
+			const ikParam = ik.parameter_uji.toLowerCase().trim();
+			return (
+				paramName === ikParam ||
+				paramName.startsWith(ikParam) ||
+				paramName.includes(ikParam) ||
+				ikParam.includes(paramName)
+			);
+		});
 		if (matching) return matching.id;
 
 		const byTitle = ikCandidates.find((ik) => ik.judul.toLowerCase().includes(paramName));
