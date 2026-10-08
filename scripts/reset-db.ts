@@ -1,4 +1,4 @@
-/** biome-ignore-all lint/suspicious/noConsole: <> */
+/** biome-ignore-all lint/suspicious/noConsole: <log> */
 import { $ } from 'bun';
 
 import postgres from 'postgres';
@@ -29,9 +29,17 @@ async function resetDatabase() {
 				"user"
 			CASCADE;
 		`);
-		console.log('   ✓ Seluruh tabel berhasil dihapus.');
+		console.log('   ✓ Seluruh tabel public berhasil dibersihkan.');
+
+		// Coba bersihkan tabel migrasi drizzle jika ada
+		try {
+			await sql.unsafe(`DROP TABLE IF EXISTS drizzle.__drizzle_migrations CASCADE;`);
+			console.log('   ✓ Tabel riwayat migrasi drizzle berhasil dibersihkan.');
+		} catch {
+			// Lewati jika ownership dibatasi oleh cloud
+		}
 	} catch (err) {
-		console.warn('   ⚠️ Terjadi kesalahan saat menghapus tabel:', err);
+		console.warn('   ⚠️ Catatan saat pembersihan tabel:', err);
 	} finally {
 		await sql.end();
 	}
@@ -54,6 +62,6 @@ async function resetDatabase() {
 }
 
 resetDatabase().catch((err) => {
-	console.error('❌ Terjadi kesalahan fatal saat mereset database:', err);
+	console.error('❌ Terjadi kesalahan saat mereset database:', err);
 	process.exit(1);
 });

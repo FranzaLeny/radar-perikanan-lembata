@@ -21,7 +21,7 @@ async function seedDemoUsers() {
 	const rawData = readFileSync(jsonPath, 'utf-8');
 	const demoUsers: DemoUserItem[] = JSON.parse(rawData);
 
-	const defaultPassword = process.env.DEFAULT_PASSWORD || 'password123';
+	const defaultPassword = process.env.NEXT_PUBLIC_DEMO_PASSWORD || 'password123';
 	const hashedPassword = await hashPassword(defaultPassword);
 
 	for (const u of demoUsers) {

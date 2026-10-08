@@ -9,7 +9,7 @@ import * as schema from './schema';
 const connectionString = process.env.DATABASE_URL!;
 
 function createDb() {
-	if (process.env.NODE_ENV === 'production' && connectionString.includes('neon.tech')) {
+	if (process.env.NODE_ENV === 'production' || connectionString.includes('neon.tech')) {
 		// Production: Neon DB (serverless, HTTP-based)
 		const sql = neon(connectionString);
 		return drizzleNeon(sql, { schema });

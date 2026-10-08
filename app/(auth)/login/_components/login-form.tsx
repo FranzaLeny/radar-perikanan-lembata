@@ -63,7 +63,7 @@ export function LoginForm() {
 		setFieldErrors({});
 
 		const effectivePassword =
-			password.trim() || process.env.NEXT_PUBLIC_DEFAULT_PASSWORD || 'password123';
+			password.trim() || process.env.NEXT_PUBLIC_DEMO_PASSWORD || 'password123';
 
 		// 1. Validasi Client-Side dengan Zod
 		const validation = loginSchema.safeParse({ email, password: effectivePassword });
