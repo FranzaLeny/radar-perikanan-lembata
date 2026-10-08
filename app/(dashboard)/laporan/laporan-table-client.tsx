@@ -12,7 +12,7 @@ import {
 	CardTitle
 } from '@/components/shadcn/card';
 import { deleteHasilUjiAction, updateStatusUjiAction } from '@/lib/actions/uji-kualitas';
-import { APP_NAME } from '@/lib/constants';
+import { BRAND_NAME } from '@/lib/constants';
 import { LaporanFilterBar } from './_components/laporan-filter-bar';
 import { LaporanTable } from './_components/laporan-table';
 import type { LaporanTableClientProps, StatusTabType, UjiLaporanItem } from './types';
@@ -38,7 +38,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 
 		return result.filter((item) => {
 			const matchNomor = item.nomor_sampel.toLowerCase().includes(query);
-			const matchLhu = `lhu/${APP_NAME.toLowerCase()}/${item.nomor_sampel}`
+			const matchLhu = `lhu/${BRAND_NAME.toLowerCase()}/${item.nomor_sampel}`
 				.toLowerCase()
 				.includes(query);
 			const matchPetugas = item.petugas_uji.toLowerCase().includes(query);

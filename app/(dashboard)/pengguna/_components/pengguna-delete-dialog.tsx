@@ -11,7 +11,7 @@ import {
 	DialogHeader,
 	DialogTitle
 } from '@/components/shadcn/dialog';
-import { APP_NAME } from '@/lib/constants';
+import { BRAND_NAME } from '@/lib/constants';
 import type { UserItem } from '../types';
 
 type PenggunaDeleteDialogProps = {
@@ -110,7 +110,7 @@ export function PenggunaDeleteDialog({
 						</p>
 						<p className='text-muted-foreground'>
 							Sesuai standar operasional, akun ini <strong>hanya dapat dinonaktifkan</strong> agar tidak
-							dapat lagi login atau melakukan aktivitas apapun di sistem {APP_NAME}.
+							dapat lagi login atau melakukan aktivitas apapun di sistem {BRAND_NAME}.
 						</p>
 					</div>
 

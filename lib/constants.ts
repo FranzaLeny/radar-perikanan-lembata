@@ -11,13 +11,13 @@ export const APP_CONFIG = {
 	name: 'RADAR',
 
 	/** Nama branding portal cloud cetak */
-	cloudName: 'RADAR Cloud',
+	appName: 'RADAR Diskan Lembata',
 
 	/** Kepanjangan nama aplikasi */
 	fullName: 'Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata',
 
 	/** Judul lengkap gabungan */
-	title: 'RADAR — Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata',
+	title: 'RADAR — Dinas Perikanan Kabupaten Lembata',
 
 	/** Tagline resmi aplikasi */
 	tagline: 'Satu Rekapitulasi Data, Kepastian Mutu Air Budidaya Lembata',
@@ -80,9 +80,9 @@ const getFullImageUrl = (pathname: string) => {
  * Metadata standar Next.js untuk Root Layout dan SEO
  */
 export const SITE_METADATA: Metadata = {
-	title: { default: APP_CONFIG.title, template: `%s | ${APP_CONFIG.name}` },
+	title: { default: APP_CONFIG.appName, template: `%s | ${APP_CONFIG.name}` },
 	description: APP_CONFIG.description,
-	applicationName: APP_CONFIG.name,
+	applicationName: APP_CONFIG.appName,
 	authors: [{ name: APP_CONFIG.author.name }],
 	creator: APP_CONFIG.author.name,
 	publisher: APP_CONFIG.institution.name,
@@ -101,7 +101,7 @@ export const SITE_METADATA: Metadata = {
 		title: APP_CONFIG.title,
 		description: APP_CONFIG.shortDescription,
 		url: process.env.NEXT_PUBLIC_APP_URL,
-		siteName: APP_CONFIG.title,
+		siteName: APP_CONFIG.appName,
 		images: [
 			{
 				url: getFullImageUrl(APP_CONFIG.logo.ogImage),
@@ -124,9 +124,8 @@ export const SITE_METADATA: Metadata = {
 };
 
 // Ekspor alias praktis untuk kemudahan impor langsung
-export const APP_NAME = APP_CONFIG.name;
-export const APP_CLOUD_NAME = APP_CONFIG.cloudName;
-export const APP_FULL_NAME = APP_CONFIG.fullName;
+export const BRAND_NAME = APP_CONFIG.name;
+export const APP_NAME = APP_CONFIG.appName;
 export const APP_TITLE = APP_CONFIG.title;
 export const APP_TAGLINE = APP_CONFIG.tagline;
 export const APP_VERSION = APP_CONFIG.version;

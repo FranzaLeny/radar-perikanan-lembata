@@ -67,7 +67,7 @@ import {
 	deleteInstruksiKerjaAction,
 	updateInstruksiKerjaAction
 } from '@/lib/actions/instruksi-kerja';
-import { APP_NAME } from '@/lib/constants';
+import { BRAND_NAME } from '@/lib/constants';
 import { toFieldErrors } from '@/lib/utils';
 import { instruksiKerjaSchema } from '@/lib/validations/instruksi-kerja';
 
@@ -451,7 +451,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 						</DialogTitle>
 						<DialogDescription className='text-xs'>
 							Setiap IK yang didaftarkan akan secara otomatis mendapatkan hash QR Code unik untuk validasi
-							keabsahan di sistem {APP_NAME}.
+							keabsahan di sistem {BRAND_NAME}.
 						</DialogDescription>
 					</DialogHeader>
 

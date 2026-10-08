@@ -10,7 +10,7 @@ import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { APP_CONFIG, APP_NAME } from '@/lib/constants';
+import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
 import { generateQrDataUrl, generateQrSvg, getVerificationUrl } from '@/lib/qr';
 
 export default async function CetakLabelPage({ params }: { params: Promise<{ id: string }> }) {
@@ -77,7 +77,7 @@ export default async function CetakLabelPage({ params }: { params: Promise<{ id:
 						</div>
 						<div className='text-right'>
 							<Badge className='border-slate-400 font-bold text-slate-900' variant='outline'>
-								{APP_NAME}
+								{BRAND_NAME}
 							</Badge>
 						</div>
 					</div>
@@ -129,7 +129,7 @@ export default async function CetakLabelPage({ params }: { params: Promise<{ id:
 					{/* Footer Metadata */}
 					<div className='mt-4 flex w-full items-center justify-between border-slate-200 border-t pt-2.5 text-slate-500 text-xs'>
 						<span>HASH: {ik.qr_code_hash.substring(0, 16)}...</span>
-						<span>{APP_NAME}-LEMBATA</span>
+						<span>{BRAND_NAME}-LEMBATA</span>
 					</div>
 				</div>
 			</div>

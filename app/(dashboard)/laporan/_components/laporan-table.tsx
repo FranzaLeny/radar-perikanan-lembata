@@ -8,7 +8,7 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/shadcn/table';
-import { APP_NAME } from '@/lib/constants';
+import { BRAND_NAME } from '@/lib/constants';
 import type { UjiLaporanItem } from '../types';
 import { LaporanRowActions } from './laporan-row-actions';
 import { LaporanStatusBadge } from './laporan-status-badge';
@@ -62,7 +62,7 @@ export function LaporanTable({
 						items.map((u) => (
 							<TableRow className='hover:bg-muted/30' key={u.id}>
 								<TableCell className='font-semibold text-foreground text-xs'>
-									LHU/{APP_NAME}/{u.nomor_sampel}
+									LHU/{BRAND_NAME}/{u.nomor_sampel}
 								</TableCell>
 								<TableCell className='text-muted-foreground text-xs'>
 									{new Date(u.tanggal_pengambilan).toLocaleDateString('id-ID', {

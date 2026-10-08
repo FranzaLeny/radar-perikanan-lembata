@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { APP_CONFIG, APP_NAME } from '@/lib/constants';
+import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
 
 type LhuKopSuratProps = { nomorSampel: string };
 
@@ -46,7 +46,7 @@ export function LhuKopSurat({ nomorSampel }: LhuKopSuratProps) {
 					LEMBAR HASIL UJI (LHU) KUALITAS AIR
 				</h3>
 				<p className='mt-0.5 text-slate-600 text-xs'>
-					Nomor: LHU/{APP_NAME}/{nomorSampel}
+					Nomor: LHU/{BRAND_NAME}/{nomorSampel}
 				</p>
 			</div>
 		</>

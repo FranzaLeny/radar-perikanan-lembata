@@ -25,7 +25,7 @@ import {
 import { ThemeToggle } from '@/components/theme-toggle';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
-import { APP_CONFIG, APP_NAME } from '@/lib/constants';
+import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
 
 export default async function PublicVerificationPage({
 	params,
@@ -58,7 +58,7 @@ export default async function PublicVerificationPage({
 					<div className='mt-6 flex justify-center'>
 						<Link href='/login'>
 							<Button size='sm' variant='outline'>
-								<span>Masuk ke {APP_NAME}</span>
+								<span>Masuk ke {BRAND_NAME}</span>
 							</Button>
 						</Link>
 					</div>
@@ -99,14 +99,14 @@ export default async function PublicVerificationPage({
 						width={28}
 					/>
 					<Image
-						alt={APP_NAME}
+						alt={BRAND_NAME}
 						className='size-7 object-contain'
 						height={28}
 						priority
 						src={APP_CONFIG.logo.app}
 						width={28}
 					/>
-					<span className='font-extrabold font-heading text-sm tracking-wider'>{APP_NAME}</span>
+					<span className='font-extrabold font-heading text-sm tracking-wider'>{BRAND_NAME}</span>
 				</div>
 				<ThemeToggle />
 			</header>
@@ -135,7 +135,7 @@ export default async function PublicVerificationPage({
 							/>
 							<div className='h-12 w-px bg-border/80' />
 							<Image
-								alt={APP_NAME}
+								alt={BRAND_NAME}
 								className='h-16 w-auto object-contain drop-shadow-sm'
 								height={64}
 								priority
@@ -261,7 +261,7 @@ export default async function PublicVerificationPage({
 					{APP_CONFIG.institution.province}
 				</p>
 				<p className='text-muted-foreground/80 text-xs'>
-					{APP_NAME} — {APP_CONFIG.fullName}
+					{BRAND_NAME} — {APP_CONFIG.fullName}
 				</p>
 				<p className='font-medium text-muted-foreground'>{APP_CONFIG.author.credit}</p>
 			</footer>

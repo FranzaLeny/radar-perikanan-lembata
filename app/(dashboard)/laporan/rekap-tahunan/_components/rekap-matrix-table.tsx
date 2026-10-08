@@ -9,7 +9,7 @@ import {
 	TableHeader,
 	TableRow
 } from '@/components/shadcn/table';
-import { APP_CLOUD_NAME, APP_CONFIG } from '@/lib/constants';
+import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 import type { PokdakanData, PrintSettings } from '../types';
 
 type RekapMatrixTableProps = {
@@ -226,7 +226,7 @@ export function RekapMatrixTable({
 
 					<div className='text-right text-xs'>
 						<span className='block text-slate-400'>DOKUMEN REKAPITULASI TAHUNAN</span>
-						<p>Dicetak melalui {APP_CLOUD_NAME}</p>
+						<p>Dicetak melalui {APP_NAME}</p>
 					</div>
 				</div>
 			</div>

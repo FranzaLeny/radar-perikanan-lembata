@@ -10,7 +10,7 @@ import {
 	BreadcrumbPage,
 	BreadcrumbSeparator
 } from '@/components/shadcn/breadcrumb';
-import { APP_NAME } from '@/lib/constants';
+import { BRAND_NAME } from '@/lib/constants';
 
 const routeLabels: Record<string, { parent?: string; title: string }> = {
 	'/dashboard': { title: 'Dashboard Utama' },
@@ -35,7 +35,7 @@ export function DashboardBreadcrumb() {
 			<BreadcrumbList>
 				<BreadcrumbItem className='hidden md:block'>
 					<BreadcrumbLink className='text-xs' href='/dashboard'>
-						{APP_NAME}
+						{BRAND_NAME}
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 				{current.parent && (

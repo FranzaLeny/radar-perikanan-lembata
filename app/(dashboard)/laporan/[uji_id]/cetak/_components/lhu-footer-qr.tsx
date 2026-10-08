@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import { APP_CLOUD_NAME, APP_CONFIG } from '@/lib/constants';
+import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 
 type LhuFooterQrProps = { qrDataUrl: string; ujiId: string };
 
@@ -28,7 +28,7 @@ export function LhuFooterQr({ qrDataUrl, ujiId }: LhuFooterQrProps) {
 
 			<div className='text-right text-[10px]'>
 				<span>ID: {ujiId.substring(0, 18)}</span>
-				<p>Dicetak melalui {APP_CLOUD_NAME}</p>
+				<p>Dicetak melalui {APP_NAME}</p>
 			</div>
 		</div>
 	);
