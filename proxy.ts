@@ -16,30 +16,30 @@ export async function proxy(request: NextRequest) {
 		pathname.includes('.') // file statis
 	) {
 		return NextResponse.next();
-	}
-
-	if (pathname.startsWith('/login')) {
-		const session = await auth.api.getSession({ headers: request.headers });
-		if (session) {
-			return NextResponse.redirect(new URL('/dashboard', request.url));
+	} else {
+		if (pathname.startsWith('/login')) {
+			const session = await auth.api.getSession({ headers: request.headers });
+			if (session) {
+				return NextResponse.redirect(new URL('/dashboard', request.url));
+			}
 		}
+
+		// Cek apakah ada cookie session token BetterAuth (mendukung HTTP lokal maupun HTTPS __Secure- prefix)
+		const hasSession = request.cookies
+			.getAll()
+			.some(
+				(c) => c.name.endsWith(process.env.SESSION_TOKEN_NAME || 'session_token') && Boolean(c.value)
+			);
+
+		// 2. Proteksi rute internal (Dashboard dan Modul)
+		if (!hasSession && pathname !== '/login') {
+			const loginUrl = new URL('/login', request.url);
+			loginUrl.searchParams.set('callbackUrl', pathname);
+			return NextResponse.redirect(loginUrl);
+		}
+
+		return NextResponse.next();
 	}
-
-	// Cek apakah ada cookie session token BetterAuth (mendukung HTTP lokal maupun HTTPS __Secure- prefix)
-	const hasSession = request.cookies
-		.getAll()
-		.some(
-			(c) => c.name.endsWith(process.env.SESSION_TOKEN_NAME || 'session_token') && Boolean(c.value)
-		);
-
-	// 2. Proteksi rute internal (Dashboard dan Modul)
-	if (!hasSession && pathname !== '/login') {
-		const loginUrl = new URL('/login', request.url);
-		loginUrl.searchParams.set('callbackUrl', pathname);
-		return NextResponse.redirect(loginUrl);
-	}
-
-	return NextResponse.next();
 }
 
 export const config = { matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'] };

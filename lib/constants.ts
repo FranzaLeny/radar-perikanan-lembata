@@ -84,9 +84,9 @@ const getFullImageUrl = (pathname: string) => {
  * Metadata standar Next.js untuk Root Layout dan SEO
  */
 export const SITE_METADATA: Metadata = {
-	title: { default: APP_CONFIG.name, template: `%s | ${APP_CONFIG.name}` },
+	title: { default: APP_CONFIG.title, template: `%s | ${APP_CONFIG.name}` },
 	description: APP_CONFIG.description,
-	applicationName: APP_CONFIG.fullName,
+	applicationName: APP_CONFIG.name,
 	authors: [{ name: APP_CONFIG.author.name }],
 	creator: APP_CONFIG.author.name,
 	publisher: APP_CONFIG.institution.name,
