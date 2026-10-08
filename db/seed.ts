@@ -112,7 +112,6 @@ async function seed() {
 				set: { name: u.name, role: u.role, banned: false, emailVerified: true }
 			})
 			.returning();
-		console.log({ seededUser });
 
 		await db
 			.insert(account)
