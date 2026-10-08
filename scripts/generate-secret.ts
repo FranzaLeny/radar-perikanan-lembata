@@ -50,7 +50,9 @@ if (shouldWrite) {
 	writeFileSync(targetPath, content, 'utf-8');
 	console.log(`✅ Berhasil menulis BETTER_AUTH_SECRET ke file: ${targetPath}`);
 } else {
-	console.log(`💡 Tip: Jalankan \x1b[33mbun run auth:secret --write\x1b[0m untuk otomatis menyimpan ke file .env.local.`);
+	console.log(
+		`💡 Tip: Jalankan \x1b[33mbun run auth:secret --write\x1b[0m untuk otomatis menyimpan ke file .env.local.`
+	);
 }
 
 console.log('========================================================\n');
