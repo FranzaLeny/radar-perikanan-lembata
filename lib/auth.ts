@@ -6,6 +6,34 @@ import { headers } from 'next/headers';
 import { db } from '@/db';
 import * as authSchema from '@/db/auth-schema';
 
+const disabledPaths = [
+	'/change-email',
+	'/verify-email',
+	'/account-info',
+	'/account/link',
+	'/account/set-password',
+	'/account/unlink',
+	'/callback/{id}',
+	'/delete-user/callback',
+	'/delete-user',
+	'/error',
+	'/forget-password',
+	'/get-access-token',
+	'/link-social',
+	'/list-accounts',
+	'/ok',
+	'/refresh-token',
+	'/request-password-reset',
+	'/reset-password/{token}',
+	'/revoke-other-sessions',
+	'/revoke-sessions',
+	'/send-verification-email',
+	'/sign-in/social',
+	'/sign-up/email',
+	'/unlink-account',
+	'/verify-password'
+];
+
 export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: 'pg',
@@ -18,6 +46,14 @@ export const auth = betterAuth({
 	}),
 	emailAndPassword: { enabled: true, autoSignIn: true },
 	user: { additionalFields: { role: { type: 'string', defaultValue: 'petugas_lapangan' } } },
+	disabledPaths,
+	advanced: {
+		database: { generateId: 'uuid', defaultFindManyLimit: 100 },
+		cookies: {
+			session_token: { name: process?.env?.SESSION_TOKEN_NAME },
+			session_data: { name: process?.env?.SESSION_DATA_NAME }
+		}
+	},
 	plugins: [admin({ defaultRole: 'petugas_lapangan' })]
 });
 

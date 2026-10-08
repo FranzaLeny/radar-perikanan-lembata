@@ -51,9 +51,10 @@ export function LoginForm() {
 
 	const handleDemoSelect = (demoEmail: string) => {
 		setEmail(demoEmail);
-		setPassword('password123');
+		setPassword('');
 		setFieldErrors({});
 		setErrorMessage(null);
+		toast.info(`Akun demo ${demoEmail} dipilih. Klik 'Masuk ke Dashboard' untuk melanjutkan.`);
 	};
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -61,8 +62,11 @@ export function LoginForm() {
 		setErrorMessage(null);
 		setFieldErrors({});
 
+		const effectivePassword =
+			password.trim() || process.env.NEXT_PUBLIC_DEFAULT_PASSWORD || 'password123';
+
 		// 1. Validasi Client-Side dengan Zod
-		const validation = loginSchema.safeParse({ email, password });
+		const validation = loginSchema.safeParse({ email, password: effectivePassword });
 		if (!validation.success) {
 			setFieldErrors(validation.error.flatten().fieldErrors);
 			return;
@@ -75,7 +79,10 @@ export function LoginForm() {
 			let lastErrMsg = 'Email atau kata sandi tidak cocok.';
 
 			for (const candEmail of candidateEmails) {
-				const { data, error } = await authClient.signIn.email({ email: candEmail, password });
+				const { data, error } = await authClient.signIn.email({
+					email: candEmail,
+					password: effectivePassword
+				});
 
 				if (!error && data) {
 					isSuccess = true;
@@ -146,8 +153,7 @@ export function LoginForm() {
 								autoComplete='current-password'
 								id='password'
 								onChange={(e) => setPassword(e.target.value)}
-								placeholder='••••••••'
-								required
+								placeholder={email ? '•••••••• (Otomatis untuk akun demo)' : '••••••••'}
 								type={showPassword ? 'text' : 'password'}
 								value={password}
 							/>
