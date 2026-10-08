@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 
 import { authClient } from '@/lib/auth-client';
 import { PenggunaCreateDialog } from './_components/pengguna-create-dialog';
+import { PenggunaCredentialsDialog } from './_components/pengguna-credentials-dialog';
 import { PenggunaDeleteDialog } from './_components/pengguna-delete-dialog';
 import { PenggunaFilterBar } from './_components/pengguna-filter-bar';
 import { PenggunaHeader } from './_components/pengguna-header';
@@ -27,6 +28,12 @@ export function PenggunaClient({
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	// Credentials Modal State (Ganti Email & Password)
+	const [selectedUserForCredentials, setSelectedUserForCredentials] = useState<UserItem | null>(
+		null
+	);
+	const [isCredentialsModalOpen, setIsCredentialsModalOpen] = useState(false);
+
 	// Role Modal State
 	const [selectedUserForRole, setSelectedUserForRole] = useState<UserItem | null>(null);
 	const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
@@ -39,6 +46,19 @@ export function PenggunaClient({
 
 	const handleOpenAdd = () => {
 		setIsModalOpen(true);
+	};
+
+	const handleOpenEditCredentials = (user: UserItem) => {
+		setSelectedUserForCredentials(user);
+		setIsCredentialsModalOpen(true);
+	};
+
+	const handleCredentialsSuccess = (updatedUser: { id: string; name: string; email: string }) => {
+		setUsers((prev) =>
+			prev.map((u) =>
+				u.id === updatedUser.id ? { ...u, name: updatedUser.name, email: updatedUser.email } : u
+			)
+		);
 	};
 
 	const handleOpenEditRole = (user: UserItem) => {
@@ -169,6 +189,7 @@ export function PenggunaClient({
 				currentUserId={currentUserId}
 				onClearSearch={() => setSearchTerm('')}
 				onDelete={handleDeleteInitiation}
+				onOpenEditCredentials={handleOpenEditCredentials}
 				onOpenEditRole={handleOpenEditRole}
 				onToggleBan={handleToggleBan}
 				searchTerm={searchTerm}
@@ -180,6 +201,15 @@ export function PenggunaClient({
 				isOpen={isModalOpen}
 				onOpenChange={setIsModalOpen}
 				onSuccess={handleCreateSuccess}
+			/>
+
+			{/* Modal Dialog Ubah Email & Kata Sandi */}
+			<PenggunaCredentialsDialog
+				isOpen={isCredentialsModalOpen}
+				isSelf={selectedUserForCredentials?.id === currentUserId}
+				onOpenChange={setIsCredentialsModalOpen}
+				onSuccess={handleCredentialsSuccess}
+				selectedUser={selectedUserForCredentials}
 			/>
 
 			{/* Modal Dialog Ubah Role */}

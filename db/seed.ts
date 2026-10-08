@@ -278,59 +278,39 @@ async function seed() {
 	// 4. Seed Akun Default Sistem
 	console.log('[SIPEKA Seed] Menanam akun pengguna default...');
 	const usersToSeed = [
+		{ name: 'Administrator Sistem', email: 'admin@radar.lembata.go.id', role: 'admin' },
 		{
-			id: 'usr_admin_radar',
-			name: 'Administrator Sistem',
-			email: 'admin@radar.lembata.go.id',
-			role: 'admin'
-		},
-		{
-			id: 'usr_mutu_radar',
 			name: 'Melania Herlinda Lete Boro, S.Si',
 			email: 'pengelola@radar.lembata.go.id',
 			role: 'pengelola_mutu'
 		},
 		{
-			id: 'usr_petugas_radar',
 			name: 'Petugas Lapangan Pengawasan Mutu',
 			email: 'petugas@radar.lembata.go.id',
 			role: 'petugas_lapangan'
 		},
 		{
-			id: 'usr_petugas_mina',
 			name: 'Petugas Lapangan Pengawasan Mutu',
 			email: 'petugas@minamutu.lembata.go.id',
 			role: 'petugas_lapangan'
 		},
-		{
-			id: 'usr_kadis_radar',
-			name: 'Hadi Umar, S.Pd., MT',
-			email: 'kadin@radar.lembata.go.id',
-			role: 'kepala_dinas'
-		}
+		{ name: 'Hadi Umar, S.Pd., MT', email: 'kadin@radar.lembata.go.id', role: 'kepala_dinas' }
 	];
 
 	for (const u of usersToSeed) {
-		await db
+		const res = await db
 			.insert(user)
-			.values({
-				id: u.id,
-				name: u.name,
-				email: u.email,
-				role: u.role,
-				banned: false,
-				emailVerified: true
-			})
+			.values({ name: u.name, email: u.email, role: u.role, banned: false, emailVerified: true })
+			.returning()
 			.onConflictDoNothing();
 
 		const hashedPassword = await hashPassword('password123');
 		await db
 			.insert(account)
 			.values({
-				id: `acc_${u.id}`,
-				accountId: u.id,
+				accountId: res?.[0]?.id,
 				providerId: 'credential',
-				userId: u.id,
+				userId: res?.[0]?.id,
 				password: hashedPassword
 			})
 			.onConflictDoNothing();

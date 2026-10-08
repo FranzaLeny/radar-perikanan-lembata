@@ -23,7 +23,7 @@ export function ProfilClient({ user }: ProfilClientProps) {
 				<ProfilInfoCard user={user} />
 
 				<div className='space-y-6 md:col-span-2'>
-					<ProfilPersonalForm email={user.email} initialName={user.name} />
+					<ProfilPersonalForm user={user} />
 					<ProfilPasswordForm />
 				</div>
 			</div>

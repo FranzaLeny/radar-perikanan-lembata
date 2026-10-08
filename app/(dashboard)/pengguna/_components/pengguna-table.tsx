@@ -20,6 +20,7 @@ type PenggunaTableProps = {
 	currentUserId: string;
 	searchTerm: string;
 	onClearSearch: () => void;
+	onOpenEditCredentials: (u: UserItem) => void;
 	onOpenEditRole: (u: UserItem) => void;
 	onToggleBan: (u: UserItem) => void;
 	onDelete: (u: UserItem) => void;
@@ -30,6 +31,7 @@ export function PenggunaTable({
 	currentUserId,
 	searchTerm,
 	onClearSearch,
+	onOpenEditCredentials,
 	onOpenEditRole,
 	onToggleBan,
 	onDelete
@@ -171,6 +173,7 @@ export function PenggunaTable({
 											<PenggunaRowActions
 												isSelf={isSelf}
 												onDelete={onDelete}
+												onOpenEditCredentials={onOpenEditCredentials}
 												onOpenEditRole={onOpenEditRole}
 												onToggleBan={onToggleBan}
 												user={user}

@@ -4,6 +4,7 @@ import type React from 'react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
 import {
 	Card,
@@ -14,14 +15,18 @@ import {
 } from '@/components/shadcn/card';
 import { Field, FieldDescription, FieldLabel } from '@/components/shadcn/field';
 import { Input } from '@/components/shadcn/input';
+import { updateUserCredentials } from '@/lib/actions/pengguna';
+import type { CurrentUser } from '@/lib/auth';
 import { authClient } from '@/lib/auth-client';
 
-type ProfilPersonalFormProps = { initialName: string; email: string };
+type ProfilPersonalFormProps = { user: CurrentUser };
 
-export function ProfilPersonalForm({ initialName, email }: ProfilPersonalFormProps) {
+export function ProfilPersonalForm({ user }: ProfilPersonalFormProps) {
 	const router = useRouter();
-	const [name, setName] = useState(initialName);
+	const [name, setName] = useState(user.name);
+	const [email, setEmail] = useState(user.email);
 	const [isUpdating, setIsUpdating] = useState(false);
+	const isAdmin = user.role === 'admin';
 
 	const handleUpdateProfile = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -30,18 +35,38 @@ export function ProfilPersonalForm({ initialName, email }: ProfilPersonalFormPro
 			return;
 		}
 
+		if (isAdmin && (!email.trim() || !email.includes('@'))) {
+			toast.error('Format alamat email tidak valid');
+			return;
+		}
+
 		setIsUpdating(true);
 		try {
-			const { error } = await authClient.updateUser({ name: name.trim() });
+			if (isAdmin) {
+				const res = await updateUserCredentials({
+					userId: user.id,
+					name: name.trim(),
+					email: email.trim().toLowerCase()
+				});
 
-			if (!error) {
-				toast.success('Profil berhasil diperbarui');
-				router.refresh();
+				if (res.success) {
+					toast.success(res.message);
+					router.refresh();
+				} else {
+					toast.error(res.error || res.message || 'Gagal memperbarui profil');
+				}
 			} else {
-				toast.error(error.message || 'Gagal memperbarui profil');
+				const { error } = await authClient.updateUser({ name: name.trim() });
+
+				if (!error) {
+					toast.success('Profil berhasil diperbarui');
+					router.refresh();
+				} else {
+					toast.error(error.message || 'Gagal memperbarui profil');
+				}
 			}
 		} catch {
-			toast.error('Terjadi kesalahan sistem');
+			toast.error('Terjadi kesalahan sistem saat memperbarui profil');
 		} finally {
 			setIsUpdating(false);
 		}
@@ -54,7 +79,7 @@ export function ProfilPersonalForm({ initialName, email }: ProfilPersonalFormPro
 					<User className='size-4 text-muted-foreground' /> Informasi Pribadi
 				</CardTitle>
 				<CardDescription className='text-xs'>
-					Perbarui nama lengkap yang akan ditampilkan pada dokumen dan riwayat aktivitas.
+					Perbarui nama lengkap dan informasi kontak akun Anda.
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -71,16 +96,32 @@ export function ProfilPersonalForm({ initialName, email }: ProfilPersonalFormPro
 					</Field>
 
 					<Field>
-						<FieldLabel htmlFor='email'>Alamat Email (Terkunci)</FieldLabel>
+						<div className='flex items-center justify-between'>
+							<FieldLabel htmlFor='email'>Alamat Email</FieldLabel>
+							{isAdmin ? (
+								<Badge className='text-[10px]' variant='secondary'>
+									Akses Admin
+								</Badge>
+							) : (
+								<Badge className='text-[10px]' variant='outline'>
+									Terkunci
+								</Badge>
+							)}
+						</div>
 						<Input
-							className='cursor-not-allowed bg-muted/50 opacity-80'
-							disabled
+							className={!isAdmin ? 'cursor-not-allowed bg-muted/50 opacity-80' : ''}
+							disabled={!isAdmin}
 							id='email'
+							onChange={(e) => setEmail(e.target.value)}
+							placeholder='nama@radar.lembata.go.id'
+							required
+							type='email'
 							value={email}
 						/>
 						<FieldDescription>
-							Alamat email terdaftar tidak dapat diubah secara mandiri. Hubungi administrator untuk
-							perubahan email.
+							{isAdmin
+								? 'Sebagai Administrator, Anda dapat mengganti alamat email akun Anda sendiri secara langsung.'
+								: 'Alamat email terdaftar tidak dapat diubah secara mandiri. Hubungi administrator untuk perubahan email.'}
 						</FieldDescription>
 					</Field>
 

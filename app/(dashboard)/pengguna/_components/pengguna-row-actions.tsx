@@ -1,4 +1,4 @@
-import { MoreVertical, ShieldCheck, Trash2, UserCheck, UserX } from 'lucide-react';
+import { KeyRound, MoreVertical, ShieldCheck, Trash2, UserCheck, UserX } from 'lucide-react';
 
 import {
 	DropdownMenu,
@@ -14,6 +14,7 @@ import type { UserItem } from '../types';
 type PenggunaRowActionsProps = {
 	user: UserItem;
 	isSelf: boolean;
+	onOpenEditCredentials: (u: UserItem) => void;
 	onOpenEditRole: (u: UserItem) => void;
 	onToggleBan: (u: UserItem) => void;
 	onDelete: (u: UserItem) => void;
@@ -22,6 +23,7 @@ type PenggunaRowActionsProps = {
 export function PenggunaRowActions({
 	user,
 	isSelf,
+	onOpenEditCredentials,
 	onOpenEditRole,
 	onToggleBan,
 	onDelete
@@ -34,10 +36,14 @@ export function PenggunaRowActions({
 			>
 				<MoreVertical className='size-4' />
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align='end' className='w-52'>
+			<DropdownMenuContent align='end' className='w-56'>
 				<DropdownMenuLabel className='text-xs'>Aksi Pengguna</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
+					<DropdownMenuItem onClick={() => onOpenEditCredentials(user)}>
+						<KeyRound className='mr-2 size-3.5 text-sky-500' />
+						<span>Ganti Email & Password</span>
+					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => onOpenEditRole(user)}>
 						<ShieldCheck className='mr-2 size-3.5 text-primary' />
 						<span>Ubah Wewenang Role</span>
