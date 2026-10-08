@@ -5,8 +5,8 @@ import postgres from 'postgres';
 
 import * as schema from './schema';
 
-const connectionString =
-	process.env.DATABASE_URL || 'postgresql://postgres:minamutu_dev_2026@localhost:5433/sipeka';
+// biome-ignore lint/style/noNonNullAssertion: <DATABASE_URL>
+const connectionString = process.env.DATABASE_URL!;
 
 function createDb() {
 	if (process.env.NODE_ENV === 'production' && connectionString.includes('neon.tech')) {

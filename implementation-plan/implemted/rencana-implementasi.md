@@ -36,14 +36,14 @@ graph LR
 **File:** `.env.local` (development)
 ```env
 # Development — PostgreSQL lokal
-DATABASE_URL=postgresql://postgres:password@localhost:5432/minamutu
+DATABASE_URL=postgresql://postgres:password@localhost:5432/radar
 NODE_ENV=development
 ```
 
 **File:** `.env.production` (production)
 ```env
 # Production — Neon DB
-DATABASE_URL=postgresql://user:password@ep-xxxxx.ap-southeast-1.aws.neon.tech/minamutu?sslmode=require
+DATABASE_URL=postgresql://user:password@ep-xxxxx.ap-southeast-1.aws.neon.tech/radar?sslmode=require
 NODE_ENV=production
 ```
 
@@ -142,8 +142,8 @@ lib/
 ### Task 0.1 — Init Proyek Next.js 16
 | Item | Detail |
 |------|--------|
-| **Perintah** | `bunx --bun create-next-app@latest ./minamutu --ts --app --src-dir=false --eslint --tailwind` |
-| **Output** | Folder `minamutu/` dengan App Router + TypeScript + Tailwind CSS 4 |
+| **Perintah** | `bunx --bun create-next-app@latest ./radar --ts --app --src-dir=false --eslint --tailwind` |
+| **Output** | Folder `radar/` dengan App Router + TypeScript + Tailwind CSS 4 |
 
 ### Task 0.2 — Install Dependencies
 ```bash
@@ -182,14 +182,14 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: minamutu-db
+    container_name: radar-db
     restart: unless-stopped
     ports:
       - '5432:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: minamutu_dev_2026
-      POSTGRES_DB: minamutu
+      POSTGRES_DB: radar
     volumes:
       - minamutu_pgdata:/var/lib/postgresql/data
 
@@ -200,10 +200,10 @@ volumes:
 ```
 # .env.example
 # Development (PostgreSQL Docker)
-DATABASE_URL=postgresql://postgres:minamutu_dev_2026@localhost:5432/minamutu
+DATABASE_URL=postgresql://postgres:minamutu_dev_2026@localhost:5432/radar
 
 # Production (Neon DB) — ganti dengan connection string Neon
-# DATABASE_URL=postgresql://user:pass@ep-xxxx.aws.neon.tech/minamutu?sslmode=require
+# DATABASE_URL=postgresql://user:pass@ep-xxxx.aws.neon.tech/radar?sslmode=require
 
 NODE_ENV=development
 ```
@@ -262,7 +262,7 @@ export type InsertInstruksiKerja = z.infer<typeof insertInstruksiKerjaSchema>;
 flowchart TD
     A["Mulai Setup"] --> B{"Docker running?"}
     B -->|Tidak| C["Jalankan docker compose up -d"]
-    B -->|Ya| D{"Container minamutu-db aktif?"}
+    B -->|Ya| D{"Container radar-db aktif?"}
     C --> D
     D -->|Tidak| E["Start container"]
     D -->|Ya| F["Tunggu PostgreSQL ready (max 30s)"]
@@ -302,7 +302,7 @@ async function setup() {
   let ready = false;
   for (let i = 0; i < 30; i++) {
     try {
-      await $`docker exec minamutu-db pg_isready -U postgres`.quiet();
+      await $`docker exec radar-db pg_isready -U postgres`.quiet();
       ready = true;
       break;
     } catch {
@@ -849,7 +849,7 @@ Sebelum memulai Fase 0, pastikan:
 - [ ] Docker Desktop sudah terinstall dan berjalan (untuk PostgreSQL development)
 - [ ] Akun Neon DB sudah dibuat di [neon.tech](https://neon.tech) (untuk production nanti)
 - [ ] Bun runtime sudah terinstall (`bun --version` ≥ 1.x)
-- [ ] Akses ke repository/folder kerja `e:\LATSAR ELLEN\SISTEM\minamutu\`
+- [ ] Akses ke repository/folder kerja `e:\LATSAR ELLEN\SISTEM\radar\`
 
 > [!NOTE]
 > **Tidak perlu install PostgreSQL secara manual.** Script `bun run setup` akan otomatis menjalankan PostgreSQL via Docker container.

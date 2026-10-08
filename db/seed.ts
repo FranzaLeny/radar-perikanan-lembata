@@ -54,15 +54,17 @@ async function seed() {
 	for (const doc of DOKUMEN_MUTU) {
 		const qrHash = generateIkHash(doc.kode_ik);
 		const catKode =
-			doc.kategori === 1
-				? 'PM'
-				: doc.kategori === 2
-					? 'PP'
-					: doc.kategori === 3
-						? 'SOP'
-						: doc.kategori === 4
-							? 'IK'
-							: 'FR';
+			typeof doc.kategori === 'string'
+				? doc.kategori
+				: doc.kategori === 1
+					? 'PM'
+					: doc.kategori === 2
+						? 'PP'
+						: doc.kategori === 3
+							? 'SOP'
+							: doc.kategori === 4
+								? 'IK'
+								: 'FR';
 		const catId = categoryMap.get(catKode);
 		const catName =
 			KATEGORI_DATA.find((k) => k.kode_kategori === catKode)?.nama_kategori || 'Instruksi Kerja';

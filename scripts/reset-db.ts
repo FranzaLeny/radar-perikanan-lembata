@@ -4,8 +4,7 @@ import { $ } from 'bun';
 import postgres from 'postgres';
 
 async function resetDatabase() {
-	const conn =
-		process.env.DATABASE_URL || 'postgresql://postgres:minamutu_dev_2026@localhost:5433/sipeka';
+	const conn = process.env.DATABASE_URL!;
 	const sql = postgres(conn);
 
 	console.log('\n🧹 ========================================================');
