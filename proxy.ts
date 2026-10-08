@@ -18,7 +18,7 @@ export function proxy(request: NextRequest) {
 	}
 
 	// Cek apakah ada cookie session token BetterAuth (mendukung HTTP lokal maupun HTTPS __Secure- prefix)
-	const hasSession = getSessionCookie(request);
+	const hasSession = getSessionCookie(request, { cookieName: process.env.SESSION_TOKEN_NAME });
 
 	// Jika mengakses root '/' -> arahkan ke '/dashboard' atau '/login'
 	if (pathname === '/') {
