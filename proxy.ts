@@ -11,7 +11,7 @@ export async function proxy(request: NextRequest) {
 		pathname.startsWith('/api/auth') || // Endpoint BetterAuth API
 		pathname.startsWith('/_next') ||
 		pathname.startsWith('/static') ||
-		pathname === '/favicon.ico' ||
+		pathname.includes('icon') ||
 		pathname.includes('.') // file statis
 	) {
 		return NextResponse.next();
@@ -37,7 +37,7 @@ export async function proxy(request: NextRequest) {
 	}
 
 	// 2. Proteksi rute internal (Dashboard dan Modul)
-	if (!hasSession) {
+	if (!hasSession && pathname !== '/login') {
 		const loginUrl = new URL('/login', request.url);
 		loginUrl.searchParams.set('callbackUrl', pathname);
 		return NextResponse.redirect(loginUrl);

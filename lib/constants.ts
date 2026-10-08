@@ -89,7 +89,24 @@ export const SITE_METADATA: Metadata = {
 		'Baku Mutu Air Perikanan',
 		'LHU Mutu Air',
 		'Kabupaten Lembata'
-	]
+	],
+	openGraph: {
+		title: APP_CONFIG.title,
+		description: APP_CONFIG.description,
+		url: process.env.NEXT_PUBLIC_APP_URL,
+		siteName: APP_CONFIG.title,
+		images: [{ url: APP_CONFIG.logo.app, width: 781, height: 781, alt: APP_CONFIG.title }],
+		locale: 'id_ID',
+		type: 'website'
+	},
+	twitter: {
+		card: 'summary_large_image',
+		title: APP_CONFIG.title,
+		description: APP_CONFIG.description,
+		images: [APP_CONFIG.logo.app]
+	}
+	// applicationName: SITE_NAME,
+	// icons: { icon: '/icon.png', shortcut: '/icon.png', apple: '/apple-icon.png' },
 };
 
 // Ekspor alias praktis untuk kemudahan impor langsung
