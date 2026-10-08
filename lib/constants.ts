@@ -17,7 +17,7 @@ export const APP_CONFIG = {
 	fullName: 'Rekapitulasi Data Air Kolam Budidaya Perikanan Lembata',
 
 	/** Judul lengkap gabungan */
-	title: 'RADAR Dinas Perikanan Kabupaten Lembata',
+	title: 'RADAR | Dinas Perikanan Kabupaten Lembata',
 
 	/** Tagline resmi aplikasi */
 	tagline: 'Satu Rekapitulasi Data, Kepastian Mutu Air Budidaya Lembata',
@@ -84,9 +84,9 @@ const getFullImageUrl = (pathname: string) => {
  * Metadata standar Next.js untuk Root Layout dan SEO
  */
 export const SITE_METADATA: Metadata = {
-	title: { default: APP_CONFIG.fullName, template: `%s | ${APP_CONFIG.name}` },
+	title: { default: APP_CONFIG.name, template: `%s | ${APP_CONFIG.name}` },
 	description: APP_CONFIG.description,
-	applicationName: APP_CONFIG.appName,
+	applicationName: APP_CONFIG.fullName,
 	authors: [{ name: APP_CONFIG.author.name }],
 	creator: APP_CONFIG.author.name,
 	publisher: APP_CONFIG.institution.name,
