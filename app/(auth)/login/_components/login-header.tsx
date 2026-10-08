@@ -25,9 +25,7 @@ export function LoginHeader() {
 					width={56}
 				/>
 			</div>
-			<CardTitle className='font-bold text-2xl tracking-tight'>
-				{APP_CONFIG.name}
-			</CardTitle>
+			<CardTitle className='font-bold text-2xl tracking-tight'>{APP_CONFIG.name}</CardTitle>
 			<CardDescription className='font-semibold text-foreground text-xs'>
 				{APP_CONFIG.fullName}
 			</CardDescription>

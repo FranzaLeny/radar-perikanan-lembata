@@ -56,9 +56,7 @@ export function ParameterTableSection({
 		<Card>
 			<CardHeader className='flex flex-row items-center justify-between border-b pb-3'>
 				<div>
-					<CardTitle>
-						2. Parameter Mutu Air & Instruksi Kerja (IK) Terkait
-					</CardTitle>
+					<CardTitle>2. Parameter Mutu Air & Instruksi Kerja (IK) Terkait</CardTitle>
 					<CardDescription className='text-xs'>
 						Setiap baris parameter wajib dihubungkan ke Instruksi Kerja (IK) yang digunakan beserta metode
 						pengujian resminya.

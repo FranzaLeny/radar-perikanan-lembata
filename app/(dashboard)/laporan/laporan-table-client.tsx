@@ -108,9 +108,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 		<Card>
 			<CardHeader className='flex flex-col justify-between gap-3 pb-3 sm:flex-row sm:items-center'>
 				<div>
-					<CardTitle>
-						Daftar Lembar Hasil Uji (LHU) Siap Cetak
-					</CardTitle>
+					<CardTitle>Daftar Lembar Hasil Uji (LHU) Siap Cetak</CardTitle>
 					<CardDescription className='text-xs'>
 						Kelola siklus status dokumen (Draft &rarr; Final &rarr; Arsip) dan penerbitan Laporan Hasil
 						Uji resmi.
@@ -126,9 +124,7 @@ export function LaporanTableClient({ initialList }: LaporanTableClientProps) {
 							</span>
 						</Badge>
 					) : (
-						<Badge variant='outline'>
-							{list.length} Dokumen Terdaftar
-						</Badge>
+						<Badge variant='outline'>{list.length} Dokumen Terdaftar</Badge>
 					)}
 				</div>
 			</CardHeader>

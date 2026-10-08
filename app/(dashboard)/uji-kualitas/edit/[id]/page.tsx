@@ -10,7 +10,7 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { getCurrentUser } from '@/lib/auth';
 
-export const metadata = { title: 'Edit Hasil Uji Kualitas Air — SIPEKA' };
+export const metadata = { title: 'Edit Hasil Uji Kualitas Air — RADAR' };
 
 export default async function EditUjiKualitasPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;
@@ -61,16 +61,11 @@ export default async function EditUjiKualitasPage({ params }: { params: Promise<
 						</Button>
 					</Link>
 					<div className='flex items-center gap-2'>
-						<Badge
-							className='gap-1.5 px-2.5 font-semibold uppercase tracking-wider'
-							variant='secondary'
-						>
+						<Badge className='gap-1.5 px-2.5 font-semibold uppercase tracking-wider' variant='secondary'>
 							<TestTube2 className='size-3' />
 							<span>Mode Edit Dokumen Draft</span>
 						</Badge>
-						<Badge variant='outline'>
-							{uji.nomor_sampel}
-						</Badge>
+						<Badge variant='outline'>{uji.nomor_sampel}</Badge>
 					</div>
 					<h1 className='mt-1.5 font-bold font-heading text-2xl text-foreground tracking-tight'>
 						Perbarui Data Pengujian Kualitas Air

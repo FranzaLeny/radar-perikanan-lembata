@@ -72,7 +72,7 @@ function CollapsibleSubMenu({ item }: { item: NavCollapsibleItem }) {
 			<SidebarMenuItem>
 				<SidebarMenuButton isActive={item.isActive} render={<CollapsibleTrigger />}>
 					{item.icon && <item.icon className='size-4' />}
-					<span className='font-medium text-xs'>{item.title}</span>
+					<span className='font-medium'>{item.title}</span>
 					<PlusIcon className='ml-auto size-3.5 opacity-70 group-aria-expanded/menu-button:hidden' />
 					<MinusIcon className='ml-auto hidden size-3.5 opacity-70 group-aria-expanded/menu-button:block' />
 				</SidebarMenuButton>
@@ -81,7 +81,7 @@ function CollapsibleSubMenu({ item }: { item: NavCollapsibleItem }) {
 						{item.subItems.map((sub) => (
 							<SidebarMenuSubItem key={sub.title}>
 								<SidebarMenuSubButton isActive={sub.isActive} render={<Link href={sub.url} />}>
-									<span className='text-xs'>{sub.title}</span>
+									{sub.title}
 								</SidebarMenuSubButton>
 							</SidebarMenuSubItem>
 						))}
@@ -244,7 +244,7 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 								/>
 							</div>
 							<div className='flex flex-col gap-0.5 leading-none'>
-								<span className='font-heading font-semibold text-foreground text-sm tracking-tight'>
+								<span className='font-bold font-heading text-foreground text-md tracking-tight'>
 									{APP_CONFIG.name}
 								</span>
 								<span className='font-medium text-muted-foreground text-xs'>
@@ -269,7 +269,7 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 
 						return (
 							<SidebarGroup key={group.title}>
-								<SidebarGroupLabel className='font-semibold text-muted-foreground/80 text-xs uppercase tracking-wider'>
+								<SidebarGroupLabel className='font-semibold text-muted-foreground/80 uppercase tracking-wider'>
 									{group.title}
 								</SidebarGroupLabel>
 								<SidebarMenu>
@@ -284,7 +284,7 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 											<SidebarMenuItem key={item.title}>
 												<SidebarMenuButton isActive={item.isActive} render={<Link href={itemUrl} />}>
 													{item.icon && <item.icon className='size-4' />}
-													<span className='font-medium text-xs'>{item.title}</span>
+													<span className='font-medium'>{item.title}</span>
 												</SidebarMenuButton>
 											</SidebarMenuItem>
 										);

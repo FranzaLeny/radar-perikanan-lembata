@@ -70,9 +70,7 @@ export function BakuMutuTable({
 									<TableRow className='hover:bg-muted/30' key={item.id}>
 										<TableCell className='font-semibold text-foreground text-xs'>{item.parameter}</TableCell>
 										<TableCell className='text-xs'>
-											<Badge variant='secondary'>
-												{item.satuan}
-											</Badge>
+											<Badge variant='secondary'>{item.satuan}</Badge>
 										</TableCell>
 										<TableCell className='text-xs'>
 											{isDinamisSuhu ? (

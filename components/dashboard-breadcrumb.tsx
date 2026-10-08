@@ -48,9 +48,7 @@ export function DashboardBreadcrumb() {
 				)}
 				<BreadcrumbSeparator />
 				<BreadcrumbItem>
-					<BreadcrumbPage className='font-medium text-xs'>
-						{current.title}
-					</BreadcrumbPage>
+					<BreadcrumbPage className='font-medium text-xs'>{current.title}</BreadcrumbPage>
 				</BreadcrumbItem>
 			</BreadcrumbList>
 		</Breadcrumb>

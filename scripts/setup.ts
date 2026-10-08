@@ -88,10 +88,10 @@ async function setup() {
 	console.log(`${LOG_PREFIX} Untuk menjalankan web server:`);
 	console.log(`   bun run dev`);
 	console.log(`\nAkun Login Default (Testing):`);
-	console.log(`   Admin       : admin@sipeka.lembata.go.id  (pwd: password123)`);
-	console.log(`   Mutu        : pengelola@sipeka.lembata.go.id   (pwd: password123)`);
-	console.log(`   Petugas Uji : petugas@sipeka.lembata.go.id (pwd: password123)`);
-	console.log(`   Kadis       : kadin@sipeka.lembata.go.id   (pwd: password123)`);
+	console.log(`   Admin       : admin@radar.lembata.go.id  (pwd: password123)`);
+	console.log(`   Mutu        : pengelola@radar.lembata.go.id   (pwd: password123)`);
+	console.log(`   Petugas Uji : petugas@radar.lembata.go.id (pwd: password123)`);
+	console.log(`   Kadis       : kadin@radar.lembata.go.id   (pwd: password123)`);
 	console.log(`======================================================\n`);
 }
 

@@ -5,7 +5,7 @@ import { masterPegawai } from '@/db/schema';
 import { PegawaiClient } from './client';
 
 export const metadata = {
-	title: 'Master Pegawai & Pejabat Penandatangan — SIPEKA',
+	title: 'Master Pegawai & Pejabat Penandatangan — RADAR',
 	description:
 		'Kelola data ASN, personil dinas, petugas penguji lapangan, dan pejabat penandatangan resmi LHU.'
 };

@@ -73,9 +73,7 @@ export function InformasiSampelSection({
 	return (
 		<Card>
 			<CardHeader className='border-b pb-3'>
-				<CardTitle>
-					1. Informasi Sampel, Lokasi Kolam & Kondisi Lapangan
-				</CardTitle>
+				<CardTitle>1. Informasi Sampel, Lokasi Kolam & Kondisi Lapangan</CardTitle>
 				<CardDescription className='text-xs'>
 					Identitas botol sampel, titik pemantauan kolam, waktu pengambilan, serta suhu udara sekitar.
 				</CardDescription>

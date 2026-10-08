@@ -38,9 +38,7 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 					{items.map((item) => (
 						<TableRow className='hover:bg-muted/30' key={item.id}>
 							<TableCell className='font-bold text-xs'>
-								<Badge variant='secondary'>
-									{item.kode_kategori}
-								</Badge>
+								<Badge variant='secondary'>{item.kode_kategori}</Badge>
 							</TableCell>
 							<TableCell className='font-semibold text-foreground text-xs'>{item.nama_kategori}</TableCell>
 							<TableCell className='text-muted-foreground text-xs'>{item.deskripsi || '-'}</TableCell>

@@ -39,9 +39,7 @@ export default async function LaporanHubPage() {
 						<div className='mb-2 flex size-10 items-center justify-center rounded-xl bg-muted text-foreground'>
 							<FileSpreadsheet className='size-5' />
 						</div>
-						<CardTitle>
-							Matriks Rekapitulasi Tahunan Mutu Air (2026)
-						</CardTitle>
+						<CardTitle>Matriks Rekapitulasi Tahunan Mutu Air (2026)</CardTitle>
 						<CardDescription className='text-xs leading-relaxed'>
 							Tabel matriks kepatuhan kualitas air per Pokdakan per bulan untuk bahan evaluasi kepala dinas
 							dan laporan pertanggungjawaban program perikanan budidaya.

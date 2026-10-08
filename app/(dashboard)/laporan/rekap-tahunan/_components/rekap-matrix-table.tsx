@@ -36,11 +36,11 @@ export function RekapMatrixTable({
 				<div className='mb-6 border-slate-900 border-b-2 pb-3'>
 					<div className='flex items-center gap-4'>
 						<Image
-							alt='Logo Lembata'
+							alt='Logo Pemerintah Kabupaten Lembata'
 							className='h-auto w-14 shrink-0 object-contain'
 							height={76}
 							priority
-							src='/logo.png'
+							src={APP_CONFIG.logo.kabupaten}
 							width={64}
 						/>
 						<div className='flex-1 pr-14 text-center'>
@@ -72,31 +72,19 @@ export function RekapMatrixTable({
 
 				{/* Legend Status Indikator Mutu */}
 				<div className='mb-4 flex flex-wrap items-center justify-center gap-3 font-medium text-xs'>
-					<Badge
-						className='gap-1.5 border-emerald-300 bg-emerald-50 text-emerald-800'
-						variant='outline'
-					>
+					<Badge className='gap-1.5 border-emerald-300 bg-emerald-50 text-emerald-800' variant='outline'>
 						<span className='size-2 rounded-full bg-emerald-600' />
 						<span>Memenuhi Baku Mutu (Normal)</span>
 					</Badge>
-					<Badge
-						className='gap-1.5 border-amber-300 bg-amber-50 text-amber-800'
-						variant='outline'
-					>
+					<Badge className='gap-1.5 border-amber-300 bg-amber-50 text-amber-800' variant='outline'>
 						<span className='size-2 rounded-full bg-amber-500' />
 						<span>Peringatan (Mendekati Batas)</span>
 					</Badge>
-					<Badge
-						className='gap-1.5 border-rose-300 bg-rose-50 text-rose-800'
-						variant='outline'
-					>
+					<Badge className='gap-1.5 border-rose-300 bg-rose-50 text-rose-800' variant='outline'>
 						<span className='size-2 rounded-full bg-rose-600' />
 						<span>Kritis (Melebihi/Kurang)</span>
 					</Badge>
-					<Badge
-						className='gap-1.5 border-slate-300 bg-slate-50 text-slate-500'
-						variant='outline'
-					>
+					<Badge className='gap-1.5 border-slate-300 bg-slate-50 text-slate-500' variant='outline'>
 						<span className='size-2 rounded-full bg-slate-300' />
 						<span>- (Belum Ada Uji)</span>
 					</Badge>

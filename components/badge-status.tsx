@@ -77,12 +77,7 @@ export function BadgeStatus({ status, size = 'md', showIcon = true, className }:
 
 	return (
 		<Badge
-			className={cn(
-				'shadow-2xs',
-				config.badgeClass,
-				sizeClasses[size],
-				className
-			)}
+			className={cn('shadow-2xs', config.badgeClass, sizeClasses[size], className)}
 			variant={config.variant}
 		>
 			{showIcon && (

@@ -8,23 +8,23 @@ import type { Metadata } from 'next';
  */
 export const APP_CONFIG = {
 	/** Nama singkat / akronim brand aplikasi */
-	name: 'SIPEKA',
+	name: 'RADAR',
 
 	/** Nama branding portal cloud cetak */
-	cloudName: 'SIPEKA Cloud',
+	cloudName: 'RADAR Cloud',
 
 	/** Kepanjangan nama aplikasi */
-	fullName: 'Sistem Pemantauan Kualitas Air Budidaya',
+	fullName: 'Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata',
 
 	/** Judul lengkap gabungan */
-	title: 'SIPEKA — Sistem Pemantauan Kualitas Air Budidaya',
+	title: 'RADAR — Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata',
 
 	/** Tagline resmi aplikasi */
-	tagline: 'Sistem Informasi Mutu Air Budidaya Perikanan Terpadu',
+	tagline: 'Satu Rekapitulasi Data, Kepastian Mutu Air Budidaya Lembata',
 
 	/** Deskripsi lengkap aplikasi untuk metadata SEO dan informasi sistem */
 	description:
-		'Sistem Pemantauan Kualitas Air Budidaya (SIPEKA) Dinas Perikanan Kabupaten Lembata. Platform digitalisasi pengujian mutu air kolam pembudidaya (Pokdakan) berbasis validasi otomatis standar SNI & Kepmen-KP, pelabelan QR Code terintegrasi, dan penerbitan Lembar Hasil Uji (LHU) resmi.',
+		'RADAR (Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata) merupakan instrumen digital terpadu yang dirancang untuk menghimpun, merekapitulasi, dan menganalisis parameter mutu air pada sentra kolam budidaya perikanan secara sistematis dan berkala. Sistem ini memadukan data pengukuran lapangan langsung dengan pengujian laboratorium—mencakup parameter kritis seperti derajat keasaman (pH), oksigen terlarut (Dissolved Oxygen), suhu, kekeruhan, serta senyawa nitrogen/amonia—ke dalam basis data terpusat. Melalui rekapitulasi yang terstruktur dan analisis tren yang akurat, RADAR berfungsi sebagai sistem peringatan dini terhadap penurunan baku mutu lingkungan budidaya sekaligus rujukan pengambilan keputusan teknis bagi Dinas Perikanan dan petambak demi menekan risiko kematian biota dan meningkatkan efisiensi panen perikanan di Kabupaten Lembata.',
 
 	/** Deskripsi singkat aplikasi */
 	shortDescription: 'Dinas Perikanan Kabupaten Lembata',
@@ -44,7 +44,7 @@ export const APP_CONFIG = {
 		province: 'Nusa Tenggara Timur',
 		country: 'Indonesia',
 		email: 'perikanan@lembatakab.go.id',
-		emailDomain: 'sipeka.lembata.go.id'
+		emailDomain: 'radar.lembata.go.id'
 	},
 
 	/** Data author, pengembang, dan hak cipta */
@@ -80,7 +80,8 @@ export const SITE_METADATA: Metadata = {
 	creator: APP_CONFIG.author.name,
 	publisher: APP_CONFIG.institution.name,
 	keywords: [
-		'SIPEKA',
+		'RADAR',
+		'Rekapitulasi dan Analisis Data Air',
 		'Kualitas Air Budidaya',
 		'Dinas Perikanan Lembata',
 		'Pokdakan Lembata',

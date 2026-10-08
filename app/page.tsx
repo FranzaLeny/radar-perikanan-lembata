@@ -19,8 +19,8 @@ export default async function HomePage() {
 	return (
 		<div className='relative flex min-h-screen flex-col justify-between overflow-hidden bg-background text-foreground'>
 			{/* Background Lighting Glows */}
-			<div className='pointer-events-none absolute top-[-10%] left-[-10%] h-[500px] w-[500px] rounded-full bg-primary/10 blur-[140px]' />
-			<div className='pointer-events-none absolute top-[20%] right-[-10%] h-[500px] w-[500px] rounded-full bg-primary/10 blur-[140px]' />
+			<div className='pointer-events-none absolute top-[-10%] left-[-10%] h-125 w-125 rounded-full bg-primary/10 blur-[140px]' />
+			<div className='pointer-events-none absolute top-[20%] right-[-10%] h-125 w-125 rounded-full bg-primary/10 blur-[140px]' />
 
 			{/* Navbar */}
 			<header className='relative z-10 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6'>
@@ -34,8 +34,8 @@ export default async function HomePage() {
 						width={40}
 					/>
 					<div>
-						<h1 className='font-extrabold font-heading text-base tracking-wider'>{APP_CONFIG.name}</h1>
-						<p className='font-medium text-muted-foreground text-xs'>{APP_CONFIG.institution.name}</p>
+						<h1 className='font-extrabold font-heading tracking-wider'>{APP_CONFIG.name}</h1>
+						<p className='font-medium text-muted-foreground text-sm'>{APP_CONFIG.institution.name}</p>
 					</div>
 				</div>
 
@@ -54,7 +54,7 @@ export default async function HomePage() {
 			<main className='relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center px-6 py-12 text-center sm:py-20'>
 				<Badge className='mb-6 gap-1.5 px-3.5 py-1 font-semibold' variant='secondary'>
 					<ShieldCheck className='size-3.5' />
-					<span>Sistem Informasi Mutu Air Budidaya Perikanan Terpadu</span>
+					<span>{APP_CONFIG.tagline}</span>
 				</Badge>
 
 				<h2 className='max-w-4xl font-extrabold font-heading text-3xl leading-tight tracking-tight sm:text-5xl lg:text-6xl'>

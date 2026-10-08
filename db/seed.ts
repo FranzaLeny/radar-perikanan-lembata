@@ -279,10 +279,28 @@ async function seed() {
 	console.log('[SIPEKA Seed] Menanam akun pengguna default...');
 	const usersToSeed = [
 		{
+			id: 'usr_admin_radar',
+			name: 'Administrator Sistem',
+			email: 'admin@radar.lembata.go.id',
+			role: 'admin'
+		},
+		{
 			id: 'usr_admin_01',
 			name: 'Administrator Sistem',
 			email: 'admin@sipeka.lembata.go.id',
 			role: 'admin'
+		},
+		{
+			id: 'usr_admin_mina',
+			name: 'Administrator Sistem',
+			email: 'admin@minamutu.lembata.go.id',
+			role: 'admin'
+		},
+		{
+			id: 'usr_mutu_radar',
+			name: 'Melania Herlinda Lete Boro, S.Si',
+			email: 'pengelola@radar.lembata.go.id',
+			role: 'pengelola_mutu'
 		},
 		{
 			id: 'usr_mutu_02',
@@ -291,15 +309,45 @@ async function seed() {
 			role: 'pengelola_mutu'
 		},
 		{
+			id: 'usr_mutu_mina',
+			name: 'Melania Herlinda Lete Boro, S.Si',
+			email: 'pengelola@minamutu.lembata.go.id',
+			role: 'pengelola_mutu'
+		},
+		{
+			id: 'usr_petugas_radar',
+			name: 'Petugas Lapangan Pengawasan Mutu',
+			email: 'petugas@radar.lembata.go.id',
+			role: 'petugas_lapangan'
+		},
+		{
 			id: 'usr_petugas_01',
 			name: 'Petugas Lapangan Pengawasan Mutu',
 			email: 'petugas@sipeka.lembata.go.id',
 			role: 'petugas_lapangan'
 		},
 		{
+			id: 'usr_petugas_mina',
+			name: 'Petugas Lapangan Pengawasan Mutu',
+			email: 'petugas@minamutu.lembata.go.id',
+			role: 'petugas_lapangan'
+		},
+		{
+			id: 'usr_kadis_radar',
+			name: 'Hadi Umar, S.Pd., MT',
+			email: 'kadin@radar.lembata.go.id',
+			role: 'kepala_dinas'
+		},
+		{
 			id: 'usr_kadis_01',
 			name: 'Hadi Umar, S.Pd., MT',
 			email: 'kadin@sipeka.lembata.go.id',
+			role: 'kepala_dinas'
+		},
+		{
+			id: 'usr_kadis_mina',
+			name: 'Hadi Umar, S.Pd., MT',
+			email: 'kadin@minamutu.lembata.go.id',
 			role: 'kepala_dinas'
 		}
 	];

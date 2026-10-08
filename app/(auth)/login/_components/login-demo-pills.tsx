@@ -16,7 +16,7 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 			<div className='grid grid-cols-2 gap-2 text-xs'>
 				<Button
 					className='group flex h-auto w-full cursor-pointer flex-col items-start justify-start p-2.5 text-left font-normal'
-					onClick={() => onSelect('admin@sipeka.lembata.go.id')}
+					onClick={() => onSelect('admin@radar.lembata.go.id')}
 					type='button'
 					variant='outline'
 				>
@@ -26,12 +26,12 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 							ADM
 						</Badge>
 					</div>
-					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>admin@sipeka...</p>
+					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>admin@radar...</p>
 				</Button>
 
 				<Button
 					className='group flex h-auto w-full cursor-pointer flex-col items-start justify-start p-2.5 text-left font-normal'
-					onClick={() => onSelect('pengelola@sipeka.lembata.go.id')}
+					onClick={() => onSelect('pengelola@radar.lembata.go.id')}
 					type='button'
 					variant='outline'
 				>
@@ -41,12 +41,12 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 							PM
 						</Badge>
 					</div>
-					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>pengelola@sipeka...</p>
+					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>pengelola@radar...</p>
 				</Button>
 
 				<Button
 					className='group flex h-auto w-full cursor-pointer flex-col items-start justify-start p-2.5 text-left font-normal'
-					onClick={() => onSelect('petugas@sipeka.lembata.go.id')}
+					onClick={() => onSelect('petugas@radar.lembata.go.id')}
 					type='button'
 					variant='outline'
 				>
@@ -56,12 +56,12 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 							PL
 						</Badge>
 					</div>
-					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>petugas@sipeka...</p>
+					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>petugas@radar...</p>
 				</Button>
 
 				<Button
 					className='group flex h-auto w-full cursor-pointer flex-col items-start justify-start p-2.5 text-left font-normal'
-					onClick={() => onSelect('kadin@sipeka.lembata.go.id')}
+					onClick={() => onSelect('kadin@radar.lembata.go.id')}
 					type='button'
 					variant='outline'
 				>
@@ -71,7 +71,7 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 							KD
 						</Badge>
 					</div>
-					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>kadin@sipeka...</p>
+					<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>kadin@radar...</p>
 				</Button>
 			</div>
 		</div>

@@ -28,7 +28,7 @@ export async function generateQrDataUrl(content: string): Promise<string> {
 			margin: 2,
 			width: 280,
 			color: {
-				dark: '#034561', // Deep ocean teal for Sipeka branding
+				dark: '#034561', // Deep ocean teal for RADAR branding
 				light: '#FFFFFF'
 			}
 		});
