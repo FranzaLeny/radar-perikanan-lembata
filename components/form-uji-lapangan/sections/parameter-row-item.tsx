@@ -170,12 +170,15 @@ export function ParameterRowItem({
 			</div>
 
 			{/* Baris Bawah: Hasil Ukur, Info Ambang Batas & Evaluasi Realtime */}
-			<div className='grid grid-cols-1 items-center gap-3 border-border/60 border-t pt-2 md:grid-cols-12'>
-				{/* Input Hasil Ukur */}
-				<Field className='md:col-span-4'>
-					<FieldLabel>Hasil Pengukuran {currentBm ? `(${currentBm.satuan})` : ''} *</FieldLabel>
+			<div className='grid grid-cols-1 items-start gap-3 border-border/60 border-t pt-3 sm:grid-cols-12'>
+				{/* 1. Input Hasil Ukur */}
+				<Field className='sm:col-span-4'>
+					<FieldLabel htmlFor={`hasil-${row.tempId}`}>
+						Hasil Pengukuran {currentBm ? `(${currentBm.satuan})` : ''} *
+					</FieldLabel>
 					<Input
 						className='font-semibold'
+						id={`hasil-${row.tempId}`}
 						onChange={(e) => onValueChange(row.tempId, e.target.value)}
 						placeholder='Contoh: 7.50'
 						required
@@ -185,90 +188,92 @@ export function ParameterRowItem({
 					/>
 				</Field>
 
-				{/* Ambang Batas Efektif (Dinamis / Statis) */}
-				<div className='space-y-1 text-xs md:col-span-5'>
+				{/* 2. Ambang Batas Standar / Penyesuaian */}
+				<Field className='sm:col-span-4'>
 					<div className='flex items-center justify-between'>
-						<span className='font-medium text-muted-foreground'>Batas Evaluasi:</span>
+						<FieldLabel>Batas Evaluasi</FieldLabel>
 						<Button
-							className='h-5 cursor-pointer gap-1 px-1.5 text-[11px] text-muted-foreground hover:text-foreground'
+							className='h-4 cursor-pointer gap-1 p-0 text-[11px] text-muted-foreground hover:text-primary'
 							onClick={() => onToggleCustomAmbang(row.tempId)}
 							size='xs'
 							title='Sesuaikan batas manual jika ada kondisi khusus lapangan'
 							type='button'
 							variant='ghost'
 						>
-							<SlidersHorizontal className='size-3' />
-							<span>{row.is_custom_ambang ? 'Batal Override' : 'Sesuaikan'}</span>
+							<SlidersHorizontal className='size-2.5' />
+							<span>{row.is_custom_ambang ? 'Batal' : 'Sesuaikan'}</span>
 						</Button>
 					</div>
 
-					{row.is_custom_ambang ? (
-						<div className='flex items-center gap-1.5'>
-							<Input
-								className='h-7 w-20 text-xs'
-								onChange={(e) => onOverrideMinChange(row.tempId, e.target.value)}
-								placeholder='Min'
-								step='any'
-								type='number'
-								value={row.nilai_min_override}
-							/>
-							<span>s/d</span>
-							<Input
-								className='h-7 w-20 text-xs'
-								onChange={(e) => onOverrideMaxChange(row.tempId, e.target.value)}
-								placeholder='Max'
-								step='any'
-								type='number'
-								value={row.nilai_max_override}
-							/>
-							<span className='text-[11px] text-muted-foreground'>{currentBm?.satuan}</span>
-						</div>
-					) : isDinamisSuhu ? (
-						<div className='space-y-0.5'>
-							<Badge
-								className='gap-1 border-amber-300 bg-amber-50 text-[11px] text-amber-800 dark:bg-amber-950/40 dark:text-amber-300'
-								variant='outline'
-							>
-								<Thermometer className='size-2.5' />
+					<div className='flex h-9 items-center rounded-md border border-input/60 bg-muted/20 px-3 text-xs'>
+						{row.is_custom_ambang ? (
+							<div className='flex w-full items-center gap-1.5'>
+								<Input
+									className='h-6 w-16 px-1.5 text-xs'
+									onChange={(e) => onOverrideMinChange(row.tempId, e.target.value)}
+									placeholder='Min'
+									step='any'
+									type='number'
+									value={row.nilai_min_override}
+								/>
+								<span className='text-muted-foreground'>-</span>
+								<Input
+									className='h-6 w-16 px-1.5 text-xs'
+									onChange={(e) => onOverrideMaxChange(row.tempId, e.target.value)}
+									placeholder='Max'
+									step='any'
+									type='number'
+									value={row.nilai_max_override}
+								/>
+								<span className='text-[11px] text-muted-foreground'>{currentBm?.satuan}</span>
+							</div>
+						) : isDinamisSuhu ? (
+							<div className='flex items-center gap-1 overflow-hidden text-ellipsis whitespace-nowrap text-[11px] text-amber-700 dark:text-amber-300'>
+								<Thermometer className='size-3 shrink-0' />
 								<span>
 									{suhuLingkungan !== ''
-										? `Batas: ${evalRow?.effectiveMin ?? '-'} s/d ${evalRow?.effectiveMax ?? '-'} °C (Deviasi ±${currentBm?.deviasi_toleransi || 2}°C)`
-										: `Deviasi ±${currentBm?.deviasi_toleransi || 2}°C dari Suhu Udara`}
+										? `${evalRow?.effectiveMin ?? '-'} s/d ${evalRow?.effectiveMax ?? '-'} °C`
+										: `Deviasi ±${currentBm?.deviasi_toleransi || 3}°C`}
 								</span>
-							</Badge>
+							</div>
+						) : (
+							<span className='font-semibold text-foreground text-xs'>
+								{evalRow && evalRow.effectiveMin !== null && evalRow.effectiveMax !== null
+									? `${evalRow.effectiveMin} – ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
+									: evalRow && evalRow.effectiveMin !== null
+										? `≥ ${evalRow.effectiveMin} ${currentBm?.satuan || ''}`
+										: evalRow && evalRow.effectiveMax !== null
+											? `≤ ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
+											: '-'}
+							</span>
+						)}
+					</div>
+				</Field>
+
+				{/* 3. Status Evaluasi & Aksi */}
+				<Field className='sm:col-span-4'>
+					<FieldLabel>Status Kelayakan</FieldLabel>
+					<div className='flex h-9 items-center justify-between gap-2 rounded-md border border-input/40 bg-muted/10 px-2.5'>
+						<div className='flex items-center'>
+							{evalRow?.isEvaluated ? (
+								<BadgeStatus size='sm' status={evalRow.status} />
+							) : (
+								<span className='text-[11px] text-muted-foreground italic'>Isi hasil ukur</span>
+							)}
 						</div>
-					) : (
-						<span className='font-semibold text-foreground text-xs'>
-							{evalRow && evalRow.effectiveMin !== null && evalRow.effectiveMax !== null
-								? `${evalRow.effectiveMin} – ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
-								: evalRow && evalRow.effectiveMin !== null
-									? `≥ ${evalRow.effectiveMin} ${currentBm?.satuan || ''}`
-									: evalRow && evalRow.effectiveMax !== null
-										? `≤ ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
-										: '-'}
-						</span>
-					)}
-				</div>
 
-				{/* Status Kelayakan & Tombol Hapus */}
-				<div className='flex items-center justify-end gap-2 md:col-span-3'>
-					{evalRow?.isEvaluated ? (
-						<BadgeStatus size='sm' status={evalRow.status} />
-					) : (
-						<span className='text-[11px] text-muted-foreground italic'>Isi hasil ukur</span>
-					)}
-
-					<Button
-						className='shrink-0 cursor-pointer text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
-						onClick={() => onRemoveRow(row.tempId)}
-						size='icon-sm'
-						title='Hapus parameter ini'
-						type='button'
-						variant='ghost'
-					>
-						<Trash2 className='size-3.5' />
-					</Button>
-				</div>
+						<Button
+							className='shrink-0 cursor-pointer text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
+							onClick={() => onRemoveRow(row.tempId)}
+							size='icon-xs'
+							title='Hapus parameter ini'
+							type='button'
+							variant='ghost'
+						>
+							<Trash2 className='size-3.5' />
+						</Button>
+					</div>
+				</Field>
 			</div>
 		</div>
 	);
