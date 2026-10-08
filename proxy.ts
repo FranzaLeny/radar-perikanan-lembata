@@ -12,6 +12,7 @@ export async function proxy(request: NextRequest) {
 		pathname.startsWith('/_next') ||
 		pathname.startsWith('/static') ||
 		pathname.includes('icon') ||
+		pathname === '/' ||
 		pathname.includes('.') // file statis
 	) {
 		return NextResponse.next();
@@ -30,11 +31,6 @@ export async function proxy(request: NextRequest) {
 		.some(
 			(c) => c.name.endsWith(process.env.SESSION_TOKEN_NAME || 'session_token') && Boolean(c.value)
 		);
-
-	// Jika mengakses root '/' -> arahkan ke '/dashboard' atau '/login'
-	if (pathname === '/') {
-		return NextResponse.redirect(new URL(hasSession ? '/dashboard' : '/login', request.url));
-	}
 
 	// 2. Proteksi rute internal (Dashboard dan Modul)
 	if (!hasSession && pathname !== '/login') {
