@@ -14,16 +14,20 @@ export const APP_CONFIG = {
 	appName: 'RADAR Diskan Lembata',
 
 	/** Kepanjangan nama aplikasi */
-	fullName: 'Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata',
+	fullName: 'Rekapitulasi Data Air Kolam Budidaya Perikanan Lembata',
 
 	/** Judul lengkap gabungan */
-	title: 'RADAR — Dinas Perikanan Kabupaten Lembata',
+	title: 'RADAR Dinas Perikanan Kabupaten Lembata',
 
 	/** Tagline resmi aplikasi */
 	tagline: 'Satu Rekapitulasi Data, Kepastian Mutu Air Budidaya Lembata',
 
-	/** Deskripsi lengkap aplikasi untuk metadata SEO dan informasi sistem */
+	/** Deskripsi standar SEO Google (150-160 karakter) */
 	description:
+		'Instrumen digital rekapitulasi dan analisis mutu air kolam budidaya perikanan Dinas Perikanan Kabupaten Lembata untuk kepastian mutu budidaya.',
+
+	/** Deskripsi lengkap aplikasi untuk dokumen resmi dan informasi sistem */
+	fullDescription:
 		'RADAR (Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata) merupakan instrumen digital terpadu yang dirancang untuk menghimpun, merekapitulasi, dan menganalisis parameter mutu air pada sentra kolam budidaya perikanan secara sistematis dan berkala. Sistem ini memadukan data pengukuran lapangan langsung dengan pengujian laboratorium—mencakup parameter kritis seperti derajat keasaman (pH), oksigen terlarut (Dissolved Oxygen), suhu, kekeruhan, serta senyawa nitrogen/amonia—ke dalam basis data terpusat. Melalui rekapitulasi yang terstruktur dan analisis tren yang akurat, RADAR berfungsi sebagai sistem peringatan dini terhadap penurunan baku mutu lingkungan budidaya sekaligus rujukan pengambilan keputusan teknis bagi Dinas Perikanan dan petambak demi menekan risiko kematian biota dan meningkatkan efisiensi panen perikanan di Kabupaten Lembata.',
 
 	/** Deskripsi singkat aplikasi untuk media sosial dan preview link */
@@ -80,7 +84,7 @@ const getFullImageUrl = (pathname: string) => {
  * Metadata standar Next.js untuk Root Layout dan SEO
  */
 export const SITE_METADATA: Metadata = {
-	title: { default: APP_CONFIG.appName, template: `%s | ${APP_CONFIG.name}` },
+	title: { default: APP_CONFIG.fullName, template: `%s | ${APP_CONFIG.name}` },
 	description: APP_CONFIG.description,
 	applicationName: APP_CONFIG.appName,
 	authors: [{ name: APP_CONFIG.author.name }],
@@ -131,6 +135,7 @@ export const APP_TAGLINE = APP_CONFIG.tagline;
 export const APP_VERSION = APP_CONFIG.version;
 export const APP_VERSION_LABEL = APP_CONFIG.versionLabel;
 export const APP_DESCRIPTION = APP_CONFIG.description;
+export const APP_FULL_DESCRIPTION = APP_CONFIG.fullDescription;
 export const APP_SHORT_DESCRIPTION = APP_CONFIG.shortDescription;
 export const APP_INSTITUTION = APP_CONFIG.institution;
 export const APP_AUTHOR = APP_CONFIG.author;
