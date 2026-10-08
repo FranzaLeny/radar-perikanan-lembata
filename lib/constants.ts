@@ -63,12 +63,18 @@ export const APP_CONFIG = {
 	/** Referensi visual brand dan logo aplikasi serta pemerintah daerah */
 	logo: {
 		app: '/images/app-logo.png',
+		ogImage: '/images/og-image.png',
 		kabupaten: '/images/lembata-kab.webp',
 		garuda: '/images/garuda.png',
 		Icon: Droplets,
 		iconName: 'Droplets'
 	}
 } as const;
+
+const getFullImageUrl = (pathname: string) => {
+	const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+	return new URL(pathname, baseUrl || 'http://localhost:3000').toString();
+};
 
 /**
  * Metadata standar Next.js untuk Root Layout dan SEO
@@ -96,7 +102,14 @@ export const SITE_METADATA: Metadata = {
 		description: APP_CONFIG.shortDescription,
 		url: process.env.NEXT_PUBLIC_APP_URL,
 		siteName: APP_CONFIG.title,
-		images: [{ url: APP_CONFIG.logo.app, width: 781, height: 781, alt: APP_CONFIG.title }],
+		images: [
+			{
+				url: getFullImageUrl(APP_CONFIG.logo.ogImage),
+				width: 1200,
+				height: 630,
+				alt: APP_CONFIG.title
+			}
+		],
 		locale: 'id_ID',
 		type: 'website'
 	},
@@ -104,7 +117,7 @@ export const SITE_METADATA: Metadata = {
 		card: 'summary_large_image',
 		title: APP_CONFIG.title,
 		description: APP_CONFIG.shortDescription,
-		images: [APP_CONFIG.logo.app]
+		images: [getFullImageUrl(APP_CONFIG.logo.ogImage)]
 	}
 	// applicationName: SITE_NAME,
 	// icons: { icon: '/icon.png', shortcut: '/icon.png', apple: '/apple-icon.png' },
