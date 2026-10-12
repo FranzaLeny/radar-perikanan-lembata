@@ -16,8 +16,11 @@ export function DashboardBanner() {
 						<span>{APP_CONFIG.institution.name}</span>
 					</Badge>
 					<h1 className='font-extrabold font-heading text-2xl text-foreground leading-tight tracking-tight sm:text-3xl'>
-						{APP_CONFIG.fullName} ({APP_CONFIG.name})
+						{APP_CONFIG.name}
 					</h1>
+					<p className='mt-1 font-semibold text-base text-foreground/90 sm:text-lg'>
+						{APP_CONFIG.fullName}
+					</p>
 					<p className='mt-2 text-muted-foreground text-xs leading-relaxed sm:text-sm'>
 						Monitoring parameter fisika-kimia kolam perikanan secara terintegrasi dengan validasi otomatis
 						ambang batas baku mutu dan ketertelusuran QR Code.

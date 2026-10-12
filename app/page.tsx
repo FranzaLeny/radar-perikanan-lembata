@@ -18,27 +18,20 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
 import { Card, CardContent } from '@/components/shadcn/card';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { getCurrentUser } from '@/lib/auth';
 import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
 
 export default async function HomePage() {
-	const user = await getCurrentUser();
-	if (user) {
-		redirect('/dashboard');
-	}
-
 	return (
 		<div className='relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-primary/20 selection:text-primary'>
 			{/* Ambient Background Glows */}
-			<div className='pointer-events-none absolute -top-40 left-1/2 -z-10 h-[500px] w-[800px] -translate-x-1/2 rounded-full bg-primary/10 blur-[140px] dark:bg-primary/15' />
-			<div className='pointer-events-none absolute top-[35%] -right-40 -z-10 h-[450px] w-[450px] rounded-full bg-blue-500/10 blur-[140px] dark:bg-blue-600/10' />
-			<div className='pointer-events-none absolute top-[70%] -left-40 -z-10 h-[450px] w-[450px] rounded-full bg-cyan-500/10 blur-[140px] dark:bg-cyan-600/10' />
+			<div className='pointer-events-none absolute -top-40 left-1/2 -z-10 h-125 w-200 -translate-x-1/2 rounded-full bg-primary/10 blur-[140px] dark:bg-primary/15' />
+			<div className='pointer-events-none absolute top-[35%] -right-40 -z-10 h-112.5 w-112.5 rounded-full bg-blue-500/10 blur-[140px] dark:bg-blue-600/10' />
+			<div className='pointer-events-none absolute top-[70%] -left-40 -z-10 h-112.5 w-112.5 rounded-full bg-cyan-500/10 blur-[140px] dark:bg-cyan-600/10' />
 
 			{/* ========================================================================= */}
 			{/* 1. NAVBAR */}
@@ -113,7 +106,7 @@ export default async function HomePage() {
 				{/* Main Headline */}
 				<h1 className='mt-6 max-w-4xl font-black font-heading text-3xl text-foreground leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl'>
 					Rekapitulasi & Analisis Data Mutu Air Kolam Budidaya{' '}
-					<span className='bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-teal-300'>
+					<span className='bg-linear-to-r from-blue-600 via-cyan-600 to-teal-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-teal-300'>
 						Kabupaten Lembata
 					</span>
 				</h1>

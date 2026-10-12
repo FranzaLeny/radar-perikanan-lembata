@@ -23,7 +23,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 					{APP_CONFIG.versionLabel}
 				</p>
 				<p>{APP_CONFIG.fullName}</p>
-				<p className='font-medium text-foreground/80'>{APP_CONFIG.author.shortCredit}</p>
+				<p className='font-medium text-foreground/80'>{APP_CONFIG.author.credit}</p>
 			</footer>
 		</div>
 	);

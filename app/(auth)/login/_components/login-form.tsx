@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/shadcn/alert';
 import { Button } from '@/components/shadcn/button';
-import { Card, CardContent, CardFooter } from '@/components/shadcn/card';
+import { Card, CardContent } from '@/components/shadcn/card';
 import { Field, FieldError, FieldLabel } from '@/components/shadcn/field';
 import {
 	InputGroup,
@@ -20,7 +20,6 @@ import { authClient } from '@/lib/auth-client';
 import { APP_CONFIG } from '@/lib/constants';
 import { toFieldErrors } from '@/lib/utils';
 import { loginSchema } from '@/lib/validations/auth';
-import { getCandidateEmails } from '../utils';
 import { LoginDemoPills } from './login-demo-pills';
 import { LoginHeader } from './login-header';
 
@@ -43,8 +42,9 @@ export function LoginForm() {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const handleDemoSelect = (demoEmail: string) => {
+		const password = process.env.NEXT_PUBLIC_DEMO_PASSWORD || 'password123';
 		setEmail(demoEmail);
-		setPassword('');
+		setPassword(password);
 		setFieldErrors({});
 		setErrorMessage(null);
 		toast.info(`Akun demo ${demoEmail} dipilih. Klik 'Masuk ke Dashboard' untuk melanjutkan.`);
@@ -55,11 +55,8 @@ export function LoginForm() {
 		setErrorMessage(null);
 		setFieldErrors({});
 
-		const effectivePassword =
-			password.trim() || process.env.NEXT_PUBLIC_DEMO_PASSWORD || 'password123';
-
 		// 1. Validasi Client-Side dengan Zod
-		const validation = loginSchema.safeParse({ email, password: effectivePassword });
+		const validation = loginSchema.safeParse({ email, password });
 		if (!validation.success) {
 			setFieldErrors(validation.error.flatten().fieldErrors);
 			return;
@@ -67,33 +64,15 @@ export function LoginForm() {
 
 		setIsLoading(true);
 		try {
-			const candidateEmails = getCandidateEmails(email);
-			let isSuccess = false;
-			let lastErrMsg = 'Email atau kata sandi tidak cocok.';
+			const { data, error } = await authClient.signIn.email(validation.data);
 
-			for (const candEmail of candidateEmails) {
-				const { data, error } = await authClient.signIn.email({
-					email: candEmail,
-					password: effectivePassword
-				});
-
-				if (!error && data) {
-					isSuccess = true;
-					break;
-				}
-
-				if (error) {
-					lastErrMsg = error.message || lastErrMsg;
-				}
-			}
-
-			if (isSuccess) {
+			if (!error && data) {
 				toast.success(`Berhasil masuk ke sistem ${APP_CONFIG.name}!`);
 				router.push('/dashboard');
 				router.refresh();
-			} else {
-				setErrorMessage(lastErrMsg);
-				toast.error(lastErrMsg);
+			} else if (error) {
+				setErrorMessage(error.message || 'Email atau kata sandi tidak cocok.');
+				toast.error(error.message || 'Email atau kata sandi tidak cocok.');
 			}
 		} catch {
 			setErrorMessage('Terjadi gangguan jaringan atau server.');
@@ -146,7 +125,7 @@ export function LoginForm() {
 								autoComplete='current-password'
 								id='password'
 								onChange={(e) => setPassword(e.target.value)}
-								placeholder={email ? '•••••••• (Otomatis untuk akun demo)' : '••••••••'}
+								placeholder={'••••••••'}
 								type={showPassword ? 'text' : 'password'}
 								value={password}
 							/>
@@ -185,10 +164,6 @@ export function LoginForm() {
 
 				<LoginDemoPills onSelect={handleDemoSelect} />
 			</CardContent>
-
-			<CardFooter className='flex items-center justify-center border-border border-t pt-2 pb-4 text-muted-foreground text-xs'>
-				<span>{APP_CONFIG.author.credit}</span>
-			</CardFooter>
 		</Card>
 	);
 }

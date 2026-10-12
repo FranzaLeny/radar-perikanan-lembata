@@ -44,7 +44,7 @@ export const APP_CONFIG = {
 	institution: {
 		government: 'Pemerintah Kabupaten Lembata',
 		name: 'Dinas Perikanan Kabupaten Lembata',
-		shortName: 'Dinas Perikanan Lembata',
+		shortName: 'Diskan Lembata',
 		regency: 'Kabupaten Lembata',
 		province: 'Nusa Tenggara Timur',
 		country: 'Indonesia',
@@ -54,14 +54,10 @@ export const APP_CONFIG = {
 
 	/** Data author, pengembang, dan hak cipta */
 	author: {
-		name: 'Melania Herlinda Lete Boro, S.Si',
-		nip: '19940318 202506 2 005',
-		angkatan: '353',
-		nomorAbsen: '8',
-		credit: 'with ❤️ by Melania Herlinda Lete Boro, S.Si',
-		shortCredit: 'with ❤️ MHLB',
+		name: 'MHLB',
+		credit: 'with ❤️ MHLB',
 		copyrightYear: 2026,
-		copyrightText: '© 2026 Dinas Perikanan Kabupaten Lembata'
+		copyrightText: '© 2026 Diskan Lembata'
 	},
 
 	/** Referensi visual brand dan logo aplikasi serta pemerintah daerah */
