@@ -1,9 +1,15 @@
+import { redirect } from 'next/navigation';
 import type React from 'react';
 
 import { ThemeToggle } from '@/components/theme-toggle';
+import { getCurrentUser } from '@/lib/auth';
 import { APP_CONFIG } from '@/lib/constants';
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+	const user = await getCurrentUser();
+	if (user) {
+		redirect('/dashboard');
+	}
 	return (
 		<div className='relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background p-4 text-foreground sm:p-6 lg:p-8'>
 			{/* Dynamic Background Glows */}

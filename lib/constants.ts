@@ -55,7 +55,7 @@ export const APP_CONFIG = {
 	/** Data author, pengembang, dan hak cipta */
 	author: {
 		name: 'MHLB',
-		credit: 'with ❤️ MHLB',
+		credit: 'with ❤️ by MHLB',
 		copyrightYear: 2026,
 		copyrightText: '© 2026 Diskan Lembata'
 	},

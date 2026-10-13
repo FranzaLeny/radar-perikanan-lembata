@@ -19,8 +19,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			lang='id'
 			suppressHydrationWarning
 		>
-			<body className='flex min-h-full flex-col font-sans'>
-				<ThemeProvider attribute='class' defaultTheme='system' disableTransitionOnChange enableSystem>
+			<body className='flex max-h-full flex-col overflow-auto font-sans'>
+				<ThemeProvider
+					attribute='class'
+					defaultTheme='light'
+					disableTransitionOnChange
+					enableSystem={false}
+					storageKey='radar-theme'
+				>
 					<TooltipProvider>
 						{children}
 						<Toaster closeButton position='top-right' richColors />

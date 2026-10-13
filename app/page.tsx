@@ -28,15 +28,31 @@ import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
 export default async function HomePage() {
 	return (
 		<div className='relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-primary/20 selection:text-primary'>
+			{/* Scenic Illustration Hero Background */}
+			<div className='pointer-events-none absolute inset-x-0 top-0 z-0 h-[860px] select-none overflow-hidden sm:h-[940px] lg:h-[1020px]'>
+				<Image
+					alt='Ilustrasi Pemandangan Budidaya Lembata'
+					className='h-full w-full object-cover object-[center_top]'
+					height={720}
+					priority
+					quality={100}
+					src='/images/hero-bg-lembata.jpg'
+					width={1080}
+				/>
+				{/* Soft luminous center mist to ensure crisp text contrast matching Gambar 2 */}
+				<div className='absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_50%_38%,rgba(255,255,255,0.6)_0%,rgba(255,255,255,0.25)_55%,transparent_90%)] dark:bg-[radial-gradient(ellipse_70%_55%_at_50%_38%,rgba(10,15,30,0.5)_0%,rgba(10,15,30,0.2)_55%,transparent_90%)]' />
+				{/* Smooth fade transition to content below */}
+				<div className='absolute inset-x-0 bottom-0 h-44 bg-linear-to-t from-background via-background/80 to-transparent' />
+			</div>
+
 			{/* Ambient Background Glows */}
-			<div className='pointer-events-none absolute -top-40 left-1/2 -z-10 h-125 w-200 -translate-x-1/2 rounded-full bg-primary/10 blur-[140px] dark:bg-primary/15' />
-			<div className='pointer-events-none absolute top-[35%] -right-40 -z-10 h-112.5 w-112.5 rounded-full bg-blue-500/10 blur-[140px] dark:bg-blue-600/10' />
-			<div className='pointer-events-none absolute top-[70%] -left-40 -z-10 h-112.5 w-112.5 rounded-full bg-cyan-500/10 blur-[140px] dark:bg-cyan-600/10' />
+			<div className='pointer-events-none absolute top-[40%] -right-40 z-0 h-112.5 w-112.5 rounded-full bg-blue-500/10 blur-[140px] dark:bg-blue-600/10' />
+			<div className='pointer-events-none absolute top-[70%] -left-40 z-0 h-112.5 w-112.5 rounded-full bg-cyan-500/10 blur-[140px] dark:bg-cyan-600/10' />
 
 			{/* ========================================================================= */}
 			{/* 1. NAVBAR */}
 			{/* ========================================================================= */}
-			<header className='sticky top-0 z-50 w-full border-border/40 border-b bg-background/80 backdrop-blur-md'>
+			<header className='sticky top-0 z-50 w-full border-border/30 border-b bg-background/60 backdrop-blur-md'>
 				<div className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
 					<div className='flex items-center gap-3'>
 						<div className='flex size-10 items-center justify-center rounded-xl bg-primary/10 p-1.5 ring-1 ring-primary/20'>
@@ -96,7 +112,7 @@ export default async function HomePage() {
 			{/* ========================================================================= */}
 			{/* 2. HERO SECTION */}
 			{/* ========================================================================= */}
-			<section className='relative mx-auto flex w-full max-w-7xl flex-col items-center px-4 pt-12 pb-16 text-center sm:px-6 sm:pt-20 lg:px-8'>
+			<section className='relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-4 pt-12 pb-16 text-center sm:px-6 sm:pt-20 lg:px-8'>
 				{/* Top Tagline Badge */}
 				<div className='fade-in slide-in-from-top-3 inline-flex animate-in items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 font-semibold text-primary text-xs shadow-xs duration-500'>
 					<Sparkles className='size-3.5 text-primary' />
@@ -112,7 +128,7 @@ export default async function HomePage() {
 				</h1>
 
 				{/* Subheadline */}
-				<p className='mt-6 max-w-2xl text-muted-foreground text-sm leading-relaxed sm:text-base sm:leading-relaxed'>
+				<p className='mt-6 max-w-2xl text-slate-700 text-sm leading-relaxed sm:text-base sm:leading-relaxed dark:text-white'>
 					Instrumen digital terpadu Dinas Perikanan Kabupaten Lembata untuk menghimpun data pengukuran
 					lapangan, memvalidasi kepatuhan baku mutu nasional (Permen KKP No. 75/2016 & PP No. 22/2021),
 					serta menerbitkan Lembar Hasil Uji (LHU) berotentikasi QR Code resmi.

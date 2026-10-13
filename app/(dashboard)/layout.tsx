@@ -22,8 +22,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
 			<SidebarInset className='print:m-0 print:w-full print:bg-transparent print:p-0 print:shadow-none'>
 				<header className='no-print sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between border-b bg-background/95 px-4 backdrop-blur-xs transition-[width,height] ease-linear'>
 					<div className='flex items-center gap-2'>
-						<SidebarTrigger className='no-print -ml-1' />
-						<Separator className='mr-2 h-4' orientation='vertical' />
+						<SidebarTrigger className='-ml-1' />
+						<Separator className='mr-2' orientation='vertical' />
 						<DashboardBreadcrumb />
 					</div>
 					<div className='flex items-center gap-2'>

@@ -1,45 +1,33 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { auth } from './lib/auth';
 export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl;
-
-	// 1. Rute publik yang bebas diakses siapa saja
-	if (
-		pathname.startsWith('/verifikasi') || // Verifikasi QR Publik (Wajib Terbuka)
-		pathname.startsWith('/api/auth') || // Endpoint BetterAuth API
-		pathname.startsWith('/_next') ||
-		pathname.startsWith('/static') ||
-		pathname.includes('icon') ||
-		pathname === '/' ||
-		pathname.includes('.') // file statis
-	) {
-		return NextResponse.next();
-	} else {
-		if (pathname.startsWith('/login')) {
-			const session = await auth.api.getSession({ headers: request.headers });
-			if (session) {
-				return NextResponse.redirect(new URL('/dashboard', request.url));
-			}
-		}
-
-		// Cek apakah ada cookie session token BetterAuth (mendukung HTTP lokal maupun HTTPS __Secure- prefix)
-		const hasSession = request.cookies
-			.getAll()
-			.some(
-				(c) => c.name.endsWith(process.env.SESSION_TOKEN_NAME || 'session_token') && Boolean(c.value)
-			);
-
-		// 2. Proteksi rute internal (Dashboard dan Modul)
-		if (!hasSession && pathname !== '/login') {
-			const loginUrl = new URL('/login', request.url);
-			loginUrl.searchParams.set('callbackUrl', pathname);
-			return NextResponse.redirect(loginUrl);
-		}
-
-		return NextResponse.next();
+	const hasSession = request.cookies
+		.getAll()
+		.some(
+			(c) => c.name.endsWith(process.env.SESSION_TOKEN_NAME || 'session_token') && Boolean(c.value)
+		);
+	if (!hasSession && pathname !== '/login') {
+		const loginUrl = new URL('/login', request.url);
+		loginUrl.searchParams.set('callbackUrl', pathname);
+		return NextResponse.redirect(loginUrl);
 	}
+	return NextResponse.next();
 }
 
-export const config = { matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'] };
+export const config = {
+	matcher: [
+		'/baku-mutu/:path*',
+		'/dashboard/:path*',
+		'/dokumen-mutu/:path*',
+		'/instruksi-kerja/:path*',
+		'/laporan/:path*',
+		'/lokasi-kolam/:path*',
+		'/pegawai/:path*',
+		'/pengguna/:path*',
+		'/profil/:path*',
+		'/tren/:path*',
+		'/uji-kualitas/:path*'
+	]
+};

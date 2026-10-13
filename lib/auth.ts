@@ -98,11 +98,7 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
 			banned: u.banned ?? false,
 			banReason: u.banReason ?? null
 		};
-	} catch (error) {
-		if ((error as { digest?: string })?.digest === 'DYNAMIC_SERVER_USAGE') {
-			throw error;
-		}
-		console.error('Error saat getCurrentUser:', error);
+	} catch {
 		return null;
 	}
 }
