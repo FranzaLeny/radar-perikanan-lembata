@@ -22,19 +22,20 @@ import Link from 'next/link';
 import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
 import { Card, CardContent } from '@/components/shadcn/card';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
+import { SiteFooter } from '@/components/site-footer';
+import { SiteHeader } from '@/components/site-header';
+import { APP_CONFIG } from '@/lib/constants';
 
 export default async function HomePage() {
+	'use cache';
 	return (
 		<div className='relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-primary/20 selection:text-primary'>
 			{/* Scenic Illustration Hero Background */}
-			<div className='pointer-events-none absolute inset-x-0 top-0 z-0 h-[860px] select-none overflow-hidden sm:h-[940px] lg:h-[1020px]'>
+			<div className='pointer-events-none absolute inset-x-0 top-0 z-0 h-215 select-none overflow-hidden sm:h-235 lg:h-255'>
 				<Image
 					alt='Ilustrasi Pemandangan Budidaya Lembata'
-					className='h-full w-full object-cover object-[center_top]'
+					className='size-full object-cover object-[center_top]'
 					height={720}
-					priority
 					quality={100}
 					src='/images/hero-bg-lembata.jpg'
 					width={1080}
@@ -52,62 +53,7 @@ export default async function HomePage() {
 			{/* ========================================================================= */}
 			{/* 1. NAVBAR */}
 			{/* ========================================================================= */}
-			<header className='sticky top-0 z-50 w-full border-border/30 border-b bg-background/60 backdrop-blur-md'>
-				<div className='mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8'>
-					<div className='flex items-center gap-3'>
-						<div className='flex size-10 items-center justify-center rounded-xl bg-primary/10 p-1.5 ring-1 ring-primary/20'>
-							<Image
-								alt='Logo Kabupaten Lembata'
-								className='h-full w-auto object-contain'
-								height={40}
-								priority
-								src={APP_CONFIG.logo.kabupaten}
-								width={32}
-							/>
-						</div>
-						<div>
-							<div className='flex items-center gap-1.5'>
-								<span className='font-bold font-heading text-base text-foreground tracking-tight'>
-									{BRAND_NAME}
-								</span>
-								<Badge
-									className='border-primary/30 bg-primary/10 px-1.5 py-0 font-semibold text-[10px] text-primary'
-									variant='outline'
-								>
-									Lembata
-								</Badge>
-							</div>
-							<p className='font-medium text-[11px] text-muted-foreground'>
-								{APP_CONFIG.institution.shortName}
-							</p>
-						</div>
-					</div>
-
-					{/* Navigation Links */}
-					<nav className='hidden items-center gap-6 font-medium text-muted-foreground text-xs md:flex'>
-						<a className='transition-colors hover:text-foreground' href='#keunggulan'>
-							Keunggulan
-						</a>
-						<a className='transition-colors hover:text-foreground' href='#alur-kerja'>
-							Alur Kerja
-						</a>
-						<a className='transition-colors hover:text-foreground' href='#baku-mutu'>
-							Standar Baku Mutu
-						</a>
-					</nav>
-
-					{/* Actions */}
-					<div className='flex items-center gap-2.5'>
-						<ThemeToggle />
-						<Link href='/login'>
-							<Button className='cursor-pointer gap-2 shadow-xs' size='sm'>
-								<span>Masuk Portal</span>
-								<ArrowRight className='size-3.5' />
-							</Button>
-						</Link>
-					</div>
-				</div>
-			</header>
+			<SiteHeader />
 
 			{/* ========================================================================= */}
 			{/* 2. HERO SECTION */}
@@ -583,7 +529,7 @@ export default async function HomePage() {
 			{/* 7. BOTTOM CTA BANNER */}
 			{/* ========================================================================= */}
 			<section className='mx-auto mb-16 w-full max-w-7xl px-4 sm:px-6 lg:px-8'>
-				<div className='relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 p-8 text-white shadow-xl sm:p-12'>
+				<div className='relative overflow-hidden rounded-3xl bg-linear-to-r from-blue-600 via-cyan-600 to-teal-600 p-8 text-white shadow-xl sm:p-12'>
 					<div className='relative z-10 max-w-2xl'>
 						<h2 className='font-black font-heading text-2xl tracking-tight sm:text-4xl'>
 							Tingkatkan Kepastian Mutu Air Budidaya Perikanan Lembata
@@ -623,26 +569,7 @@ export default async function HomePage() {
 			{/* ========================================================================= */}
 			{/* 8. FOOTER */}
 			{/* ========================================================================= */}
-			<footer className='w-full border-border/80 border-t bg-muted/20 py-8 text-center text-muted-foreground text-xs'>
-				<div className='mx-auto max-w-7xl space-y-2 px-4 sm:px-6 lg:px-8'>
-					<div className='flex items-center justify-center gap-2'>
-						<Image
-							alt='Logo Lembata'
-							className='h-5 w-auto object-contain'
-							height={20}
-							src={APP_CONFIG.logo.kabupaten}
-							width={16}
-						/>
-						<span className='font-bold text-foreground'>
-							{APP_CONFIG.name} — {APP_CONFIG.institution.name}
-						</span>
-					</div>
-					<p>{APP_CONFIG.fullName}</p>
-					<p className='pt-1 font-medium text-muted-foreground'>
-						{APP_CONFIG.author.copyrightText} • {APP_CONFIG.author.credit}
-					</p>
-				</div>
-			</footer>
+			<SiteFooter />
 		</div>
 	);
 }
