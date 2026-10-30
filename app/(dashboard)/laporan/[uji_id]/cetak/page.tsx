@@ -9,12 +9,9 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { generateQrDataUrl, getVerificationUrl } from '@/lib/qr';
 import { dapatkanRekomendasiTeknis, type StatusKelayakan } from '@/lib/validasi-baku-mutu';
-import { LhuFooterQr } from './_components/lhu-footer-qr';
-import { LhuKesimpulanRekomendasi } from './_components/lhu-kesimpulan-rekomendasi';
 import { LhuKopSurat } from './_components/lhu-kop-surat';
 import { LhuMetadataCard } from './_components/lhu-metadata-card';
 import { LhuParameterTable } from './_components/lhu-parameter-table';
-import { LhuTandaTangan } from './_components/lhu-tanda-tangan';
 import type { RekomendasiItem } from './types';
 
 export default async function CetakLhuPage({ params }: { params: Promise<{ uji_id: string }> }) {
@@ -113,28 +110,24 @@ export default async function CetakLhuPage({ params }: { params: Promise<{ uji_i
 						suhuLingkungan={uji.suhu_lingkungan}
 					/>
 
-					<LhuParameterTable parameters={uji.detailParameters} />
-
-					<LhuKesimpulanRekomendasi
+					<LhuParameterTable
 						catatanLapangan={uji.catatan_lapangan}
-						kesimpulan={uji.kesimpulan}
-						kesimpulanUmum={uji.kesimpulan_umum}
-						rekomendasiList={rekomendasiList}
-						saranRekomendasiLapangan={uji.saran_rekomendasi_lapangan}
-					/>
-
-					<LhuTandaTangan
 						formattedDate={formattedDate}
 						jabatanPenandatangan={jabatanPenandatangan}
 						jabatanPenguji={jabatanPenguji}
+						kesimpulan={uji.kesimpulan}
+						kesimpulanUmum={uji.kesimpulan_umum}
 						namaPenandatangan={namaPenandatangan}
 						namaPenguji={namaPenguji}
 						nipPenandatangan={nipPenandatangan}
 						nipPenguji={nipPenguji}
 						pangkatPenandatangan={pangkatPenandatangan}
+						parameters={uji.detailParameters}
+						qrDataUrl={qrDataUrl}
+						rekomendasiList={rekomendasiList}
+						saranRekomendasiLapangan={uji.saran_rekomendasi_lapangan}
+						ujiId={uji.id}
 					/>
-
-					<LhuFooterQr qrDataUrl={qrDataUrl} ujiId={uji.id} />
 				</div>
 			</div>
 		</div>

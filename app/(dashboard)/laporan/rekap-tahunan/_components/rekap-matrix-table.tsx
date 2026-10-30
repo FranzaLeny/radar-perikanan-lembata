@@ -92,21 +92,21 @@ export function RekapMatrixTable({
 
 				{/* Matriks Table */}
 				<div className='mb-8 overflow-hidden rounded-lg border border-slate-300 **:data-[slot=table-container]:overflow-visible print:border-slate-400'>
-					<Table className='w-full table-fixed text-xs'>
-						<TableHeader className='border-slate-300 border-b bg-slate-200'>
-							<TableRow className='border-slate-300 border-b hover:bg-slate-200'>
-								<TableHead className='w-[4%] border-slate-300 border-r px-0.5 text-center font-bold text-[11px] text-slate-800 uppercase'>
+					<Table className='w-full table-fixed text-xs [&_td]:border-slate-200 [&_td]:border-b [&_td]:border-r [&_td]:px-0.5 [&_td]:py-1.5 [&_td:last-child]:border-r-0 [&_th]:border-slate-300 [&_th]:border-b [&_th]:border-r [&_th]:px-0.5 [&_th]:py-1.5 [&_th:last-child]:border-r-0'>
+						<TableHeader className='bg-slate-200'>
+							<TableRow className='hover:bg-slate-200'>
+								<TableHead className='w-[4%] text-center font-bold text-[11px] text-slate-800 uppercase'>
 									No
 								</TableHead>
-								<TableHead className='w-[28%] border-slate-300 border-r px-2 font-bold text-[11px] text-slate-800 uppercase'>
+								<TableHead className='w-[28%] px-2 font-bold text-[11px] text-slate-800 uppercase'>
 									Nama Pokdakan
 								</TableHead>
-								<TableHead className='w-[14%] border-slate-300 border-r px-2 font-bold text-[11px] text-slate-800 uppercase'>
+								<TableHead className='w-[14%] px-2 font-bold text-[11px] text-slate-800 uppercase'>
 									Kecamatan
 								</TableHead>
 								{months.map((m) => (
 									<TableHead
-										className='w-[4.5%] border-slate-300 border-r px-0.5 text-center font-bold text-[11px] text-slate-800 uppercase last:border-r-0'
+										className='w-[4.5%] text-center font-bold text-[11px] text-slate-800 uppercase'
 										key={m}
 									>
 										{m}
@@ -116,11 +116,11 @@ export function RekapMatrixTable({
 						</TableHeader>
 						<TableBody>
 							{allPokdakan.map((p, idx) => (
-								<TableRow className='border-slate-200 border-b hover:bg-slate-50/80' key={p.id}>
-									<TableCell className='border-slate-200 border-r px-0.5 py-1.5 text-center text-slate-500 text-xs'>
+								<TableRow className='hover:bg-slate-50/80' key={p.id}>
+									<TableCell className='text-center text-slate-500'>
 										{idx + 1}
 									</TableCell>
-									<TableCell className='truncate border-slate-200 border-r px-2 py-1.5 font-semibold text-slate-900 text-xs'>
+									<TableCell className='truncate px-2 font-semibold text-slate-900'>
 										<div className='truncate font-semibold text-slate-900' title={p.nama_pokdakan}>
 											{p.nama_pokdakan}
 										</div>
@@ -128,7 +128,7 @@ export function RekapMatrixTable({
 											{p.pemilik}
 										</div>
 									</TableCell>
-									<TableCell className='not-print:truncate border-slate-200 border-r px-2 py-1.5 text-xs'>
+									<TableCell className='not-print:truncate px-2'>
 										<div className='truncate' title={p.kecamatan}>
 											{p.kecamatan}
 										</div>
@@ -168,7 +168,7 @@ export function RekapMatrixTable({
 
 										return (
 											<TableCell
-												className='border-slate-200 border-r px-0.5 py-1.5 text-center text-xs last:border-r-0'
+												className='text-center'
 												key={mIdx}
 											>
 												{cellContent}
@@ -177,54 +177,64 @@ export function RekapMatrixTable({
 									})}
 								</TableRow>
 							))}
+
+							{/* Baris Tanda Tangan di dalam Table Body */}
+							<TableRow className='border-slate-300 border-t hover:bg-transparent'>
+								<TableCell className='border-b-0 border-r-0 p-0 pt-6' colSpan={months.length + 3}>
+									<div className='grid grid-cols-2 gap-8 text-xs'>
+										<div className='text-center'>
+											<p className='mb-16'>{settings.pengelolaJabatan},</p>
+											<p className='font-bold uppercase underline'>{settings.pengelolaNama}</p>
+											{settings.pengelolaNip && <p className='text-xs'>NIP. {settings.pengelolaNip}</p>}
+										</div>
+
+										<div className='text-center'>
+											<p className=''>
+												{settings.lokasiTtd}, {formattedTanggalTtd}
+											</p>
+											<p className='mb-14'>Mengetahui, </p>
+											<p className='mb-14'>{settings.kepalaDinasJabatan},</p>
+											<p className='font-bold text-slate-900 uppercase underline'>{settings.kepalaDinasNama}</p>
+											{settings.kepalaDinasNip && <p className='text-xs'>NIP. {settings.kepalaDinasNip}</p>}
+										</div>
+									</div>
+								</TableCell>
+							</TableRow>
 						</TableBody>
+
+						{/* Footer & QR Barcode Verifikasi Keaslian Dokumen */}
+						<tfoot className='border-slate-300 border-t border-dashed bg-white'>
+							<tr>
+								<td className='border-b-0 border-r-0 p-3 pt-4 text-slate-500 text-xs' colSpan={months.length + 3}>
+									<div className='flex items-center justify-between'>
+										<div className='flex items-center gap-3'>
+											<Image
+												alt='QR Verifikasi'
+												className='size-12 object-contain'
+												height={48}
+												priority
+												src={qrDataUrl}
+												unoptimized
+												width={48}
+											/>
+											<div>
+												<p className='font-bold text-slate-700'>Verifikasi Dokumen Resmi Digital</p>
+												<p className='text-slate-400 text-xs'>
+													Pindai QR untuk memverifikasi keaslian dokumen di portal {APP_CONFIG.name}{' '}
+													{APP_CONFIG.institution.regency}
+												</p>
+											</div>
+										</div>
+
+										<div className='text-right text-xs'>
+											<span className='block text-slate-400'>DOKUMEN REKAPITULASI TAHUNAN</span>
+											<p>Dicetak melalui {APP_NAME}</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tfoot>
 					</Table>
-				</div>
-
-				{/* Signature Block */}
-				<div className='mt-6 grid grid-cols-2 gap-8 border-slate-300 border-t pt-4 text-xs'>
-					<div className='text-center'>
-						<p className='mb-16'>{settings.pengelolaJabatan},</p>
-						<p className='font-bold uppercase underline'>{settings.pengelolaNama}</p>
-						{settings.pengelolaNip && <p className='text-xs'>NIP. {settings.pengelolaNip}</p>}
-					</div>
-
-					<div className='text-center'>
-						<p className=''>
-							{settings.lokasiTtd}, {formattedTanggalTtd}
-						</p>
-						<p className='mb-14'>Mengetahui, </p>
-						<p className='mb-14'>{settings.kepalaDinasJabatan},</p>
-						<p className='font-bold text-slate-900 uppercase underline'>{settings.kepalaDinasNama}</p>
-						{settings.kepalaDinasNip && <p className='text-xs'>NIP. {settings.kepalaDinasNip}</p>}
-					</div>
-				</div>
-
-				{/* Footer & QR Verifikasi Keaslian */}
-				<div className='flex items-center justify-between border-slate-300 border-t border-dashed pt-4 text-slate-500 text-xs'>
-					<div className='flex items-center gap-3'>
-						<Image
-							alt='QR Verifikasi'
-							className='size-12 object-contain'
-							height={48}
-							priority
-							src={qrDataUrl}
-							unoptimized
-							width={48}
-						/>
-						<div>
-							<p className='font-bold text-slate-700'>Verifikasi Dokumen Resmi Digital</p>
-							<p className='text-slate-400 text-xs'>
-								Pindai QR untuk memverifikasi keaslian dokumen di portal {APP_CONFIG.name}{' '}
-								{APP_CONFIG.institution.regency}
-							</p>
-						</div>
-					</div>
-
-					<div className='text-right text-xs'>
-						<span className='block text-slate-400'>DOKUMEN REKAPITULASI TAHUNAN</span>
-						<p>Dicetak melalui {APP_NAME}</p>
-					</div>
 				</div>
 			</div>
 		</div>
