@@ -3,11 +3,11 @@
 import { copyFileSync, existsSync } from 'node:fs';
 import { $ } from 'bun';
 
-const LOG_PREFIX = '[SIPEKA Setup]';
+const LOG_PREFIX = '[RADARKU Setup]';
 
 async function setup() {
 	console.log(`\n======================================================`);
-	console.log(`${LOG_PREFIX} 🚀 Memulai Setup Otomatis SIPEKA...`);
+	console.log(`${LOG_PREFIX} 🚀 Memulai Setup Otomatis RADARKU...`);
 	console.log(`======================================================\n`);
 
 	// 1. Setup .env.local
@@ -88,10 +88,10 @@ async function setup() {
 	console.log(`${LOG_PREFIX} Untuk menjalankan web server:`);
 	console.log(`   bun run dev`);
 	console.log(`\nAkun Login Default (Testing):`);
-	console.log(`   Admin       : admin@radar.lembata.go.id  (pwd: password123)`);
-	console.log(`   Mutu        : pengelola@radar.lembata.go.id   (pwd: password123)`);
-	console.log(`   Petugas Uji : petugas@radar.lembata.go.id (pwd: password123)`);
-	console.log(`   Kadis       : kadin@radar.lembata.go.id   (pwd: password123)`);
+	console.log(`   Admin       : admin@radarku.lembata.go.id  (pwd: password123)`);
+	console.log(`   Mutu        : pengelola@radarku.lembata.go.id   (pwd: password123)`);
+	console.log(`   Petugas Uji : petugas@radarku.lembata.go.id (pwd: password123)`);
+	console.log(`   Kadis       : kadin@radarku.lembata.go.id   (pwd: password123)`);
 	console.log(`======================================================\n`);
 }
 

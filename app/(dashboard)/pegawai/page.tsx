@@ -2,10 +2,11 @@ import { desc } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { masterPegawai } from '@/db/schema';
+import { APP_CONFIG } from '@/lib/constants';
 import { PegawaiClient } from './client';
 
 export const metadata = {
-	title: 'Master Pegawai & Pejabat Penandatangan — RADAR',
+	title: `Master Pegawai & Pejabat Penandatangan — ${APP_CONFIG.name}`,
 	description:
 		'Kelola data ASN, personil dinas, petugas penguji lapangan, dan pejabat penandatangan resmi LHU.'
 };

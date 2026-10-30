@@ -31,7 +31,7 @@ export function RekapMatrixTable({
 }: RekapMatrixTableProps) {
 	return (
 		<div className='overflow-x-auto rounded-xl border border-slate-300 bg-white text-slate-900 shadow-xs print:m-0 print:border-none print:shadow-none'>
-			<div className='min-w-[960px] p-8 print:min-w-0 print:p-0'>
+			<div className='min-w-240 p-8 print:min-w-0 print:p-0'>
 				{/* Kop Surat Resmi Dinas Perikanan Kabupaten Lembata */}
 				<div className='mb-6 border-slate-900 border-b-2 pb-3'>
 					<div className='flex items-center gap-4'>
@@ -44,17 +44,17 @@ export function RekapMatrixTable({
 							width={64}
 						/>
 						<div className='flex-1 pr-14 text-center'>
-							<h3 className='font-bold text-slate-700 text-xs uppercase tracking-widest'>
+							<h3 className='font-bold text-xs uppercase tracking-widest'>
 								{APP_CONFIG.institution.government}
 							</h3>
-							<h2 className='font-extrabold text-base text-slate-900 uppercase leading-tight tracking-wider'>
+							<h2 className='font-extrabold text-base uppercase leading-tight tracking-wider'>
 								{APP_CONFIG.institution.name}
 							</h2>
-							<p className='mt-0.5 text-[11px] text-slate-600 leading-snug'>
+							<p className='mt-0.5 text-[11px] leading-snug'>
 								Jl. Trans Lembata, Lewoleba, Kab. Lembata, Nusa Tenggara Timur
 							</p>
-							<p className='text-[11px] text-slate-500'>
-								Email: {APP_CONFIG.institution.email} | Portal: {APP_CONFIG.institution.emailDomain}
+							<p className='text-[11px]'>
+								Pos-El: {APP_CONFIG.institution.email} Telp. / Fax. (0383) 41477 – Lewoleba
 							</p>
 						</div>
 					</div>
@@ -62,10 +62,10 @@ export function RekapMatrixTable({
 
 				{/* Judul Dokumen */}
 				<div className='mb-6 text-center'>
-					<h1 className='font-bold text-slate-900 text-sm uppercase tracking-wide'>
+					<h1 className='font-bold text-sm uppercase tracking-wide'>
 						Rekapitulasi Pemantauan Kualitas Air Kolam Pembudidaya (Pokdakan)
 					</h1>
-					<p className='mt-0.5 font-semibold text-slate-600 text-xs uppercase'>
+					<p className='mt-0.5 font-semibold text-xs uppercase'>
 						Tahun Anggaran {settings.tahunAnggaran}
 					</p>
 				</div>
@@ -91,7 +91,7 @@ export function RekapMatrixTable({
 				</div>
 
 				{/* Matriks Table */}
-				<div className='mb-8 overflow-hidden rounded-lg border border-slate-300 print:border-slate-400 [&_[data-slot=table-container]]:overflow-visible'>
+				<div className='mb-8 overflow-hidden rounded-lg border border-slate-300 **:data-[slot=table-container]:overflow-visible print:border-slate-400'>
 					<Table className='w-full table-fixed text-xs'>
 						<TableHeader className='border-slate-300 border-b bg-slate-200'>
 							<TableRow className='border-slate-300 border-b hover:bg-slate-200'>
@@ -128,7 +128,7 @@ export function RekapMatrixTable({
 											{p.pemilik}
 										</div>
 									</TableCell>
-									<TableCell className='truncate border-slate-200 border-r px-2 py-1.5 text-slate-700 text-xs'>
+									<TableCell className='not-print:truncate border-slate-200 border-r px-2 py-1.5 text-xs'>
 										<div className='truncate' title={p.kecamatan}>
 											{p.kecamatan}
 										</div>
@@ -184,27 +184,24 @@ export function RekapMatrixTable({
 				{/* Signature Block */}
 				<div className='mt-6 grid grid-cols-2 gap-8 border-slate-300 border-t pt-4 text-xs'>
 					<div className='text-center'>
-						<p className='mb-16 text-slate-500'>{settings.pengelolaJabatan},</p>
-						<p className='font-bold text-slate-900 uppercase underline'>{settings.pengelolaNama}</p>
-						{settings.pengelolaNip && (
-							<p className='text-slate-500 text-xs'>NIP. {settings.pengelolaNip}</p>
-						)}
+						<p className='mb-16'>{settings.pengelolaJabatan},</p>
+						<p className='font-bold uppercase underline'>{settings.pengelolaNama}</p>
+						{settings.pengelolaNip && <p className='text-xs'>NIP. {settings.pengelolaNip}</p>}
 					</div>
 
 					<div className='text-center'>
-						<p className='text-slate-500'>
+						<p className=''>
 							{settings.lokasiTtd}, {formattedTanggalTtd}
 						</p>
-						<p className='mb-14 text-slate-500'>Mengetahui, {settings.kepalaDinasJabatan},</p>
+						<p className='mb-14'>Mengetahui, </p>
+						<p className='mb-14'>{settings.kepalaDinasJabatan},</p>
 						<p className='font-bold text-slate-900 uppercase underline'>{settings.kepalaDinasNama}</p>
-						{settings.kepalaDinasNip && (
-							<p className='text-slate-500 text-xs'>NIP. {settings.kepalaDinasNip}</p>
-						)}
+						{settings.kepalaDinasNip && <p className='text-xs'>NIP. {settings.kepalaDinasNip}</p>}
 					</div>
 				</div>
 
 				{/* Footer & QR Verifikasi Keaslian */}
-				<div className='mt-8 flex items-center justify-between border-slate-300 border-t border-dashed pt-4 text-slate-500 text-xs'>
+				<div className='flex items-center justify-between border-slate-300 border-t border-dashed pt-4 text-slate-500 text-xs'>
 					<div className='flex items-center gap-3'>
 						<Image
 							alt='QR Verifikasi'

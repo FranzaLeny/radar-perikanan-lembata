@@ -139,7 +139,7 @@ export function PenggunaCreateDialog({
 							<InputGroupInput
 								id='email'
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder={`nama@${APP_CONFIG.institution.emailDomain}`}
+								placeholder={`nama@${APP_CONFIG.institution.email}`}
 								type='email'
 								value={email}
 							/>

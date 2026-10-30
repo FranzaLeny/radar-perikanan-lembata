@@ -9,7 +9,7 @@ async function resetDatabase() {
 	const sql = postgres(conn);
 
 	console.log('\n🧹 ========================================================');
-	console.log('   RESET TOTAL DATABASE — RADAR Kabupaten Lembata');
+	console.log('   RESET TOTAL DATABASE — RADARKU Kabupaten Lembata');
 	console.log('========================================================\n');
 
 	try {

@@ -10,11 +10,11 @@ import { account, user } from './schema';
 type DemoUserItem = { name: string; email: string; role: string };
 
 async function seedDemoUsers() {
-	console.log('[RADAR Seed Demo] 🚀 Memulai seeding akun demo pengguna...');
+	console.log('[RADARKU Seed Demo] 🚀 Memulai seeding akun demo pengguna...');
 
 	const jsonPath = resolve(process.cwd(), 'user-demo.json');
 	if (!existsSync(jsonPath)) {
-		console.error(`[RADAR Seed Demo] ❌ File ${jsonPath} tidak ditemukan.`);
+		console.error(`[RADARKU Seed Demo] ❌ File ${jsonPath} tidak ditemukan.`);
 		process.exit(1);
 	}
 
@@ -56,11 +56,11 @@ async function seedDemoUsers() {
 		console.log(`  ✓ Akun demo [${u.role}]: ${u.email} siap digunakan.`);
 	}
 
-	console.log('[RADAR Seed Demo] ✅ Seeding akun demo pengguna selesai!');
+	console.log('[RADARKU Seed Demo] ✅ Seeding akun demo pengguna selesai!');
 	process.exit(0);
 }
 
 seedDemoUsers().catch((err) => {
-	console.error('[RADAR Seed Demo] ❌ Gagal seeding demo users:', err);
+	console.error('[RADARKU Seed Demo] ❌ Gagal seeding demo users:', err);
 	process.exit(1);
 });

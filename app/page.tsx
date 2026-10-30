@@ -67,7 +67,7 @@ export default async function HomePage() {
 
 				{/* Main Headline */}
 				<h1 className='mt-6 max-w-4xl font-black font-heading text-3xl text-foreground leading-[1.15] tracking-tight sm:text-5xl lg:text-6xl'>
-					Rekapitulasi & Analisis Data Mutu Air Kolam Budidaya{' '}
+					Rekapitulasi & Analisis Data Kualitas Air Kolam Budidaya{' '}
 					<span className='bg-linear-to-r from-blue-600 via-cyan-600 to-teal-500 bg-clip-text text-transparent dark:from-blue-400 dark:via-cyan-400 dark:to-teal-300'>
 						Kabupaten Lembata
 					</span>
@@ -350,7 +350,7 @@ export default async function HomePage() {
 							SOP Standar Pengujian
 						</Badge>
 						<h2 className='mt-3 font-extrabold font-heading text-2xl text-foreground tracking-tight sm:text-4xl'>
-							Alur Kerja Terpadu RADAR
+							Alur Kerja Terpadu {APP_CONFIG.name}
 						</h2>
 						<p className='mx-auto mt-3 max-w-xl text-muted-foreground text-sm'>
 							4 langkah sistematis dari pengambilan sampel lapangan hingga penerbitan laporan resmi.

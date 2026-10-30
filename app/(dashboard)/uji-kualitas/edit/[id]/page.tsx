@@ -9,8 +9,9 @@ import { Button } from '@/components/shadcn/button';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { getCurrentUser } from '@/lib/auth';
+import { APP_CONFIG } from '@/lib/constants';
 
-export const metadata = { title: 'Edit Hasil Uji Kualitas Air — RADAR' };
+export const metadata = { title: `Edit Hasil Uji Kualitas Air — ${APP_CONFIG.name}` };
 
 export default async function EditUjiKualitasPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;

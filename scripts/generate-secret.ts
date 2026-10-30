@@ -24,7 +24,7 @@ const shouldWrite = args.includes('--write') || args.includes('-w');
 const secret = generateSecret();
 
 console.log('\n🔐 ========================================================');
-console.log('   BETTER_AUTH_SECRET Generator — RADAR Lembata');
+console.log('   BETTER_AUTH_SECRET Generator — RADARKU Lembata');
 console.log('========================================================\n');
 console.log(`Key Baru yang Dihasilkan:`);
 console.log(`\x1b[32m${secret}\x1b[0m\n`);

@@ -617,4 +617,4 @@ export const PEGAWAI_LIST = [
 	}
 ];
 
-export const USERS_TO_SEED = [{ name: 'Admin Radar', email: 'admin@radar.com', role: 'admin' }];
+export const USERS_TO_SEED = [{ name: 'Admin Radarku', email: 'admin@radarku.com', role: 'admin' }];

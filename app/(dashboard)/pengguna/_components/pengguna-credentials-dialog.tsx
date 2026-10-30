@@ -147,7 +147,7 @@ export function PenggunaCredentialsDialog({
 							<InputGroupInput
 								id='edit-user-email'
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder='nama@radar.lembata.go.id'
+								placeholder='nama@radarku.lembata.go.id'
 								required
 								type='email'
 								value={email}

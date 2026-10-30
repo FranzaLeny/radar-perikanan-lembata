@@ -1,18 +1,18 @@
-name: radar
+name: radarku
 
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: radar_dev_db
+    container_name: radarku_dev_db
     restart: unless-stopped
     ports:
       - '5433:5432'
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: radar_dev_2026
-      POSTGRES_DB: radar_dev_db
+      POSTGRES_PASSWORD: radarku_dev_2026
+      POSTGRES_DB: radarku_dev_db
     volumes:
-      - radar_dev:/var/lib/postgresql/data
+      - radarku_dev:/var/lib/postgresql/data
 
 volumes:
-  radar_dev:
+  radarku_dev:

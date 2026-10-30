@@ -8,31 +8,31 @@ import type { Metadata } from 'next';
  */
 export const APP_CONFIG = {
 	/** Nama singkat / akronim brand aplikasi */
-	name: 'RADAR',
+	name: 'RADARKU',
 
 	/** Nama branding portal cloud cetak */
-	appName: 'RADAR Diskan Lembata',
+	appName: 'RADARKU Diskan Lembata',
 
 	/** Kepanjangan nama aplikasi */
-	fullName: 'Rekapitulasi Data Air Kolam Budidaya Perikanan Lembata',
+	fullName: 'Rekapitulasi dan Analisis Data Kualitas Air Kolam Budidaya Lembata',
 
 	/** Judul lengkap gabungan */
-	title: 'RADAR | Dinas Perikanan Kabupaten Lembata',
+	title: 'RADARKU | Dinas Perikanan Kabupaten Lembata',
 
 	/** Tagline resmi aplikasi */
-	tagline: 'Satu Rekapitulasi Data, Kepastian Mutu Air Budidaya Lembata',
+	tagline: 'Satu Rekapitulasi Data, Kepastian Kualitas Air Budidaya Lembata',
 
 	/** Deskripsi standar SEO Google (150-160 karakter) */
 	description:
-		'Instrumen digital rekapitulasi dan analisis mutu air kolam budidaya perikanan Dinas Perikanan Kabupaten Lembata untuk kepastian mutu budidaya.',
+		'Instrumen digital rekapitulasi dan analisis kualitas air kolam budidaya perikanan Dinas Perikanan Kabupaten Lembata untuk kepastian mutu budidaya.',
 
 	/** Deskripsi lengkap aplikasi untuk dokumen resmi dan informasi sistem */
 	fullDescription:
-		'RADAR (Rekapitulasi dan Analisis Data Air Kolam Budidaya Perikanan Kabupaten Lembata) merupakan instrumen digital terpadu yang dirancang untuk menghimpun, merekapitulasi, dan menganalisis parameter mutu air pada sentra kolam budidaya perikanan secara sistematis dan berkala. Sistem ini memadukan data pengukuran lapangan langsung dengan pengujian laboratorium—mencakup parameter kritis seperti derajat keasaman (pH), oksigen terlarut (Dissolved Oxygen), suhu, kekeruhan, serta senyawa nitrogen/amonia—ke dalam basis data terpusat. Melalui rekapitulasi yang terstruktur dan analisis tren yang akurat, RADAR berfungsi sebagai sistem peringatan dini terhadap penurunan baku mutu lingkungan budidaya sekaligus rujukan pengambilan keputusan teknis bagi Dinas Perikanan dan petambak demi menekan risiko kematian biota dan meningkatkan efisiensi panen perikanan di Kabupaten Lembata.',
+		'RADARKU (Rekapitulasi dan Analisis Data Kualitas Air Kolam Budidaya Lembata) merupakan instrumen digital terpadu yang dirancang untuk menghimpun, merekapitulasi, dan menganalisis parameter kualitas air pada sentra kolam budidaya perikanan secara sistematis dan berkala. Sistem ini memadukan data pengukuran lapangan langsung dengan pengujian laboratorium—mencakup parameter kritis seperti derajat keasaman (pH), oksigen terlarut (Dissolved Oxygen), suhu, kekeruhan, serta senyawa nitrogen/amonia—ke dalam basis data terpusat. Melalui rekapitulasi yang terstruktur dan analisis tren yang akurat, RADARKU berfungsi sebagai sistem peringatan dini terhadap penurunan baku mutu lingkungan budidaya sekaligus rujukan pengambilan keputusan teknis bagi Dinas Perikanan dan petambak demi menekan risiko kematian biota dan meningkatkan efisiensi panen perikanan di Kabupaten Lembata.',
 
 	/** Deskripsi singkat aplikasi untuk media sosial dan preview link */
 	shortDescription:
-		'Sistem digital rekapitulasi dan analisis parameter mutu air kolam budidaya perikanan Dinas Perikanan Kabupaten Lembata.',
+		'Sistem digital rekapitulasi dan analisis parameter kualitas air kolam budidaya perikanan Dinas Perikanan Kabupaten Lembata.',
 
 	/** Versi rilis aplikasi */
 	version: '1.0.0',
@@ -48,8 +48,7 @@ export const APP_CONFIG = {
 		regency: 'Kabupaten Lembata',
 		province: 'Nusa Tenggara Timur',
 		country: 'Indonesia',
-		email: 'perikanan@lembatakab.go.id',
-		emailDomain: 'radar.lembata.go.id'
+		email: 'info_perikanan@lembatakab.go.id'
 	},
 
 	/** Data author, pengembang, dan hak cipta */
@@ -87,6 +86,7 @@ export const SITE_METADATA: Metadata = {
 	creator: APP_CONFIG.author.name,
 	publisher: APP_CONFIG.institution.name,
 	keywords: [
+		'RADARKU',
 		'RADAR',
 		'Rekapitulasi dan Analisis Data Air',
 		'Kualitas Air Budidaya',

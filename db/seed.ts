@@ -22,10 +22,10 @@ import {
 } from './schema';
 
 async function seed() {
-	console.log('[RADAR Seed] 🌊 Memulai penyemaian master data awal...');
+	console.log('[RADARKU Seed] 🌊 Memulai penyemaian master data awal...');
 
 	// 0. Seed Kategori Dokumen Mutu
-	console.log('[RADAR Seed] Menanam kategori dokumen mutu...');
+	console.log('[RADARKU Seed] Menanam kategori dokumen mutu...');
 	for (const k of KATEGORI_DATA) {
 		await db
 			.insert(kategoriDokumenMutu)
@@ -44,13 +44,13 @@ async function seed() {
 	const categoryMap = new Map(categories.map((c) => [c.kode_kategori, c.id]));
 
 	// 1. Seed Master Baku Mutu
-	console.log('[RADAR Seed] Menanam parameter baku mutu...');
+	console.log('[RADARKU Seed] Menanam parameter baku mutu...');
 	for (const bm of BAKU_MUTU) {
 		await db.insert(masterBakuMutu).values(bm).onConflictDoNothing();
 	}
 
 	// 2. Seed Dokumen Mutu & Instruksi Kerja (IK)
-	console.log('[RADAR Seed] Menanam Dokumen Mutu & Instruksi Kerja...');
+	console.log('[RADARKU Seed] Menanam Dokumen Mutu & Instruksi Kerja...');
 	for (const doc of DOKUMEN_MUTU) {
 		const qrHash = generateIkHash(doc.kode_ik);
 		const catKode =
@@ -86,19 +86,19 @@ async function seed() {
 	}
 
 	// 3. Seed Lokasi Kolam Pembudidaya
-	console.log('[RADAR Seed] Menanam master data lokasi kolam / Pokdakan...');
+	console.log('[RADARKU Seed] Menanam master data lokasi kolam / Pokdakan...');
 	for (const kolam of LOKASI_KOLAM) {
 		await db.insert(lokasiKolam).values(kolam).onConflictDoNothing();
 	}
 
 	// 4. Seed Master Pegawai Dinas Perikanan
-	console.log('[RADAR Seed] Menanam master pegawai Dinas Perikanan Lembata...');
+	console.log('[RADARKU Seed] Menanam master pegawai Dinas Perikanan Lembata...');
 	for (const p of PEGAWAI_LIST) {
 		await db.insert(masterPegawai).values(p).onConflictDoNothing();
 	}
 
 	// 5. Seed Akun Default Sistem
-	console.log('[RADAR Seed] Menanam akun pengguna default...');
+	console.log('[RADARKU Seed] Menanam akun pengguna default...');
 	const defaultPassword = process.env.DEFAULT_PASSWORD || 'password123';
 	const hashedPassword = await hashPassword(defaultPassword);
 
@@ -128,11 +128,11 @@ async function seed() {
 			});
 	}
 
-	console.log('[RADAR Seed] ✅ Penyemaian master data awal selesai!');
+	console.log('[RADARKU Seed] ✅ Penyemaian master data awal selesai!');
 	process.exit(0);
 }
 
 seed().catch((err) => {
-	console.error('[RADAR Seed] ❌ Gagal penyemaian data:', err);
+	console.error('[RADARKU Seed] ❌ Gagal penyemaian data:', err);
 	process.exit(1);
 });

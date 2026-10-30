@@ -1,5 +1,6 @@
-﻿import { Skeleton } from '@/components/shadcn/skeleton';
+import { Skeleton } from '@/components/shadcn/skeleton';
 import { Spinner } from '@/components/shadcn/spinner';
+import { APP_CONFIG } from '@/lib/constants';
 
 export default function DashboardLoading() {
 	return (
@@ -51,7 +52,7 @@ export default function DashboardLoading() {
 				{/* Floating Subtle Indicator */}
 				<div className='flex items-center justify-center gap-2 pt-4 text-muted-foreground text-xs'>
 					<Spinner className='size-3.5 text-primary' />
-					<span>Memuat data sistem RADAR...</span>
+					<span>Memuat data sistem {APP_CONFIG.name}...</span>
 				</div>
 			</div>
 		</div>

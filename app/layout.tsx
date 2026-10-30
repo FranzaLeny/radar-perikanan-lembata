@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					defaultTheme='light'
 					disableTransitionOnChange
 					enableSystem={false}
-					storageKey='radar-theme'
+					storageKey='radarku-theme'
 				>
 					<TooltipProvider>
 						{children}

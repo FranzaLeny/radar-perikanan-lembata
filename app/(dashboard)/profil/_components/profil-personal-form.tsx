@@ -113,7 +113,7 @@ export function ProfilPersonalForm({ user }: ProfilPersonalFormProps) {
 							disabled={!isAdmin}
 							id='email'
 							onChange={(e) => setEmail(e.target.value)}
-							placeholder='nama@radar.lembata.go.id'
+							placeholder='nama@radarku.lembata.go.id'
 							required
 							type='email'
 							value={email}

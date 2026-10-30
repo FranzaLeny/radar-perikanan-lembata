@@ -106,7 +106,7 @@ export function LoginForm() {
 								autoComplete='email'
 								id='email'
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder={`nama@${APP_CONFIG.institution.emailDomain}`}
+								placeholder={`nama@${APP_CONFIG.institution.email}`}
 								required
 								type='email'
 								value={email}

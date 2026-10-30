@@ -35,7 +35,7 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 				<Link
 					className='group flex items-center gap-3 transition-opacity hover:opacity-90'
 					href='/'
-					title='Kembali ke Beranda RADAR Lembata'
+					title={`Kembali ke Beranda ${APP_CONFIG.name} Lembata`}
 				>
 					<div className='flex size-10 items-center justify-center rounded-xl bg-primary/10 p-1.5 ring-1 ring-primary/20 transition-transform duration-200 group-hover:scale-105'>
 						<Image
