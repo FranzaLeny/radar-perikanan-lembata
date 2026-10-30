@@ -6,7 +6,7 @@ type LhuFooterQrProps = { qrDataUrl: string; ujiId: string };
 
 export function LhuFooterQr({ qrDataUrl, ujiId }: LhuFooterQrProps) {
 	return (
-		<div className='mt-5 flex items-center justify-between border-slate-300 border-t border-dashed pt-2.5 text-[11px] text-slate-500 print:mt-2.5 print:pt-1.5'>
+		<div className='mt-5 flex items-center justify-between border-t border-dashed border-slate-300 pt-2.5 text-[11px] text-slate-500 print:mt-2.5 print:pt-1.5'>
 			<div className='flex items-center gap-2.5'>
 				<Image
 					alt='QR Verifikasi'

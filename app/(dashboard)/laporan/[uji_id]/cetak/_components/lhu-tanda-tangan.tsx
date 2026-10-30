@@ -28,15 +28,15 @@ export function LhuTandaTangan({
 	ujiId
 }: LhuTandaTanganProps) {
 	return (
-		<div className='mt-5 border-slate-300 border-t pt-3 print:mt-3 print:pt-2'>
+		<div className='mt-5 border-t border-slate-300 pt-3 print:mt-3 print:pt-2'>
 			<table className='w-full border-collapse text-xs'>
 				<tbody>
 					<tr className='align-top'>
 						<td className='w-1/2 p-2 text-center'>
 							<p className='mb-12 text-slate-500 print:mb-10'>Petugas Analis / Penguji,</p>
 							<p className='font-bold text-slate-900 uppercase underline'>{namaPenguji}</p>
-							<p className='text-slate-600 text-xs'>{jabatanPenguji}</p>
-							{nipPenguji && <p className='mt-0.5 text-slate-500 text-xs'>{nipPenguji}</p>}
+							<p className='text-xs text-slate-600'>{jabatanPenguji}</p>
+							{nipPenguji && <p className='mt-0.5 text-xs text-slate-500'>{nipPenguji}</p>}
 						</td>
 						<td className='w-1/2 p-2 text-center'>
 							<p className='text-slate-500'>Lewoleba, {formattedDate}</p>
@@ -44,15 +44,20 @@ export function LhuTandaTangan({
 								{jabatanPenandatangan || 'Kepala Dinas Perikanan'},
 							</p>
 							<p className='font-bold text-slate-900 uppercase underline'>{namaPenandatangan || '-'}</p>
-							<p className='text-slate-600 text-xs'>{pangkatPenandatangan}</p>
-							{nipPenandatangan && <p className='mt-0.5 text-slate-500 text-xs'>NIP. {nipPenandatangan}</p>}
+							<p className='text-xs text-slate-600'>{pangkatPenandatangan}</p>
+							{nipPenandatangan && (
+								<p className='mt-0.5 text-xs text-slate-500'>NIP. {nipPenandatangan}</p>
+							)}
 						</td>
 					</tr>
 				</tbody>
 				{qrDataUrl && (
 					<tfoot>
 						<tr>
-							<td className='border-slate-300 border-t border-dashed pt-2.5 text-[11px] text-slate-500 print:pt-1.5' colSpan={2}>
+							<td
+								className='border-t border-dashed border-slate-300 pt-2.5 text-[11px] text-slate-500 print:pt-1.5'
+								colSpan={2}
+							>
 								<div className='flex items-center justify-between'>
 									<div className='flex items-center gap-2.5'>
 										<Image

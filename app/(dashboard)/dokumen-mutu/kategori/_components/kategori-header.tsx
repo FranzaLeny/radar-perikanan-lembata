@@ -11,7 +11,7 @@ export function KategoriHeader({ onAdd }: KategoriHeaderProps) {
 			<div>
 				<Link href='/dokumen-mutu'>
 					<Button
-						className='mb-1 cursor-pointer gap-1.5 text-muted-foreground text-xs hover:text-foreground'
+						className='text-muted-foreground hover:text-foreground mb-1 cursor-pointer gap-1.5 text-xs'
 						size='sm'
 						variant='ghost'
 					>
@@ -19,11 +19,11 @@ export function KategoriHeader({ onAdd }: KategoriHeaderProps) {
 						<span>Kembali ke Katalog Dokumen Mutu</span>
 					</Button>
 				</Link>
-				<h1 className='flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight'>
-					<FolderKanban className='size-6 text-primary' />
+				<h1 className='font-heading text-foreground flex items-center gap-2 text-2xl font-bold tracking-tight'>
+					<FolderKanban className='text-primary size-6' />
 					<span>Manajemen Kategori Dokumen Mutu</span>
 				</h1>
-				<p className='mt-1 text-muted-foreground text-xs'>
+				<p className='text-muted-foreground mt-1 text-xs'>
 					Atur struktur kategori standarisasi mutu seperti Pedoman Mutu (PM), Prosedur Pelaksanaan (PP),
 					Standar Operasional Prosedur (SOP), Instruksi Kerja (IK), dan Formulir (FR).
 				</p>

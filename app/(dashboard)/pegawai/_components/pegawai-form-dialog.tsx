@@ -145,7 +145,7 @@ export function PegawaiFormDialog({
 			<DialogContent className='sm:max-w-lg'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Users className='size-4 text-muted-foreground' />
+						<Users className='text-muted-foreground size-4' />
 						<span>{editingItem ? 'Edit Data Pegawai' : 'Registrasi Pegawai Baru'}</span>
 					</DialogTitle>
 					<DialogDescription>
@@ -225,20 +225,20 @@ export function PegawaiFormDialog({
 						</Select>
 					</Field>
 
-					<div className='flex items-start gap-3 rounded-lg border border-border/70 bg-muted/20 p-3'>
+					<div className='border-border/70 bg-muted/20 flex items-start gap-3 rounded-lg border p-3'>
 						<input
 							checked={isPenanggungjawab}
-							className='mt-1 h-4 w-4 cursor-pointer rounded border-gray-300 text-primary focus:ring-primary'
+							className='text-primary focus:ring-primary mt-1 h-4 w-4 cursor-pointer rounded border-gray-300'
 							id='is_penanggungjawab'
 							onChange={(e) => setIsPenanggungjawab(e.target.checked)}
 							type='checkbox'
 						/>
-						<label className='cursor-pointer select-none text-xs' htmlFor='is_penanggungjawab'>
-							<span className='flex items-center gap-1.5 font-semibold text-foreground'>
+						<label className='cursor-pointer text-xs select-none' htmlFor='is_penanggungjawab'>
+							<span className='text-foreground flex items-center gap-1.5 font-semibold'>
 								<Star className='inline size-3 fill-amber-500 text-amber-500' />
 								Jadikan Penanggung Jawab Default Penandatangan
 							</span>
-							<p className='mt-0.5 text-muted-foreground'>
+							<p className='text-muted-foreground mt-0.5'>
 								Pegawai ini akan otomatis dipilih sebagai default penandatangan Laporan Hasil Uji (LHU)
 								baru. Hanya satu pegawai yang dapat menjadi default.
 							</p>

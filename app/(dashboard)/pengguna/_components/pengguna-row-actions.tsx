@@ -31,7 +31,7 @@ export function PenggunaRowActions({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger
-				className='inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none'
+				className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex size-7 cursor-pointer items-center justify-center rounded-md transition-colors focus-visible:outline-none'
 				title='Menu Tindakan'
 			>
 				<MoreVertical className='size-4' />
@@ -45,7 +45,7 @@ export function PenggunaRowActions({
 						<span>Ganti Email & Password</span>
 					</DropdownMenuItem>
 					<DropdownMenuItem onClick={() => onOpenEditRole(user)}>
-						<ShieldCheck className='mr-2 size-3.5 text-primary' />
+						<ShieldCheck className='text-primary mr-2 size-3.5' />
 						<span>Ubah Wewenang Role</span>
 					</DropdownMenuItem>
 					{!isSelf && (
@@ -70,20 +70,20 @@ export function PenggunaRowActions({
 						<DropdownMenuGroup>
 							{user.isUsed ? (
 								<DropdownMenuItem
-									className='cursor-pointer gap-2 text-muted-foreground text-xs hover:text-foreground'
+									className='text-muted-foreground hover:text-foreground cursor-pointer gap-2 text-xs'
 									onClick={() => onDelete(user)}
 								>
-									<Trash2 className='size-3.5 text-muted-foreground/60' />
+									<Trash2 className='text-muted-foreground/60 size-3.5' />
 									<div className='flex flex-col text-left'>
 										<span className='text-muted-foreground'>Hapus Akun</span>
-										<span className='font-normal text-[10px] text-amber-500'>
+										<span className='text-[10px] font-normal text-amber-500'>
 											Terkunci (Hanya bisa dinonaktifkan)
 										</span>
 									</div>
 								</DropdownMenuItem>
 							) : (
 								<DropdownMenuItem
-									className='cursor-pointer gap-2 text-destructive text-xs focus:bg-destructive/10 focus:text-destructive'
+									className='text-destructive focus:bg-destructive/10 focus:text-destructive cursor-pointer gap-2 text-xs'
 									onClick={() => onDelete(user)}
 									variant='destructive'
 								>

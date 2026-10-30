@@ -244,10 +244,10 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 								/>
 							</div>
 							<div className='flex flex-col gap-0.5 leading-none'>
-								<span className='font-bold font-heading text-foreground text-md tracking-tight'>
+								<span className='font-heading text-foreground text-md font-bold tracking-tight'>
 									{APP_CONFIG.name}
 								</span>
-								<span className='font-medium text-muted-foreground text-xs'>
+								<span className='text-muted-foreground text-xs font-medium'>
 									{APP_CONFIG.institution.shortName}
 								</span>
 							</div>
@@ -269,7 +269,7 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 
 						return (
 							<SidebarGroup key={group.title}>
-								<SidebarGroupLabel className='font-semibold text-muted-foreground/80 uppercase tracking-wider'>
+								<SidebarGroupLabel className='text-muted-foreground/80 font-semibold tracking-wider uppercase'>
 									{group.title}
 								</SidebarGroupLabel>
 								<SidebarMenu>
@@ -295,23 +295,23 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 					})}
 			</SidebarContent>
 
-			<SidebarFooter className='border-t bg-muted/20 p-3'>
+			<SidebarFooter className='bg-muted/20 border-t p-3'>
 				<div className='flex items-center gap-2.5'>
 					<Link
 						className='flex min-w-0 flex-1 items-center gap-2.5 transition-opacity hover:opacity-80'
 						href='/profil'
 						title='Buka Profil'
 					>
-						<Avatar className='size-8 ring-1 ring-border'>
-							<AvatarFallback className='bg-muted font-semibold text-foreground text-xs'>
+						<Avatar className='ring-border size-8 ring-1'>
+							<AvatarFallback className='bg-muted text-foreground text-xs font-semibold'>
 								{user?.name ? user.name.substring(0, 2).toUpperCase() : 'PL'}
 							</AvatarFallback>
 						</Avatar>
 						<div className='flex min-w-0 flex-1 flex-col'>
-							<span className='truncate font-semibold text-foreground text-xs'>
+							<span className='text-foreground truncate text-xs font-semibold'>
 								{user?.name || 'Petugas Laboratorium'}
 							</span>
-							<span className='truncate font-medium text-muted-foreground text-xs uppercase'>
+							<span className='text-muted-foreground truncate text-xs font-medium uppercase'>
 								{roleLabels[userRole] || userRole}
 							</span>
 						</div>

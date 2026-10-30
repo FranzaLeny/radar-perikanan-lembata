@@ -131,7 +131,7 @@ export function LokasiFormDialog({
 			<DialogContent className='sm:max-w-md'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<MapPin className='size-4 text-muted-foreground' />
+						<MapPin className='text-muted-foreground size-4' />
 						<span>{editingItem ? 'Edit Lokasi Kolam' : 'Tambah Lokasi Kolam Pembudidaya'}</span>
 					</DialogTitle>
 					<DialogDescription>

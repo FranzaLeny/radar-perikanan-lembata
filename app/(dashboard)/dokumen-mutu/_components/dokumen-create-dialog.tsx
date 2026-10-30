@@ -140,7 +140,7 @@ export function DokumenCreateDialog({
 			<DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-lg'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Plus className='size-4 text-primary' />
+						<Plus className='text-primary size-4' />
 						<span>Registrasi Dokumen Mutu Baru</span>
 					</DialogTitle>
 					<DialogDescription className='text-xs'>
@@ -196,7 +196,7 @@ export function DokumenCreateDialog({
 					{/* Khusus IK: Parameter Uji & Metode Pengujian */}
 					{isIKCategory && (
 						<div className='space-y-3 rounded-lg border border-blue-200 bg-blue-50/50 p-3 dark:border-blue-900 dark:bg-blue-950/20'>
-							<p className='font-semibold text-blue-900 text-xs dark:text-blue-200'>
+							<p className='text-xs font-semibold text-blue-900 dark:text-blue-200'>
 								Spesifikasi Instruksi Kerja (IK)
 							</p>
 

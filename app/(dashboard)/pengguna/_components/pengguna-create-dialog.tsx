@@ -109,7 +109,7 @@ export function PenggunaCreateDialog({
 			<DialogContent className='sm:max-w-md'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Users2 className='size-4 text-muted-foreground' />
+						<Users2 className='text-muted-foreground size-4' />
 						<span>Registrasi Akun Pengguna Baru</span>
 					</DialogTitle>
 					<DialogDescription className='text-xs'>
@@ -134,7 +134,7 @@ export function PenggunaCreateDialog({
 						<FieldLabel htmlFor='email'>Alamat Email Resmi *</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<Mail className='size-4 text-muted-foreground' />
+								<Mail className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								id='email'
@@ -171,7 +171,7 @@ export function PenggunaCreateDialog({
 						<FieldLabel htmlFor='password'>Kata Sandi Sementara *</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<Lock className='size-4 text-muted-foreground' />
+								<Lock className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								id='password'

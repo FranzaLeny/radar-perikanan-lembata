@@ -63,7 +63,7 @@ export function LokasiFilterBar({
 			<div className='flex items-center gap-2'>
 				<InputGroup className='w-full sm:w-72'>
 					<InputGroupAddon align='inline-start'>
-						<Search className='size-4 text-muted-foreground' />
+						<Search className='text-muted-foreground size-4' />
 					</InputGroupAddon>
 					<InputGroupInput
 						onChange={(e) => onSearchChange(e.target.value)}
@@ -91,7 +91,7 @@ export function LokasiFilterBar({
 							{filteredCount} dari {totalCount}
 						</Badge>
 						<Button
-							className='cursor-pointer text-muted-foreground text-xs hover:text-foreground'
+							className='text-muted-foreground hover:text-foreground cursor-pointer text-xs'
 							onClick={onResetSearch}
 							size='xs'
 							variant='ghost'
@@ -100,7 +100,7 @@ export function LokasiFilterBar({
 						</Button>
 					</div>
 				) : (
-					<span className='hidden shrink-0 text-muted-foreground text-xs sm:inline'>
+					<span className='text-muted-foreground hidden shrink-0 text-xs sm:inline'>
 						Total: <strong className='text-foreground'>{totalCount}</strong>
 					</span>
 				)}

@@ -4,11 +4,11 @@ import { Spinner } from '@/components/shadcn/spinner';
 
 export default function AuthLoading() {
 	return (
-		<div className='fade-in-50 w-full max-w-md animate-in duration-300'>
+		<div className='fade-in-50 animate-in w-full max-w-md duration-300'>
 			<Card className='border-border/80 bg-card/95 shadow-xl backdrop-blur-md'>
 				<CardHeader className='space-y-3 text-center'>
-					<div className='mx-auto flex size-12 items-center justify-center rounded-xl bg-primary/10'>
-						<Spinner className='size-6 text-primary' />
+					<div className='bg-primary/10 mx-auto flex size-12 items-center justify-center rounded-xl'>
+						<Spinner className='text-primary size-6' />
 					</div>
 					<div className='space-y-1.5'>
 						<Skeleton className='mx-auto h-6 w-48' />

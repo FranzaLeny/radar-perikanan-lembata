@@ -67,7 +67,7 @@ export function DokumenFilterBar({
 			<div className='flex items-center gap-2'>
 				<InputGroup className='w-full sm:w-72'>
 					<InputGroupAddon align='inline-start'>
-						<Search className='size-4 text-muted-foreground' />
+						<Search className='text-muted-foreground size-4' />
 					</InputGroupAddon>
 					<InputGroupInput
 						onChange={(e) => onSearchChange(e.target.value)}

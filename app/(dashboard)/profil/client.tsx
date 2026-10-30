@@ -11,10 +11,10 @@ export function ProfilClient({ user }: ProfilClientProps) {
 	return (
 		<div className='container max-w-5xl space-y-8 py-8'>
 			<div>
-				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+				<h1 className='font-heading text-foreground text-2xl font-bold tracking-tight'>
 					Profil Pengguna
 				</h1>
-				<p className='mt-1 text-muted-foreground text-sm'>
+				<p className='text-muted-foreground mt-1 text-sm'>
 					Kelola informasi identitas akun dan keamanan kata sandi Anda.
 				</p>
 			</div>

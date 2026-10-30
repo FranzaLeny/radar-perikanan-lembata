@@ -38,18 +38,18 @@ export function ProfilInfoCard({ user }: ProfilInfoCardProps) {
 	return (
 		<Card className='bg-card/60 backdrop-blur-md'>
 			<CardHeader className='pb-2 text-center'>
-				<Avatar className='mx-auto size-20 border-2 border-border shadow-md'>
-					<AvatarFallback className='bg-muted font-bold text-foreground text-xl'>
+				<Avatar className='border-border mx-auto size-20 border-2 shadow-md'>
+					<AvatarFallback className='bg-muted text-foreground text-xl font-bold'>
 						{user.name.slice(0, 2).toUpperCase()}
 					</AvatarFallback>
 				</Avatar>
-				<CardTitle className='mt-3 font-bold text-lg'>{user.name}</CardTitle>
+				<CardTitle className='mt-3 text-lg font-bold'>{user.name}</CardTitle>
 				<CardDescription className='text-xs'>{user.email}</CardDescription>
 				<div className='mt-2 flex justify-center'>{getRoleBadge(user.role)}</div>
 			</CardHeader>
-			<CardContent className='space-y-4 border-border/50 border-t pt-4 text-xs'>
+			<CardContent className='border-border/50 space-y-4 border-t pt-4 text-xs'>
 				<div className='flex items-center justify-between py-1'>
-					<span className='flex items-center gap-2 text-muted-foreground'>
+					<span className='text-muted-foreground flex items-center gap-2'>
 						<Shield className='size-3.5' /> Status Akun
 					</span>
 					<span className='flex items-center gap-1 font-semibold text-emerald-500'>
@@ -57,7 +57,7 @@ export function ProfilInfoCard({ user }: ProfilInfoCardProps) {
 					</span>
 				</div>
 				<div className='flex items-center justify-between py-1'>
-					<span className='flex items-center gap-2 text-muted-foreground'>
+					<span className='text-muted-foreground flex items-center gap-2'>
 						<Mail className='size-3.5' /> Penyedia Autentikasi
 					</span>
 					<span className='font-medium'>BetterAuth Credential</span>

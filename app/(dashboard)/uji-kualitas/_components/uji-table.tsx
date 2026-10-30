@@ -30,21 +30,21 @@ export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 				<Table>
 					<TableHeader>
 						<TableRow className='bg-muted/40 hover:bg-muted/40'>
-							<TableHead className='font-semibold text-xs'>Nomor Sampel</TableHead>
-							<TableHead className='font-semibold text-xs'>Waktu Uji & Petugas</TableHead>
-							<TableHead className='font-semibold text-xs'>Titik Kolam Pokdakan</TableHead>
-							<TableHead className='font-semibold text-xs'>Ringkasan Parameter</TableHead>
-							<TableHead className='text-center font-semibold text-xs'>Kesimpulan Mutu</TableHead>
-							<TableHead className='text-right font-semibold text-xs'>LHU & Aksi</TableHead>
+							<TableHead className='text-xs font-semibold'>Nomor Sampel</TableHead>
+							<TableHead className='text-xs font-semibold'>Waktu Uji & Petugas</TableHead>
+							<TableHead className='text-xs font-semibold'>Titik Kolam Pokdakan</TableHead>
+							<TableHead className='text-xs font-semibold'>Ringkasan Parameter</TableHead>
+							<TableHead className='text-center text-xs font-semibold'>Kesimpulan Mutu</TableHead>
+							<TableHead className='text-right text-xs font-semibold'>LHU & Aksi</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{items.length === 0 ? (
 							<TableRow>
-								<TableCell className='py-12 text-center text-muted-foreground text-xs' colSpan={6}>
-									<TestTube2 className='mx-auto mb-2 size-8 text-muted-foreground/50' />
-									<p className='font-semibold text-foreground'>Belum ada data pengujian kualitas air.</p>
-									<p className='mt-1 text-muted-foreground text-xs'>
+								<TableCell className='text-muted-foreground py-12 text-center text-xs' colSpan={6}>
+									<TestTube2 className='text-muted-foreground/50 mx-auto mb-2 size-8' />
+									<p className='text-foreground font-semibold'>Belum ada data pengujian kualitas air.</p>
+									<p className='text-muted-foreground mt-1 text-xs'>
 										Klik tombol &ldquo;Input Hasil Uji Baru&rdquo; untuk merekam uji pertama.
 									</p>
 								</TableCell>
@@ -55,12 +55,12 @@ export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 								return (
 									<React.Fragment key={item.id}>
 										<TableRow className='hover:bg-muted/30'>
-											<TableCell className='font-semibold text-foreground text-xs'>
+											<TableCell className='text-foreground text-xs font-semibold'>
 												{item.nomor_sampel}
 											</TableCell>
 											<TableCell className='text-xs'>
-												<div className='flex items-center gap-1.5 font-medium text-foreground'>
-													<Calendar className='size-3 text-muted-foreground' />
+												<div className='text-foreground flex items-center gap-1.5 font-medium'>
+													<Calendar className='text-muted-foreground size-3' />
 													{new Date(item.tanggal_pengambilan).toLocaleDateString('id-ID', {
 														day: 'numeric',
 														month: 'short',
@@ -69,15 +69,15 @@ export function UjiTable({ items, expandedId, setExpandedId }: UjiTableProps) {
 														minute: '2-digit'
 													})}
 												</div>
-												<div className='mt-0.5 flex items-center gap-1 text-muted-foreground text-xs'>
+												<div className='text-muted-foreground mt-0.5 flex items-center gap-1 text-xs'>
 													<User className='size-3' />
 													{item.petugas_uji}
 												</div>
 											</TableCell>
 											<TableCell className='text-xs'>
-												<div className='font-medium text-foreground'>{item.lokasi?.nama_pokdakan || '-'}</div>
-												<div className='mt-0.5 flex items-center gap-1 text-muted-foreground text-xs'>
-													<MapPin className='size-3 text-muted-foreground' />
+												<div className='text-foreground font-medium'>{item.lokasi?.nama_pokdakan || '-'}</div>
+												<div className='text-muted-foreground mt-0.5 flex items-center gap-1 text-xs'>
+													<MapPin className='text-muted-foreground size-3' />
 													{item.lokasi?.desa}, {item.lokasi?.kecamatan}
 												</div>
 											</TableCell>

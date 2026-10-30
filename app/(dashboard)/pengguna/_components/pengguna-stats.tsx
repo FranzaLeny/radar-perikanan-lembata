@@ -15,35 +15,35 @@ export function PenggunaStats({ users }: PenggunaStatsProps) {
 		<div className='grid grid-cols-2 gap-4 md:grid-cols-4'>
 			<Card>
 				<CardContent className='pt-4 pb-3'>
-					<p className='font-medium text-muted-foreground text-xs'>Total Akun</p>
-					<p className='mt-1 font-bold text-2xl text-foreground'>{totalUsers}</p>
+					<p className='text-muted-foreground text-xs font-medium'>Total Akun</p>
+					<p className='text-foreground mt-1 text-2xl font-bold'>{totalUsers}</p>
 				</CardContent>
 			</Card>
 			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<div className='flex items-center justify-between'>
-						<p className='font-medium text-muted-foreground text-xs'>Administrator</p>
+						<p className='text-muted-foreground text-xs font-medium'>Administrator</p>
 						<ShieldAlert className='size-3.5 text-rose-500' />
 					</div>
-					<p className='mt-1 font-bold text-2xl text-rose-600 dark:text-rose-400'>{adminCount}</p>
+					<p className='mt-1 text-2xl font-bold text-rose-600 dark:text-rose-400'>{adminCount}</p>
 				</CardContent>
 			</Card>
 			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<div className='flex items-center justify-between'>
-						<p className='font-medium text-muted-foreground text-xs'>Pengelola Mutu</p>
+						<p className='text-muted-foreground text-xs font-medium'>Pengelola Mutu</p>
 						<ShieldCheck className='size-3.5 text-blue-500' />
 					</div>
-					<p className='mt-1 font-bold text-2xl text-blue-600 dark:text-blue-400'>{mutuCount}</p>
+					<p className='mt-1 text-2xl font-bold text-blue-600 dark:text-blue-400'>{mutuCount}</p>
 				</CardContent>
 			</Card>
 			<Card>
 				<CardContent className='pt-4 pb-3'>
 					<div className='flex items-center justify-between'>
-						<p className='font-medium text-muted-foreground text-xs'>Petugas Lapangan</p>
+						<p className='text-muted-foreground text-xs font-medium'>Petugas Lapangan</p>
 						<UserCheck className='size-3.5 text-emerald-500' />
 					</div>
-					<p className='mt-1 font-bold text-2xl text-emerald-600 dark:text-emerald-400'>
+					<p className='mt-1 text-2xl font-bold text-emerald-600 dark:text-emerald-400'>
 						{lapanganCount}
 					</p>
 				</CardContent>

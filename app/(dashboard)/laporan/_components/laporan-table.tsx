@@ -29,23 +29,23 @@ export function LaporanTable({
 	onDelete
 }: LaporanTableProps) {
 	return (
-		<div className='overflow-hidden rounded-xl border border-border'>
+		<div className='border-border overflow-hidden rounded-xl border'>
 			<Table>
 				<TableHeader>
 					<TableRow className='bg-muted/40 hover:bg-muted/40'>
-						<TableHead className='w-[170px] font-semibold text-xs'>Nomor LHU / Sampel</TableHead>
-						<TableHead className='w-[120px] font-semibold text-xs'>Tanggal Sampel</TableHead>
-						<TableHead className='font-semibold text-xs'>Pokdakan & Wilayah</TableHead>
-						<TableHead className='w-[140px] font-semibold text-xs'>Petugas Penguji</TableHead>
-						<TableHead className='w-[110px] text-center font-semibold text-xs'>Status Dokumen</TableHead>
-						<TableHead className='w-[110px] text-center font-semibold text-xs'>Status Mutu</TableHead>
-						<TableHead className='w-[150px] text-right font-semibold text-xs'>Aksi</TableHead>
+						<TableHead className='w-[170px] text-xs font-semibold'>Nomor LHU / Sampel</TableHead>
+						<TableHead className='w-[120px] text-xs font-semibold'>Tanggal Sampel</TableHead>
+						<TableHead className='text-xs font-semibold'>Pokdakan & Wilayah</TableHead>
+						<TableHead className='w-[140px] text-xs font-semibold'>Petugas Penguji</TableHead>
+						<TableHead className='w-[110px] text-center text-xs font-semibold'>Status Dokumen</TableHead>
+						<TableHead className='w-[110px] text-center text-xs font-semibold'>Status Mutu</TableHead>
+						<TableHead className='w-[150px] text-right text-xs font-semibold'>Aksi</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{items.length === 0 ? (
 						<TableRow>
-							<TableCell className='h-28 text-center text-muted-foreground text-xs' colSpan={7}>
+							<TableCell className='text-muted-foreground h-28 text-center text-xs' colSpan={7}>
 								{isFiltered ? (
 									<div className='space-y-1.5'>
 										<p>Tidak ada dokumen LHU yang cocok dengan filter pencarian ini.</p>
@@ -61,7 +61,7 @@ export function LaporanTable({
 					) : (
 						items.map((u) => (
 							<TableRow className='hover:bg-muted/30' key={u.id}>
-								<TableCell className='font-semibold text-foreground text-xs'>
+								<TableCell className='text-foreground text-xs font-semibold'>
 									LHU/{BRAND_NAME}/{u.nomor_sampel}
 								</TableCell>
 								<TableCell className='text-muted-foreground text-xs'>
@@ -72,7 +72,7 @@ export function LaporanTable({
 									})}
 								</TableCell>
 								<TableCell>
-									<div className='font-medium text-foreground text-xs'>{u.lokasi?.nama_pokdakan}</div>
+									<div className='text-foreground text-xs font-medium'>{u.lokasi?.nama_pokdakan}</div>
 									<div className='text-muted-foreground text-xs'>
 										{u.lokasi?.desa}, {u.lokasi?.kecamatan}
 									</div>

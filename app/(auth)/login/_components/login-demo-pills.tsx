@@ -15,9 +15,9 @@ const roleConfig: Record<string, { label: string; badge: string }> = {
 
 export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 	return (
-		<div className='space-y-2.5 border-border border-t pt-4'>
-			<div className='flex items-center gap-1.5 font-semibold text-muted-foreground text-xs uppercase tracking-wider'>
-				<ShieldCheck className='size-3.5 text-muted-foreground' />
+		<div className='border-border space-y-2.5 border-t pt-4'>
+			<div className='text-muted-foreground flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase'>
+				<ShieldCheck className='text-muted-foreground size-3.5' />
 				<span>Akses Cepat Akun Demo (Uji Coba)</span>
 			</div>
 
@@ -33,13 +33,13 @@ export function LoginDemoPills({ onSelect }: LoginDemoPillsProps) {
 							type='button'
 							variant='outline'
 						>
-							<div className='flex w-full items-center justify-between font-semibold text-foreground transition-colors group-hover:text-primary'>
+							<div className='text-foreground group-hover:text-primary flex w-full items-center justify-between font-semibold transition-colors'>
 								<span className='truncate'>{config.label}</span>
 								<Badge className='px-1 py-0' variant='outline'>
 									{config.badge}
 								</Badge>
 							</div>
-							<p className='mt-0.5 w-full truncate text-muted-foreground text-xs'>{u.email}</p>
+							<p className='text-muted-foreground mt-0.5 w-full truncate text-xs'>{u.email}</p>
 						</Button>
 					);
 				})}

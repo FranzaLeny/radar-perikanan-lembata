@@ -87,7 +87,7 @@ export function ParameterRowItem({
 	const isDinamisSuhu = currentBm?.tipe_ambang_batas === 'deviasi_suhu_lingkungan';
 
 	return (
-		<div className='space-y-3 rounded-xl border border-border bg-card p-3.5 shadow-xs transition-all'>
+		<div className='border-border bg-card space-y-3 rounded-xl border p-3.5 shadow-xs transition-all'>
 			{/* Baris Atas: Parameter Uji & Pilihan IK (Auto-Filter) */}
 			<div className='grid grid-cols-1 items-start gap-3 md:grid-cols-12'>
 				{/* Pilihan Parameter Baku Mutu */}
@@ -117,7 +117,7 @@ export function ParameterRowItem({
 									<ComboboxItem key={item.value} value={item}>
 										<div className='flex flex-col py-0.5 text-left'>
 											<div className='flex items-center gap-1.5'>
-												<span className='font-medium text-foreground'>{item.label}</span>
+												<span className='text-foreground font-medium'>{item.label}</span>
 												{item.badge && (
 													<Badge
 														className='px-1 py-0 text-[11px]'
@@ -128,7 +128,7 @@ export function ParameterRowItem({
 												)}
 											</div>
 											{item.sublabel && (
-												<span className='text-[11px] text-muted-foreground'>{item.sublabel}</span>
+												<span className='text-muted-foreground text-[11px]'>{item.sublabel}</span>
 											)}
 										</div>
 									</ComboboxItem>
@@ -142,14 +142,14 @@ export function ParameterRowItem({
 				<Field className='md:col-span-7'>
 					<div className='flex items-center justify-between'>
 						<div className='flex items-center gap-1'>
-							<FileCheck2 className='size-3 text-primary' />
+							<FileCheck2 className='text-primary size-3' />
 							<FieldLabel>Instruksi Kerja (IK) & Metode Uji *</FieldLabel>
 						</div>
-						<span className='text-[11px] text-muted-foreground'>{filteredIks.length} IK tersedia</span>
+						<span className='text-muted-foreground text-[11px]'>{filteredIks.length} IK tersedia</span>
 					</div>
 
 					<select
-						className='h-9 w-full cursor-pointer rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+						className='border-input focus-visible:ring-ring h-9 w-full cursor-pointer rounded-md border bg-transparent px-3 py-1 text-xs shadow-xs transition-colors focus-visible:ring-1 focus-visible:outline-none'
 						onChange={(e) => onSelectIk(row.tempId, e.target.value)}
 						required
 						value={row.ik_id}
@@ -162,7 +162,7 @@ export function ParameterRowItem({
 					</select>
 
 					{selectedIkDoc?.metode_pengujian && (
-						<p className='mt-1 text-[11px] text-primary'>
+						<p className='text-primary mt-1 text-[11px]'>
 							Metode Resmi: <strong>{selectedIkDoc.metode_pengujian}</strong>
 						</p>
 					)}
@@ -170,7 +170,7 @@ export function ParameterRowItem({
 			</div>
 
 			{/* Baris Bawah: Hasil Ukur, Info Ambang Batas & Evaluasi Realtime */}
-			<div className='grid grid-cols-1 items-start gap-3 border-border/60 border-t pt-3 sm:grid-cols-12'>
+			<div className='border-border/60 grid grid-cols-1 items-start gap-3 border-t pt-3 sm:grid-cols-12'>
 				{/* 1. Input Hasil Ukur */}
 				<Field className='sm:col-span-4'>
 					<FieldLabel htmlFor={`hasil-${row.tempId}`}>
@@ -193,7 +193,7 @@ export function ParameterRowItem({
 					<div className='flex items-center justify-between'>
 						<FieldLabel>Batas Evaluasi</FieldLabel>
 						<Button
-							className='h-4 cursor-pointer gap-1 p-0 text-[11px] text-muted-foreground hover:text-primary'
+							className='text-muted-foreground hover:text-primary h-4 cursor-pointer gap-1 p-0 text-[11px]'
 							onClick={() => onToggleCustomAmbang(row.tempId)}
 							size='xs'
 							title='Sesuaikan batas manual jika ada kondisi khusus lapangan'
@@ -205,7 +205,7 @@ export function ParameterRowItem({
 						</Button>
 					</div>
 
-					<div className='flex h-9 items-center rounded-md border border-input/60 bg-muted/20 px-3 text-xs'>
+					<div className='border-input/60 bg-muted/20 flex h-9 items-center rounded-md border px-3 text-xs'>
 						{row.is_custom_ambang ? (
 							<div className='flex w-full items-center gap-1.5'>
 								<Input
@@ -225,10 +225,10 @@ export function ParameterRowItem({
 									type='number'
 									value={row.nilai_max_override}
 								/>
-								<span className='text-[11px] text-muted-foreground'>{currentBm?.satuan}</span>
+								<span className='text-muted-foreground text-[11px]'>{currentBm?.satuan}</span>
 							</div>
 						) : isDinamisSuhu ? (
-							<div className='flex items-center gap-1 overflow-hidden text-ellipsis whitespace-nowrap text-[11px] text-amber-700 dark:text-amber-300'>
+							<div className='flex items-center gap-1 overflow-hidden text-[11px] text-ellipsis whitespace-nowrap text-amber-700 dark:text-amber-300'>
 								<Thermometer className='size-3 shrink-0' />
 								<span>
 									{suhuLingkungan !== ''
@@ -237,7 +237,7 @@ export function ParameterRowItem({
 								</span>
 							</div>
 						) : (
-							<span className='font-semibold text-foreground text-xs'>
+							<span className='text-foreground text-xs font-semibold'>
 								{evalRow && evalRow.effectiveMin !== null && evalRow.effectiveMax !== null
 									? `${evalRow.effectiveMin} – ${evalRow.effectiveMax} ${currentBm?.satuan || ''}`
 									: evalRow && evalRow.effectiveMin !== null
@@ -253,17 +253,17 @@ export function ParameterRowItem({
 				{/* 3. Status Evaluasi & Aksi */}
 				<Field className='sm:col-span-4'>
 					<FieldLabel>Status Kelayakan</FieldLabel>
-					<div className='flex h-9 items-center justify-between gap-2 rounded-md border border-input/40 bg-muted/10 px-2.5'>
+					<div className='border-input/40 bg-muted/10 flex h-9 items-center justify-between gap-2 rounded-md border px-2.5'>
 						<div className='flex items-center'>
 							{evalRow?.isEvaluated ? (
 								<BadgeStatus size='sm' status={evalRow.status} />
 							) : (
-								<span className='text-[11px] text-muted-foreground italic'>Isi hasil ukur</span>
+								<span className='text-muted-foreground text-[11px] italic'>Isi hasil ukur</span>
 							)}
 						</div>
 
 						<Button
-							className='shrink-0 cursor-pointer text-muted-foreground hover:bg-destructive/10 hover:text-destructive'
+							className='text-muted-foreground hover:bg-destructive/10 hover:text-destructive shrink-0 cursor-pointer'
 							onClick={() => onRemoveRow(row.tempId)}
 							size='icon-xs'
 							title='Hapus parameter ini'

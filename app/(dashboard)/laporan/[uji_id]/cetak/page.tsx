@@ -14,6 +14,8 @@ import { LhuMetadataCard } from './_components/lhu-metadata-card';
 import { LhuParameterTable } from './_components/lhu-parameter-table';
 import type { RekomendasiItem } from './types';
 
+export const instant = false;
+
 export default async function CetakLhuPage({ params }: { params: Promise<{ uji_id: string }> }) {
 	const { uji_id } = await params;
 
@@ -78,7 +80,7 @@ export default async function CetakLhuPage({ params }: { params: Promise<{ uji_i
 			<div className='no-print flex items-center justify-between'>
 				<Link href='/laporan'>
 					<Button
-						className='cursor-pointer gap-1.5 text-muted-foreground text-xs hover:text-foreground'
+						className='text-muted-foreground hover:text-foreground cursor-pointer gap-1.5 text-xs'
 						size='sm'
 						variant='ghost'
 					>
@@ -93,41 +95,43 @@ export default async function CetakLhuPage({ params }: { params: Promise<{ uji_i
 			{/* A4 Paper Document Canvas (Strict Arial Font Rule for Official LHU) */}
 			<div className='flex justify-center print:m-0 print:p-0'>
 				<div
-					className='print-area lhu-print-document w-full max-w-4xl rounded-xl border border-slate-300 bg-white p-8 text-slate-900 shadow-xl sm:p-12 print:max-w-none print:border-none print:p-0 print:shadow-none'
+					className='print-area lhu-print-document w-fit border-slate-300 bg-white p-8 text-slate-900 not-print:overflow-x-auto not-print:rounded-xl not-print:border not-print:shadow-xl sm:p-12 print:border-none print:p-0 print:shadow-none'
 					style={{ fontFamily: 'Arial, var(--font-geist-sans), sans-serif' }}
 				>
-					<LhuKopSurat nomorSampel={uji.nomor_sampel} />
+					<div className='not-print:p-0'>
+						<LhuKopSurat nomorSampel={uji.nomor_sampel} />
 
-					<LhuMetadataCard
-						desa={uji.lokasi?.desa}
-						formattedDate={formattedDate}
-						kecamatan={uji.lokasi?.kecamatan}
-						komoditasIkan={uji.lokasi?.komoditas_ikan}
-						namaPokdakan={uji.lokasi?.nama_pokdakan}
-						nomorSampel={uji.nomor_sampel}
-						pemilik={uji.lokasi?.pemilik}
-						sopAcuan={sopAcuan}
-						suhuLingkungan={uji.suhu_lingkungan}
-					/>
+						<LhuMetadataCard
+							desa={uji.lokasi?.desa}
+							formattedDate={formattedDate}
+							kecamatan={uji.lokasi?.kecamatan}
+							komoditasIkan={uji.lokasi?.komoditas_ikan}
+							namaPokdakan={uji.lokasi?.nama_pokdakan}
+							nomorSampel={uji.nomor_sampel}
+							pemilik={uji.lokasi?.pemilik}
+							sopAcuan={sopAcuan}
+							suhuLingkungan={uji.suhu_lingkungan}
+						/>
 
-					<LhuParameterTable
-						catatanLapangan={uji.catatan_lapangan}
-						formattedDate={formattedDate}
-						jabatanPenandatangan={jabatanPenandatangan}
-						jabatanPenguji={jabatanPenguji}
-						kesimpulan={uji.kesimpulan}
-						kesimpulanUmum={uji.kesimpulan_umum}
-						namaPenandatangan={namaPenandatangan}
-						namaPenguji={namaPenguji}
-						nipPenandatangan={nipPenandatangan}
-						nipPenguji={nipPenguji}
-						pangkatPenandatangan={pangkatPenandatangan}
-						parameters={uji.detailParameters}
-						qrDataUrl={qrDataUrl}
-						rekomendasiList={rekomendasiList}
-						saranRekomendasiLapangan={uji.saran_rekomendasi_lapangan}
-						ujiId={uji.id}
-					/>
+						<LhuParameterTable
+							catatanLapangan={uji.catatan_lapangan}
+							formattedDate={formattedDate}
+							jabatanPenandatangan={jabatanPenandatangan}
+							jabatanPenguji={jabatanPenguji}
+							kesimpulan={uji.kesimpulan}
+							kesimpulanUmum={uji.kesimpulan_umum}
+							namaPenandatangan={namaPenandatangan}
+							namaPenguji={namaPenguji}
+							nipPenandatangan={nipPenandatangan}
+							nipPenguji={nipPenguji}
+							pangkatPenandatangan={pangkatPenandatangan}
+							parameters={uji.detailParameters}
+							qrDataUrl={qrDataUrl}
+							rekomendasiList={rekomendasiList}
+							saranRekomendasiLapangan={uji.saran_rekomendasi_lapangan}
+							ujiId={uji.id}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

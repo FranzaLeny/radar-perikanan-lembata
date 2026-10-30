@@ -21,7 +21,7 @@ export default function DashboardLoading() {
 			{/* Top Metric Cards Skeleton */}
 			<div className='grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4'>
 				{Array.from({ length: 4 }).map((_, i) => (
-					<div className='space-y-3 rounded-xl border bg-card p-5 shadow-xs' key={i}>
+					<div className='bg-card space-y-3 rounded-xl border p-5 shadow-xs' key={i}>
 						<div className='flex items-center justify-between'>
 							<Skeleton className='h-4 w-24' />
 							<Skeleton className='size-8 rounded-lg' />
@@ -33,7 +33,7 @@ export default function DashboardLoading() {
 			</div>
 
 			{/* Main Content Area / Table Skeleton */}
-			<div className='space-y-4 rounded-xl border bg-card p-6 shadow-xs'>
+			<div className='bg-card space-y-4 rounded-xl border p-6 shadow-xs'>
 				<div className='flex flex-col justify-between gap-3 sm:flex-row sm:items-center'>
 					<Skeleton className='h-6 w-48' />
 					<div className='flex items-center gap-2'>
@@ -50,8 +50,8 @@ export default function DashboardLoading() {
 				</div>
 
 				{/* Floating Subtle Indicator */}
-				<div className='flex items-center justify-center gap-2 pt-4 text-muted-foreground text-xs'>
-					<Spinner className='size-3.5 text-primary' />
+				<div className='text-muted-foreground flex items-center justify-center gap-2 pt-4 text-xs'>
+					<Spinner className='text-primary size-3.5' />
 					<span>Memuat data sistem {APP_CONFIG.name}...</span>
 				</div>
 			</div>

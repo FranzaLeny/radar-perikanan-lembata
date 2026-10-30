@@ -27,8 +27,8 @@ export function DashboardRecentTestsCard({ items }: DashboardRecentTestsCardProp
 		<Card className='lg:col-span-2'>
 			<CardHeader className='flex flex-row items-center justify-between border-b pb-4'>
 				<div>
-					<CardTitle className='flex items-center gap-2 font-semibold text-sm'>
-						<TestTube2 className='size-4 text-muted-foreground' />
+					<CardTitle className='flex items-center gap-2 text-sm font-semibold'>
+						<TestTube2 className='text-muted-foreground size-4' />
 						<span>Hasil Uji Mutu Air Terbaru</span>
 					</CardTitle>
 					<CardDescription className='mt-0.5 text-xs'>
@@ -37,7 +37,7 @@ export function DashboardRecentTestsCard({ items }: DashboardRecentTestsCardProp
 				</div>
 				<Link href='/uji-kualitas'>
 					<Button
-						className='h-7 cursor-pointer gap-1 px-2 font-semibold text-foreground text-xs'
+						className='text-foreground h-7 cursor-pointer gap-1 px-2 text-xs font-semibold'
 						size='sm'
 						variant='ghost'
 					>
@@ -48,21 +48,21 @@ export function DashboardRecentTestsCard({ items }: DashboardRecentTestsCardProp
 			</CardHeader>
 
 			<CardContent className='p-0 pt-4 sm:p-6'>
-				<div className='overflow-hidden rounded-xl border border-border'>
+				<div className='border-border overflow-hidden rounded-xl border'>
 					<Table>
 						<TableHeader>
 							<TableRow className='bg-muted/40 hover:bg-muted/40'>
-								<TableHead className='font-semibold text-xs'>Sampel</TableHead>
-								<TableHead className='font-semibold text-xs'>Pokdakan</TableHead>
-								<TableHead className='font-semibold text-xs'>Tanggal</TableHead>
-								<TableHead className='text-center font-semibold text-xs'>Status</TableHead>
-								<TableHead className='text-right font-semibold text-xs'>Aksi</TableHead>
+								<TableHead className='text-xs font-semibold'>Sampel</TableHead>
+								<TableHead className='text-xs font-semibold'>Pokdakan</TableHead>
+								<TableHead className='text-xs font-semibold'>Tanggal</TableHead>
+								<TableHead className='text-center text-xs font-semibold'>Status</TableHead>
+								<TableHead className='text-right text-xs font-semibold'>Aksi</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
 							{items.length === 0 ? (
 								<TableRow>
-									<TableCell className='py-8 text-center text-muted-foreground text-xs' colSpan={5}>
+									<TableCell className='text-muted-foreground py-8 text-center text-xs' colSpan={5}>
 										Belum ada rekaman data uji kualitas air.
 									</TableCell>
 								</TableRow>
@@ -76,12 +76,12 @@ export function DashboardRecentTestsCard({ items }: DashboardRecentTestsCardProp
 
 									return (
 										<TableRow className='hover:bg-muted/30' key={u.id}>
-											<TableCell className='font-medium text-foreground text-xs'>{u.nomor_sampel}</TableCell>
+											<TableCell className='text-foreground text-xs font-medium'>{u.nomor_sampel}</TableCell>
 											<TableCell className='text-xs'>
-												<span className='font-semibold text-foreground'>
+												<span className='text-foreground font-semibold'>
 													{u.lokasi?.nama_pokdakan || 'Pokdakan'}
 												</span>
-												<span className='block text-muted-foreground text-xs'>
+												<span className='text-muted-foreground block text-xs'>
 													{u.lokasi?.kecamatan || 'Lembata'}
 												</span>
 											</TableCell>

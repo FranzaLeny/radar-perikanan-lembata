@@ -100,7 +100,7 @@ export function LoginForm() {
 						<FieldLabel htmlFor='email'>Alamat Email</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<Mail className='size-4 text-muted-foreground' />
+								<Mail className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								autoComplete='email'
@@ -119,7 +119,7 @@ export function LoginForm() {
 						<FieldLabel htmlFor='password'>Kata Sandi</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<Lock className='size-4 text-muted-foreground' />
+								<Lock className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								autoComplete='current-password'

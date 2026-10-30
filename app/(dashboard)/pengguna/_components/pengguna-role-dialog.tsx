@@ -77,7 +77,7 @@ export function PenggunaRoleDialog({
 			<DialogContent className='sm:max-w-md'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<ShieldCheck className='size-4 text-primary' />
+						<ShieldCheck className='text-primary size-4' />
 						<span>Ubah Hak Akses & Peran Pengguna</span>
 					</DialogTitle>
 					<DialogDescription className='text-xs'>

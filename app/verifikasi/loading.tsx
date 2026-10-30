@@ -4,11 +4,11 @@ import { Spinner } from '@/components/shadcn/spinner';
 
 export default function VerifikasiLoading() {
 	return (
-		<div className='flex min-h-screen items-center justify-center bg-background p-4'>
+		<div className='bg-background flex min-h-screen items-center justify-center p-4'>
 			<Card className='w-full max-w-lg space-y-4 border p-6 shadow-lg'>
 				<CardHeader className='space-y-3 p-0 text-center'>
-					<div className='mx-auto flex size-12 items-center justify-center rounded-xl bg-primary/10'>
-						<Spinner className='size-6 text-primary' />
+					<div className='bg-primary/10 mx-auto flex size-12 items-center justify-center rounded-xl'>
+						<Spinner className='text-primary size-6' />
 					</div>
 					<Skeleton className='mx-auto h-6 w-56' />
 					<Skeleton className='mx-auto h-4 w-72' />

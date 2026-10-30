@@ -31,7 +31,7 @@ export function DokumenRowActions({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger
-				className='inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none'
+				className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex size-7 cursor-pointer items-center justify-center rounded-md transition-colors focus-visible:outline-none'
 				title='Menu Tindakan'
 			>
 				<MoreVertical className='size-4' />
@@ -41,17 +41,17 @@ export function DokumenRowActions({
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem onClick={() => window.open(item.file_path, '_blank')}>
-					<ExternalLink className='mr-2 size-3.5 text-muted-foreground' />
+					<ExternalLink className='text-muted-foreground mr-2 size-3.5' />
 					<span>Lihat Dokumen PDF</span>
 				</DropdownMenuItem>
 
 				<DropdownMenuItem onClick={() => router.push(`/dokumen-mutu/${item.id}/cetak-label`)}>
-					<QrCode className='mr-2 size-3.5 text-muted-foreground' />
+					<QrCode className='text-muted-foreground mr-2 size-3.5' />
 					<span>Cetak Label QR</span>
 				</DropdownMenuItem>
 
 				<DropdownMenuItem onClick={() => onEdit(item)}>
-					<Pencil className='mr-2 size-3.5 text-muted-foreground' />
+					<Pencil className='text-muted-foreground mr-2 size-3.5' />
 					<span>Edit Metadata</span>
 				</DropdownMenuItem>
 

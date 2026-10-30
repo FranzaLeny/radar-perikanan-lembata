@@ -37,21 +37,21 @@ export function PegawaiTable({
 		switch (peran) {
 			case 'kepala_dinas':
 				return (
-					<Badge className='gap-1 border-purple-500/30 bg-purple-500/15 font-semibold text-[11px] text-purple-700 dark:text-purple-300'>
+					<Badge className='gap-1 border-purple-500/30 bg-purple-500/15 text-[11px] font-semibold text-purple-700 dark:text-purple-300'>
 						<Shield className='size-3' />
 						Kepala Dinas
 					</Badge>
 				);
 			case 'pengelola_mutu':
 				return (
-					<Badge className='gap-1 border-blue-500/30 bg-blue-500/15 font-semibold text-[11px] text-blue-700 dark:text-blue-300'>
+					<Badge className='gap-1 border-blue-500/30 bg-blue-500/15 text-[11px] font-semibold text-blue-700 dark:text-blue-300'>
 						<UserCheck className='size-3' />
 						Pengelola Mutu
 					</Badge>
 				);
 			default:
 				return (
-					<Badge className='gap-1 text-[11px] text-muted-foreground' variant='outline'>
+					<Badge className='text-muted-foreground gap-1 text-[11px]' variant='outline'>
 						<CheckCircle2 className='size-3' />
 						Petugas Penguji
 					</Badge>
@@ -65,18 +65,18 @@ export function PegawaiTable({
 				<Table>
 					<TableHeader>
 						<TableRow className='bg-muted/40 hover:bg-muted/40'>
-							<TableHead className='font-semibold text-xs'>Nama Pegawai</TableHead>
-							<TableHead className='font-semibold text-xs'>NIP</TableHead>
-							<TableHead className='font-semibold text-xs'>Jabatan & Pangkat</TableHead>
-							<TableHead className='font-semibold text-xs'>Peran Tanda Tangan</TableHead>
-							<TableHead className='font-semibold text-xs'>Status</TableHead>
-							<TableHead className='text-right font-semibold text-xs'>Aksi</TableHead>
+							<TableHead className='text-xs font-semibold'>Nama Pegawai</TableHead>
+							<TableHead className='text-xs font-semibold'>NIP</TableHead>
+							<TableHead className='text-xs font-semibold'>Jabatan & Pangkat</TableHead>
+							<TableHead className='text-xs font-semibold'>Peran Tanda Tangan</TableHead>
+							<TableHead className='text-xs font-semibold'>Status</TableHead>
+							<TableHead className='text-right text-xs font-semibold'>Aksi</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{items.length === 0 ? (
 							<TableRow>
-								<TableCell className='py-8 text-center text-muted-foreground text-xs' colSpan={6}>
+								<TableCell className='text-muted-foreground py-8 text-center text-xs' colSpan={6}>
 									{searchTerm ? (
 										<div className='space-y-1.5'>
 											<p>Tidak ada pegawai yang cocok dengan pencarian &ldquo;{searchTerm}&rdquo;.</p>
@@ -92,16 +92,16 @@ export function PegawaiTable({
 						) : (
 							items.map((item) => (
 								<TableRow
-									className={`transition-colors hover:bg-muted/30 ${
+									className={`hover:bg-muted/30 transition-colors ${
 										!item.aktif ? 'bg-muted/15 opacity-65' : ''
 									}`}
 									key={item.id}
 								>
-									<TableCell className='font-semibold text-foreground text-xs'>
+									<TableCell className='text-foreground text-xs font-semibold'>
 										<div className='flex items-center gap-2'>
 											<span>{item.nama}</span>
 											{item.is_penanggungjawab && (
-												<Badge className='gap-1 border-amber-500/30 bg-amber-500/15 px-1.5 py-0 font-semibold text-[10px] text-amber-700 dark:text-amber-300'>
+												<Badge className='gap-1 border-amber-500/30 bg-amber-500/15 px-1.5 py-0 text-[10px] font-semibold text-amber-700 dark:text-amber-300'>
 													<Star className='size-2.5 fill-amber-500 text-amber-500' />
 													Default TTD
 												</Badge>
@@ -110,15 +110,15 @@ export function PegawaiTable({
 									</TableCell>
 									<TableCell className='text-muted-foreground text-xs'>{item.nip}</TableCell>
 									<TableCell className='text-xs'>
-										<div className='font-medium text-foreground'>{item.jabatan}</div>
+										<div className='text-foreground font-medium'>{item.jabatan}</div>
 										{item.pangkat_golongan && (
-											<div className='text-[11px] text-muted-foreground'>{item.pangkat_golongan}</div>
+											<div className='text-muted-foreground text-[11px]'>{item.pangkat_golongan}</div>
 										)}
 									</TableCell>
 									<TableCell className='text-xs'>{getPeranBadge(item.peran_tanda_tangan)}</TableCell>
 									<TableCell className='text-xs'>
 										<Badge
-											className={`font-semibold text-[10px] ${
+											className={`text-[10px] font-semibold ${
 												item.aktif
 													? 'border-emerald-500/20 bg-emerald-600/15 text-emerald-700 dark:text-emerald-400'
 													: 'text-muted-foreground'

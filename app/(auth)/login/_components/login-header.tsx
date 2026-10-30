@@ -15,7 +15,7 @@ export function LoginHeader() {
 					src={APP_CONFIG.logo.kabupaten}
 					width={56}
 				/>
-				<div className='h-10 w-px bg-border/80' />
+				<div className='bg-border/80 h-10 w-px' />
 				<Image
 					alt={`Logo ${APP_CONFIG.name}`}
 					className='h-14 w-auto object-contain drop-shadow-xs'
@@ -25,11 +25,11 @@ export function LoginHeader() {
 					width={56}
 				/>
 			</div>
-			<CardTitle className='font-bold text-2xl tracking-tight'>{APP_CONFIG.name}</CardTitle>
-			<CardDescription className='font-semibold text-foreground text-xs'>
+			<CardTitle className='text-2xl font-bold tracking-tight'>{APP_CONFIG.name}</CardTitle>
+			<CardDescription className='text-foreground text-xs font-semibold'>
 				{APP_CONFIG.fullName}
 			</CardDescription>
-			<p className='mt-1 text-muted-foreground text-xs'>{APP_CONFIG.institution.name}</p>
+			<p className='text-muted-foreground mt-1 text-xs'>{APP_CONFIG.institution.name}</p>
 		</CardHeader>
 	);
 }

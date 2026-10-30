@@ -11,16 +11,16 @@ export function DokumenHeader({ onOpenAdd }: DokumenHeaderProps) {
 		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
 			<div>
 				<Badge
-					className='mb-1.5 gap-1.5 px-2.5 font-semibold uppercase tracking-wider'
+					className='mb-1.5 gap-1.5 px-2.5 font-semibold tracking-wider uppercase'
 					variant='secondary'
 				>
 					<FileCheck2 className='size-3' />
 					<span>Standarisasi Laboratorium Mutu</span>
 				</Badge>
-				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+				<h1 className='font-heading text-foreground text-2xl font-bold tracking-tight'>
 					Dokumen Mutu & Instruksi Kerja (IK)
 				</h1>
-				<p className='mt-1 text-muted-foreground text-xs'>
+				<p className='text-muted-foreground mt-1 text-xs'>
 					Katalog dokumen standarisasi mutu air budidaya: Pedoman Mutu, Prosedur Pelaksanaan, SOP,
 					Instruksi Kerja per parameter, dan Formulir resmi.
 				</p>

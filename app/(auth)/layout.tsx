@@ -11,10 +11,10 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 		redirect('/dashboard');
 	}
 	return (
-		<div className='relative flex min-h-screen flex-col justify-between overflow-x-hidden bg-background text-foreground selection:bg-primary/20 selection:text-primary'>
+		<div className='bg-background text-foreground selection:bg-primary/20 selection:text-primary relative flex min-h-screen flex-col justify-between overflow-x-hidden'>
 			{/* Dynamic Background Glows */}
-			<div className='pointer-events-none absolute top-[-20%] left-[-10%] h-125 w-125 rounded-full bg-primary/10 blur-[120px]' />
-			<div className='pointer-events-none absolute right-[-10%] bottom-[-20%] h-125 w-125 rounded-full bg-primary/10 blur-[120px]' />
+			<div className='bg-primary/10 pointer-events-none absolute top-[-20%] left-[-10%] h-125 w-125 rounded-full blur-[120px]' />
+			<div className='bg-primary/10 pointer-events-none absolute right-[-10%] bottom-[-20%] h-125 w-125 rounded-full blur-[120px]' />
 
 			{/* Reusable Navbar Header */}
 			<SiteHeader />

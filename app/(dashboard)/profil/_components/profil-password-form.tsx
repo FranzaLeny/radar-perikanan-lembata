@@ -63,7 +63,7 @@ export function ProfilPasswordForm() {
 		<Card className='bg-card/60 backdrop-blur-md'>
 			<CardHeader>
 				<CardTitle className='flex items-center gap-2 font-semibold'>
-					<KeyRound className='size-4 text-muted-foreground' /> Keamanan Kata Sandi
+					<KeyRound className='text-muted-foreground size-4' /> Keamanan Kata Sandi
 				</CardTitle>
 				<CardDescription className='text-xs'>
 					Perbarui kata sandi Anda secara berkala untuk menjaga keamanan akun.
@@ -75,7 +75,7 @@ export function ProfilPasswordForm() {
 						<FieldLabel htmlFor='current-pwd'>Kata Sandi Saat Ini</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<Lock className='size-4 text-muted-foreground' />
+								<Lock className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								id='current-pwd'
@@ -93,7 +93,7 @@ export function ProfilPasswordForm() {
 							<FieldLabel htmlFor='new-pwd'>Kata Sandi Baru</FieldLabel>
 							<InputGroup>
 								<InputGroupAddon align='inline-start'>
-									<Lock className='size-4 text-muted-foreground' />
+									<Lock className='text-muted-foreground size-4' />
 								</InputGroupAddon>
 								<InputGroupInput
 									id='new-pwd'
@@ -110,7 +110,7 @@ export function ProfilPasswordForm() {
 							<FieldLabel htmlFor='confirm-pwd'>Konfirmasi Kata Sandi Baru</FieldLabel>
 							<InputGroup>
 								<InputGroupAddon align='inline-start'>
-									<Lock className='size-4 text-muted-foreground' />
+									<Lock className='text-muted-foreground size-4' />
 								</InputGroupAddon>
 								<InputGroupInput
 									id='confirm-pwd'

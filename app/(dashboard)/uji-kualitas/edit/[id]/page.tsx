@@ -53,7 +53,7 @@ export default async function EditUjiKualitasPage({ params }: { params: Promise<
 				<div>
 					<Link href='/laporan'>
 						<Button
-							className='mb-2 gap-1.5 text-muted-foreground text-xs hover:text-foreground'
+							className='text-muted-foreground hover:text-foreground mb-2 gap-1.5 text-xs'
 							size='sm'
 							variant='ghost'
 						>
@@ -62,16 +62,16 @@ export default async function EditUjiKualitasPage({ params }: { params: Promise<
 						</Button>
 					</Link>
 					<div className='flex items-center gap-2'>
-						<Badge className='gap-1.5 px-2.5 font-semibold uppercase tracking-wider' variant='secondary'>
+						<Badge className='gap-1.5 px-2.5 font-semibold tracking-wider uppercase' variant='secondary'>
 							<TestTube2 className='size-3' />
 							<span>Mode Edit Dokumen Draft</span>
 						</Badge>
 						<Badge variant='outline'>{uji.nomor_sampel}</Badge>
 					</div>
-					<h1 className='mt-1.5 font-bold font-heading text-2xl text-foreground tracking-tight'>
+					<h1 className='font-heading text-foreground mt-1.5 text-2xl font-bold tracking-tight'>
 						Perbarui Data Pengujian Kualitas Air
 					</h1>
-					<p className='mt-1 text-muted-foreground text-xs'>
+					<p className='text-muted-foreground mt-1 text-xs'>
 						Ubah data parameter lapangan, catatan observasi, atau penandatangan sebelum dokumen difinalkan
 						dan diarsipkan.
 					</p>

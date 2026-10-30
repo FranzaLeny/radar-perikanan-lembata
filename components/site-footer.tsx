@@ -9,7 +9,7 @@ export function SiteFooter({ className }: SiteFooterProps) {
 	return (
 		<footer
 			className={cn(
-				'w-full border-border/80 border-t bg-muted/20 py-8 text-center text-muted-foreground text-xs',
+				'border-border/80 bg-muted/20 text-muted-foreground w-full border-t py-8 text-center text-xs',
 				className
 			)}
 		>
@@ -22,12 +22,12 @@ export function SiteFooter({ className }: SiteFooterProps) {
 						src={APP_CONFIG.logo.kabupaten}
 						width={16}
 					/>
-					<span className='font-bold text-foreground'>
+					<span className='text-foreground font-bold'>
 						{APP_CONFIG.name} — {APP_CONFIG.institution.name}
 					</span>
 				</div>
 				<p>{APP_CONFIG.fullName}</p>
-				<p className='pt-1 font-medium text-muted-foreground'>
+				<p className='text-muted-foreground pt-1 font-medium'>
 					{APP_CONFIG.author.copyrightText} • {APP_CONFIG.author.credit}
 				</p>
 			</div>

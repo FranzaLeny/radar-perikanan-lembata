@@ -18,14 +18,14 @@ export default async function LaporanHubPage() {
 		<div className='space-y-6'>
 			{/* Header */}
 			<div>
-				<div className='mb-1 flex items-center gap-2 font-semibold text-muted-foreground text-xs uppercase tracking-wider'>
+				<div className='text-muted-foreground mb-1 flex items-center gap-2 text-xs font-semibold tracking-wider uppercase'>
 					<FileSpreadsheet className='size-4' />
 					<span>Modul Pelaporan & Diseminasi</span>
 				</div>
-				<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+				<h1 className='font-heading text-foreground text-2xl font-bold tracking-tight'>
 					Pusat Laporan & Rekapitulasi Mutu Air
 				</h1>
-				<p className='mt-1 text-muted-foreground text-xs'>
+				<p className='text-muted-foreground mt-1 text-xs'>
 					Penerbitan Lembar Hasil Uji (LHU) resmi dan rekapitulasi kepatuhan mutu tahunan untuk{' '}
 					{APP_CONFIG.institution.name}.
 				</p>
@@ -36,7 +36,7 @@ export default async function LaporanHubPage() {
 				{/* Card 1: Rekap Tahunan */}
 				<Card className='flex flex-col justify-between'>
 					<CardHeader>
-						<div className='mb-2 flex size-10 items-center justify-center rounded-xl bg-muted text-foreground'>
+						<div className='bg-muted text-foreground mb-2 flex size-10 items-center justify-center rounded-xl'>
 							<FileSpreadsheet className='size-5' />
 						</div>
 						<CardTitle>Matriks Rekapitulasi Tahunan Mutu Air (2026)</CardTitle>

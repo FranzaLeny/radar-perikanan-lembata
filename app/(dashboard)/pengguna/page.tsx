@@ -13,8 +13,8 @@ export default async function PenggunaPage() {
 		return (
 			<div className='mx-auto my-12 max-w-md rounded-2xl border border-rose-500/30 bg-slate-900 p-8 text-center'>
 				<ShieldAlert className='mx-auto mb-3 h-12 w-12 text-rose-400' />
-				<h2 className='font-bold text-lg text-white'>Akses Ditolak (403 Forbidden)</h2>
-				<p className='mt-2 text-slate-400 text-xs'>
+				<h2 className='text-lg font-bold text-white'>Akses Ditolak (403 Forbidden)</h2>
+				<p className='mt-2 text-xs text-slate-400'>
 					Halaman Manajemen Pengguna ini hanya dapat diakses oleh akun dengan peran Administrator.
 				</p>
 			</div>

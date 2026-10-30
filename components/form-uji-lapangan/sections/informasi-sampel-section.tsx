@@ -114,7 +114,7 @@ export function InformasiSampelSection({
 						<div className='flex items-center justify-between'>
 							<FieldLabel htmlFor='tanggal'>Waktu Pengambilan *</FieldLabel>
 							<Button
-								className='h-5 cursor-pointer gap-1 px-1.5 text-[11px] text-muted-foreground hover:text-foreground'
+								className='text-muted-foreground hover:text-foreground h-5 cursor-pointer gap-1 px-1.5 text-[11px]'
 								onClick={onSetTanggalNow}
 								size='xs'
 								type='button'
@@ -182,19 +182,19 @@ export function InformasiSampelSection({
 				</Field>
 
 				{/* SOP Induk: Opsional (Pilihan Umum) */}
-				<div className='space-y-3 border-border border-t pt-2'>
+				<div className='border-border space-y-3 border-t pt-2'>
 					<div className='flex items-center justify-between'>
 						<div>
-							<FieldLabel className='font-semibold text-xs'>
+							<FieldLabel className='text-xs font-semibold'>
 								SOP / Prosedur Pelaksanaan Induk (Opsional)
 							</FieldLabel>
-							<p className='text-[11px] text-muted-foreground'>
+							<p className='text-muted-foreground text-[11px]'>
 								SOP bersifat umum untuk alur sampling. Pengujian spesifik tiap parameter diatur oleh
 								Instruksi Kerja di bawah.
 							</p>
 						</div>
 
-						<div className='flex items-center gap-1 rounded-lg bg-muted p-0.5 text-xs'>
+						<div className='bg-muted flex items-center gap-1 rounded-lg p-0.5 text-xs'>
 							<button
 								className={`cursor-pointer rounded-md px-2 py-0.5 font-medium transition-colors ${
 									tipeSop === 'arsip'
@@ -246,7 +246,7 @@ export function InformasiSampelSection({
 										{(item) => (
 											<ComboboxItem key={item.value} value={item}>
 												<div className='flex flex-col py-0.5 text-left'>
-													<span className='font-medium text-foreground'>{item.label}</span>
+													<span className='text-foreground font-medium'>{item.label}</span>
 													{item.sublabel && <span className='text-muted-foreground'>{item.sublabel}</span>}
 												</div>
 											</ComboboxItem>
@@ -257,23 +257,23 @@ export function InformasiSampelSection({
 
 							{selectedSopDoc?.file_path && (
 								<div className='flex items-center justify-between px-1 pt-1 text-xs'>
-									<span className='max-w-[240px] truncate text-muted-foreground'>
+									<span className='text-muted-foreground max-w-[240px] truncate'>
 										File: {selectedSopDoc.file_path}
 									</span>
 									<a
-										className='inline-flex cursor-pointer items-center gap-1 font-medium text-foreground hover:underline'
+										className='text-foreground inline-flex cursor-pointer items-center gap-1 font-medium hover:underline'
 										href={selectedSopDoc.file_path}
 										rel='noopener noreferrer'
 										target='_blank'
 									>
-										<ExternalLink className='size-3 text-muted-foreground' />
+										<ExternalLink className='text-muted-foreground size-3' />
 										<span>Buka Dokumen SOP</span>
 									</a>
 								</div>
 							)}
 						</Field>
 					) : tipeSop === 'manual' ? (
-						<div className='grid grid-cols-1 gap-4 rounded-xl border border-border bg-muted/30 p-3 sm:grid-cols-3'>
+						<div className='border-border bg-muted/30 grid grid-cols-1 gap-4 rounded-xl border p-3 sm:grid-cols-3'>
 							<Field>
 								<FieldLabel htmlFor='sopManualKode'>Kode / No. SOP Manual</FieldLabel>
 								<Input
@@ -295,7 +295,7 @@ export function InformasiSampelSection({
 							</Field>
 						</div>
 					) : (
-						<p className='rounded-lg border border-border bg-muted/20 p-2.5 text-muted-foreground text-xs italic'>
+						<p className='border-border bg-muted/20 text-muted-foreground rounded-lg border p-2.5 text-xs italic'>
 							Pengujian ini menggunakan standar umum dinas tanpa dokumen SOP spesifik.
 						</p>
 					)}

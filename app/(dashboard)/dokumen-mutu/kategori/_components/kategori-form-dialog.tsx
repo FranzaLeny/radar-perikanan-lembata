@@ -55,7 +55,7 @@ export function KategoriFormDialog({
 			<DialogContent className='sm:max-w-md'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<FolderKanban className='size-4 text-primary' />
+						<FolderKanban className='text-primary size-4' />
 						<span>
 							{isEditing ? `Edit Kategori: ${selectedItem?.nama_kategori}` : 'Tambah Kategori Dokumen'}
 						</span>
@@ -96,7 +96,7 @@ export function KategoriFormDialog({
 					<Field>
 						<FieldLabel htmlFor='tingkatan'>Tingkatan / Peran Dokumen *</FieldLabel>
 						<select
-							className='h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-xs shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+							className='border-input focus-visible:ring-ring h-9 w-full rounded-md border bg-transparent px-3 py-1 text-xs shadow-xs transition-colors focus-visible:ring-1 focus-visible:outline-none'
 							id='tingkatan'
 							onChange={(e) => setTingkatan(e.target.value)}
 							value={tingkatan}

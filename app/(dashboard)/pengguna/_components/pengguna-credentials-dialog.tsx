@@ -106,7 +106,7 @@ export function PenggunaCredentialsDialog({
 			<DialogContent className='sm:max-w-lg'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<KeyRound className='size-5 text-primary' />
+						<KeyRound className='text-primary size-5' />
 						<span>Ubah Email & Kata Sandi Pengguna</span>
 					</DialogTitle>
 					<DialogDescription className='text-xs'>
@@ -126,7 +126,7 @@ export function PenggunaCredentialsDialog({
 						<FieldLabel htmlFor='edit-user-name'>Nama Lengkap *</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<User className='size-4 text-muted-foreground' />
+								<User className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								id='edit-user-name'
@@ -142,7 +142,7 @@ export function PenggunaCredentialsDialog({
 						<FieldLabel htmlFor='edit-user-email'>Alamat Email *</FieldLabel>
 						<InputGroup>
 							<InputGroupAddon align='inline-start'>
-								<Mail className='size-4 text-muted-foreground' />
+								<Mail className='text-muted-foreground size-4' />
 							</InputGroupAddon>
 							<InputGroupInput
 								id='edit-user-email'
@@ -156,14 +156,14 @@ export function PenggunaCredentialsDialog({
 						<FieldDescription>Alamat email digunakan untuk masuk ke dalam sistem.</FieldDescription>
 					</Field>
 
-					<div className='space-y-3.5 rounded-lg border border-border/70 bg-muted/40 p-3.5'>
+					<div className='border-border/70 bg-muted/40 space-y-3.5 rounded-lg border p-3.5'>
 						<div className='flex items-center justify-between'>
-							<div className='flex items-center gap-1.5 font-semibold text-foreground text-xs'>
-								<Lock className='size-3.5 text-primary' />
+							<div className='text-foreground flex items-center gap-1.5 text-xs font-semibold'>
+								<Lock className='text-primary size-3.5' />
 								<span>Atur Kata Sandi Baru (Opsional)</span>
 							</div>
 							<Button
-								className='h-7 text-muted-foreground text-xs'
+								className='text-muted-foreground h-7 text-xs'
 								onClick={() => setShowPassword(!showPassword)}
 								size='sm'
 								type='button'
@@ -206,7 +206,7 @@ export function PenggunaCredentialsDialog({
 								/>
 							</Field>
 						</div>
-						<p className='text-[11px] text-muted-foreground'>
+						<p className='text-muted-foreground text-[11px]'>
 							💡 Kosongkan bagian kata sandi jika hanya ingin mengganti nama atau email saja.
 						</p>
 					</div>

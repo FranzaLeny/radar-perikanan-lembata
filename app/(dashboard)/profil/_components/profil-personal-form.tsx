@@ -76,7 +76,7 @@ export function ProfilPersonalForm({ user }: ProfilPersonalFormProps) {
 		<Card className='bg-card/60 backdrop-blur-md'>
 			<CardHeader>
 				<CardTitle className='flex items-center gap-2 font-semibold'>
-					<User className='size-4 text-muted-foreground' /> Informasi Pribadi
+					<User className='text-muted-foreground size-4' /> Informasi Pribadi
 				</CardTitle>
 				<CardDescription className='text-xs'>
 					Perbarui nama lengkap dan informasi kontak akun Anda.
@@ -109,7 +109,7 @@ export function ProfilPersonalForm({ user }: ProfilPersonalFormProps) {
 							)}
 						</div>
 						<Input
-							className={!isAdmin ? 'cursor-not-allowed bg-muted/50 opacity-80' : ''}
+							className={!isAdmin ? 'bg-muted/50 cursor-not-allowed opacity-80' : ''}
 							disabled={!isAdmin}
 							id='email'
 							onChange={(e) => setEmail(e.target.value)}

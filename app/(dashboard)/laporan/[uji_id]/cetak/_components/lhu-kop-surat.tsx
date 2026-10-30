@@ -7,45 +7,40 @@ type LhuKopSuratProps = { nomorSampel: string };
 export function LhuKopSurat({ nomorSampel }: LhuKopSuratProps) {
 	return (
 		<>
-			{/* KOP RESMI DINAS PERIKANAN KABUPATEN LEMBATA */}
-			<div className='relative mb-4 border-slate-900 border-b-4 border-double pb-3 print:mb-2.5 print:pb-2'>
-				<div className='flex items-center justify-between gap-3'>
-					{/* Logo Lambang Daerah Kabupaten Lembata */}
-					<div className='flex w-16 shrink-0 items-center justify-start sm:w-20'>
-						<Image
-							alt='Logo Pemerintah Kabupaten Lembata'
-							className='h-16 w-auto shrink-0 object-contain sm:h-20 print:h-16'
-							height={80}
-							priority
-							src={APP_CONFIG.logo.kabupaten}
-							width={80}
-						/>
-					</div>
-					<div className='flex-1 px-1 text-center'>
-						<h2 className='font-bold text-slate-900 text-xs uppercase tracking-wider sm:text-sm'>
+			{/* Kop Surat Resmi Dinas Perikanan Kabupaten Lembata */}
+			<div className='mb-6 min-w-full border-b-2 border-slate-900 pb-3'>
+				<div className='flex items-center gap-4'>
+					<Image
+						alt='Logo Pemerintah Kabupaten Lembata'
+						className='h-auto w-14 shrink-0 object-contain'
+						height={76}
+						priority
+						src={APP_CONFIG.logo.kabupaten}
+						width={64}
+					/>
+					<div className='flex-1 pr-14 text-center'>
+						<h3 className='text-xs font-bold tracking-widest uppercase'>
 							{APP_CONFIG.institution.government}
-						</h2>
-						<h1 className='font-extrabold text-base text-slate-900 uppercase leading-snug tracking-tight sm:text-xl'>
+						</h3>
+						<h2 className='text-base leading-tight font-extrabold tracking-wider uppercase'>
 							{APP_CONFIG.institution.name}
-						</h1>
-						<p className='mt-0.5 font-medium text-[11px] text-slate-700 sm:text-xs'>
-							Jl. Trans Lembata, Kel. Lewoleba, Kec. Nubatukan, Kab. Lembata, NTT 86611
+						</h2>
+						<p className='mt-0.5 text-[11px] leading-snug'>
+							Jl. Trans Lembata, Lewoleba, Kab. Lembata, Nusa Tenggara Timur
 						</p>
-						<p className='text-[10px] text-slate-600 sm:text-[11px]'>
-							Aplikasi: {APP_CONFIG.fullName} ({APP_CONFIG.name}) • Email: {APP_CONFIG.institution.email}
+						<p className='text-[11px]'>
+							Pos-El: {APP_CONFIG.institution.email} Telp. / Fax. (0383) 41477 – Lewoleba
 						</p>
 					</div>
-					{/* Spacer penyeimbang simetris agar teks kop tepat di tengah kertas */}
-					<div aria-hidden='true' className='pointer-events-none w-16 shrink-0 sm:w-20' />
 				</div>
 			</div>
 
-			{/* JUDUL DOKUMEN */}
-			<div className='mb-4 text-center print:mb-2.5'>
-				<h3 className='font-bold text-base text-slate-900 uppercase tracking-wide underline sm:text-lg'>
-					LEMBAR HASIL UJI (LHU) KUALITAS AIR
-				</h3>
-				<p className='mt-0.5 text-slate-600 text-xs'>
+			{/* Judul Dokumen */}
+			<div className='mb-6 min-w-full text-center'>
+				<h1 className='text-sm font-bold tracking-wide uppercase underline'>
+					Lembar Hasil Uji (LHU) Kualitas Air
+				</h1>
+				<p className='mt-0.5 text-xs font-semibold uppercase'>
 					Nomor: LHU/{BRAND_NAME}/{nomorSampel}
 				</p>
 			</div>

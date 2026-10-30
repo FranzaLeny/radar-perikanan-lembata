@@ -26,21 +26,21 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 			<Table>
 				<TableHeader>
 					<TableRow className='bg-muted/40 hover:bg-muted/40'>
-						<TableHead className='w-20 font-semibold text-xs'>Kode</TableHead>
-						<TableHead className='font-semibold text-xs'>Nama Kategori Dokumen</TableHead>
-						<TableHead className='w-48 font-semibold text-xs'>Tingkatan / Peran</TableHead>
-						<TableHead className='font-semibold text-xs'>Deskripsi / Ruang Lingkup</TableHead>
-						<TableHead className='w-24 text-center font-semibold text-xs'>Status</TableHead>
-						<TableHead className='w-28 text-right font-semibold text-xs'>Aksi</TableHead>
+						<TableHead className='w-20 text-xs font-semibold'>Kode</TableHead>
+						<TableHead className='text-xs font-semibold'>Nama Kategori Dokumen</TableHead>
+						<TableHead className='w-48 text-xs font-semibold'>Tingkatan / Peran</TableHead>
+						<TableHead className='text-xs font-semibold'>Deskripsi / Ruang Lingkup</TableHead>
+						<TableHead className='w-24 text-center text-xs font-semibold'>Status</TableHead>
+						<TableHead className='w-28 text-right text-xs font-semibold'>Aksi</TableHead>
 					</TableRow>
 				</TableHeader>
 				<TableBody>
 					{items.map((item) => (
 						<TableRow className='hover:bg-muted/30' key={item.id}>
-							<TableCell className='font-bold text-xs'>
+							<TableCell className='text-xs font-bold'>
 								<Badge variant='secondary'>{item.kode_kategori}</Badge>
 							</TableCell>
-							<TableCell className='font-semibold text-foreground text-xs'>{item.nama_kategori}</TableCell>
+							<TableCell className='text-foreground text-xs font-semibold'>{item.nama_kategori}</TableCell>
 							<TableCell>
 								{item.tingkatan === 2 ? (
 									<Badge
@@ -57,7 +57,7 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 										Tingkat 3 (Parameter Uji / IK)
 									</Badge>
 								) : (
-									<Badge className='text-[11px] text-muted-foreground' variant='secondary'>
+									<Badge className='text-muted-foreground text-[11px]' variant='secondary'>
 										Tingkat {item.tingkatan} (Arsip)
 									</Badge>
 								)}
@@ -86,7 +86,7 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 										title='Edit Kategori'
 										variant='ghost'
 									>
-										<Pencil className='size-3.5 text-muted-foreground hover:text-foreground' />
+										<Pencil className='text-muted-foreground hover:text-foreground size-3.5' />
 									</Button>
 									<Button
 										className='cursor-pointer'
@@ -102,7 +102,7 @@ export function KategoriTable({ items, onEdit, onToggleAktif, onDelete }: Katego
 										)}
 									</Button>
 									<Button
-										className='cursor-pointer text-destructive hover:bg-destructive/10'
+										className='text-destructive hover:bg-destructive/10 cursor-pointer'
 										onClick={() => onDelete(item)}
 										size='icon-xs'
 										title='Hapus Kategori'

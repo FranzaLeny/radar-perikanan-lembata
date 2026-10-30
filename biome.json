@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.4/schema.json",
 	"assist": {
 		"actions": {
 			"source": {
@@ -87,13 +87,7 @@
 				"noUnusedVariables": "error",
 				"useExhaustiveDependencies": "on"
 			},
-			"nursery": {
-				"useSortedClasses": {
-					"fix": "safe",
-					"level": "error",
-					"options": { "attributes": ["className", "class"], "functions": ["cn"] }
-				}
-			},
+			"nursery": { "useTailwindSortedClasses": { "fix": "safe", "level": "error" } },
 			"performance": { "noImgElement": "off" },
 			"preset": "recommended",
 			"style": {
@@ -131,5 +125,6 @@
 		},
 		{ "assist": { "actions": { "source": { "useSortedKeys": "on" } } }, "includes": ["biome.json"] }
 	],
+	"tailwind": { "attributes": ["class", "className"], "mergeFunctions": ["cn"] },
 	"vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true }
 }

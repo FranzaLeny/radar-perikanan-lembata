@@ -41,7 +41,7 @@ export function PenggunaDeleteDialog({
 			<Dialog onOpenChange={onDeleteOpenChange} open={isDeleteDialogOpen}>
 				<DialogContent className='sm:max-w-md'>
 					<DialogHeader>
-						<DialogTitle className='flex items-center gap-2 text-destructive'>
+						<DialogTitle className='text-destructive flex items-center gap-2'>
 							<Trash2 className='size-4' />
 							<span>Konfirmasi Hapus Akun Pengguna</span>
 						</DialogTitle>
@@ -51,8 +51,8 @@ export function PenggunaDeleteDialog({
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className='space-y-1 rounded-lg border border-destructive/20 bg-destructive/5 p-3 text-muted-foreground text-xs'>
-						<p className='flex items-center gap-1.5 font-semibold text-destructive'>
+					<div className='border-destructive/20 bg-destructive/5 text-muted-foreground space-y-1 rounded-lg border p-3 text-xs'>
+						<p className='text-destructive flex items-center gap-1.5 font-semibold'>
 							<AlertTriangle className='size-3.5' /> Informasi Penghapusan:
 						</p>
 						<p>
@@ -98,7 +98,7 @@ export function PenggunaDeleteDialog({
 						</DialogDescription>
 					</DialogHeader>
 
-					<div className='space-y-2 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-foreground text-xs'>
+					<div className='text-foreground space-y-2 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs'>
 						<p className='flex items-center gap-1.5 font-semibold text-amber-600 dark:text-amber-400'>
 							<Info className='size-3.5' /> Terdaftar dalam {cannotDeleteUser?.transactionCount || 1} Data
 							Pengujian

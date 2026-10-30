@@ -233,16 +233,16 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 			<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
 				<div>
 					<Badge
-						className='mb-1.5 gap-1.5 px-2.5 py-0.5 font-semibold text-xs uppercase tracking-wider'
+						className='mb-1.5 gap-1.5 px-2.5 py-0.5 text-xs font-semibold tracking-wider uppercase'
 						variant='secondary'
 					>
 						<FileCheck2 className='size-3' />
 						<span>SOP & Penjaminan Mutu</span>
 					</Badge>
-					<h1 className='font-bold font-heading text-2xl text-foreground tracking-tight'>
+					<h1 className='font-heading text-foreground text-2xl font-bold tracking-tight'>
 						Instruksi Kerja (IK) & Integrasi Label QR
 					</h1>
-					<p className='mt-1 text-muted-foreground text-xs'>
+					<p className='text-muted-foreground mt-1 text-xs'>
 						Standard Operating Procedure (SOP) pengujian mutu air dengan generator QR Code unik untuk
 						stiker botol sampel.
 					</p>
@@ -261,7 +261,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 			<div className='flex flex-col justify-between gap-3 sm:flex-row sm:items-center'>
 				<InputGroup className='max-w-md flex-1'>
 					<InputGroupAddon align='inline-start'>
-						<Search className='size-4 text-muted-foreground' />
+						<Search className='text-muted-foreground size-4' />
 					</InputGroupAddon>
 					<InputGroupInput
 						onChange={(e) => setSearchTerm(e.target.value)}
@@ -290,7 +290,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 								Menampilkan {filteredList.length} dari {list.length} SOP (Hasil Filter)
 							</Badge>
 							<Button
-								className='cursor-pointer text-muted-foreground text-xs hover:text-foreground'
+								className='text-muted-foreground hover:text-foreground cursor-pointer text-xs'
 								onClick={() => setSearchTerm('')}
 								size='xs'
 								variant='ghost'
@@ -312,18 +312,18 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 					<Table>
 						<TableHeader>
 							<TableRow className='bg-muted/40 hover:bg-muted/40'>
-								<TableHead className='font-semibold text-xs'>Kode IK</TableHead>
-								<TableHead className='font-semibold text-xs'>Judul Prosedur SOP</TableHead>
-								<TableHead className='font-semibold text-xs'>Kategori</TableHead>
-								<TableHead className='font-semibold text-xs'>Versi</TableHead>
-								<TableHead className='font-semibold text-xs'>Hash QR Verifikasi</TableHead>
-								<TableHead className='text-right font-semibold text-xs'>Aksi</TableHead>
+								<TableHead className='text-xs font-semibold'>Kode IK</TableHead>
+								<TableHead className='text-xs font-semibold'>Judul Prosedur SOP</TableHead>
+								<TableHead className='text-xs font-semibold'>Kategori</TableHead>
+								<TableHead className='text-xs font-semibold'>Versi</TableHead>
+								<TableHead className='text-xs font-semibold'>Hash QR Verifikasi</TableHead>
+								<TableHead className='text-right text-xs font-semibold'>Aksi</TableHead>
 							</TableRow>
 						</TableHeader>
 						<TableBody>
 							{filteredList.length === 0 ? (
 								<TableRow>
-									<TableCell className='py-8 text-center text-muted-foreground text-xs' colSpan={6}>
+									<TableCell className='text-muted-foreground py-8 text-center text-xs' colSpan={6}>
 										{searchTerm ? (
 											<div className='space-y-1.5'>
 												<p>Tidak ada SOP yang cocok dengan pencarian &ldquo;{searchTerm}&rdquo;.</p>
@@ -344,21 +344,21 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 							) : (
 								filteredList.map((item) => (
 									<TableRow className='hover:bg-muted/30' key={item.id}>
-										<TableCell className='font-semibold text-foreground text-xs'>{item.kode_ik}</TableCell>
-										<TableCell className='font-semibold text-foreground text-xs'>
+										<TableCell className='text-foreground text-xs font-semibold'>{item.kode_ik}</TableCell>
+										<TableCell className='text-foreground text-xs font-semibold'>
 											<div className='space-y-0.5'>
 												<a
-													className='group inline-flex cursor-pointer items-center gap-1.5 font-medium text-foreground transition-colors hover:underline'
+													className='group text-foreground inline-flex cursor-pointer items-center gap-1.5 font-medium transition-colors hover:underline'
 													href={item.file_path}
 													rel='noopener noreferrer'
 													target='_blank'
 													title={`Buka dokumen: ${item.file_path}`}
 												>
-													<FileText className='size-3.5 shrink-0 text-muted-foreground group-hover:text-foreground' />
+													<FileText className='text-muted-foreground group-hover:text-foreground size-3.5 shrink-0' />
 													<span>{item.judul}</span>
-													<ExternalLink className='size-3 shrink-0 text-muted-foreground opacity-60 group-hover:text-foreground group-hover:opacity-100' />
+													<ExternalLink className='text-muted-foreground group-hover:text-foreground size-3 shrink-0 opacity-60 group-hover:opacity-100' />
 												</a>
-												<div className='flex items-center gap-1.5 text-muted-foreground text-xs'>
+												<div className='text-muted-foreground flex items-center gap-1.5 text-xs'>
 													<span className='max-w-[240px] truncate' title={item.file_path}>
 														{item.file_path}
 													</span>
@@ -377,14 +377,14 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 										</TableCell>
 										<TableCell className='text-xs'>v{item.versi}.0</TableCell>
 										<TableCell className='text-muted-foreground text-xs'>
-											<span className='rounded bg-muted px-1.5 py-0.5 text-xs'>
+											<span className='bg-muted rounded px-1.5 py-0.5 text-xs'>
 												{item.qr_code_hash.substring(0, 10)}...
 											</span>
 										</TableCell>
 										<TableCell className='text-right'>
 											<DropdownMenu>
 												<DropdownMenuTrigger
-													className='inline-flex size-8 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+													className='text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:ring-ring inline-flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors focus-visible:ring-1 focus-visible:outline-none'
 													title='Menu Aksi Dokumen IK'
 												>
 													<MoreVertical className='size-4' />
@@ -397,14 +397,14 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 															className='cursor-pointer gap-2 text-xs'
 															onClick={() => window.open(item.file_path, '_blank', 'noopener,noreferrer')}
 														>
-															<ExternalLink className='size-3.5 text-muted-foreground' />
+															<ExternalLink className='text-muted-foreground size-3.5' />
 															<span>Buka Dokumen SOP</span>
 														</DropdownMenuItem>
 														<DropdownMenuItem
 															className='cursor-pointer gap-2 text-xs'
 															onClick={() => router.push(`/instruksi-kerja/${item.id}/cetak-label`)}
 														>
-															<QrCode className='size-3.5 text-muted-foreground' />
+															<QrCode className='text-muted-foreground size-3.5' />
 															<span>Cetak Label QR</span>
 														</DropdownMenuItem>
 													</DropdownMenuGroup>
@@ -415,14 +415,14 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 															className='cursor-pointer gap-2 text-xs'
 															onClick={() => handleOpenEditModal(item)}
 														>
-															<Pencil className='size-3.5 text-muted-foreground' />
+															<Pencil className='text-muted-foreground size-3.5' />
 															<span>Edit Prosedur SOP</span>
 														</DropdownMenuItem>
 													</DropdownMenuGroup>
 													<DropdownMenuSeparator />
 													<DropdownMenuGroup>
 														<DropdownMenuItem
-															className='cursor-pointer gap-2 text-destructive text-xs focus:bg-destructive/10'
+															className='text-destructive focus:bg-destructive/10 cursor-pointer gap-2 text-xs'
 															onClick={() => handleDelete(item.id, item.kode_ik)}
 															variant='destructive'
 														>
@@ -446,7 +446,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 				<DialogContent className='sm:max-w-lg'>
 					<DialogHeader>
 						<DialogTitle className='flex items-center gap-2'>
-							<FileCheck2 className='size-4 text-muted-foreground' />
+							<FileCheck2 className='text-muted-foreground size-4' />
 							<span>Registrasi Dokumen SOP / IK Baru</span>
 						</DialogTitle>
 						<DialogDescription className='text-xs'>
@@ -516,7 +516,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 									/>
 									{filePath.startsWith('http') && (
 										<InputGroupAddon align='inline-end'>
-											<ExternalLink className='pointer-events-none size-3.5 text-muted-foreground' />
+											<ExternalLink className='text-muted-foreground pointer-events-none size-3.5' />
 										</InputGroupAddon>
 									)}
 								</InputGroup>
@@ -568,7 +568,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 				<DialogContent className='sm:max-w-lg'>
 					<DialogHeader>
 						<DialogTitle className='flex items-center gap-2'>
-							<Pencil className='size-4 text-muted-foreground' />
+							<Pencil className='text-muted-foreground size-4' />
 							<span>Edit Dokumen SOP ({editingItem?.kode_ik})</span>
 						</DialogTitle>
 						<DialogDescription className='text-xs'>
@@ -578,11 +578,11 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 					</DialogHeader>
 
 					<form className='space-y-4 py-2' onSubmit={handleUpdateSubmit}>
-						<div className='flex items-start gap-2.5 rounded-lg border border-border bg-muted/40 p-3 text-xs'>
-							<Info className='mt-0.5 size-4 shrink-0 text-muted-foreground' />
+						<div className='border-border bg-muted/40 flex items-start gap-2.5 rounded-lg border p-3 text-xs'>
+							<Info className='text-muted-foreground mt-0.5 size-4 shrink-0' />
 							<div>
-								<span className='font-semibold text-foreground'>Integritas Keabsahan Stiker QR:</span>
-								<p className='mt-0.5 text-muted-foreground'>
+								<span className='text-foreground font-semibold'>Integritas Keabsahan Stiker QR:</span>
+								<p className='text-muted-foreground mt-0.5'>
 									Versi akan otomatis naik dari <strong>v{editingItem?.versi}.0</strong> ke{' '}
 									<strong>v{(editingItem?.versi || 1) + 1}.0</strong>. Kode QR fisik tidak berubah.
 								</p>
@@ -634,7 +634,7 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 								/>
 								{editFilePath.startsWith('http') && (
 									<InputGroupAddon align='inline-end'>
-										<ExternalLink className='pointer-events-none size-3.5 text-muted-foreground' />
+										<ExternalLink className='text-muted-foreground pointer-events-none size-3.5' />
 									</InputGroupAddon>
 								)}
 							</InputGroup>

@@ -58,7 +58,7 @@ export function TrenFilterBar({
 									{(item) => (
 										<ComboboxItem key={item.value} value={item}>
 											<div className='flex flex-col py-0.5 text-left'>
-												<span className='font-medium text-foreground'>{item.label}</span>
+												<span className='text-foreground font-medium'>{item.label}</span>
 												{item.sublabel && (
 													<span className='text-muted-foreground text-xs'>{item.sublabel}</span>
 												)}
@@ -87,7 +87,7 @@ export function TrenFilterBar({
 									{(item) => (
 										<ComboboxItem key={item.value} value={item}>
 											<div className='flex flex-col py-0.5 text-left'>
-												<span className='font-medium text-foreground'>{item.label}</span>
+												<span className='text-foreground font-medium'>{item.label}</span>
 												{item.sublabel && (
 													<span className='text-muted-foreground text-xs'>{item.sublabel}</span>
 												)}
@@ -102,17 +102,17 @@ export function TrenFilterBar({
 
 				{/* Indikator Filter Aktif */}
 				{selectedLokasiId !== 'SEMUA' && (
-					<div className='flex items-center justify-between border-border/60 border-t pt-2 text-xs'>
-						<div className='flex items-center gap-2 text-muted-foreground'>
+					<div className='border-border/60 flex items-center justify-between border-t pt-2 text-xs'>
+						<div className='text-muted-foreground flex items-center gap-2'>
 							<span>
 								Menampilkan data pengukuran untuk:{' '}
 								<strong className='text-foreground'>{selectedLokasiNama}</strong> ({detailCount} titik
 								pengukuran)
-								<span className='ml-1 font-medium text-muted-foreground'>(Hasil Filter)</span>
+								<span className='text-muted-foreground ml-1 font-medium'>(Hasil Filter)</span>
 							</span>
 						</div>
 						<Button
-							className='h-6 cursor-pointer text-muted-foreground text-xs hover:text-foreground'
+							className='text-muted-foreground hover:text-foreground h-6 cursor-pointer text-xs'
 							onClick={onResetLokasi}
 							size='xs'
 							variant='ghost'

@@ -50,10 +50,10 @@ export function GrafikTren({
 	if (!data || data.length === 0) {
 		return (
 			<Card className='p-8 text-center'>
-				<p className='font-medium text-muted-foreground text-sm'>
+				<p className='text-muted-foreground text-sm font-medium'>
 					Belum ada rekaman data historis untuk grafik tren ini.
 				</p>
-				<p className='mt-1 text-muted-foreground/70 text-xs'>
+				<p className='text-muted-foreground/70 mt-1 text-xs'>
 					Lakukan pengujian kualitas air terlebih dahulu untuk melihat visualisasi tren.
 				</p>
 			</Card>
@@ -66,7 +66,7 @@ export function GrafikTren({
 				<div>
 					<CardTitle className='font-semibold'>{title}</CardTitle>
 					<CardDescription className='mt-0.5 text-xs'>
-						Parameter: <span className='font-semibold text-foreground'>{parameterName}</span> ({satuan})
+						Parameter: <span className='text-foreground font-semibold'>{parameterName}</span> ({satuan})
 					</CardDescription>
 				</div>
 
@@ -176,7 +176,7 @@ export function GrafikTren({
 							</LineChart>
 						</ResponsiveContainer>
 					) : (
-						<div className='flex h-full w-full animate-pulse items-center justify-center text-muted-foreground/60 text-xs'>
+						<div className='text-muted-foreground/60 flex h-full w-full animate-pulse items-center justify-center text-xs'>
 							Menyiapkan kanvas grafik...
 						</div>
 					)}

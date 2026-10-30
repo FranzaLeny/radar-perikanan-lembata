@@ -89,7 +89,7 @@ export function RekapSettingsDialog({
 		<Dialog onOpenChange={onOpenChange} open={open}>
 			<DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-xl'>
 				<DialogHeader>
-					<div className='mb-1 flex items-center gap-2 font-semibold text-primary text-xs uppercase tracking-wider'>
+					<div className='text-primary mb-1 flex items-center gap-2 text-xs font-semibold tracking-wider uppercase'>
 						<Settings2 className='size-4' />
 						<span>Pengaturan Lembar Cetak</span>
 					</div>
@@ -102,10 +102,10 @@ export function RekapSettingsDialog({
 
 				<div className='space-y-4 py-2 text-xs'>
 					{/* 1. Baris Tahun & Filter */}
-					<div className='grid grid-cols-1 gap-3.5 rounded-lg border border-border bg-muted/30 p-3 sm:grid-cols-2'>
+					<div className='border-border bg-muted/30 grid grid-cols-1 gap-3.5 rounded-lg border p-3 sm:grid-cols-2'>
 						<div className='space-y-1.5'>
-							<Label className='flex items-center gap-1.5 font-semibold text-xs'>
-								<Calendar className='size-3.5 text-muted-foreground' />
+							<Label className='flex items-center gap-1.5 text-xs font-semibold'>
+								<Calendar className='text-muted-foreground size-3.5' />
 								Tahun Anggaran Laporan
 							</Label>
 							<Input
@@ -124,15 +124,15 @@ export function RekapSettingsDialog({
 							<label className='flex cursor-pointer items-center gap-2 py-1'>
 								<input
 									checked={settings.filterTahun}
-									className='size-4 rounded border-input text-primary focus:ring-primary'
+									className='border-input text-primary focus:ring-primary size-4 rounded'
 									onChange={(e) => setSettings((s) => ({ ...s, filterTahun: e.target.checked }))}
 									type='checkbox'
 								/>
-								<span className='font-medium text-foreground text-xs'>
+								<span className='text-foreground text-xs font-medium'>
 									Hanya tampilkan uji tahun {settings.tahunAnggaran}
 								</span>
 							</label>
-							<p className='text-[11px] text-muted-foreground'>
+							<p className='text-muted-foreground text-[11px]'>
 								{settings.filterTahun
 									? 'Matriks hanya menyaring data tahun terpilih.'
 									: 'Menampilkan seluruh histori pemantauan mutu.'}
@@ -141,10 +141,10 @@ export function RekapSettingsDialog({
 					</div>
 
 					{/* 2. Tanggal dan Lokasi Tanda Tangan */}
-					<div className='grid grid-cols-1 gap-3.5 rounded-lg border border-border bg-muted/30 p-3 sm:grid-cols-2'>
+					<div className='border-border bg-muted/30 grid grid-cols-1 gap-3.5 rounded-lg border p-3 sm:grid-cols-2'>
 						<div className='space-y-1.5'>
-							<Label className='flex items-center gap-1.5 font-semibold text-xs'>
-								<Calendar className='size-3.5 text-muted-foreground' />
+							<Label className='flex items-center gap-1.5 text-xs font-semibold'>
+								<Calendar className='text-muted-foreground size-3.5' />
 								Tanggal Tanda Tangan
 							</Label>
 							<Input
@@ -153,14 +153,14 @@ export function RekapSettingsDialog({
 								type='date'
 								value={settings.tanggalTtd}
 							/>
-							<p className='text-[11px] text-muted-foreground'>
+							<p className='text-muted-foreground text-[11px]'>
 								Tampil: <strong>{formattedTanggalTtd || '-'}</strong>
 							</p>
 						</div>
 
 						<div className='space-y-1.5'>
-							<Label className='flex items-center gap-1.5 font-semibold text-xs'>
-								<MapPin className='size-3.5 text-muted-foreground' />
+							<Label className='flex items-center gap-1.5 text-xs font-semibold'>
+								<MapPin className='text-muted-foreground size-3.5' />
 								Lokasi / Kota Penandatanganan
 							</Label>
 							<Input
@@ -174,9 +174,9 @@ export function RekapSettingsDialog({
 					</div>
 
 					{/* 3. Pejabat Pengelola Mutu Air (Tanda Tangan Kiri) */}
-					<div className='space-y-3 rounded-lg border border-border bg-muted/10 p-3'>
+					<div className='border-border bg-muted/10 space-y-3 rounded-lg border p-3'>
 						<div className='flex items-center justify-between'>
-							<Label className='flex items-center gap-1.5 font-semibold text-foreground text-xs'>
+							<Label className='text-foreground flex items-center gap-1.5 text-xs font-semibold'>
 								<UserCheck className='size-3.5 text-emerald-600 dark:text-emerald-400' />
 								Penandatangan 1 (Pengelola Mutu Air)
 							</Label>
@@ -200,9 +200,9 @@ export function RekapSettingsDialog({
 							</NativeSelect>
 
 							{/* Form edit detail penandatangan pengelola */}
-							<div className='grid grid-cols-1 gap-2 border-border/60 border-t pt-1 sm:grid-cols-2'>
+							<div className='border-border/60 grid grid-cols-1 gap-2 border-t pt-1 sm:grid-cols-2'>
 								<div>
-									<Label className='text-[11px] text-muted-foreground'>Nama Lengkap & Gelar</Label>
+									<Label className='text-muted-foreground text-[11px]'>Nama Lengkap & Gelar</Label>
 									<Input
 										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, pengelolaNama: e.target.value }))}
@@ -211,7 +211,7 @@ export function RekapSettingsDialog({
 									/>
 								</div>
 								<div>
-									<Label className='text-[11px] text-muted-foreground'>NIP</Label>
+									<Label className='text-muted-foreground text-[11px]'>NIP</Label>
 									<Input
 										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, pengelolaNip: e.target.value }))}
@@ -221,7 +221,7 @@ export function RekapSettingsDialog({
 									/>
 								</div>
 								<div className='sm:col-span-2'>
-									<Label className='text-[11px] text-muted-foreground'>Jabatan Kedinasan</Label>
+									<Label className='text-muted-foreground text-[11px]'>Jabatan Kedinasan</Label>
 									<Input
 										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, pengelolaJabatan: e.target.value }))}
@@ -234,9 +234,9 @@ export function RekapSettingsDialog({
 					</div>
 
 					{/* 4. Pejabat Pengesahan Kepala Dinas (Tanda Tangan Kanan) */}
-					<div className='space-y-3 rounded-lg border border-border bg-muted/10 p-3'>
+					<div className='border-border bg-muted/10 space-y-3 rounded-lg border p-3'>
 						<div className='flex items-center justify-between'>
-							<Label className='flex items-center gap-1.5 font-semibold text-foreground text-xs'>
+							<Label className='text-foreground flex items-center gap-1.5 text-xs font-semibold'>
 								<CheckCircle2 className='size-3.5 text-blue-600 dark:text-blue-400' />
 								Penandatangan 2 (Kepala Dinas / Pengesahan)
 							</Label>
@@ -260,9 +260,9 @@ export function RekapSettingsDialog({
 							</NativeSelect>
 
 							{/* Form edit detail penandatangan kadis */}
-							<div className='grid grid-cols-1 gap-2 border-border/60 border-t pt-1 sm:grid-cols-2'>
+							<div className='border-border/60 grid grid-cols-1 gap-2 border-t pt-1 sm:grid-cols-2'>
 								<div>
-									<Label className='text-[11px] text-muted-foreground'>Nama Lengkap & Gelar</Label>
+									<Label className='text-muted-foreground text-[11px]'>Nama Lengkap & Gelar</Label>
 									<Input
 										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, kepalaDinasNama: e.target.value }))}
@@ -271,7 +271,7 @@ export function RekapSettingsDialog({
 									/>
 								</div>
 								<div>
-									<Label className='text-[11px] text-muted-foreground'>NIP</Label>
+									<Label className='text-muted-foreground text-[11px]'>NIP</Label>
 									<Input
 										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, kepalaDinasNip: e.target.value }))}
@@ -281,7 +281,7 @@ export function RekapSettingsDialog({
 									/>
 								</div>
 								<div className='sm:col-span-2'>
-									<Label className='text-[11px] text-muted-foreground'>Jabatan Kedinasan</Label>
+									<Label className='text-muted-foreground text-[11px]'>Jabatan Kedinasan</Label>
 									<Input
 										className='mt-0.5 h-7 text-xs'
 										onChange={(e) => setSettings((s) => ({ ...s, kepalaDinasJabatan: e.target.value }))}
@@ -296,7 +296,7 @@ export function RekapSettingsDialog({
 
 				<DialogFooter className='flex items-center justify-between pt-2 sm:justify-between'>
 					<Button
-						className='gap-1.5 text-muted-foreground text-xs hover:text-foreground'
+						className='text-muted-foreground hover:text-foreground gap-1.5 text-xs'
 						onClick={onResetDefaults}
 						size='sm'
 						type='button'

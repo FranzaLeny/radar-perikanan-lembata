@@ -37,19 +37,19 @@ export function LokasiTable({
 				<Table>
 					<TableHeader>
 						<TableRow className='bg-muted/40 hover:bg-muted/40'>
-							<TableHead className='font-semibold text-xs'>Nama Pokdakan</TableHead>
-							<TableHead className='font-semibold text-xs'>Penanggung Jawab / Pemilik</TableHead>
-							<TableHead className='font-semibold text-xs'>Wilayah (Kec./Desa)</TableHead>
-							<TableHead className='font-semibold text-xs'>Komoditas Utama</TableHead>
-							<TableHead className='font-semibold text-xs'>Titik Koordinat</TableHead>
-							<TableHead className='font-semibold text-xs'>Status</TableHead>
-							<TableHead className='text-right font-semibold text-xs'>Aksi</TableHead>
+							<TableHead className='text-xs font-semibold'>Nama Pokdakan</TableHead>
+							<TableHead className='text-xs font-semibold'>Penanggung Jawab / Pemilik</TableHead>
+							<TableHead className='text-xs font-semibold'>Wilayah (Kec./Desa)</TableHead>
+							<TableHead className='text-xs font-semibold'>Komoditas Utama</TableHead>
+							<TableHead className='text-xs font-semibold'>Titik Koordinat</TableHead>
+							<TableHead className='text-xs font-semibold'>Status</TableHead>
+							<TableHead className='text-right text-xs font-semibold'>Aksi</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{items.length === 0 ? (
 							<TableRow>
-								<TableCell className='py-8 text-center text-muted-foreground text-xs' colSpan={7}>
+								<TableCell className='text-muted-foreground py-8 text-center text-xs' colSpan={7}>
 									{searchTerm ? (
 										<div className='space-y-1.5'>
 											<p>Tidak ada lokasi yang cocok dengan pencarian &ldquo;{searchTerm}&rdquo;.</p>
@@ -65,35 +65,35 @@ export function LokasiTable({
 						) : (
 							items.map((item) => (
 								<TableRow
-									className={`transition-colors hover:bg-muted/30 ${
+									className={`hover:bg-muted/30 transition-colors ${
 										!item.aktif ? 'bg-muted/15 opacity-65' : ''
 									}`}
 									key={item.id}
 								>
-									<TableCell className='font-semibold text-foreground text-xs'>
+									<TableCell className='text-foreground text-xs font-semibold'>
 										{item.nama_pokdakan}
 									</TableCell>
-									<TableCell className='font-medium text-muted-foreground text-xs'>{item.pemilik}</TableCell>
+									<TableCell className='text-muted-foreground text-xs font-medium'>{item.pemilik}</TableCell>
 									<TableCell className='text-xs'>
-										<div className='font-medium text-foreground'>{item.kecamatan}</div>
+										<div className='text-foreground font-medium'>{item.kecamatan}</div>
 										<div className='text-muted-foreground text-xs'>Desa {item.desa}</div>
 									</TableCell>
 									<TableCell className='text-xs'>
 										<Badge className='font-normal' variant='secondary'>
-											<Fish className='size-3 text-muted-foreground' />
+											<Fish className='text-muted-foreground size-3' />
 											{item.komoditas_ikan || 'Campuran'}
 										</Badge>
 									</TableCell>
 									<TableCell className='text-xs'>
 										{item.titik_koordinat ? (
 											<a
-												className='inline-flex items-center gap-1 text-foreground text-xs hover:underline'
+												className='text-foreground inline-flex items-center gap-1 text-xs hover:underline'
 												href={`https://maps.google.com/?q=${item.titik_koordinat}`}
 												rel='noreferrer'
 												target='_blank'
 												title='Buka di Google Maps'
 											>
-												<Compass className='size-3.5 text-muted-foreground' />
+												<Compass className='text-muted-foreground size-3.5' />
 												<span>{item.titik_koordinat}</span>
 											</a>
 										) : (
@@ -102,7 +102,7 @@ export function LokasiTable({
 									</TableCell>
 									<TableCell className='text-xs'>
 										<Badge
-											className={`font-semibold text-[10px] ${
+											className={`text-[10px] font-semibold ${
 												item.aktif
 													? 'border-emerald-500/20 bg-emerald-600/15 text-emerald-700 dark:text-emerald-400'
 													: 'text-muted-foreground'

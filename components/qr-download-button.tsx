@@ -67,22 +67,22 @@ export function QrDownloadButton({
 
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger className='inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-input bg-background px-3 py-1.5 font-medium text-xs shadow-xs hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'>
+			<DropdownMenuTrigger className='border-input bg-background hover:bg-accent hover:text-accent-foreground focus-visible:ring-ring inline-flex cursor-pointer items-center gap-1.5 rounded-md border px-3 py-1.5 text-xs font-medium shadow-xs focus-visible:ring-1 focus-visible:outline-none'>
 				{downloaded ? (
 					<Check className='size-3.5 text-emerald-600' />
 				) : (
-					<Download className='size-3.5 text-muted-foreground' />
+					<Download className='text-muted-foreground size-3.5' />
 				)}
 				<span>{downloaded ? 'Terunduh' : label}</span>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end' className='w-44'>
 				<DropdownMenuItem className='cursor-pointer gap-2 text-xs' onClick={handleDownloadPng}>
-					<FileImage className='size-3.5 text-muted-foreground' />
+					<FileImage className='text-muted-foreground size-3.5' />
 					<span>Format PNG (High-Res)</span>
 				</DropdownMenuItem>
 				{qrSvgString && (
 					<DropdownMenuItem className='cursor-pointer gap-2 text-xs' onClick={handleDownloadSvg}>
-						<FileCode className='size-3.5 text-muted-foreground' />
+						<FileCode className='text-muted-foreground size-3.5' />
 						<span>Format Vektor SVG</span>
 					</DropdownMenuItem>
 				)}

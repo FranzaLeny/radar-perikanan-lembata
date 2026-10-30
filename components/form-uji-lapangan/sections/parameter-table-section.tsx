@@ -76,10 +76,10 @@ export function ParameterTableSection({
 
 			<CardContent className='space-y-3 pt-4'>
 				{parameterRows.length === 0 ? (
-					<div className='rounded-xl border-2 border-border border-dashed bg-muted/20 px-4 py-10 text-center'>
-						<Droplets className='mx-auto mb-2 size-8 text-muted-foreground/60' />
-						<p className='font-semibold text-foreground text-xs'>Belum Ada Parameter Uji Ditambahkan</p>
-						<p className='mx-auto mt-1 max-w-sm text-muted-foreground text-xs'>
+					<div className='border-border bg-muted/20 rounded-xl border-2 border-dashed px-4 py-10 text-center'>
+						<Droplets className='text-muted-foreground/60 mx-auto mb-2 size-8' />
+						<p className='text-foreground text-xs font-semibold'>Belum Ada Parameter Uji Ditambahkan</p>
+						<p className='text-muted-foreground mx-auto mt-1 max-w-sm text-xs'>
 							Pilih dan tambahkan parameter uji. Sistem akan otomatis memfilter Instruksi Kerja (IK) dan
 							metode resmi yang sesuai.
 						</p>
@@ -125,7 +125,7 @@ export function ParameterTableSection({
 						})}
 
 						<Button
-							className='w-full cursor-pointer gap-1.5 border-dashed text-muted-foreground text-xs hover:text-foreground'
+							className='text-muted-foreground hover:text-foreground w-full cursor-pointer gap-1.5 border-dashed text-xs'
 							onClick={onAddParameterRow}
 							size='sm'
 							type='button'

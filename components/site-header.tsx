@@ -26,7 +26,7 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 	return (
 		<header
 			className={cn(
-				'sticky top-0 z-50 w-full border-border/30 border-b bg-background/60 backdrop-blur-md',
+				'border-border/30 bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur-md',
 				className
 			)}
 		>
@@ -37,7 +37,7 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 					href='/'
 					title={`Kembali ke Beranda ${APP_CONFIG.name} Lembata`}
 				>
-					<div className='flex size-10 items-center justify-center rounded-xl bg-primary/10 p-1.5 ring-1 ring-primary/20 transition-transform duration-200 group-hover:scale-105'>
+					<div className='bg-primary/10 ring-primary/20 flex size-10 items-center justify-center rounded-xl p-1.5 ring-1 transition-transform duration-200 group-hover:scale-105'>
 						<Image
 							alt='Logo Kabupaten Lembata'
 							className='h-full w-auto object-contain'
@@ -49,17 +49,17 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 					</div>
 					<div>
 						<div className='flex items-center gap-1.5'>
-							<span className='font-bold font-heading text-base text-foreground tracking-tight'>
+							<span className='font-heading text-foreground text-base font-bold tracking-tight'>
 								{BRAND_NAME}
 							</span>
 							<Badge
-								className='border-primary/30 bg-primary/10 px-1.5 py-0 font-semibold text-[10px] text-primary'
+								className='border-primary/30 bg-primary/10 text-primary px-1.5 py-0 text-[10px] font-semibold'
 								variant='outline'
 							>
 								Lembata
 							</Badge>
 						</div>
-						<p className='font-medium text-[11px] text-muted-foreground'>
+						<p className='text-muted-foreground text-[11px] font-medium'>
 							{APP_CONFIG.institution.shortName}
 						</p>
 					</div>
@@ -67,21 +67,21 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 
 				{/* Navigation Links */}
 				{showNavLinks && (
-					<nav className='hidden items-center gap-6 font-medium text-muted-foreground text-xs md:flex'>
+					<nav className='text-muted-foreground hidden items-center gap-6 text-xs font-medium md:flex'>
 						<Link
-							className='transition-colors hover:text-foreground'
+							className='hover:text-foreground transition-colors'
 							href={isHome ? '#keunggulan' : '/#keunggulan'}
 						>
 							Keunggulan
 						</Link>
 						<Link
-							className='transition-colors hover:text-foreground'
+							className='hover:text-foreground transition-colors'
 							href={isHome ? '#alur-kerja' : '/#alur-kerja'}
 						>
 							Alur Kerja
 						</Link>
 						<Link
-							className='transition-colors hover:text-foreground'
+							className='hover:text-foreground transition-colors'
 							href={isHome ? '#baku-mutu' : '/#baku-mutu'}
 						>
 							Standar Baku Mutu
@@ -97,7 +97,7 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 					) : isAuth ? (
 						<Link href='/'>
 							<Button className='cursor-pointer gap-2 shadow-xs' size='sm' variant='outline'>
-								<Home className='size-3.5 text-primary' />
+								<Home className='text-primary size-3.5' />
 								<span className='hidden sm:inline'>Kembali ke </span>
 								<span>Beranda</span>
 							</Button>

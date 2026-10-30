@@ -143,7 +143,7 @@ export function BakuMutuFormDialog({
 			<DialogContent className='sm:max-w-lg'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Scale className='size-4 text-muted-foreground' />
+						<Scale className='text-muted-foreground size-4' />
 						<span>
 							{isRevisionMode ? `Revisi Ambang: ${selectedItem?.parameter}` : 'Tambah Parameter Baku Mutu'}
 						</span>
@@ -191,14 +191,14 @@ export function BakuMutuFormDialog({
 							<button
 								className={`cursor-pointer rounded-lg border p-2.5 text-left text-xs transition-colors ${
 									tipeAmbangBatas === 'tetap'
-										? 'border-primary bg-primary/5 font-semibold text-primary'
+										? 'border-primary bg-primary/5 text-primary font-semibold'
 										: 'border-border text-muted-foreground hover:bg-muted'
 								}`}
 								onClick={() => setTipeAmbangBatas('tetap')}
 								type='button'
 							>
-								<p className='font-medium text-foreground'>Batas Statis / Tetap</p>
-								<p className='mt-0.5 text-[11px] text-muted-foreground'>
+								<p className='text-foreground font-medium'>Batas Statis / Tetap</p>
+								<p className='text-muted-foreground mt-0.5 text-[11px]'>
 									Nilai Min & Max konstan (pH, DO, Amonia)
 								</p>
 							</button>
@@ -211,8 +211,8 @@ export function BakuMutuFormDialog({
 								onClick={() => setTipeAmbangBatas('deviasi_suhu_lingkungan')}
 								type='button'
 							>
-								<p className='font-medium text-foreground'>Deviasi Suhu Lingkungan</p>
-								<p className='mt-0.5 text-[11px] text-muted-foreground'>
+								<p className='text-foreground font-medium'>Deviasi Suhu Lingkungan</p>
+								<p className='text-muted-foreground mt-0.5 text-[11px]'>
 									Bergantung suhu udara alami (Suhu Air)
 								</p>
 							</button>
@@ -277,7 +277,7 @@ export function BakuMutuFormDialog({
 					</div>
 
 					{/* Regulasi Singkat (untuk tabel LHU) & Regulasi Lengkap */}
-					<div className='space-y-3 border-border border-t pt-1'>
+					<div className='border-border space-y-3 border-t pt-1'>
 						<Field>
 							<FieldLabel htmlFor='nomor_regulasi'>
 								Nomor / Singkatan Regulasi (Ditampilkan di Tabel LHU) *

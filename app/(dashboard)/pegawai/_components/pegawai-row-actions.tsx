@@ -27,7 +27,7 @@ export function PegawaiRowActions({
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger
-				className='inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none'
+				className='text-muted-foreground hover:bg-muted hover:text-foreground inline-flex size-7 cursor-pointer items-center justify-center rounded-md transition-colors focus-visible:outline-none'
 				title='Menu Aksi'
 			>
 				<MoreHorizontal className='size-4' />

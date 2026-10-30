@@ -71,7 +71,7 @@ export function EvaluasiLegalitasSection({
 					{liveConclusion ? (
 						<div className='space-y-2'>
 							<div className='flex items-center justify-between'>
-								<span className='font-semibold text-foreground'>Kualitas Air:</span>
+								<span className='text-foreground font-semibold'>Kualitas Air:</span>
 								<BadgeStatus size='md' status={liveConclusion} />
 							</div>
 							<p className='text-muted-foreground text-xs leading-relaxed'>
@@ -84,7 +84,7 @@ export function EvaluasiLegalitasSection({
 							</p>
 						</div>
 					) : (
-						<div className='py-4 text-center text-muted-foreground text-xs'>
+						<div className='text-muted-foreground py-4 text-center text-xs'>
 							Tambahkan parameter dan isi nilai ukur untuk melihat evaluasi otomatis.
 						</div>
 					)}
@@ -115,7 +115,7 @@ export function EvaluasiLegalitasSection({
 										{(item) => (
 											<ComboboxItem key={item.value} value={item}>
 												<div className='flex flex-col py-0.5 text-left'>
-													<span className='font-medium text-foreground'>{item.label}</span>
+													<span className='text-foreground font-medium'>{item.label}</span>
 													{item.sublabel && (
 														<span className='text-muted-foreground text-xs'>{item.sublabel}</span>
 													)}
@@ -146,7 +146,7 @@ export function EvaluasiLegalitasSection({
 										{(item) => (
 											<ComboboxItem key={item.value} value={item}>
 												<div className='flex flex-col py-0.5 text-left'>
-													<span className='font-medium text-foreground'>{item.label}</span>
+													<span className='text-foreground font-medium'>{item.label}</span>
 													{item.sublabel && (
 														<span className='text-muted-foreground text-xs'>{item.sublabel}</span>
 													)}

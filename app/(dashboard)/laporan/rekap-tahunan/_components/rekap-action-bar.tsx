@@ -18,7 +18,7 @@ export function RekapActionBar({
 	onPrint
 }: RekapActionBarProps) {
 	return (
-		<div className='flex flex-col gap-4 rounded-xl border border-border bg-muted/40 p-4 sm:flex-row sm:items-center sm:justify-between print:hidden'>
+		<div className='border-border bg-muted/40 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between print:hidden'>
 			<div className='flex items-center gap-3'>
 				<Link href='/laporan'>
 					<Button className='cursor-pointer gap-1.5 text-xs' size='sm' variant='ghost'>
@@ -26,7 +26,7 @@ export function RekapActionBar({
 						<span>Kembali ke Laporan</span>
 					</Button>
 				</Link>
-				<div className='hidden h-4 w-px bg-border sm:block' />
+				<div className='bg-border hidden h-4 w-px sm:block' />
 				<div className='flex items-center gap-2'>
 					<Badge className='font-bold' variant='outline'>
 						TA {tahunAnggaran}
@@ -51,7 +51,7 @@ export function RekapActionBar({
 				</Button>
 
 				<Button
-					className='cursor-pointer gap-2 font-semibold text-xs shadow-xs'
+					className='cursor-pointer gap-2 text-xs font-semibold shadow-xs'
 					onClick={onPrint}
 					size='sm'
 				>

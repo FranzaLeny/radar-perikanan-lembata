@@ -1,14 +1,6 @@
 import Image from 'next/image';
 
 import { Badge } from '@/components/shadcn/badge';
-import {
-	Table,
-	TableBody,
-	TableCell,
-	TableHead,
-	TableHeader,
-	TableRow
-} from '@/components/shadcn/table';
 import { APP_CONFIG, APP_NAME } from '@/lib/constants';
 import type { PokdakanData, PrintSettings } from '../types';
 
@@ -30,10 +22,10 @@ export function RekapMatrixTable({
 	qrDataUrl
 }: RekapMatrixTableProps) {
 	return (
-		<div className='overflow-x-auto rounded-xl border border-slate-300 bg-white text-slate-900 shadow-xs print:m-0 print:border-none print:shadow-none'>
-			<div className='min-w-240 p-8 print:min-w-0 print:p-0'>
+		<div className='w-fit border-slate-300 bg-white text-slate-900 not-print:overflow-x-auto not-print:rounded-xl not-print:border not-print:shadow-xs'>
+			<div className='not-print:min-w-240 not-print:p-8'>
 				{/* Kop Surat Resmi Dinas Perikanan Kabupaten Lembata */}
-				<div className='mb-6 border-slate-900 border-b-2 pb-3'>
+				<div className='mb-6 min-w-full border-b-2 border-slate-900 pb-3'>
 					<div className='flex items-center gap-4'>
 						<Image
 							alt='Logo Pemerintah Kabupaten Lembata'
@@ -44,10 +36,10 @@ export function RekapMatrixTable({
 							width={64}
 						/>
 						<div className='flex-1 pr-14 text-center'>
-							<h3 className='font-bold text-xs uppercase tracking-widest'>
+							<h3 className='text-xs font-bold tracking-widest uppercase'>
 								{APP_CONFIG.institution.government}
 							</h3>
-							<h2 className='font-extrabold text-base uppercase leading-tight tracking-wider'>
+							<h2 className='text-base leading-tight font-extrabold tracking-wider uppercase'>
 								{APP_CONFIG.institution.name}
 							</h2>
 							<p className='mt-0.5 text-[11px] leading-snug'>
@@ -61,86 +53,53 @@ export function RekapMatrixTable({
 				</div>
 
 				{/* Judul Dokumen */}
-				<div className='mb-6 text-center'>
-					<h1 className='font-bold text-sm uppercase tracking-wide'>
+				<div className='mb-6 min-w-full text-center'>
+					<h1 className='text-sm font-bold tracking-wide uppercase'>
 						Rekapitulasi Pemantauan Kualitas Air Kolam Pembudidaya (Pokdakan)
 					</h1>
-					<p className='mt-0.5 font-semibold text-xs uppercase'>
+					<p className='mt-0.5 text-xs font-semibold uppercase'>
 						Tahun Anggaran {settings.tahunAnggaran}
 					</p>
 				</div>
 
-				{/* Legend Status Indikator Mutu */}
-				<div className='mb-4 flex flex-wrap items-center justify-center gap-3 font-medium text-xs'>
-					<Badge className='gap-1.5 border-emerald-300 bg-emerald-50 text-emerald-800' variant='outline'>
-						<span className='size-2 rounded-full bg-emerald-600' />
-						<span>Memenuhi Baku Mutu (Normal)</span>
-					</Badge>
-					<Badge className='gap-1.5 border-amber-300 bg-amber-50 text-amber-800' variant='outline'>
-						<span className='size-2 rounded-full bg-amber-500' />
-						<span>Peringatan (Mendekati Batas)</span>
-					</Badge>
-					<Badge className='gap-1.5 border-rose-300 bg-rose-50 text-rose-800' variant='outline'>
-						<span className='size-2 rounded-full bg-rose-600' />
-						<span>Kritis (Melebihi/Kurang)</span>
-					</Badge>
-					<Badge className='gap-1.5 border-slate-300 bg-slate-50 text-slate-500' variant='outline'>
-						<span className='size-2 rounded-full bg-slate-300' />
-						<span>- (Belum Ada Uji)</span>
-					</Badge>
-				</div>
-
 				{/* Matriks Table */}
-				<div className='mb-8 overflow-hidden rounded-lg border border-slate-300 **:data-[slot=table-container]:overflow-visible print:border-slate-400'>
-					<Table className='w-full table-fixed text-xs [&_td]:border-slate-200 [&_td]:border-b [&_td]:border-r [&_td]:px-0.5 [&_td]:py-1.5 [&_td:last-child]:border-r-0 [&_th]:border-slate-300 [&_th]:border-b [&_th]:border-r [&_th]:px-0.5 [&_th]:py-1.5 [&_th:last-child]:border-r-0'>
-						<TableHeader className='bg-slate-200'>
-							<TableRow className='hover:bg-slate-200'>
-								<TableHead className='w-[4%] text-center font-bold text-[11px] text-slate-800 uppercase'>
-									No
-								</TableHead>
-								<TableHead className='w-[28%] px-2 font-bold text-[11px] text-slate-800 uppercase'>
-									Nama Pokdakan
-								</TableHead>
-								<TableHead className='w-[14%] px-2 font-bold text-[11px] text-slate-800 uppercase'>
-									Kecamatan
-								</TableHead>
+				<div className='min-w-full not-print:mb-8 print:p-px'>
+					<table className='w-full table-auto border-collapse text-xs [&_td]:border [&_td]:border-slate-400 [&_td]:px-0.5 [&_td]:py-1.5 [&_th]:border [&_th]:border-slate-500 [&_th]:px-0.5 [&_th]:py-1.5'>
+						<thead>
+							<tr className='bg-slate-200 font-bold uppercase *:text-center *:text-[11px] *:text-slate-800'>
+								<th className='max-w-fit'>No</th>
+								<th className='max-w-[28%]'>Nama Pokdakan</th>
+								<th className='max-w-[14%]'>Kecamatan</th>
 								{months.map((m) => (
-									<TableHead
-										className='w-[4.5%] text-center font-bold text-[11px] text-slate-800 uppercase'
-										key={m}
-									>
+									<th className='max-w-fit' key={m}>
 										{m}
-									</TableHead>
+									</th>
 								))}
-							</TableRow>
-						</TableHeader>
-						<TableBody>
+							</tr>
+						</thead>
+						<tbody>
 							{allPokdakan.map((p, idx) => (
-								<TableRow className='hover:bg-slate-50/80' key={p.id}>
-									<TableCell className='text-center text-slate-500'>
-										{idx + 1}
-									</TableCell>
-									<TableCell className='truncate px-2 font-semibold text-slate-900'>
-										<div className='truncate font-semibold text-slate-900' title={p.nama_pokdakan}>
+								<tr className='not-print:hover:bg-slate-50/80' key={p.id}>
+									<td className='text-center'>{idx + 1}</td>
+									<td>
+										<div className='font-semibold text-slate-900' title={p.nama_pokdakan}>
 											{p.nama_pokdakan}
 										</div>
-										<div className='truncate font-normal text-[11px] text-slate-500' title={p.pemilik}>
+										<div className='text-slate-500' title={p.pemilik}>
 											{p.pemilik}
 										</div>
-									</TableCell>
-									<TableCell className='not-print:truncate px-2'>
-										<div className='truncate' title={p.kecamatan}>
-											{p.kecamatan}
-										</div>
-									</TableCell>
+									</td>
+									<td>
+										<div title={p.kecamatan}>{p.kecamatan}</div>
+									</td>
 									{months.map((_, mIdx) => {
 										const stat = matrix[p.id]?.[mIdx];
-										let cellContent = <span className='text-slate-300 text-xs'>-</span>;
+										let cellContent = <span className='text-xs text-slate-300'>-</span>;
 
 										if (stat === 'NORMAL') {
 											cellContent = (
 												<span
-													className='inline-flex size-3.5 items-center justify-center rounded-full bg-emerald-500 font-bold text-[10px] text-white'
+													className='inline-flex size-3 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-white'
 													title='Normal'
 												>
 													✓
@@ -149,7 +108,7 @@ export function RekapMatrixTable({
 										} else if (stat === 'PERINGATAN') {
 											cellContent = (
 												<span
-													className='inline-flex size-3.5 items-center justify-center rounded-full bg-amber-500 font-bold text-[10px] text-white'
+													className='inline-flex size-3 items-center justify-center rounded-full bg-amber-500 text-[10px] font-bold text-white'
 													title='Peringatan'
 												>
 													!
@@ -158,7 +117,7 @@ export function RekapMatrixTable({
 										} else if (stat === 'KRITIS') {
 											cellContent = (
 												<span
-													className='inline-flex size-3.5 items-center justify-center rounded-full bg-rose-600 font-bold text-[10px] text-white'
+													className='inline-flex size-3 items-center justify-center rounded-full bg-rose-600 text-[10px] font-bold text-white'
 													title='Kritis'
 												>
 													✕
@@ -167,46 +126,81 @@ export function RekapMatrixTable({
 										}
 
 										return (
-											<TableCell
-												className='text-center'
-												key={mIdx}
-											>
+											<td className='text-center' key={mIdx}>
 												{cellContent}
-											</TableCell>
+											</td>
 										);
 									})}
-								</TableRow>
+								</tr>
 							))}
 
-							{/* Baris Tanda Tangan di dalam Table Body */}
-							<TableRow className='border-slate-300 border-t hover:bg-transparent'>
-								<TableCell className='border-b-0 border-r-0 p-0 pt-6' colSpan={months.length + 3}>
-									<div className='grid grid-cols-2 gap-8 text-xs'>
-										<div className='text-center'>
-											<p className='mb-16'>{settings.pengelolaJabatan},</p>
-											<p className='font-bold uppercase underline'>{settings.pengelolaNama}</p>
-											{settings.pengelolaNip && <p className='text-xs'>NIP. {settings.pengelolaNip}</p>}
-										</div>
-
-										<div className='text-center'>
-											<p className=''>
-												{settings.lokasiTtd}, {formattedTanggalTtd}
-											</p>
-											<p className='mb-14'>Mengetahui, </p>
-											<p className='mb-14'>{settings.kepalaDinasJabatan},</p>
-											<p className='font-bold text-slate-900 uppercase underline'>{settings.kepalaDinasNama}</p>
-											{settings.kepalaDinasNip && <p className='text-xs'>NIP. {settings.kepalaDinasNip}</p>}
-										</div>
+							<tr>
+								<td className='border-0! p-0 pt-6 text-center' colSpan={months.length + 3}>
+									{/* Legend Status Indikator Mutu */}
+									<div className='mb-4 flex min-w-full flex-wrap items-center justify-center gap-3 text-xs font-medium'>
+										<Badge
+											className='gap-1.5 border-emerald-300 bg-emerald-50 text-emerald-800'
+											variant='outline'
+										>
+											<span className='size-2 rounded-full bg-emerald-600' />
+											<span>Memenuhi Baku Mutu (Normal)</span>
+										</Badge>
+										<Badge className='gap-1.5 border-amber-300 bg-amber-50 text-amber-800' variant='outline'>
+											<span className='size-2 rounded-full bg-amber-500' />
+											<span>Peringatan (Mendekati Batas)</span>
+										</Badge>
+										<Badge className='gap-1.5 border-rose-300 bg-rose-50 text-rose-800' variant='outline'>
+											<span className='size-2 rounded-full bg-rose-600' />
+											<span>Kritis (Melebihi/Kurang)</span>
+										</Badge>
+										<Badge className='gap-1.5 border-slate-300 bg-slate-50 text-slate-500' variant='outline'>
+											<span className='size-2 rounded-full bg-slate-300' />
+											<span>- (Belum Ada Uji)</span>
+										</Badge>
 									</div>
-								</TableCell>
-							</TableRow>
-						</TableBody>
+
+									{/* Baris Tanda Tangan di dalam Table Body */}
+									<table className='min-w-full table-fixed **:border-0! **:py-0!'>
+										<tbody>
+											<tr>
+												<td colSpan={2}>
+													{settings.lokasiTtd}, {formattedTanggalTtd}
+												</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td>Mengetahui,</td>
+											</tr>
+											<tr>
+												<td className='w-1/2'>{settings.pengelolaJabatan}</td>
+												<td className='w-1/2'>{settings.kepalaDinasJabatan}</td>
+											</tr>
+											<tr>
+												<td className='h-[2cm]' colSpan={2}></td>
+											</tr>
+											<tr>
+												<td className='leading-none'>
+													<p className='font-bold uppercase underline'>{settings.pengelolaNama}</p>
+													{settings.pengelolaNip && <p className='text-xs'>NIP. {settings.pengelolaNip}</p>}
+												</td>
+												<td className='leading-none'>
+													<p className='font-bold text-slate-900 uppercase underline'>
+														{settings.kepalaDinasNama}
+													</p>
+													{settings.kepalaDinasNip && <p className='text-xs'>NIP. {settings.kepalaDinasNip}</p>}
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
 
 						{/* Footer & QR Barcode Verifikasi Keaslian Dokumen */}
-						<tfoot className='border-slate-300 border-t border-dashed bg-white'>
+						<tfoot>
 							<tr>
-								<td className='border-b-0 border-r-0 p-3 pt-4 text-slate-500 text-xs' colSpan={months.length + 3}>
-									<div className='flex items-center justify-between'>
+								<td className='h-[2cm] border-0!' colSpan={months.length + 3}>
+									<div className='text-2xs bottom-0 flex min-w-full items-center justify-between px-3 text-slate-500 print:fixed'>
 										<div className='flex items-center gap-3'>
 											<Image
 												alt='QR Verifikasi'
@@ -218,23 +212,18 @@ export function RekapMatrixTable({
 												width={48}
 											/>
 											<div>
-												<p className='font-bold text-slate-700'>Verifikasi Dokumen Resmi Digital</p>
-												<p className='text-slate-400 text-xs'>
+												<p className='font-bold text-slate-700'>Dicetak melalui {APP_NAME}</p>
+												<p className='text-xs text-slate-400'>
 													Pindai QR untuk memverifikasi keaslian dokumen di portal {APP_CONFIG.name}{' '}
 													{APP_CONFIG.institution.regency}
 												</p>
 											</div>
 										</div>
-
-										<div className='text-right text-xs'>
-											<span className='block text-slate-400'>DOKUMEN REKAPITULASI TAHUNAN</span>
-											<p>Dicetak melalui {APP_NAME}</p>
-										</div>
 									</div>
 								</td>
 							</tr>
 						</tfoot>
-					</Table>
+					</table>
 				</div>
 			</div>
 		</div>

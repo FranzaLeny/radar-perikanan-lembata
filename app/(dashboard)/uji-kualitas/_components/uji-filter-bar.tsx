@@ -48,7 +48,7 @@ export function UjiFilterBar({
 				<div className='flex flex-col items-stretch justify-between gap-3 md:flex-row md:items-center'>
 					<InputGroup className='flex-1'>
 						<InputGroupAddon align='inline-start'>
-							<Search className='size-4 text-muted-foreground' />
+							<Search className='text-muted-foreground size-4' />
 						</InputGroupAddon>
 						<InputGroupInput
 							onChange={(e) => setSearchTerm(e.target.value)}
@@ -72,7 +72,7 @@ export function UjiFilterBar({
 
 					<div className='flex flex-wrap items-center gap-2.5'>
 						<div className='flex items-center gap-1.5'>
-							<span className='whitespace-nowrap text-muted-foreground text-xs'>Kecamatan:</span>
+							<span className='text-muted-foreground text-xs whitespace-nowrap'>Kecamatan:</span>
 							<Select onValueChange={(val) => val && setSelectedKecamatan(val)} value={selectedKecamatan}>
 								<SelectTrigger className='w-[140px]' size='sm'>
 									<SelectValue placeholder='Pilih Wilayah' />
@@ -93,7 +93,7 @@ export function UjiFilterBar({
 						</div>
 
 						<div className='flex items-center gap-1.5'>
-							<span className='whitespace-nowrap text-muted-foreground text-xs'>Status:</span>
+							<span className='text-muted-foreground text-xs whitespace-nowrap'>Status:</span>
 							<Select
 								onValueChange={(val) => val && setSelectedKesimpulan(val)}
 								value={selectedKesimpulan}
@@ -114,16 +114,16 @@ export function UjiFilterBar({
 
 				{/* Indikator Komparasi Filter */}
 				{isFiltered && (
-					<div className='flex items-center justify-between border-border/60 border-t pt-2 text-xs'>
+					<div className='border-border/60 flex items-center justify-between border-t pt-2 text-xs'>
 						<div className='flex items-center gap-2'>
 							<span className='text-muted-foreground'>
 								Menampilkan <strong className='text-foreground'>{filteredCount}</strong> dari{' '}
 								<strong className='text-foreground'>{totalCount}</strong> data pengujian
-								<span className='ml-1 font-medium text-muted-foreground'>(Hasil Filter)</span>
+								<span className='text-muted-foreground ml-1 font-medium'>(Hasil Filter)</span>
 							</span>
 						</div>
 						<Button
-							className='h-6 cursor-pointer text-muted-foreground text-xs hover:text-foreground'
+							className='text-muted-foreground hover:text-foreground h-6 cursor-pointer text-xs'
 							onClick={onReset}
 							size='xs'
 							variant='ghost'

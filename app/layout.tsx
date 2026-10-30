@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 			lang='id'
 			suppressHydrationWarning
 		>
-			<body className='flex max-h-full flex-col overflow-auto font-sans'>
+			<body className='flex max-h-full flex-col overflow-auto font-sans text-base'>
 				<ThemeProvider
 					attribute='class'
 					defaultTheme='light'

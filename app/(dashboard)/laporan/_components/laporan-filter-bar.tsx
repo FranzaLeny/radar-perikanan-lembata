@@ -69,7 +69,7 @@ export function LaporanFilterBar({
 			<div className='flex items-center gap-2'>
 				<InputGroup className='w-full sm:w-72'>
 					<InputGroupAddon align='inline-start'>
-						<Search className='size-4 text-muted-foreground' />
+						<Search className='text-muted-foreground size-4' />
 					</InputGroupAddon>
 					<InputGroupInput
 						onChange={(e) => setSearchQuery(e.target.value)}
@@ -93,7 +93,7 @@ export function LaporanFilterBar({
 
 				{isFiltered && (
 					<Button
-						className='cursor-pointer text-muted-foreground text-xs hover:text-foreground'
+						className='text-muted-foreground hover:text-foreground cursor-pointer text-xs'
 						onClick={onReset}
 						size='xs'
 						variant='ghost'

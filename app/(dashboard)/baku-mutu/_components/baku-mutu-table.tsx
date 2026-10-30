@@ -37,19 +37,19 @@ export function BakuMutuTable({
 				<Table>
 					<TableHeader>
 						<TableRow className='bg-muted/40 hover:bg-muted/40'>
-							<TableHead className='font-semibold text-xs'>Parameter Uji</TableHead>
-							<TableHead className='font-semibold text-xs'>Satuan</TableHead>
-							<TableHead className='font-semibold text-xs'>Ambang Batas Baku Mutu</TableHead>
-							<TableHead className='font-semibold text-xs'>Nomor Regulasi (LHU)</TableHead>
-							<TableHead className='font-semibold text-xs'>Dasar Regulasi Lengkap</TableHead>
-							<TableHead className='font-semibold text-xs'>Status Versi</TableHead>
-							<TableHead className='text-right font-semibold text-xs'>Aksi</TableHead>
+							<TableHead className='text-xs font-semibold'>Parameter Uji</TableHead>
+							<TableHead className='text-xs font-semibold'>Satuan</TableHead>
+							<TableHead className='text-xs font-semibold'>Ambang Batas Baku Mutu</TableHead>
+							<TableHead className='text-xs font-semibold'>Nomor Regulasi (LHU)</TableHead>
+							<TableHead className='text-xs font-semibold'>Dasar Regulasi Lengkap</TableHead>
+							<TableHead className='text-xs font-semibold'>Status Versi</TableHead>
+							<TableHead className='text-right text-xs font-semibold'>Aksi</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
 						{items.length === 0 ? (
 							<TableRow>
-								<TableCell className='py-8 text-center text-muted-foreground text-xs' colSpan={7}>
+								<TableCell className='text-muted-foreground py-8 text-center text-xs' colSpan={7}>
 									{searchTerm ? (
 										<div className='space-y-1.5'>
 											<p>Tidak ada parameter yang cocok dengan pencarian &ldquo;{searchTerm}&rdquo;.</p>
@@ -68,7 +68,7 @@ export function BakuMutuTable({
 
 								return (
 									<TableRow className='hover:bg-muted/30' key={item.id}>
-										<TableCell className='font-semibold text-foreground text-xs'>{item.parameter}</TableCell>
+										<TableCell className='text-foreground text-xs font-semibold'>{item.parameter}</TableCell>
 										<TableCell className='text-xs'>
 											<Badge variant='secondary'>{item.satuan}</Badge>
 										</TableCell>
@@ -83,13 +83,13 @@ export function BakuMutuTable({
 														<span>Deviasi ±{item.deviasi_toleransi || '2.00'}°C dari Suhu Udara</span>
 													</Badge>
 													{item.nilai_min && item.nilai_max && (
-														<p className='text-[11px] text-muted-foreground'>
+														<p className='text-muted-foreground text-[11px]'>
 															Acuan kisaran: {item.nilai_min} – {item.nilai_max} {item.satuan}
 														</p>
 													)}
 												</div>
 											) : (
-												<span className='font-medium text-foreground'>
+												<span className='text-foreground font-medium'>
 													{item.nilai_min !== null && item.nilai_max !== null
 														? `${item.nilai_min} – ${item.nilai_max}`
 														: item.nilai_min !== null
@@ -106,7 +106,7 @@ export function BakuMutuTable({
 											</Badge>
 										</TableCell>
 										<TableCell
-											className='max-w-xs truncate text-muted-foreground text-xs'
+											className='text-muted-foreground max-w-xs truncate text-xs'
 											title={item.dasar_regulasi || ''}
 										>
 											{item.dasar_regulasi || '-'}
@@ -122,7 +122,7 @@ export function BakuMutuTable({
 												</Badge>
 											) : (
 												<Badge variant='secondary'>
-													<History className='size-3 text-muted-foreground' />
+													<History className='text-muted-foreground size-3' />
 													<span>Arsip</span>
 												</Badge>
 											)}
