@@ -39,7 +39,7 @@
 		"embla-carousel-react": "^8.6.0",
 		"input-otp": "^1.5.0",
 		"lucide-react": "^1.55.0",
-		"next": "^16.4.0",
+		"next": "^16.4.3",
 		"next-themes": "^0.4.6",
 		"postgres": "^3.4.9",
 		"qrcode": "^1.5.4",
@@ -67,6 +67,13 @@
 		"typescript": "7"
 	},
 	"packageManager": "bun@1.4.2",
-	"ignoreScripts": ["sharp", "unrs-resolver"],
-	"trustedDependencies": ["esbuild", "sharp", "unrs-resolver"]
+	"ignoreScripts": [
+		"sharp",
+		"unrs-resolver"
+	],
+	"trustedDependencies": [
+		"esbuild",
+		"sharp",
+		"unrs-resolver"
+	]
 }
