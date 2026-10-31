@@ -19,6 +19,9 @@ export function SiteFooter({ className }: SiteFooterProps) {
 						alt='Logo Lembata'
 						className='h-5 w-auto object-contain'
 						height={20}
+						loading='lazy'
+						preload={false}
+						priority={false}
 						src={APP_CONFIG.logo.kabupaten}
 						width={16}
 					/>

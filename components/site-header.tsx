@@ -42,7 +42,9 @@ export function SiteHeader({ className, showNavLinks = true, action }: SiteHeade
 							alt='Logo Kabupaten Lembata'
 							className='h-full w-auto object-contain'
 							height={40}
-							priority
+							loading='lazy'
+							preload={false}
+							priority={false}
 							src={APP_CONFIG.logo.kabupaten}
 							width={32}
 						/>

@@ -64,7 +64,9 @@ export default async function CetakLabelPage({ params }: { params: Promise<{ id:
 								alt='Logo Kabupaten Lembata'
 								className='h-9 w-auto shrink-0 object-contain'
 								height={36}
-								priority
+								loading='lazy'
+								preload={false}
+								priority={false}
 								src={APP_CONFIG.logo.kabupaten}
 								width={36}
 							/>

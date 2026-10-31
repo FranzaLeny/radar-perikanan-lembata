@@ -94,7 +94,9 @@ export default async function PublicVerificationPage({
 						alt='Logo Kabupaten Lembata'
 						className='h-7 w-auto object-contain'
 						height={28}
-						priority
+						loading='lazy'
+						preload={false}
+						priority={false}
 						src={APP_CONFIG.logo.kabupaten}
 						width={28}
 					/>
@@ -102,7 +104,9 @@ export default async function PublicVerificationPage({
 						alt={BRAND_NAME}
 						className='size-7 object-contain'
 						height={28}
-						priority
+						loading='lazy'
+						preload={false}
+						priority={false}
 						src={APP_CONFIG.logo.app}
 						width={28}
 					/>
@@ -129,7 +133,9 @@ export default async function PublicVerificationPage({
 								alt='Logo Pemerintah Kabupaten Lembata'
 								className='h-16 w-auto object-contain drop-shadow-sm'
 								height={64}
-								priority
+								loading='lazy'
+								preload={false}
+								priority={false}
 								src={APP_CONFIG.logo.kabupaten}
 								width={64}
 							/>
@@ -138,7 +144,9 @@ export default async function PublicVerificationPage({
 								alt={BRAND_NAME}
 								className='h-16 w-auto object-contain drop-shadow-sm'
 								height={64}
-								priority
+								loading='lazy'
+								preload={false}
+								priority={false}
 								src={APP_CONFIG.logo.app}
 								width={64}
 							/>

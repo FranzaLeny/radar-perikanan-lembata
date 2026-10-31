@@ -36,6 +36,9 @@ export default async function HomePage() {
 					alt='Ilustrasi Pemandangan Budidaya Lembata'
 					className='size-full object-cover object-[center_top]'
 					height={720}
+					loading='lazy'
+					preload={false}
+					priority={false}
 					quality={100}
 					src='/images/hero-bg-lembata.jpg'
 					width={1080}

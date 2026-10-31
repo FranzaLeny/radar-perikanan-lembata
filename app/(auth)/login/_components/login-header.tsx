@@ -11,7 +11,9 @@ export function LoginHeader() {
 					alt='Logo Pemerintah Kabupaten Lembata'
 					className='h-14 w-auto object-contain drop-shadow-xs'
 					height={56}
-					priority
+					loading='lazy'
+					preload={false}
+					priority={false}
 					src={APP_CONFIG.logo.kabupaten}
 					width={56}
 				/>
@@ -20,7 +22,9 @@ export function LoginHeader() {
 					alt={`Logo ${APP_CONFIG.name}`}
 					className='h-14 w-auto object-contain drop-shadow-xs'
 					height={56}
-					priority
+					loading='lazy'
+					preload={false}
+					priority={false}
 					src={APP_CONFIG.logo.app}
 					width={56}
 				/>

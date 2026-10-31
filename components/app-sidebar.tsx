@@ -238,7 +238,9 @@ export function AppSidebar({ user, className, ...props }: AppSidebarProps) {
 									alt={APP_CONFIG.name}
 									className='size-8 rounded-md object-contain drop-shadow-xs'
 									height={32}
-									priority
+									loading='lazy'
+									preload={false}
+									priority={false}
 									src={APP_CONFIG.logo.app}
 									width={32}
 								/>
