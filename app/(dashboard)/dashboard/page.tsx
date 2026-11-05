@@ -1,4 +1,5 @@
 import { count, desc, eq } from 'drizzle-orm';
+import type { Metadata } from 'next';
 
 import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
@@ -7,6 +8,12 @@ import { DashboardBakuMutuCard } from './_components/dashboard-baku-mutu-card';
 import { DashboardBanner } from './_components/dashboard-banner';
 import { DashboardKpiGrid } from './_components/dashboard-kpi-grid';
 import { DashboardRecentTestsCard } from './_components/dashboard-recent-tests-card';
+
+export const metadata: Metadata = {
+	title: 'Dashboard Pemantauan Mutu Air',
+	description:
+		'Ringkasan capaian kepatuhan baku mutu perikanan budidaya Kabupaten Lembata secara terpadu.'
+};
 
 export default async function DashboardMainPage() {
 	// Query data statistik

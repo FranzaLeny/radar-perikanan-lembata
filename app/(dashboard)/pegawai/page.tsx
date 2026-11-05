@@ -1,15 +1,14 @@
 import { desc } from 'drizzle-orm';
+import type { Metadata } from 'next';
 
 import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import { masterPegawai } from '@/db/schema';
-import { APP_CONFIG } from '@/lib/constants';
 import { PegawaiClient } from './client';
 
-export const metadata = {
-	title: `Master Pegawai & Pejabat Penandatangan — ${APP_CONFIG.name}`,
-	description:
-		'Kelola data ASN, personil dinas, petugas penguji lapangan, dan pejabat penandatangan resmi LHU.'
+export const metadata: Metadata = {
+	title: 'Master Pegawai & Pejabat Penandatangan',
+	description: 'Kelola data ASN dinas, personil penguji lapangan, dan pejabat pengesahan LHU resmi.'
 };
 
 export default async function PegawaiPage() {

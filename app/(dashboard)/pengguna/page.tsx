@@ -1,4 +1,5 @@
 import { ShieldAlert } from 'lucide-react';
+import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 
 import { LateralTransition } from '@/components/transitions/page-transition';
@@ -6,6 +7,11 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { auth, getCurrentUser } from '@/lib/auth';
 import { PenggunaClient } from './client';
+
+export const metadata: Metadata = {
+	title: 'Manajemen Pengguna & Hak Akses',
+	description: 'Pengaturan akun petugas lapangan, pengelola laboratorium, dan administrator sistem.'
+};
 
 export default async function PenggunaPage() {
 	const user = await getCurrentUser();

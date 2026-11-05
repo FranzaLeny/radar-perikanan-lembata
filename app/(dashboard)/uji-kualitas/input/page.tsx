@@ -1,5 +1,6 @@
 import { desc, eq } from 'drizzle-orm';
 import { ArrowLeft, TestTube2 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { FormUjiLapangan } from '@/components/form-uji-lapangan';
@@ -9,6 +10,11 @@ import { DirectionalTransition } from '@/components/transitions/page-transition'
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { getCurrentUser } from '@/lib/auth';
+
+export const metadata: Metadata = {
+	title: 'Formulir Entri Uji Kualitas Air',
+	description: 'Pencatatan hasil pengukuran parameter fisika dan kimia air kolam budidaya perikanan.'
+};
 
 export default async function InputUjiKualitasPage({
 	searchParams

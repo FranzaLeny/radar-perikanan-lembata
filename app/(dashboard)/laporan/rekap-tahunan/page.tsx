@@ -1,8 +1,16 @@
+import type { Metadata } from 'next';
+
 import { DirectionalTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import { lokasiKolam, masterPegawai } from '@/db/schema';
 import { generateQrDataUrl } from '@/lib/qr';
 import { RekapTahunanClient } from './rekap-tahunan-client';
+
+export const metadata: Metadata = {
+	title: 'Matriks Rekapitulasi Mutu Tahunan',
+	description:
+		'Rekapitulasi kepatuhan mutu air per Pokdakan dan kecamatan untuk evaluasi tahunan pimpinan.'
+};
 
 export default async function RekapTahunanPage() {
 	const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';

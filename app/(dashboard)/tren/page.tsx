@@ -1,9 +1,16 @@
 import { asc, eq } from 'drizzle-orm';
+import type { Metadata } from 'next';
 
 import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { TrenClient } from './client';
+
+export const metadata: Metadata = {
+	title: 'Analisis Tren & Fluktuasi Mutu Air',
+	description:
+		'Visualisasi grafik tren berkala parameter mutu air kolam terhadap batas aman regulasi.'
+};
 
 export default async function TrenPage() {
 	const [bakuMutuList, lokasiList, allUjiWithDetails] = await Promise.all([

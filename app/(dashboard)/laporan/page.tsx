@@ -1,5 +1,6 @@
 import { desc } from 'drizzle-orm';
 import { ArrowRight, FileSpreadsheet, TrendingUp } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { Button } from '@/components/shadcn/button';
@@ -9,6 +10,12 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { APP_CONFIG } from '@/lib/constants';
 import { LaporanTableClient } from './laporan-table-client';
+
+export const metadata: Metadata = {
+	title: 'Pusat Laporan & Lembar Hasil Uji',
+	description:
+		'Penerbitan Lembar Hasil Uji (LHU) resmi dan rekapitulasi mutu air perikanan budidaya.'
+};
 
 export default async function LaporanHubPage() {
 	const allUji = await db.query.ujiKualitasAir.findMany({

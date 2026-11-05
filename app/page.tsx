@@ -16,6 +16,7 @@ import {
 	TestTube2,
 	TrendingUp
 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -25,6 +26,12 @@ import { Card, CardContent } from '@/components/shadcn/card';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { APP_CONFIG } from '@/lib/constants';
+
+export const metadata: Metadata = {
+	title: { absolute: `${APP_CONFIG.name} | Rekapitulasi Mutu Air Kolam Budidaya Lembata` },
+	description:
+		'Instrumen digital terpadu Dinas Perikanan Kabupaten Lembata untuk rekapitulasi data pengujian mutu air kolam budidaya.'
+};
 
 export default async function HomePage() {
 	'use cache';

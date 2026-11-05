@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { ArrowLeft, ShieldCheck, TestTube2 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -13,6 +14,24 @@ import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
 import { generateQrDataUrl, generateQrSvg, getVerificationUrl } from '@/lib/qr';
+
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+	const { id } = await params;
+	const ik = await db.query.instruksiKerja.findFirst({
+		where: eq(schema.instruksiKerja.id, id),
+		columns: { kode_ik: true }
+	});
+
+	return {
+		title: ik?.kode_ik ? `Label QR Dokumen — ${ik.kode_ik}` : 'Label QR Dokumen Mutu',
+		description:
+			'Cetak stiker label kode QR otentikasi dokumen standarisasi mutu laboratorium perikanan.'
+	};
+}
 
 export default async function CetakLabelDokumenPage({
 	params

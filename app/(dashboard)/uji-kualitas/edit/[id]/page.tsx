@@ -1,5 +1,6 @@
 import { desc, eq } from 'drizzle-orm';
 import { ArrowLeft, TestTube2 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 
@@ -10,9 +11,26 @@ import { DirectionalTransition } from '@/components/transitions/page-transition'
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { getCurrentUser } from '@/lib/auth';
-import { APP_CONFIG } from '@/lib/constants';
 
-export const metadata = { title: `Edit Hasil Uji Kualitas Air — ${APP_CONFIG.name}` };
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+	const { id } = await params;
+	const uji = await db.query.ujiKualitasAir.findFirst({
+		where: eq(schema.ujiKualitasAir.id, id),
+		columns: { nomor_sampel: true }
+	});
+
+	return {
+		title: uji?.nomor_sampel
+			? `Edit Data Uji Sampel ${uji.nomor_sampel}`
+			: 'Edit Hasil Uji Kualitas Air',
+		description:
+			'Perbarui parameter pengukuran lapangan dan catatan hasil uji sebelum dokumen difinalkan.'
+	};
+}
 
 export default async function EditUjiKualitasPage({ params }: { params: Promise<{ id: string }> }) {
 	const { id } = await params;

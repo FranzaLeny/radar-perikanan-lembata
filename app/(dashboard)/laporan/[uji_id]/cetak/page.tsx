@@ -1,5 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -14,6 +15,26 @@ import { LhuKopSurat } from './_components/lhu-kop-surat';
 import { LhuMetadataCard } from './_components/lhu-metadata-card';
 import { LhuParameterTable } from './_components/lhu-parameter-table';
 import type { RekomendasiItem } from './types';
+
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ uji_id: string }>;
+}): Promise<Metadata> {
+	const { uji_id } = await params;
+	const uji = await db.query.ujiKualitasAir.findFirst({
+		where: eq(schema.ujiKualitasAir.id, uji_id),
+		columns: { nomor_sampel: true }
+	});
+
+	return {
+		title: uji?.nomor_sampel
+			? `Cetak LHU Resmi — Sampel ${uji.nomor_sampel}`
+			: 'Cetak Lembar Hasil Uji',
+		description:
+			'Lembar Hasil Uji kualitas air kolam resmi Dinas Perikanan Lembata berotentikasi QR code.'
+	};
+}
 
 export default async function CetakLhuPage({ params }: { params: Promise<{ uji_id: string }> }) {
 	const { uji_id } = await params;

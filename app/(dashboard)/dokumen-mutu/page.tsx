@@ -1,9 +1,16 @@
 import { asc, desc, eq } from 'drizzle-orm';
+import type { Metadata } from 'next';
 
 import { DirectionalTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { DokumenMutuClient } from './client';
+
+export const metadata: Metadata = {
+	title: 'Katalog Dokumen Mutu & SOP Lab',
+	description:
+		'Standarisasi dokumen mutu laboratorium: Pedoman, SOP, Instruksi Kerja, dan Formulir resmi.'
+};
 
 export default async function DokumenMutuPage() {
 	// 1. Ambil daftar Dokumen Mutu beserta relasi Kategori

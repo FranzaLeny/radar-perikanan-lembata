@@ -8,6 +8,7 @@ import {
 	ShieldCheck,
 	Sparkles
 } from 'lucide-react';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -26,6 +27,21 @@ import { ThemeToggle } from '@/components/theme-toggle';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { APP_CONFIG, BRAND_NAME } from '@/lib/constants';
+
+export async function generateMetadata({
+	params
+}: {
+	params: Promise<{ hash: string }>;
+}): Promise<Metadata> {
+	const { hash } = await params;
+	const isPreview = hash === 'preview' || hash === 'sample-preview';
+
+	return {
+		title: isPreview ? 'Preview Verifikasi Dokumen QR' : 'Verifikasi Keabsahan Dokumen QR',
+		description:
+			'Portal publik validasi keaslian Lembar Hasil Uji (LHU) dan Dokumen Mutu Dinas Perikanan Kabupaten Lembata.'
+	};
+}
 
 export default async function PublicVerificationPage({
 	params,
