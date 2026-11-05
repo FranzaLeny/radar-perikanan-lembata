@@ -351,12 +351,13 @@ body {
 	animation: none;
 }
 ::view-transition-old(dashboard-header),
-::view-transition-new(dashboard-header),
 ::view-transition-old(dashboard-sidebar),
-::view-transition-new(dashboard-sidebar),
-::view-transition-old(dashboard-footer),
-::view-transition-new(dashboard-footer) {
+::view-transition-old(dashboard-footer) {
 	display: none;
+}
+::view-transition-new(dashboard-header),
+::view-transition-new(dashboard-sidebar),
+::view-transition-new(dashboard-footer) {
 	animation: none;
 }
 
