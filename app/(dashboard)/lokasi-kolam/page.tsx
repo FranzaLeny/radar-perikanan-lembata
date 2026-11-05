@@ -1,3 +1,4 @@
+import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { LokasiKolamClient } from './client';
@@ -7,5 +8,9 @@ export default async function LokasiKolamPage() {
 		orderBy: [schema.lokasiKolam.kecamatan, schema.lokasiKolam.nama_pokdakan]
 	});
 
-	return <LokasiKolamClient initialList={lokasiList} />;
+	return (
+		<LateralTransition>
+			<LokasiKolamClient initialList={lokasiList} />
+		</LateralTransition>
+	);
 }

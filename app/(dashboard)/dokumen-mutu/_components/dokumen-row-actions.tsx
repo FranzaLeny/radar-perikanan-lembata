@@ -45,7 +45,11 @@ export function DokumenRowActions({
 					<span>Lihat Dokumen PDF</span>
 				</DropdownMenuItem>
 
-				<DropdownMenuItem onClick={() => router.push(`/dokumen-mutu/${item.id}/cetak-label`)}>
+				<DropdownMenuItem
+					onClick={() =>
+						router.push(`/dokumen-mutu/${item.id}/cetak-label`, { transitionTypes: ['nav-forward'] })
+					}
+				>
 					<QrCode className='text-muted-foreground mr-2 size-3.5' />
 					<span>Cetak Label QR</span>
 				</DropdownMenuItem>

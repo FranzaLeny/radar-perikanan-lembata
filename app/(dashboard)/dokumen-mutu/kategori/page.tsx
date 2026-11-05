@@ -1,5 +1,6 @@
 import { asc } from 'drizzle-orm';
 
+import { DirectionalTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { KategoriDokumenClient } from './client';
@@ -12,5 +13,9 @@ export default async function KategoriDokumenPage() {
 		]
 	});
 
-	return <KategoriDokumenClient initialList={kategoriList} />;
+	return (
+		<DirectionalTransition>
+			<KategoriDokumenClient initialList={kategoriList} />
+		</DirectionalTransition>
+	);
 }

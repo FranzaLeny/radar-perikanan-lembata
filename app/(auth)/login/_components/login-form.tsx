@@ -68,7 +68,7 @@ export function LoginForm() {
 
 			if (!error && data) {
 				toast.success(`Berhasil masuk ke sistem ${APP_CONFIG.name}!`);
-				router.push('/dashboard');
+				router.push('/dashboard', { transitionTypes: ['nav-forward'] });
 				router.refresh();
 			} else if (error) {
 				setErrorMessage(error.message || 'Email atau kata sandi tidak cocok.');

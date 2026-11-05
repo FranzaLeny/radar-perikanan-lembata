@@ -402,7 +402,11 @@ export function InstruksiKerjaClient({ initialList }: { initialList: IKItem[] })
 														</DropdownMenuItem>
 														<DropdownMenuItem
 															className='cursor-pointer gap-2 text-xs'
-															onClick={() => router.push(`/instruksi-kerja/${item.id}/cetak-label`)}
+															onClick={() =>
+																router.push(`/instruksi-kerja/${item.id}/cetak-label`, {
+																	transitionTypes: ['nav-forward']
+																})
+															}
 														>
 															<QrCode className='text-muted-foreground size-3.5' />
 															<span>Cetak Label QR</span>

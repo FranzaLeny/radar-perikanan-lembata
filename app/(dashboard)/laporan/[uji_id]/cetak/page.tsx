@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { PrintButton } from '@/components/print-button';
 import { Button } from '@/components/shadcn/button';
+import { DirectionalTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { generateQrDataUrl, getVerificationUrl } from '@/lib/qr';
@@ -13,8 +14,6 @@ import { LhuKopSurat } from './_components/lhu-kop-surat';
 import { LhuMetadataCard } from './_components/lhu-metadata-card';
 import { LhuParameterTable } from './_components/lhu-parameter-table';
 import type { RekomendasiItem } from './types';
-
-export const instant = false;
 
 export default async function CetakLhuPage({ params }: { params: Promise<{ uji_id: string }> }) {
 	const { uji_id } = await params;
@@ -75,65 +74,67 @@ export default async function CetakLhuPage({ params }: { params: Promise<{ uji_i
 			: 'Standar Operasional Dinas (Umum)';
 
 	return (
-		<div className='space-y-6 print:m-0 print:space-y-0 print:p-0'>
-			{/* Top Action Bar (hidden when printing) */}
-			<div className='no-print flex items-center justify-between'>
-				<Link href='/laporan'>
-					<Button
-						className='text-muted-foreground hover:text-foreground cursor-pointer gap-1.5 text-xs'
-						size='sm'
-						variant='ghost'
+		<DirectionalTransition>
+			<div className='space-y-6 print:m-0 print:space-y-0 print:p-0'>
+				{/* Top Action Bar (hidden when printing) */}
+				<div className='no-print flex items-center justify-between'>
+					<Link href='/laporan' transitionTypes={['nav-back']}>
+						<Button
+							className='text-muted-foreground hover:text-foreground cursor-pointer gap-1.5 text-xs'
+							size='sm'
+							variant='ghost'
+						>
+							<ArrowLeft className='size-4' />
+							<span>Kembali ke Pusat Laporan</span>
+						</Button>
+					</Link>
+
+					<PrintButton label='Cetak Lembar Hasil Uji (A4)' />
+				</div>
+
+				{/* A4 Paper Document Canvas (Strict Arial Font Rule for Official LHU) */}
+				<div className='flex justify-center print:m-0 print:p-0'>
+					<div
+						className='print-area lhu-print-document w-fit border-slate-300 bg-white p-8 text-slate-900 not-print:overflow-x-auto not-print:rounded-xl not-print:border not-print:shadow-xl sm:p-12 print:border-none print:p-0 print:shadow-none'
+						style={{ fontFamily: 'Arial, var(--font-geist-sans), sans-serif' }}
 					>
-						<ArrowLeft className='size-4' />
-						<span>Kembali ke Pusat Laporan</span>
-					</Button>
-				</Link>
+						<div className='not-print:p-0'>
+							<LhuKopSurat nomorSampel={uji.nomor_sampel} />
 
-				<PrintButton label='Cetak Lembar Hasil Uji (A4)' />
-			</div>
+							<LhuMetadataCard
+								desa={uji.lokasi?.desa}
+								formattedDate={formattedDate}
+								kecamatan={uji.lokasi?.kecamatan}
+								komoditasIkan={uji.lokasi?.komoditas_ikan}
+								namaPokdakan={uji.lokasi?.nama_pokdakan}
+								nomorSampel={uji.nomor_sampel}
+								pemilik={uji.lokasi?.pemilik}
+								sopAcuan={sopAcuan}
+								suhuLingkungan={uji.suhu_lingkungan}
+							/>
 
-			{/* A4 Paper Document Canvas (Strict Arial Font Rule for Official LHU) */}
-			<div className='flex justify-center print:m-0 print:p-0'>
-				<div
-					className='print-area lhu-print-document w-fit border-slate-300 bg-white p-8 text-slate-900 not-print:overflow-x-auto not-print:rounded-xl not-print:border not-print:shadow-xl sm:p-12 print:border-none print:p-0 print:shadow-none'
-					style={{ fontFamily: 'Arial, var(--font-geist-sans), sans-serif' }}
-				>
-					<div className='not-print:p-0'>
-						<LhuKopSurat nomorSampel={uji.nomor_sampel} />
-
-						<LhuMetadataCard
-							desa={uji.lokasi?.desa}
-							formattedDate={formattedDate}
-							kecamatan={uji.lokasi?.kecamatan}
-							komoditasIkan={uji.lokasi?.komoditas_ikan}
-							namaPokdakan={uji.lokasi?.nama_pokdakan}
-							nomorSampel={uji.nomor_sampel}
-							pemilik={uji.lokasi?.pemilik}
-							sopAcuan={sopAcuan}
-							suhuLingkungan={uji.suhu_lingkungan}
-						/>
-
-						<LhuParameterTable
-							catatanLapangan={uji.catatan_lapangan}
-							formattedDate={formattedDate}
-							jabatanPenandatangan={jabatanPenandatangan}
-							jabatanPenguji={jabatanPenguji}
-							kesimpulan={uji.kesimpulan}
-							kesimpulanUmum={uji.kesimpulan_umum}
-							namaPenandatangan={namaPenandatangan}
-							namaPenguji={namaPenguji}
-							nipPenandatangan={nipPenandatangan}
-							nipPenguji={nipPenguji}
-							pangkatPenandatangan={pangkatPenandatangan}
-							parameters={uji.detailParameters}
-							qrDataUrl={qrDataUrl}
-							rekomendasiList={rekomendasiList}
-							saranRekomendasiLapangan={uji.saran_rekomendasi_lapangan}
-							ujiId={uji.id}
-						/>
+							<LhuParameterTable
+								catatanLapangan={uji.catatan_lapangan}
+								formattedDate={formattedDate}
+								jabatanPenandatangan={jabatanPenandatangan}
+								jabatanPenguji={jabatanPenguji}
+								kesimpulan={uji.kesimpulan}
+								kesimpulanUmum={uji.kesimpulan_umum}
+								namaPenandatangan={namaPenandatangan}
+								namaPenguji={namaPenguji}
+								nipPenandatangan={nipPenandatangan}
+								nipPenguji={nipPenguji}
+								pangkatPenandatangan={pangkatPenandatangan}
+								parameters={uji.detailParameters}
+								qrDataUrl={qrDataUrl}
+								rekomendasiList={rekomendasiList}
+								saranRekomendasiLapangan={uji.saran_rekomendasi_lapangan}
+								ujiId={uji.id}
+							/>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</DirectionalTransition>
 	);
 }

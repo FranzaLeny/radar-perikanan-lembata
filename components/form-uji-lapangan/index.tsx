@@ -492,7 +492,7 @@ export function FormUjiLapangan({
 				const res = await updateHasilUjiAction(existingUji.id, payload);
 				if (res.success) {
 					toast.success(res.message || 'Data pengujian berhasil diperbarui.');
-					router.push(`/laporan`);
+					router.push('/laporan', { transitionTypes: ['nav-back'] });
 					router.refresh();
 				} else {
 					if (res.errors) {
@@ -506,7 +506,7 @@ export function FormUjiLapangan({
 
 				if (res.success && res.data) {
 					toast.success(res.message || 'Hasil uji lapangan berhasil disimpan.');
-					router.push(`/laporan/${res.data.id}/cetak`);
+					router.push(`/laporan/${res.data.id}/cetak`, { transitionTypes: ['nav-forward'] });
 				} else {
 					if (res.errors) {
 						setFieldErrors(res.errors as Record<string, string[]>);

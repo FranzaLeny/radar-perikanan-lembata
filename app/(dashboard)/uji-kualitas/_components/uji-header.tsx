@@ -23,7 +23,7 @@ export function UjiHeader() {
 				</p>
 			</div>
 
-			<Link href='/uji-kualitas/input'>
+			<Link href='/uji-kualitas/input' transitionTypes={['nav-forward']}>
 				<Button className='cursor-pointer gap-2 self-start shadow-xs sm:self-auto'>
 					<Plus className='size-4' />
 					<span>Input Hasil Uji Baru</span>

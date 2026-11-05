@@ -1,5 +1,6 @@
 import { asc, eq } from 'drizzle-orm';
 
+import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { TrenClient } from './client';
@@ -18,6 +19,8 @@ export default async function TrenPage() {
 	]);
 
 	return (
-		<TrenClient bakuMutuList={bakuMutuList} lokasiList={lokasiList} ujiList={allUjiWithDetails} />
+		<LateralTransition>
+			<TrenClient bakuMutuList={bakuMutuList} lokasiList={lokasiList} ujiList={allUjiWithDetails} />
+		</LateralTransition>
 	);
 }

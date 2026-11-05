@@ -1,5 +1,6 @@
 import { count, desc, eq } from 'drizzle-orm';
 
+import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { DashboardBakuMutuCard } from './_components/dashboard-baku-mutu-card';
@@ -35,23 +36,25 @@ export default async function DashboardMainPage() {
 	const complianceRate = totalUjiCount > 0 ? Math.round((normalCount / totalUjiCount) * 100) : 100;
 
 	return (
-		<div className='space-y-6'>
-			<DashboardBanner />
+		<LateralTransition>
+			<div className='space-y-6'>
+				<DashboardBanner />
 
-			<DashboardKpiGrid
-				complianceRate={complianceRate}
-				criticalCount={criticalCount}
-				normalCount={normalCount}
-				totalIk={totalIk[0]?.count || 0}
-				totalPokdakan={totalPokdakan[0]?.count || 0}
-				totalUjiCount={totalUjiCount}
-				warningCount={warningCount}
-			/>
+				<DashboardKpiGrid
+					complianceRate={complianceRate}
+					criticalCount={criticalCount}
+					normalCount={normalCount}
+					totalIk={totalIk[0]?.count || 0}
+					totalPokdakan={totalPokdakan[0]?.count || 0}
+					totalUjiCount={totalUjiCount}
+					warningCount={warningCount}
+				/>
 
-			<div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
-				<DashboardBakuMutuCard items={bakuMutuAktif} />
-				<DashboardRecentTestsCard items={allUji} />
+				<div className='grid grid-cols-1 gap-6 lg:grid-cols-3'>
+					<DashboardBakuMutuCard items={bakuMutuAktif} />
+					<DashboardRecentTestsCard items={allUji} />
+				</div>
 			</div>
-		</div>
+		</LateralTransition>
 	);
 }

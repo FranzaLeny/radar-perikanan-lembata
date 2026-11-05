@@ -20,7 +20,7 @@ export function RekapActionBar({
 	return (
 		<div className='border-border bg-muted/40 flex flex-col gap-4 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between print:hidden'>
 			<div className='flex items-center gap-3'>
-				<Link href='/laporan'>
+				<Link href='/laporan' transitionTypes={['nav-back']}>
 					<Button className='cursor-pointer gap-1.5 text-xs' size='sm' variant='ghost'>
 						<ArrowLeft className='size-4' />
 						<span>Kembali ke Laporan</span>

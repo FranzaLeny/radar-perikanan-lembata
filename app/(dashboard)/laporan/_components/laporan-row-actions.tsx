@@ -35,7 +35,7 @@ export function LaporanRowActions({ item, onUpdateStatus, onDelete }: LaporanRow
 
 	return (
 		<div className='flex items-center justify-end gap-1.5'>
-			<Link href={`/laporan/${item.id}/cetak`}>
+			<Link href={`/laporan/${item.id}/cetak`} transitionTypes={['nav-forward']}>
 				<Button className='h-7 cursor-pointer gap-1 px-2' size='xs'>
 					<Printer className='size-3' />
 					<span className='hidden sm:inline'>Cetak</span>
@@ -52,7 +52,7 @@ export function LaporanRowActions({ item, onUpdateStatus, onDelete }: LaporanRow
 				<DropdownMenuContent align='end'>
 					<DropdownMenuItem
 						className='cursor-pointer'
-						onClick={() => router.push(`/laporan/${item.id}/cetak`)}
+						onClick={() => router.push(`/laporan/${item.id}/cetak`, { transitionTypes: ['nav-forward'] })}
 					>
 						<Printer className='mr-2 size-3.5' />
 						Cetak Lembar LHU
@@ -61,7 +61,9 @@ export function LaporanRowActions({ item, onUpdateStatus, onDelete }: LaporanRow
 					{isDraft && (
 						<DropdownMenuItem
 							className='cursor-pointer'
-							onClick={() => router.push(`/uji-kualitas/edit/${item.id}`)}
+							onClick={() =>
+								router.push(`/uji-kualitas/edit/${item.id}`, { transitionTypes: ['nav-forward'] })
+							}
 						>
 							<FileEdit className='mr-2 size-3.5 text-blue-600' />
 							Edit Data Uji (Draft)

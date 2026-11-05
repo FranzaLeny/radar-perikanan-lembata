@@ -244,3 +244,142 @@ body {
 		@apply font-sans;
 	}
 }
+
+/* ========================================================================= */
+/* REACT VIEW TRANSITIONS RECIPES (Vercel Agent Skill)                      */
+/* ========================================================================= */
+
+:root {
+	--vt-duration-exit: 150ms;
+	--vt-duration-enter: 210ms;
+	--vt-duration-move: 380ms;
+}
+
+/* Keyframes Standar */
+@keyframes vt-fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes vt-slide-x {
+	from {
+		translate: var(--slide-offset);
+	}
+	to {
+		translate: 0;
+	}
+}
+
+@keyframes vt-slide-y {
+	from {
+		transform: translateY(var(--slide-y-offset, 12px));
+	}
+	to {
+		transform: translateY(0);
+	}
+}
+
+/* Interaktivitas: Lewatkan pointer event selama transisi */
+::view-transition {
+	pointer-events: none;
+}
+
+/* Live Root: Nonaktifkan root crossfade agar UI tidak freeze */
+::view-transition-old(root) {
+	display: none;
+}
+::view-transition-new(root) {
+	animation: none;
+}
+
+/* 1. Directional Page Transitions (nav-forward & nav-back) */
+::view-transition-old(.nav-forward) {
+	--slide-offset: -50px;
+	animation:
+		var(--vt-duration-exit) ease-in both vt-fade reverse,
+		var(--vt-duration-move) cubic-bezier(0.16, 1, 0.3, 1) both vt-slide-x reverse;
+}
+::view-transition-new(.nav-forward) {
+	--slide-offset: 50px;
+	animation:
+		var(--vt-duration-enter) ease-out var(--vt-duration-exit) both vt-fade,
+		var(--vt-duration-move) cubic-bezier(0.16, 1, 0.3, 1) both vt-slide-x;
+}
+
+::view-transition-old(.nav-back) {
+	--slide-offset: 50px;
+	animation:
+		var(--vt-duration-exit) ease-in both vt-fade reverse,
+		var(--vt-duration-move) cubic-bezier(0.16, 1, 0.3, 1) both vt-slide-x reverse;
+}
+::view-transition-new(.nav-back) {
+	--slide-offset: -50px;
+	animation:
+		var(--vt-duration-enter) ease-out var(--vt-duration-exit) both vt-fade,
+		var(--vt-duration-move) cubic-bezier(0.16, 1, 0.3, 1) both vt-slide-x;
+}
+
+/* 2. Lateral Crossfade (Tab / Menu Sidebar) */
+::view-transition-old(.fade-out) {
+	animation: var(--vt-duration-exit) ease-in both vt-fade reverse;
+}
+::view-transition-new(.fade-in) {
+	animation: var(--vt-duration-enter) ease-out var(--vt-duration-exit) both vt-fade;
+}
+
+/* 3. Suspense Reveals (loading.tsx -> page.tsx) */
+::view-transition-old(.slide-down) {
+	animation:
+		var(--vt-duration-exit) ease-out both vt-fade reverse,
+		var(--vt-duration-exit) ease-out both vt-slide-y reverse;
+}
+::view-transition-new(.slide-up) {
+	animation:
+		var(--vt-duration-enter) ease-in var(--vt-duration-exit) both vt-fade,
+		var(--vt-duration-move) ease-in both vt-slide-y;
+}
+
+/* 4. Isolasi Elemen Persisten Dashboard (Backdrop-Blur Workaround) */
+::view-transition-group(dashboard-header),
+::view-transition-group(dashboard-sidebar),
+::view-transition-group(dashboard-footer) {
+	z-index: 100;
+	animation: none;
+}
+::view-transition-old(dashboard-header),
+::view-transition-new(dashboard-header),
+::view-transition-old(dashboard-sidebar),
+::view-transition-new(dashboard-sidebar),
+::view-transition-old(dashboard-footer),
+::view-transition-new(dashboard-footer) {
+	display: none;
+	animation: none;
+}
+
+/* 5. Shared Element Morph */
+::view-transition-group(.shared-morph) {
+	animation-duration: var(--vt-duration-move);
+	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+::view-transition-old(.shared-text) {
+	display: none;
+}
+::view-transition-new(.shared-text) {
+	object-fit: none;
+	object-position: left top;
+	animation: none;
+}
+
+/* 6. Aksesibilitas: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+	::view-transition-old(*),
+	::view-transition-new(*),
+	::view-transition-group(*) {
+		animation-duration: 0s !important;
+		animation-delay: 0s !important;
+	}
+}

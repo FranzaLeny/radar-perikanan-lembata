@@ -27,7 +27,7 @@ export function DokumenHeader({ onOpenAdd }: DokumenHeaderProps) {
 			</div>
 
 			<div className='flex items-center gap-2 self-start sm:self-auto'>
-				<Link href='/dokumen-mutu/kategori'>
+				<Link href='/dokumen-mutu/kategori' transitionTypes={['nav-forward']}>
 					<Button className='cursor-pointer gap-1.5 text-xs' size='sm' variant='outline'>
 						<FolderKanban className='size-3.5' />
 						<span>Kelola Kategori</span>

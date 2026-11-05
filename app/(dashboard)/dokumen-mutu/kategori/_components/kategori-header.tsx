@@ -9,7 +9,7 @@ export function KategoriHeader({ onAdd }: KategoriHeaderProps) {
 	return (
 		<div className='flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
 			<div>
-				<Link href='/dokumen-mutu'>
+				<Link href='/dokumen-mutu' transitionTypes={['nav-back']}>
 					<Button
 						className='text-muted-foreground hover:text-foreground mb-1 cursor-pointer gap-1.5 text-xs'
 						size='sm'

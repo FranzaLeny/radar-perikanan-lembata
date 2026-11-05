@@ -6,6 +6,7 @@ import { notFound, redirect } from 'next/navigation';
 import { FormUjiLapangan } from '@/components/form-uji-lapangan';
 import { Badge } from '@/components/shadcn/badge';
 import { Button } from '@/components/shadcn/button';
+import { DirectionalTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { getCurrentUser } from '@/lib/auth';
@@ -48,68 +49,70 @@ export default async function EditUjiKualitasPage({ params }: { params: Promise<
 	}
 
 	return (
-		<div className='space-y-6'>
-			<div className='flex items-center justify-between'>
-				<div>
-					<Link href='/laporan'>
-						<Button
-							className='text-muted-foreground hover:text-foreground mb-2 gap-1.5 text-xs'
-							size='sm'
-							variant='ghost'
-						>
-							<ArrowLeft className='size-4' />
-							<span>Kembali ke Pusat Laporan</span>
-						</Button>
-					</Link>
-					<div className='flex items-center gap-2'>
-						<Badge className='gap-1.5 px-2.5 font-semibold tracking-wider uppercase' variant='secondary'>
-							<TestTube2 className='size-3' />
-							<span>Mode Edit Dokumen Draft</span>
-						</Badge>
-						<Badge variant='outline'>{uji.nomor_sampel}</Badge>
+		<DirectionalTransition>
+			<div className='space-y-6'>
+				<div className='flex items-center justify-between'>
+					<div>
+						<Link href='/laporan' transitionTypes={['nav-back']}>
+							<Button
+								className='text-muted-foreground hover:text-foreground mb-2 gap-1.5 text-xs'
+								size='sm'
+								variant='ghost'
+							>
+								<ArrowLeft className='size-4' />
+								<span>Kembali ke Pusat Laporan</span>
+							</Button>
+						</Link>
+						<div className='flex items-center gap-2'>
+							<Badge className='gap-1.5 px-2.5 font-semibold tracking-wider uppercase' variant='secondary'>
+								<TestTube2 className='size-3' />
+								<span>Mode Edit Dokumen Draft</span>
+							</Badge>
+							<Badge variant='outline'>{uji.nomor_sampel}</Badge>
+						</div>
+						<h1 className='font-heading text-foreground mt-1.5 text-2xl font-bold tracking-tight'>
+							Perbarui Data Pengujian Kualitas Air
+						</h1>
+						<p className='text-muted-foreground mt-1 text-xs'>
+							Ubah data parameter lapangan, catatan observasi, atau penandatangan sebelum dokumen
+							difinalkan dan diarsipkan.
+						</p>
 					</div>
-					<h1 className='font-heading text-foreground mt-1.5 text-2xl font-bold tracking-tight'>
-						Perbarui Data Pengujian Kualitas Air
-					</h1>
-					<p className='text-muted-foreground mt-1 text-xs'>
-						Ubah data parameter lapangan, catatan observasi, atau penandatangan sebelum dokumen difinalkan
-						dan diarsipkan.
-					</p>
 				</div>
-			</div>
 
-			<FormUjiLapangan
-				bakuMutuList={bakuMutuList}
-				currentOfficerName={user?.name || 'Petugas Uji Lapangan'}
-				existingUji={{
-					id: uji.id,
-					nomor_sampel: uji.nomor_sampel,
-					lokasi_id: uji.lokasi_id || '',
-					sop_id: uji.sop_id,
-					ik_id: uji.ik_id,
-					suhu_lingkungan: uji.suhu_lingkungan,
-					tanggal_pengambilan: uji.tanggal_pengambilan,
-					petugas_uji: uji.petugas_uji,
-					penguji_pegawai_id: uji.penguji_pegawai_id,
-					penandatangan_pegawai_id: uji.penandatangan_pegawai_id,
-					catatan_lapangan: uji.catatan_lapangan,
-					kesimpulan_umum: uji.kesimpulan_umum,
-					saran_rekomendasi_lapangan: uji.saran_rekomendasi_lapangan,
-					status: uji.status,
-					detailParameters: uji.detailParameters?.map((dp) => ({
-						baku_mutu_id: dp.baku_mutu_id || '',
-						ik_id: dp.ik_id || undefined,
-						nilai_hasil: dp.nilai_hasil,
-						nilai_min_terapkan: dp.nilai_min_terapkan,
-						nilai_max_terapkan: dp.nilai_max_terapkan,
-						catatan_ambang: dp.catatan_ambang
-					}))
-				}}
-				ikList={ikList}
-				lokasiList={lokasiList}
-				mode='edit'
-				pegawaiList={pegawaiList}
-			/>
-		</div>
+				<FormUjiLapangan
+					bakuMutuList={bakuMutuList}
+					currentOfficerName={user?.name || 'Petugas Uji Lapangan'}
+					existingUji={{
+						id: uji.id,
+						nomor_sampel: uji.nomor_sampel,
+						lokasi_id: uji.lokasi_id || '',
+						sop_id: uji.sop_id,
+						ik_id: uji.ik_id,
+						suhu_lingkungan: uji.suhu_lingkungan,
+						tanggal_pengambilan: uji.tanggal_pengambilan,
+						petugas_uji: uji.petugas_uji,
+						penguji_pegawai_id: uji.penguji_pegawai_id,
+						penandatangan_pegawai_id: uji.penandatangan_pegawai_id,
+						catatan_lapangan: uji.catatan_lapangan,
+						kesimpulan_umum: uji.kesimpulan_umum,
+						saran_rekomendasi_lapangan: uji.saran_rekomendasi_lapangan,
+						status: uji.status,
+						detailParameters: uji.detailParameters?.map((dp) => ({
+							baku_mutu_id: dp.baku_mutu_id || '',
+							ik_id: dp.ik_id || undefined,
+							nilai_hasil: dp.nilai_hasil,
+							nilai_min_terapkan: dp.nilai_min_terapkan,
+							nilai_max_terapkan: dp.nilai_max_terapkan,
+							catatan_ambang: dp.catatan_ambang
+						}))
+					}}
+					ikList={ikList}
+					lokasiList={lokasiList}
+					mode='edit'
+					pegawaiList={pegawaiList}
+				/>
+			</div>
+		</DirectionalTransition>
 	);
 }

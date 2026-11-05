@@ -1,6 +1,7 @@
 import { ShieldAlert } from 'lucide-react';
 import { headers } from 'next/headers';
 
+import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import * as schema from '@/db/schema';
 import { auth, getCurrentUser } from '@/lib/auth';
@@ -53,5 +54,9 @@ export default async function PenggunaPage() {
 		};
 	});
 
-	return <PenggunaClient currentUserId={user.id} initialUsers={enrichedUsers} />;
+	return (
+		<LateralTransition>
+			<PenggunaClient currentUserId={user.id} initialUsers={enrichedUsers} />
+		</LateralTransition>
+	);
 }

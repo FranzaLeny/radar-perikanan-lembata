@@ -8,7 +8,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/shad
 import { ThemeToggle } from '@/components/theme-toggle';
 import { getCurrentUser } from '@/lib/auth';
 import { APP_CONFIG } from '@/lib/constants';
-export const instant = false;
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
 	const user = await getCurrentUser();
 
@@ -18,9 +18,16 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
 	return (
 		<SidebarProvider className='print:block print:min-h-0 print:w-full print:bg-transparent'>
-			<AppSidebar className='no-print print:hidden' user={user} />
+			<AppSidebar
+				className='no-print print:hidden'
+				style={{ viewTransitionName: 'dashboard-sidebar' }}
+				user={user}
+			/>
 			<SidebarInset className='print:m-0 print:w-full print:bg-transparent print:p-0 print:shadow-none'>
-				<header className='no-print bg-background/95 sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between border-b px-4 backdrop-blur-xs transition-[width,height] ease-linear'>
+				<header
+					className='no-print bg-background/95 sticky top-0 z-20 flex h-14 shrink-0 items-center justify-between border-b px-4 backdrop-blur-xs transition-[width,height] ease-linear'
+					style={{ viewTransitionName: 'dashboard-header' }}
+				>
 					<div className='flex items-center gap-2'>
 						<SidebarTrigger className='-ml-1' />
 						<Separator className='mr-2' orientation='vertical' />
@@ -33,7 +40,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
 				<main className='bg-muted/15 flex-1 overflow-auto p-4 md:p-6 lg:p-8 print:m-0 print:w-full print:overflow-visible print:bg-white print:p-0'>
 					{children}
 				</main>
-				<footer className='no-print border-border bg-background/80 text-muted-foreground flex flex-col items-center justify-between gap-2 border-t px-6 py-3 text-center text-xs backdrop-blur-xs sm:flex-row'>
+				<footer
+					className='no-print border-border bg-background/80 text-muted-foreground flex flex-col items-center justify-between gap-2 border-t px-6 py-3 text-center text-xs backdrop-blur-xs sm:flex-row'
+					style={{ viewTransitionName: 'dashboard-footer' }}
+				>
 					<p>{APP_CONFIG.author.copyrightText}</p>
 					<p className='text-muted-foreground font-medium'>{APP_CONFIG.author.credit}</p>
 				</footer>

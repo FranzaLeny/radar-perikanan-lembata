@@ -1,5 +1,6 @@
 import { desc } from 'drizzle-orm';
 
+import { LateralTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import { masterPegawai } from '@/db/schema';
 import { APP_CONFIG } from '@/lib/constants';
@@ -14,5 +15,9 @@ export const metadata = {
 export default async function PegawaiPage() {
 	const pegawaiList = await db.select().from(masterPegawai).orderBy(desc(masterPegawai.createdAt));
 
-	return <PegawaiClient initialList={pegawaiList} />;
+	return (
+		<LateralTransition>
+			<PegawaiClient initialList={pegawaiList} />
+		</LateralTransition>
+	);
 }

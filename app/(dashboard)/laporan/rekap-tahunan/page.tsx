@@ -1,8 +1,9 @@
+import { DirectionalTransition } from '@/components/transitions/page-transition';
 import { db } from '@/db';
 import { lokasiKolam, masterPegawai } from '@/db/schema';
 import { generateQrDataUrl } from '@/lib/qr';
 import { RekapTahunanClient } from './rekap-tahunan-client';
-export const instant = false;
+
 export default async function RekapTahunanPage() {
 	const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
 	const url = new URL('/laporan/rekap-tahunan', baseUrl);
@@ -15,11 +16,13 @@ export default async function RekapTahunanPage() {
 	]);
 
 	return (
-		<RekapTahunanClient
-			allPegawai={allPegawai}
-			allPokdakan={allPokdakan}
-			allUji={allUji}
-			qrDataUrl={qrDataUrl}
-		/>
+		<DirectionalTransition>
+			<RekapTahunanClient
+				allPegawai={allPegawai}
+				allPokdakan={allPokdakan}
+				allUji={allUji}
+				qrDataUrl={qrDataUrl}
+			/>
+		</DirectionalTransition>
 	);
 }
